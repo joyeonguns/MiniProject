@@ -9,8 +9,6 @@ public class MapBurron : MonoBehaviour
     public TextMeshProUGUI name;
     GameManager GM;
 
-    
-
     public int x = 1,y = 2;
 
     void Awake()
