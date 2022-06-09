@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class CreateMap : MonoBehaviour
 {
-    public GameObject m_Btn;
-    public GameObject m_root;
-    public GameManager GM;
+    // public GameObject m_Btn;
+    // public GameObject m_root;
+    public GameObject _SaveData;
 
     List<List<MapClass>> maps = new List<List<MapClass>>();
     int row = 12;
@@ -15,6 +15,9 @@ public class CreateMap : MonoBehaviour
     // 맵 제작
     void CreateMapData()
     {
+        // col * row 행렬
+        // 6층은 중간 보스, 8층 회복
+        // mapData  0 : 전투, 1 : 상점, 2 : 회복, 3 : 특성, 4 : 랜덤, 5 : null, 6 : 중간보스
         for(int i = 0; i < row; i++)
         {
             List<MapClass> mapRow = new List<MapClass>();
@@ -22,12 +25,33 @@ public class CreateMap : MonoBehaviour
             {
                 MapClass m = new MapClass();
                 m.floor = i+1;
-                mapRow.Add(m);                 
+                mapRow.Add(m);
+                // 맵 상태 결정
+                switch (m.floor)
+                {
+                    case 1:
+                        m.mapData = 0;
+                        break;
+                    case 3:
+                        m.mapData = 4;
+                        break;
+                    case 6:
+                        m.mapData = 6;
+                        break;
+                    case 8:
+                        m.mapData = 2;
+                        break;
+                    default:
+                        m.mapData = set_defMapData();
+                        break;
+
+                }
             }
 
             maps.Add(mapRow);
         }
 
+        // Dfs 를 통한 맵
         for (int i = 0; i < col; i++) 
         {
 		
@@ -35,7 +59,7 @@ public class CreateMap : MonoBehaviour
             int _row = 0;
             while (_row < row)
             {		
-                maps[_row][start].mapData = 0;
+                maps[_row][start].isLife = true;
                 int rnd = Random.Range(-1,2);
                 int n = rnd + start;
 
@@ -59,7 +83,7 @@ public class CreateMap : MonoBehaviour
             }
 
 	    }
-
+        // 루트
         for (int i = 0; i < col; i++) 
         {
             for (int j = 0; j < row; j++) {
@@ -75,66 +99,37 @@ public class CreateMap : MonoBehaviour
         
     }
 
-    // 맵 UI
-    void MapUi()
+    int set_defMapData()
     {
-        float sp_X = -400;
-        float sp_Y = -1300;
-        for(int x = 0; x < row; x++)
+        int rnd = Random.Range(1,11);
+        switch (rnd)
         {
-           sp_X = -400;
-           for(int y = 0; y < col; y++)
-           {
-               if(maps[x][y].mapData != 5)
-               {
-                   Vector2 spwVec = new Vector2(sp_X,sp_Y);
-                   var sp_MapBTN = Instantiate(m_Btn);
-
-                   sp_MapBTN.transform.parent = GameObject.Find("Map_IMG").transform;
-                   //sp_MapBTN.transform.Scale = new Vector2(1.5f,1.5f);
-                   sp_MapBTN.GetComponent<RectTransform>().anchoredPosition = spwVec;
-                   sp_MapBTN.GetComponent<MapBurron>().SetText(x+1,y);
-
-                   
-
-                   if(maps[x][y].roots[0] != 9)
-                   {
-                       var sp_Map_root = Instantiate(m_root);
-                       sp_Map_root.transform.parent = GameObject.Find("Map_IMG").transform;
-                       
-                       sp_Map_root.GetComponent<RectTransform>().rotation = Quaternion.EulerAngles(0f, 0f, 45);
-                       sp_Map_root.GetComponent<RectTransform>().anchoredPosition = spwVec + new Vector2(-100,100);
-                       
-                       sp_Map_root.GetComponent<RectTransform>().localScale *= 1.42f;
-                   }
-                   if(maps[x][y].roots[1] != 9)
-                   {
-                       var sp_Map_root = Instantiate(m_root);
-                       sp_Map_root.transform.parent = GameObject.Find("Map_IMG").transform;
-                       
-                       sp_Map_root.GetComponent<RectTransform>().anchoredPosition = spwVec + new Vector2(0,100);
-                   }
-                   if(maps[x][y].roots[2] != 9)
-                   {
-                       var sp_Map_root = Instantiate(m_root);
-                       sp_Map_root.transform.parent = GameObject.Find("Map_IMG").transform;
-                       
-                       sp_Map_root.GetComponent<RectTransform>().rotation = Quaternion.EulerAngles(0f, 0f, -45);
-                       sp_Map_root.GetComponent<RectTransform>().anchoredPosition = spwVec + new Vector2(100,100);
-                       
-                       sp_Map_root.GetComponent<RectTransform>().localScale *= 1.42f;
-                   }                
-               }
-               sp_X += 200;
-           }
-           sp_Y += 200;
+            case 1:
+                return 1;
+            case 2:
+                return 2;
+            case 3:
+                return 4;;
+            case 4:
+                return 4;
+            default:
+                return 0;
         }
     }
-
-    public void MapCreateBtn()
-    {        
+    public void MapCreate()
+    {  
+        // 맵 생성      
         maps.Clear();
         CreateMapData();
+
+        // 맵 정보 저장        
+        MapClass cur = new MapClass();
+        cur.floor = 0;
+        _SaveData.GetComponent<SaveData>().SaveMap(col,row,maps,cur);       
+    }
+
+    public void MapLog()
+    {
         int i = 1;
         foreach(var mapRow in maps)
         {
@@ -147,9 +142,5 @@ public class CreateMap : MonoBehaviour
             i++;
         }
         i = 1;
-        
-        GM.SetMapList(maps);
-
-        MapUi();
     }
 }

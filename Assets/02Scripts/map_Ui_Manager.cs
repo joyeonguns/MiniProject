@@ -1,0 +1,60 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class map_Ui_Manager : MonoBehaviour
+{
+
+    // 지도 이미지
+    public Image Map_IMG;
+
+    // 지도 스크롤 속도
+    public float scroll_Speed = 200;
+    // Start is called before the first frame update
+    void Start()
+    {        
+        Debug.Log(" start ");
+        
+        SaveData sb = GameObject.Find("GameManager").GetComponent<SaveData>();
+        
+        Debug.Log("ui sb.floor : " + sb.getCurMaps().floor);
+        GameManager.instance.SetData();
+        Debug.Log("ui Gm.floor : " + GameManager.instance.getCurMap().floor);
+
+        GetComponent<MapDrowing>().MapDrow();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        MapControll();
+    }
+
+     void MapControll()
+    {
+        float scroll = Input.GetAxis("Mouse ScrollWheel") * scroll_Speed;
+        int minHight = -1200;
+        int maxHight = 1300;
+        Vector2 Map_vec = new Vector2();
+        Map_vec = Map_IMG.GetComponent<RectTransform>().anchoredPosition;
+
+        if(Map_vec.y < minHight) Map_vec.y = minHight;
+        else if(Map_vec.y > maxHight) Map_vec.y = maxHight;
+        
+        // 위로 
+        if( scroll_Speed > 0)
+        {            
+            Map_vec = new Vector2(Map_vec.x,Map_vec.y-scroll);
+
+            Map_IMG.GetComponent<RectTransform>().anchoredPosition = Map_vec;
+        }
+        // 아래로
+        if( scroll_Speed < 0)
+        {
+            Map_vec = new Vector2(Map_vec.x,Map_vec.y-scroll);
+
+            Map_IMG.GetComponent<RectTransform>().anchoredPosition = Map_vec;
+        }
+    }
+}

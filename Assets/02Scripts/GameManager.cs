@@ -6,31 +6,48 @@ using System;
 
 public class GameManager : MonoBehaviour
 {
-    public Image Map_IMG;
-    public float scroll_Speed = 200;
+    // 싱클턴 클래스
+    public static GameManager instance = null;
+
+    // 세이브 데이터    
+    SaveData I_SaveData;
 
 
-    public MapClass cur_Map;
+    MapClass cur_Map = new MapClass() ;
+    public MapClass getCurMap() {return cur_Map;}
     
-    List<List<MapClass>> maps = new List<List<MapClass>>();
+    public List<List<MapClass>> maps = new List<List<MapClass>>();
+    public int row, col;
 
+    // 맵그리기
+    // public GameObject go_mapDrow;
 
     private void Awake() 
     {
-        cur_Map = new MapClass();
-        cur_Map.floor = 0;    
+        instance = this;
     }
+
 
     // Start is called before the first frame update
     void Start()
     {
-       
+        
+        
+    }    
+    public void SetData()
+    {        
+        //Debug.Log("SetData" + GetComponent<SaveData>().curMaps.floor);
+        maps = GetComponent<SaveData>().maps;
+        row = GetComponent<SaveData>().row;
+        col = GetComponent<SaveData>().col;
+        cur_Map = new MapClass();
+        cur_Map = GetComponent<SaveData>().getCurMaps();
     }
 
     // Update is called once per frame
     void Update()
     {
-        MapControll();
+        
     }
 
     public void SetMapList(List<List<MapClass>> _maps)
@@ -44,30 +61,5 @@ public class GameManager : MonoBehaviour
     }
 
 
-    void MapControll()
-    {
-        float scroll = Input.GetAxis("Mouse ScrollWheel") * scroll_Speed;
-        int minHight = -1200;
-        int maxHight = 1300;
-        Vector2 Map_vec = new Vector2();
-        Map_vec = Map_IMG.GetComponent<RectTransform>().anchoredPosition;
-
-        if(Map_vec.y < minHight) Map_vec.y = minHight;
-        else if(Map_vec.y > maxHight) Map_vec.y = maxHight;
-        
-        // 위로 
-        if( scroll_Speed > 0)
-        {            
-            Map_vec = new Vector2(Map_vec.x,Map_vec.y-scroll);
-
-            Map_IMG.GetComponent<RectTransform>().anchoredPosition = Map_vec;
-        }
-        // 아래로
-        if( scroll_Speed < 0)
-        {
-            Map_vec = new Vector2(Map_vec.x,Map_vec.y-scroll);
-
-            Map_IMG.GetComponent<RectTransform>().anchoredPosition = Map_vec;
-        }
-    }
+    
 }
