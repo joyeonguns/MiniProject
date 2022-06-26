@@ -11,14 +11,14 @@ public class Skills : MonoBehaviour
     public int manaCost;
     // 스킬 할당
     // 기본 공격
-    public void nomalAttack(Save_Charater_Class.SD[] Caster, int CasterIdx, Save_Charater_Class.Class_Status status, Save_Charater_Class.SD[] Enemy,int EnemyIdx)
+    public void nomalAttack(List<Save_Charater_Class.SD> Caster, int CasterIdx, Save_Charater_Class.Class_Status status, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
     {
         //GameManager.instance.Hit(Caster,CasterIdx,Enemy,EnemyIdx);
         Debug.Log(Caster[CasterIdx].c_Name + " : 기본 공격!");
-        Enemy[EnemyIdx].HitDamage(Caster[CasterIdx], Caster[CasterIdx].CurStatus());
+        Enemy[EnemyIdx].TakeDamage(Caster[CasterIdx], Caster[CasterIdx].status);
         Caster[CasterIdx].Mana += 1;
     }
-    public Action<Save_Charater_Class.SD[], int, Save_Charater_Class.Class_Status , Save_Charater_Class.SD[], int> UseSkill;
+    public Action<List<Save_Charater_Class.SD>, int, Save_Charater_Class.Class_Status , List<Save_Charater_Class.SD>, int> UseSkill;
 }
 
 public class Worrier_Skill : Skills
@@ -55,7 +55,7 @@ public class Worrier_Skill : Skills
         }
     } 
 
-    void skill_0(Save_Charater_Class.SD[] Caster, int CasterIdx,Save_Charater_Class.Class_Status status, Save_Charater_Class.SD[] Enemy,int EnemyIdx)
+    void skill_0(List<Save_Charater_Class.SD> Caster, int CasterIdx,Save_Charater_Class.Class_Status status, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
     {
         Debug.Log(Caster[CasterIdx].c_Name + " : " + "Smash");
         // 마나 소모
@@ -65,10 +65,10 @@ public class Worrier_Skill : Skills
         Save_Charater_Class.Class_Status curStatus = status;
         // 스킬 특성
         curStatus.s_Damage *= 1.7f;
-        Enemy[EnemyIdx].HitDamage(Caster[CasterIdx],curStatus);
+        Enemy[EnemyIdx].TakeDamage(Caster[CasterIdx],curStatus);
 
     }
-    void skill_1(Save_Charater_Class.SD[] Caster, int CasterIdx,Save_Charater_Class.Class_Status status, Save_Charater_Class.SD[] Enemy,int EnemyIdx)
+    void skill_1(List<Save_Charater_Class.SD> Caster, int CasterIdx,Save_Charater_Class.Class_Status status, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
     {
         Debug.Log(Caster[CasterIdx].c_Name + " : " + "pierce");
         // 마나 소모
@@ -78,9 +78,9 @@ public class Worrier_Skill : Skills
         Save_Charater_Class.Class_Status curStatus = status;
         // 스킬 특성
         curStatus.s_Critical += 1000;
-        Enemy[EnemyIdx].HitDamage(Caster[CasterIdx],curStatus);
+        Enemy[EnemyIdx].TakeDamage(Caster[CasterIdx],curStatus);
     }
-    void skill_2(Save_Charater_Class.SD[] Caster, int CasterIdx, Save_Charater_Class.Class_Status status, Save_Charater_Class.SD[] Enemy,int EnemyIdx)
+    void skill_2(List<Save_Charater_Class.SD> Caster, int CasterIdx, Save_Charater_Class.Class_Status status, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
     {
         Debug.Log(Caster[CasterIdx].c_Name + " : " + "aurora force");
         // 마나 소모
@@ -91,9 +91,9 @@ public class Worrier_Skill : Skills
         // 스킬 특성
         curStatus.s_Damage *= 1.5f;
         foreach(var enemy in Enemy)
-            enemy.HitDamage(Caster[CasterIdx],curStatus);
+            enemy.TakeDamage(Caster[CasterIdx],curStatus);
     }
-    void skill_3(Save_Charater_Class.SD[] Caster, int CasterIdx, Save_Charater_Class.Class_Status status, Save_Charater_Class.SD[] Enemy,int EnemyIdx)
+    void skill_3(List<Save_Charater_Class.SD> Caster, int CasterIdx, Save_Charater_Class.Class_Status status, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
     {
         Debug.Log("Tetkai");
         // 마나 소모
@@ -108,7 +108,7 @@ public class Worrier_Skill : Skills
 
     }
     
-    void Ulti(Save_Charater_Class.SD[] Caster, int CasterIdx, Save_Charater_Class.Class_Status status, Save_Charater_Class.SD[] Enemy,int EnemyIdx)
+    void Ulti(List<Save_Charater_Class.SD> Caster, int CasterIdx, Save_Charater_Class.Class_Status status, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
     {
         Debug.Log("Ulti");
         Caster[CasterIdx].Mana -= 10;
@@ -118,6 +118,6 @@ public class Worrier_Skill : Skills
         curStatus.s_Damage *= 2; 
         curStatus.s_Critical *= 2;
         foreach(var enemy in Enemy)
-            enemy.HitDamage(Caster[CasterIdx],curStatus);
+            enemy.TakeDamage(Caster[CasterIdx],curStatus);
     }
 }
