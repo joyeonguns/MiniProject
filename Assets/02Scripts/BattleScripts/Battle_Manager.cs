@@ -30,14 +30,14 @@ public class Battle_Manager : MonoBehaviour
     // 배틀씬 기본 설정
     int BtLvl;
     Save_Charater_Class.SD[] Bandits = new Save_Charater_Class.SD[1] {new Save_Charater_Class.SD(Save_Charater_Class.Bandit,e_Class.bandit)};
-    Save_Charater_Class.SD[] Knights = new Save_Charater_Class.SD[1] {new Save_Charater_Class.SD(Save_Charater_Class.Knight,e_Class.Knight)};
-    Save_Charater_Class.SD[] Abominations = new Save_Charater_Class.SD[1] {new Save_Charater_Class.SD(Save_Charater_Class.Abomination,e_Class.abomination)};
+    //Save_Charater_Class.SD[] Knights = new Save_Charater_Class.SD[1] {new Save_Charater_Class.SD(Save_Charater_Class.Knight,e_Class.Knight)};
+    //Save_Charater_Class.SD[] Abominations = new Save_Charater_Class.SD[1] {new Save_Charater_Class.SD(Save_Charater_Class.Abomination,e_Class.abomination)};
 
     // 캐릭터 적 클래스
-    [SerializeField] Save_Charater_Class.SD[] Character = new Save_Charater_Class.SD[3];
+    [SerializeField] List<Save_Charater_Class.SD> Character = new List<Save_Charater_Class.SD>();
     public List<Save_Charater_Class.Class_Status> Ch_Status; 
     public Save_Charater_Class.Class_Status volaStatus;
-    [SerializeField] Save_Charater_Class.SD[] Enemy = new Save_Charater_Class.SD[3];
+    [SerializeField] List<Save_Charater_Class.SD> Enemy = new List<Save_Charater_Class.SD>();
     public List<Save_Charater_Class.Class_Status> En_Status; 
 
     // 아군 필드
@@ -95,8 +95,11 @@ public class Battle_Manager : MonoBehaviour
     void SetEnemy()
     {
         BtLvl = GameManager.instance.Battle_Lvl;
+        Enemy.Add(new Save_Charater_Class.SD());
+        Enemy.Add(new Save_Charater_Class.SD());
+        Enemy.Add(new Save_Charater_Class.SD());
         if(GameManager.instance.BattleType == 1)
-        {
+        {            
             // 1열 전사
             Enemy[0] = new Save_Charater_Class.SD(Save_Charater_Class.Bandit,e_Class.bandit);
             Enemy[0].font = Damage;
@@ -127,7 +130,7 @@ public class Battle_Manager : MonoBehaviour
     {
         Save_Charater_Data Save = GameManager.instance.GetComponent<Save_Charater_Data>();
         Character = Save.S_Character;
-        for(int i = 0; i< 3; i++)
+        for(int i = 0; i< Character.Count; i++)
         {
             Character[i].font = Damage;
             Character[i].spwX = CharacterField[i].GetComponent<RectTransform>().anchoredPosition.x + 50;
@@ -171,15 +174,15 @@ public class Battle_Manager : MonoBehaviour
             if(Character[i].bAlive == true)
             {
                 int rnd1 = UnityEngine.Random.Range(1,7);
-                Save_Charater_Class.Class_Status CurStatus = Character[i].CurStatus();
+                Save_Charater_Class.Class_Status CurStatus = Ch_Status[i];
                 L_BattleSpeed.Add(Tuple.Create(CurStatus.s_Speed + rnd1, i, 0));
             }
             
             if(Enemy[i].bAlive == true)
             {
                 int rnd2 = UnityEngine.Random.Range(1,4);
-                Save_Charater_Class.Class_Status CurStatus = Character[i].CurStatus();
-                L_BattleSpeed.Add(Tuple.Create(Enemy[i].status.s_Speed + rnd2, i, 1));
+                Save_Charater_Class.Class_Status CurStatus = En_Status[i];
+                L_BattleSpeed.Add(Tuple.Create(CurStatus.s_Speed + rnd2, i, 1));
             }
             
         }       
