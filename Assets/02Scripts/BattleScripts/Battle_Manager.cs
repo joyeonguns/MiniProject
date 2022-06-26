@@ -42,17 +42,17 @@ public class Battle_Manager : MonoBehaviour
 
     // 아군 필드
     // 아군 선택 필드
-    public Button[] CharacterField = new Button[3];
+    public GameObject[] CharacterField = new GameObject[3];
     // 아군 스프라이트
-    public SpriteRenderer[] CharacterSprite = new SpriteRenderer[3];
+    public Image[] CharacterSprite = new Image[3];
     // 아군 HP / MP
     public Image[] Character_HP = new Image[3];
     public Image[] Character_MP = new Image[3];
 
     // 적 선택 필드
-    public Button[] EnemyField = new Button[3];
+    public GameObject[] EnemyField = new GameObject[3];
     // 적 스프라이트
-    public SpriteRenderer[] EnemySprite = new SpriteRenderer[3];
+    public Image[] EnemySprite = new Image[3];
     // 적 HP / MP
     public Image[] Enemy_HP = new Image[3];
     public Image[] Enemy_MP = new Image[3];
@@ -437,13 +437,15 @@ public class Battle_Manager : MonoBehaviour
     {
         if(str == "Enemy")
         {
-            if(b == true) EnemyField[idx].GetComponent<Image>().color = Color.yellow;
-            else EnemyField[idx].GetComponent<Image>().color = Color.white;
+            Image img =  EnemyField[idx].transform.GetChild(1).GetComponent<Image>();
+            if(b == true) img.color = Color.black;
+            else img.color = Color.white;
         }
         else
         {
-            if(b == true) CharacterField[idx].GetComponent<Image>().color = Color.yellow;
-            else CharacterField[idx].GetComponent<Image>().color = Color.white;
+            Image img =  CharacterField[idx].transform.GetChild(1).GetComponent<Image>();
+            if(b == true) img.color = Color.black;
+            else img.color = Color.white;
         }
     }
     void SpwDamage(Save_Charater_Class.SD[] hitted)

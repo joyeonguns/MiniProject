@@ -34,13 +34,6 @@ public class Save_Charater_Class : MonoBehaviour
             s_Critical = _s_Critical;
             s_MaxHp = _s_MaxHp;      
         }
-        public void LevelUp()
-        {
-            s_Damage = (float)(s_Damage *1.2f);
-            s_MaxHp = (int)(s_MaxHp * 1.2f);
-            s_Dodge = (int)(s_Dodge * 1.2f);
-            s_Critical = (int)(s_Critical * 1.2f);
-        }
     }
     
     [System.Serializable]
@@ -62,7 +55,7 @@ public class Save_Charater_Class : MonoBehaviour
         public int level;
         // 스킬 인덱스
         public int[] skill = new int[2];
-        public Skills[] MySkill;
+        public Skills[] MySkill = new Skills[4];
         
         // 경험치
         public int exp;
@@ -75,16 +68,10 @@ public class Save_Charater_Class : MonoBehaviour
 
         
         // 생성자 오버로딩
-        delegate string _Name();
         public SD(){}
         public SD(Class_Status _class, e_Class ec)
         {
-            _Name _name = () => 
-            {   int rand = UnityEngine.Random.Range(0,10);
-                return ""+ Enum.GetName(typeof(e_Class),ec)+"_" + rand;
-            };
-            
-            c_Name = _name();
+            c_Name = Enum.GetName(typeof(e_Class),ec)+"_0";
             c_Class = ec;
             status = _class;
             CurHp = status.s_MaxHp;
@@ -96,7 +83,7 @@ public class Save_Charater_Class : MonoBehaviour
         // HP / Mana
         public int Mana 
         {
-            get {return Mana;} 
+            get {return mana;} 
             set 
             {
                 mana = value; 
@@ -190,11 +177,13 @@ public class Save_Charater_Class : MonoBehaviour
             if(CriRate > 0 && CriRate > rnd)
             {
                 _Heal = (int)(OtherStat.s_Damage * 2);
+                Printing_Damage(Color.green,_Heal);
             }
             // 기본
             else
             {
                 _Heal = (int)(OtherStat.s_Damage);
+                Printing_Damage(Color.blue,_Heal);
             }
 
 
@@ -204,7 +193,7 @@ public class Save_Charater_Class : MonoBehaviour
 
         public void nomalAttack(SD Other)
         {
-            TakeHeal(this,this.status);
+            Other.TakeDamage(this,this.status);
         }
         public void Dead()
         {
@@ -241,6 +230,8 @@ public class Save_Charater_Class : MonoBehaviour
             var spwDamage = Instantiate(font);
             spwDamage.transform.SetParent(GameObject.Find( "_Damage").transform);
             spwDamage.rectTransform.anchoredPosition = new Vector2(spwX, spwY);
+            spwDamage.color = color;
+            spwDamage.text = ""+_Damage;
         }
 
     }

@@ -12,6 +12,18 @@ EditorBuildSettings:
     path: Assets/01Scenes/1.StartScene.unity
     guid: 98057c5c894080e47ab84f16b4c8259d
   - enabled: 1
-    path: Assets/01Scenes/2.BattleScene.unity
+    path: Assets/01Scenes/2-0.BattleScene.unity
     guid: 8d997c85f9c25524598470ae89580fb8
+  - enabled: 1
+    path: Assets/01Scenes/2-1.CampScene.unity
+    guid: 2c8a6c47baaa6bc4badbb53b6a53c6ce
+  - enabled: 1
+    path: Assets/01Scenes/2-2.ShpScene.unity
+    guid: 0b6d86fe72479e2409ef22bfb9c850fc
+  - enabled: 1
+    path: Assets/01Scenes/2-3.RandomScene.unity
+    guid: f341b1e7bfa2ed34e95229f392f2705e
+  - enabled: 1
+    path: Assets/01Scenes/2-4.GiftScene.unity
+    guid: aaf5149a11ab84f448cf48cb79e3158f
   m_configObjects: {}
