@@ -9,6 +9,8 @@ public class Skills
     public string skillName;   
     public string skillComent;   
     public int manaCost;
+    public bool bmultiTarget = false;
+    public bool bBuff = false;
     // 스킬 할당
     // 기본 공격
     public void nomalAttack(List<Save_Charater_Class.SD> Caster, int CasterIdx, Save_Charater_Class.Class_Status status, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
@@ -45,12 +47,15 @@ public class Worrier_Skill : Skills
                 break;
             case 3:
                 UseSkill = skill_2;
+                bmultiTarget = true;
                 break;
             case 4:
                 UseSkill = skill_3;
+                bBuff = true;
                 break;
             case 5:
                 UseSkill = Ulti;
+                bmultiTarget = true;
                 break;
         }
     } 

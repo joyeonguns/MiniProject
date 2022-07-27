@@ -14,7 +14,7 @@ public class Start_Ui_Manger : MonoBehaviour
         //GameManager.instance.SetData();        
 
         // 씬 로드
-        SceneManager.LoadScene("SampleScene");        
+        SceneManager.LoadScene("1-2.MapScene");        
     }
 
     public void ExitBtn()

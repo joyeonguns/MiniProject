@@ -6,7 +6,7 @@ using System.Linq;
 using TMPro;
 
 
-public enum e_Class {adventurer, worrier, magicion, supporter, assassin, bandit};
+public enum e_Class {adventurer, worrier, magicion, supporter, assassin, bandit, witch, crystal, barlog};
 
 public class Save_Charater_Class : MonoBehaviour
 {
@@ -49,6 +49,7 @@ public class Save_Charater_Class : MonoBehaviour
         public int CurHp;
         // 마나
         int mana;
+        public int MaxMana = 10;
         // 생존
         public bool bAlive;
         // 스킬 인덱스
@@ -85,8 +86,8 @@ public class Save_Charater_Class : MonoBehaviour
             set 
             {
                 mana = value; 
-                if(mana > 10)
-                    mana = 10;
+                if(mana > MaxMana)
+                    mana = MaxMana;
             }
         }
         public int Hp
@@ -98,7 +99,11 @@ public class Save_Charater_Class : MonoBehaviour
                 if(CurHp > status.s_MaxHp)
                     CurHp = status.s_MaxHp;
                 else if(CurHp < 0)
+                {
+                    CurHp = 0;
                     Dead();
+                }
+                    
             }
         }
 
@@ -130,6 +135,9 @@ public class Save_Charater_Class : MonoBehaviour
         // 데미지 받음
         public void TakeDamage(SD Other, Class_Status OtherStat)
         {
+            if(bAlive == false)
+                return;
+
             Class_Status myStat = status;
             myStat = ApplyBuff(myStat);
 
@@ -160,11 +168,14 @@ public class Save_Charater_Class : MonoBehaviour
 
             // 체력 감소
             Hp -= Damage;
-            Mana++;                        
+            Mana++;               
+            BressHp -= Damage;         
         }
         // 힐
         public void TakeHeal(SD Other, Class_Status OtherStat)
         {
+            if(bAlive == false)
+                return;
 
             //크리 계산
             int CriRate = OtherStat.s_Critical / 2;
@@ -181,12 +192,28 @@ public class Save_Charater_Class : MonoBehaviour
             else
             {
                 _Heal = (int)(OtherStat.s_Damage);
-                Printing_Damage(Color.blue,_Heal);
+                Printing_Damage(Color.yellow,_Heal);
             }
 
 
             // 체력 감소
             Hp += _Heal;
+        }
+
+        public void TakeMana(int getMana)
+        {
+            if(bAlive == false)
+                return;
+
+            int resultMana = Mana + getMana;
+            if(resultMana > MaxMana)
+                resultMana = MaxMana;
+            else if(resultMana < 0)
+                resultMana = 0;
+            getMana =  resultMana - Mana;
+
+            Printing_Damage(Color.blue,getMana);
+            Mana += getMana;
         }
 
         public void nomalAttack(SD Other)
@@ -230,9 +257,22 @@ public class Save_Charater_Class : MonoBehaviour
             spwDamage.transform.SetParent(GameObject.Find( "_Damage").transform);
             spwDamage.rectTransform.anchoredPosition = new Vector2(spwX, spwY);
             spwDamage.color = color;
-            spwDamage.text = ""+_Damage;
+            spwDamage.GetComponent<D_fontScripts>().Damage =_Damage;
         }
 
+
+        public bool pase2 = false;
+        int bressHp = 0;
+        public int BressHp
+        {
+            get {return bressHp;}
+            set 
+            { 
+                bressHp = value;
+                if(bressHp < 0)
+                    bressHp = 0;
+            }
+        }
     }
 
     public static Class_Status Adventure = new Class_Status(5, 0.2f, 3, 30, 50, 30);
@@ -243,4 +283,18 @@ public class Save_Charater_Class : MonoBehaviour
 
 
     public static Class_Status Bandit = new Class_Status(10,0.2f,5,40,30,30);
+    public static Class_Status Witch = new Class_Status(0,0.2f,3,30,0,100);
+    public static Class_Status Crystal = new Class_Status(10,0,0,30,50,50);
+    public static Class_Status Barlog = new Class_Status(30,0.4f,10,100,100,0);
+
+
+    [System.Serializable]
+    public class Barlog_Class : SD
+    {
+        public int BressHp = 0;
+        public Barlog_Class() : base(Barlog,e_Class.barlog)
+        {
+            Debug.Log(" 강 림 ");
+        }
+    }
 }

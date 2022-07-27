@@ -1,4 +1,4 @@
- using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -57,6 +57,8 @@ public class Battle_Manager : MonoBehaviour
     public Image[] Enemy_HP = new Image[3];
     public Image[] Enemy_MP = new Image[3];
 
+    // Sprites
+    public Sprite[] CharacterImages = new Sprite[4];
 
     // 배틀 패널
     public GameObject SkillPannel;
@@ -64,6 +66,11 @@ public class Battle_Manager : MonoBehaviour
     public TextMeshProUGUI AttStatus;
     public TextMeshProUGUI TargetStatus;
     public Image AttackerImage;
+
+
+    // 공격 순서
+    public GameObject[] AttOrder = new GameObject[3];
+    public TextMeshProUGUI RoundText;
    
     // 데미지 폰트
     public TextMeshProUGUI Damage;
@@ -79,7 +86,7 @@ public class Battle_Manager : MonoBehaviour
     // 타겟 선택 체크
     public bool bChecktarget;
     // 배틀 스피드
-    List<Tuple<int,int,int>> L_BattleSpeed = new List<Tuple<int, int, int>>();   
+    [SerializeField] List<Tuple<int,int,int>> L_BattleSpeed = new List<Tuple<int, int, int>>();   
 
     // 현재 공격자
     public int Attacker;
@@ -142,6 +149,8 @@ public class Battle_Manager : MonoBehaviour
             
             Save_Charater_Class.Class_Status stat = Character[i].status;
             Ch_Status.Add(stat);
+
+            CharacterSprite[i].sprite = CharacterImages[(int)Character[i].c_Class];
         }
     }
     void SetStartUI()
@@ -283,7 +292,7 @@ public class Battle_Manager : MonoBehaviour
             if (Character.Count == 0)
             {
                 Debug.Log("ERROR");
-                SceneManager.LoadScene("1.StartScene");
+                SceneManager.LoadScene("1-0.StartScene");
             }
             else
                 EnemyTurn(n);
@@ -316,9 +325,24 @@ public class Battle_Manager : MonoBehaviour
         "Hp : " + Enemy[n].Hp;
     }
     
-        // 보상
-        // 전투 결과처리
-        // 씬 이동
+    void SetAttackOrder()
+    {
+        for(int i = 0; i < 3; i++)
+        {
+            if(i >= L_BattleSpeed.Count)
+            {
+                AttOrder[i].SetActive(false);
+                return;
+            }
+            AttOrder[i].SetActive(true);
+            TextMeshProUGUI AttText = AttOrder[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>(); 
+            
+            string first = "E";
+            if(L_BattleSpeed[i].Item3 == 0) first = "C";
+            AttText.text = first +":"+ L_BattleSpeed[i].Item2;
+        }
+    }
+
     
     public BattleState battleState = BattleState.BeforBattle;
     // Update is called once per frame
@@ -348,7 +372,9 @@ public class Battle_Manager : MonoBehaviour
             // 2-2. 턴 할당
             case BattleState.InBattle_SetTurn :
                 BattleInfo.Times++;
-                BattleInfo.TurnCounts++;
+                BattleInfo.TurnCounts++;                
+                RoundText.text = "R:" + BattleInfo.TurnCounts;
+
                 SetSpeed();
                 battleState = BattleState.InBattle_BattleUi;
                 break;
@@ -356,9 +382,14 @@ public class Battle_Manager : MonoBehaviour
             // 2-2-1. 턴 배틀UI
             case BattleState.InBattle_BattleUi :
                 // 공격 순서 UI
-                if(L_BattleSpeed[0].Item3 == 1) battleState = BattleState.InBattle_Battle_Enemy;
-                else battleState = BattleState.InBattle_Battle_My1;                
+                if(L_BattleSpeed[0].Item3 == 1) 
+                {
+                    StartCoroutine(WaitAnimate(BattleState.InBattle_Battle_Enemy));
+                    battleState = BattleState.InBattle_Battle_Animate;
+                }                
+                else battleState = BattleState.InBattle_Battle_My1;              
 
+                SetAttackOrder();
                 Attacker = L_BattleSpeed[0].Item2;
                 break;
 
@@ -372,7 +403,7 @@ public class Battle_Manager : MonoBehaviour
                 AttackerHilight("Enemy",Attacker,true);
                 SetTargetStatus(Attacker);
                 EnemyTurn(Attacker);
-                StartCoroutine(WaitAnimate());
+                StartCoroutine(WaitAnimate(BattleState.InBattle_EndBattle));
                 battleState = BattleState.InBattle_Battle_Animate;
                 break;
             // 2-2-3  캐릭터 턴
@@ -414,7 +445,7 @@ public class Battle_Manager : MonoBehaviour
                 Character[Attacker].SetSkillClass();                
 
                 Character[Attacker].MySkill[selecSkill].UseSkill(Character,Attacker, volaStatus, Enemy,target);
-                StartCoroutine(WaitAnimate());
+                StartCoroutine(WaitAnimate(BattleState.InBattle_EndBattle));
                 battleState = BattleState.InBattle_Battle_Animate;
                 break;
             // 2-2-4. 공격 애니메이션
@@ -424,6 +455,7 @@ public class Battle_Manager : MonoBehaviour
             // 2-2-5. 턴종료
             case BattleState.InBattle_EndBattle :                
                 // 턴종료
+                Debug.Log("num : "+ L_BattleSpeed.Count);
                 L_BattleSpeed.RemoveAt(0);
                 target = 0;
                 bCheckSkill = false;
@@ -495,14 +527,17 @@ public class Battle_Manager : MonoBehaviour
 
     
 
-    IEnumerator WaitAnimate()
+    IEnumerator WaitAnimate(BattleState NextState)
     {
         Debug.Log("Animating...");
         yield return new WaitForSeconds(1.5f)   ;
         Debug.Log("Animated...");
-        battleState = BattleState.InBattle_EndBattle;
-        AttackerHilight("Enemy",L_BattleSpeed[0].Item2,false);
-        AttackerHilight("Character",L_BattleSpeed[0].Item2,false);
+        battleState = NextState;
+        if (NextState == BattleState.InBattle_EndBattle)
+        {
+            AttackerHilight("Enemy", L_BattleSpeed[0].Item2, false);
+            AttackerHilight("Character", L_BattleSpeed[0].Item2, false);
+        }
     }
     public void InputTargetBTN(int n)
     {

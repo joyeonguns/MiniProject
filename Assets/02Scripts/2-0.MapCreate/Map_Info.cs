@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Linq;
 using System;
+using UnityEngine.SceneManagement;
 
 public class Map_Info : MonoBehaviour
 {
@@ -36,9 +37,13 @@ public class Map_Info : MonoBehaviour
     public Sprite[] CharacterImage;
 
     // 맵
-    public GameObject MapUI;
+    // public GameObject MapUI;
     // 인포
     public GameObject InfoUI;
+
+    // 조작
+    bool bOpenInfo = false;
+    bool bOpenTellent = false;    
     
 
     void Start() 
@@ -65,6 +70,7 @@ public class Map_Info : MonoBehaviour
     {
         Debug.Log("SetCharImage");
         Save = GameManager.instance.GetComponent<Save_Charater_Data>();   
+        p_Count = Save.S_Character.Count;
         for(int i = 0; i < 3; i++)
         {
             if(i < p_Count)
@@ -91,13 +97,15 @@ public class Map_Info : MonoBehaviour
             else
             {
                 CharacterBtn[i].gameObject.SetActive(false);
+                Debug.Log("p_Count : " + Save.S_Character.Count);
+                Debug.Log("i : " + i);
             }
         }
     }
 
     void SetStatus_Text(int n)
     {
-        
+        Save = GameManager.instance.GetComponent<Save_Charater_Data>();
         stat_Name.text = "" + Save.S_Character[n].c_Name;
         stat_Comments.text = 
         Save.S_Character[n].Level + "\n" +
@@ -144,26 +152,39 @@ public class Map_Info : MonoBehaviour
     }
 
     public void SetTargetBtn(int n)
-    {        
+    {
+        // SetStartSetting(); 
         // 버튼 색상 할당
         ColorBlock clb_green = CharacterBtn[n].colors;
         clb_green.normalColor = Color.green;
         clb_green.selectedColor = Color.green;
+
+        ColorBlock clb_white = CharacterBtn[n].colors;
+        clb_white.normalColor = Color.white;
+        clb_white.selectedColor = Color.white;
+
         CharacterBtn[n].colors = clb_green;
 
-        if(bCheckedTarget_0 == false)
+        if (SceneManager.GetActiveScene().name != "1-2.MapScene")
+        {
+            bCheckedTarget_0 = false;
+            CharacterBtn[Target_0].colors = clb_white;
+            Target_0 = n;
+        }
+        
+        else if (bCheckedTarget_0 == false)
         {
             bCheckedTarget_0 = true;
-            Target_0 = n;            
+            Target_0 = n;
         }
+
         else
         {
+            
             Target_1 = n;
 
             // 버튼 색상 해제
-            ColorBlock clb_white = CharacterBtn[n].colors; 
-            clb_white.normalColor = Color.white;
-            clb_white.selectedColor = Color.white;
+            
 
             CharacterBtn[Target_0].colors = clb_white;
             CharacterBtn[Target_1].colors = clb_white;
@@ -176,12 +197,13 @@ public class Map_Info : MonoBehaviour
 
             Save_Charater_Class.SD temp = Save.S_Character[Target_0];
             Save.S_Character[Target_0] = Save.S_Character[Target_1];
-            Save.S_Character[Target_1] = temp;  
-            
+            Save.S_Character[Target_1] = temp;
             bCheckedTarget_0 = false;
 
-            
             SetCharImage();
+
+                     
+                     
         }
         SetStatus_Text(n);
         SetSkillBtn(n);
@@ -250,15 +272,18 @@ public class Map_Info : MonoBehaviour
         
     }
 
-    public void OpenMapUI()
-    {
-        MapUI.SetActive(true);
-        InfoUI.SetActive(false);
-    }
     public void OpenInfoUI()
     {
-        MapUI.SetActive(false);
-        InfoUI.SetActive(true);
+        if(bOpenInfo == false)
+        {
+            InfoUI.SetActive(true);
+            bOpenInfo = true;
+        }
+        else
+        {
+            InfoUI.SetActive(false);
+            bOpenInfo = false;
+        }        
     }
 
 

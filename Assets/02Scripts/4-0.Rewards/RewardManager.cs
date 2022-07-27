@@ -231,7 +231,7 @@ public class RewardManager : MonoBehaviour
     }
     public void Next_Reward()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("1-2.MapScene");
     }
 
     public void SetTellBtn(int n)

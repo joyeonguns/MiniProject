@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
 
     // 보상
     public int gold;
-    public int curGold = 100;
+    public int curGold = 10000;
     public int ItemRate;
     
     // 싱글턴 인스턴스

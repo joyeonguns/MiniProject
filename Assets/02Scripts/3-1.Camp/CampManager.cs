@@ -217,7 +217,7 @@ public class CampManager : MonoBehaviour
 
     public void ExitBtn()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("1-2.MapScene");
     }
 
     IEnumerator Blurs(float n)

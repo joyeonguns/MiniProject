@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class HUDManager : MonoBehaviour
 {
@@ -33,6 +34,10 @@ public class HUDManager : MonoBehaviour
     }
     // Start is called before the first frame update
     void Start()
+    {
+        SetAll();
+    }
+    public void SetAll()
     {
         SetGold();
         SetBoom();
@@ -65,5 +70,8 @@ public class HUDManager : MonoBehaviour
         int num = GameManager.instance.BBTellent_num.Count + GameManager.instance.BeforTellents_num.Count + GameManager.instance.GetAfterTellents.Count + GameManager.instance.ABTelent_num.Count;
         
         TellentText.text = ""+num;
+ 
+ 
     }
+
 }
