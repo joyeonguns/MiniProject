@@ -150,19 +150,19 @@ public class Save_Charater_Class : MonoBehaviour
             if(CriRate > 0 && CriRate > rnd)
             {
                 Damage = (int)(OtherStat.s_Damage * 2 * (1-myStat.s_Armor));
-                Printing_Damage(Color.red,Damage);
+                Printing_Damage(Color.red, ""+Damage, 2.1f);
             }
             // 회피 
             else if(CriRate < 0 && (CriRate * -1) > rnd)
             {
                 Damage = (int)(OtherStat.s_Damage / 2 * (1-myStat.s_Armor));
-                Printing_Damage(Color.gray,Damage);
+                Printing_Damage(Color.gray, ""+Damage, 2.1f);
             }
             // 기본
             else
             {
                 Damage = (int)(OtherStat.s_Damage * (1-myStat.s_Armor));
-                Printing_Damage(Color.black,Damage);
+                Printing_Damage(Color.black, ""+Damage, 2.1f);
             }
 
 
@@ -186,13 +186,13 @@ public class Save_Charater_Class : MonoBehaviour
             if(CriRate > 0 && CriRate > rnd)
             {
                 _Heal = (int)(OtherStat.s_Damage * 2);
-                Printing_Damage(Color.green,_Heal);
+                Printing_Damage(Color.green, ""+_Heal, 2.1f);
             }
             // 기본
             else
             {
                 _Heal = (int)(OtherStat.s_Damage);
-                Printing_Damage(Color.yellow,_Heal);
+                Printing_Damage(Color.yellow, ""+_Heal, 2.1f);
             }
 
 
@@ -212,14 +212,10 @@ public class Save_Charater_Class : MonoBehaviour
                 resultMana = 0;
             getMana =  resultMana - Mana;
 
-            Printing_Damage(Color.blue,getMana);
+            Printing_Damage(Color.blue,""+getMana, 2.1f);
             Mana += getMana;
         }
 
-        public void nomalAttack(SD Other)
-        {
-            Other.TakeDamage(this,this.status);
-        }
         public void Dead()
         {
             this.bAlive = false;
@@ -251,13 +247,14 @@ public class Save_Charater_Class : MonoBehaviour
         }
 
         // 데미지 적용
-        void Printing_Damage(Color color, int _Damage)
+        void Printing_Damage(Color color, string _Damage, float _WaitTime)
         {
             var spwDamage = Instantiate(font);
             spwDamage.transform.SetParent(GameObject.Find( "_Damage").transform);
             spwDamage.rectTransform.anchoredPosition = new Vector2(spwX, spwY);
             spwDamage.color = color;
             spwDamage.GetComponent<D_fontScripts>().Damage =_Damage;
+            spwDamage.GetComponent<D_fontScripts>().WaitTime =_WaitTime;
         }
 
 

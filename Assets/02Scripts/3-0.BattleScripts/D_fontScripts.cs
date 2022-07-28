@@ -7,13 +7,14 @@ public class D_fontScripts : MonoBehaviour
 {
     // Start is called before the first frame update
     TextMeshProUGUI tmp;
-    public int Damage = 0;
+    public string Damage;
     bool bTrigger = false;
+    public float WaitTime;
     void Start()
     {
        tmp  = GetComponent<TextMeshProUGUI>();
        tmp.text = "";
-       Invoke("SetActive_true",2.1f);
+       Invoke("SetActive_true",WaitTime);
     }
 
     void SetActive_true()

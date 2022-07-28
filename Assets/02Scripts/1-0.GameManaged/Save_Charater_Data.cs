@@ -80,35 +80,4 @@ public class Save_Charater_Data : MonoBehaviour
             S_Character[num].SetEXp(500);        
     }
 
-    public void Ex_sk(int n)
-    {
-        Debug.Log(n+ " 번째 스킬 사용");
-    }
-    public void Ex_sk2(Save_Charater_Class.SD _this, int n)
-    {
-        Debug.Log(n+ " 번째 스킬 사용");
-        
-        Debug.Log(" 체력 : "+_this.Hp);
-    }
-
-    public void Attack(int n)
-    {
-        S_Character[1].nomalAttack(S_Character[n]);
-    }
-
-    public void Use_Skill(int n)
-    {
-        //S_Character[2].MySkill[3].UseSkill(S_Character,2,S_Character,1);
-    }
-    public void SetSkill(int k)
-    {
-
-    }
-
-    //public Button btn;
-
-    private void Start()
-    {
-        //btn.onClick.AddListener(() => {Debug.Log("버튼 클릭");});
-    }
 }

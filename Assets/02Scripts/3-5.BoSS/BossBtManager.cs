@@ -45,6 +45,8 @@ public class BossBtManager : MonoBehaviour
     // 적 HP / MP
     public Image[] Enemy_HP = new Image[3];
     public Image[] Enemy_MP = new Image[3];
+
+    // 브래스
     public GameObject BressObj;
     public Image BressImage;
     public TextMeshProUGUI BressText;
@@ -109,14 +111,12 @@ public class BossBtManager : MonoBehaviour
         AttackObj.SetActive(false);
     }
 
+
     // START SETTING //
 
     void SetBattleInfo()
     {
-        BattleInfo = new GameInformation();
-        BattleInfo.Times = 0;
-        BattleInfo.TurnCounts = 0;
-        BattleInfo.Golds = 450;
+        BattleInfo = new GameInformation(300, 450, 70);
     }
 
     // 적 정보 설정
@@ -596,13 +596,12 @@ public class BossBtManager : MonoBehaviour
             // 2-2-3  캐릭터 턴
             case BattleState.InBattle_Battle_My1 :
 
-                Apply_BTTellent();
-                
                 // 특성 적용
                 volaStatus = new Save_Charater_Class.Class_Status();
                 volaStatus = Ch_Status[Attacker];
                 Debug.Log("vola : " + volaStatus.s_Critical);
-            
+                
+                Apply_BTTellent();            
                 
                 // 공격자 하이라이트
                 AttackerHilight("Character", Attacker,true);
@@ -704,9 +703,15 @@ public class BossBtManager : MonoBehaviour
             // 3. 전투 종료
             case BattleState.EndBattle :
                  Debug.Log("승리");
+
+                 // 특성 처리
                  ABSetTellent();
-                 GameManager.instance.gold = BattleInfo.Golds;
-                 GameManager.instance.ItemRate = BattleInfo.ItemRate;
+
+                 GameManager.instance.ResultData.Gold = BattleInfo.Golds;
+                 GameManager.instance.ResultData.ItemRate = BattleInfo.ItemRate;
+                 GameManager.instance.ResultData.Exp = BattleInfo.Exp;
+
+
                  Debug.Log(" 골드 : " + BattleInfo.Golds +"\n"+" 아이템 : " + BattleInfo.ItemRate +"\n" );
                  SceneManager.LoadScene("2-4.GiftScene");
                  battleState = BattleState.waiting;

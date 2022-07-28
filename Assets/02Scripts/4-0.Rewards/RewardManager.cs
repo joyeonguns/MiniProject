@@ -105,13 +105,13 @@ public class RewardManager : MonoBehaviour
     // Other 패널
     void SetGoldPannel()
     {
-        Gold = GameManager.instance.gold;
+        Gold = GameManager.instance.ResultData.Gold;
         GameObject spwGold = Instantiate(GoldPrefab);
         spwGold.transform.SetParent(GoldPannel.transform.GetChild(2));
         spwGold.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,100);
         spwGold.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = ""+Gold;
 
-        ItemRate = GameManager.instance.ItemRate;
+        ItemRate = GameManager.instance.ResultData.ItemRate;
         int rnd = UnityEngine.Random.Range(1,101);
         Debug.Log("rnd : " + rnd);
         if (ItemRate >= rnd)

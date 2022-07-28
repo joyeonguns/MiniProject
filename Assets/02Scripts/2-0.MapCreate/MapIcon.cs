@@ -120,7 +120,7 @@ public class MapIcon : MonoBehaviour
         else if (map.mapData == 6) str = "2-0.BattleScene";
 
 
-        str = "4-0.BossScene";
+        //str = "4-0.BossScene";
         HUDManager.instance.SetFloor();
         SceneManager.LoadScene(str);
     }

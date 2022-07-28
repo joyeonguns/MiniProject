@@ -6,6 +6,17 @@ using System;
 using TMPro;
 using System.Linq;
 
+public enum ResultEnum {NomalBattle, EliteBattle, BossBattle, Run}
+// 전투 후 보상
+public class ResultClass
+{
+    public ResultEnum ResultMode = ResultEnum.NomalBattle;
+    public int Gold;
+    public int Exp;
+    public int ItemRate;
+    public string TellentRank;
+}
+
 
 public class GameManager : MonoBehaviour
 {
@@ -45,14 +56,12 @@ public class GameManager : MonoBehaviour
 
     public List<TellentsScripts> TellentSeed = new List<TellentsScripts>();
 
-    public List<ItemClass> ItemList;
     public List<int> ItemList_num;
 
 
     // 보상
-    public int gold;
+    public ResultClass ResultData = new ResultClass();
     public int curGold = 10000;
-    public int ItemRate;
     
     // 싱글턴 인스턴스
     private void Awake() 
