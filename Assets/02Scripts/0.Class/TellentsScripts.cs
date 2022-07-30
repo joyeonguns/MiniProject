@@ -14,7 +14,7 @@ public class TellentsScripts
     Etel_Rank rank;
 
     // Func 특성 적용 함수
-    public Func<GameInformation, List<Save_Charater_Class.SD>, int, List<Save_Charater_Class.Class_Status>, Save_Charater_Class.Class_Status, List<Save_Charater_Class.SD>, int,Save_Charater_Class.Class_Status> TellentApply;
+    public Func<List<Save.Character>, int, List<Save.St_Stat>, Save.St_Stat, List<Save.Character>, int,Save.St_Stat> TellentApply;
     
     public List<Tuple<string,string>> BBComents = new List<Tuple<string,string>>
     {
@@ -140,7 +140,7 @@ public class TellentsScripts
     }
 
     // 턴 직전
-    Save_Charater_Class.Class_Status BeforeTurn_0(GameInformation GI, List<Save_Charater_Class.SD> Caster, int CasterIdx, List<Save_Charater_Class.Class_Status> status, Save_Charater_Class.Class_Status volastatus, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
+    Save.St_Stat BeforeTurn_0(List<Save.Character> Caster, int CasterIdx, List<Save.St_Stat> status, Save.St_Stat volastatus, List<Save.Character> Enemy,int EnemyIdx)
     {
         Debug.Log("Intelligence");
         Caster[CasterIdx].Mana += 2;
@@ -148,41 +148,41 @@ public class TellentsScripts
         return volastatus;
     }
 
-    Save_Charater_Class.Class_Status BeforeTurn_1(GameInformation GI, List<Save_Charater_Class.SD> Caster, int CasterIdx, List<Save_Charater_Class.Class_Status> status, Save_Charater_Class.Class_Status volastatus, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
+    Save.St_Stat BeforeTurn_1(List<Save.Character> Caster, int CasterIdx, List<Save.St_Stat> status, Save.St_Stat volastatus, List<Save.Character> Enemy,int EnemyIdx)
     {
         Debug.Log("SlowStarter");
-        Save_Charater_Class.Class_Status st = status[CasterIdx];        
-        st.s_Damage += GI.TurnCounts; 
+        Save.St_Stat st = status[CasterIdx];        
+        st.Damage += Caster[CasterIdx].turn; 
         status[CasterIdx] = st;
-        volastatus.s_Damage += GI.TurnCounts;
+        volastatus.Damage += st.Damage;
         
         return volastatus; 
     }
 
-    Save_Charater_Class.Class_Status BeforeTurn_2(GameInformation GI, List<Save_Charater_Class.SD> Caster, int CasterIdx, List<Save_Charater_Class.Class_Status> status, Save_Charater_Class.Class_Status volastatus, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
+    Save.St_Stat BeforeTurn_2(List<Save.Character> Caster, int CasterIdx, List<Save.St_Stat> status, Save.St_Stat volastatus, List<Save.Character> Enemy,int EnemyIdx)
     {
         Debug.Log("LuckyStrike");
-        if(GI.TurnCounts == 3)
-            volastatus.s_Damage += GI.TurnCounts;
+        if(Caster[CasterIdx].turn == 3)
+            volastatus.Damage *= 3;
 
         return volastatus;
     }
-    Save_Charater_Class.Class_Status BeforeTurn_3(GameInformation GI, List<Save_Charater_Class.SD> Caster, int CasterIdx, List<Save_Charater_Class.Class_Status> status, Save_Charater_Class.Class_Status volastatus, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
+    Save.St_Stat BeforeTurn_3(List<Save.Character> Caster, int CasterIdx, List<Save.St_Stat> status, Save.St_Stat volastatus, List<Save.Character> Enemy,int EnemyIdx)
     {
         Debug.Log("Ready");
-        if(GI.TurnCounts == 1)
+        if(Caster[CasterIdx].turn == 1)
         {
             Debug.Log("10000");
-            volastatus.s_Critical += 10000;
+            volastatus.Critical += 10000;
            
-            Debug.Log(volastatus.s_Critical);
+            Debug.Log(volastatus.Critical);
         }
         return volastatus;    
     }
 
 
     // 특성 획득
-    Save_Charater_Class.Class_Status GetAfter_0(GameInformation GI, List<Save_Charater_Class.SD> Caster, int CasterIdx, List<Save_Charater_Class.Class_Status> status, Save_Charater_Class.Class_Status volastatus, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
+    Save.St_Stat GetAfter_0(List<Save.Character> Caster, int CasterIdx, List<Save.St_Stat> status, Save.St_Stat volastatus, List<Save.Character> Enemy,int EnemyIdx)
     {
         Debug.Log("Giant");
         foreach (var cha in Caster)
@@ -193,27 +193,27 @@ public class TellentsScripts
         return volastatus;
     }
 
-    Save_Charater_Class.Class_Status GetAfter_1(GameInformation GI, List<Save_Charater_Class.SD> Caster, int CasterIdx, List<Save_Charater_Class.Class_Status> status, Save_Charater_Class.Class_Status volastatus, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
+    Save.St_Stat GetAfter_1(List<Save.Character> Caster, int CasterIdx, List<Save.St_Stat> status, Save.St_Stat volastatus, List<Save.Character> Enemy,int EnemyIdx)
     {
         Debug.Log("predation");
         foreach (var cha in Caster)
         {
-            cha.status.s_MaxHp +=5;
+            cha.status.MaxHp +=5;
             cha.Hp +=20;            
         }
         
         return volastatus; 
     }
 
-    Save_Charater_Class.Class_Status GetAfter_2(GameInformation GI, List<Save_Charater_Class.SD> Caster, int CasterIdx, List<Save_Charater_Class.Class_Status> status, Save_Charater_Class.Class_Status volastatus, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
+    Save.St_Stat GetAfter_2(List<Save.Character> Caster, int CasterIdx, List<Save.St_Stat> status, Save.St_Stat volastatus, List<Save.Character> Enemy,int EnemyIdx)
     {
         Debug.Log("Exercise");
-        Caster[CasterIdx].status.s_MaxHp += 20;
+        Caster[CasterIdx].status.MaxHp += 20;
         Caster[CasterIdx].Hp +=20;
 
         return volastatus;
     }
-    Save_Charater_Class.Class_Status GetAfter_3(GameInformation GI, List<Save_Charater_Class.SD> Caster, int CasterIdx, List<Save_Charater_Class.Class_Status> status, Save_Charater_Class.Class_Status volastatus, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
+    Save.St_Stat GetAfter_3(List<Save.Character> Caster, int CasterIdx, List<Save.St_Stat> status, Save.St_Stat volastatus, List<Save.Character> Enemy,int EnemyIdx)
     {
         Debug.Log("Fortune");
         
@@ -221,27 +221,27 @@ public class TellentsScripts
     }
 
     // 전투 이후
-    Save_Charater_Class.Class_Status AfterBattle_0(GameInformation GI, List<Save_Charater_Class.SD> Caster, int CasterIdx, List<Save_Charater_Class.Class_Status> status, Save_Charater_Class.Class_Status volastatus, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
+    Save.St_Stat AfterBattle_0(List<Save.Character> Caster, int CasterIdx, List<Save.St_Stat> status, Save.St_Stat volastatus, List<Save.Character> Enemy,int EnemyIdx)
     {
         Debug.Log("Robbery");
-        GI.Golds = (int)(GI.Golds*1.3f);
+        GameManager.instance.ResultData.Gold = (int)(GameManager.instance.ResultData.Gold * 1.3f) ;
         
         return volastatus;
     }
 
-    Save_Charater_Class.Class_Status AfterBattle_1(GameInformation GI, List<Save_Charater_Class.SD> Caster, int CasterIdx, List<Save_Charater_Class.Class_Status> status, Save_Charater_Class.Class_Status volastatus, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
+    Save.St_Stat AfterBattle_1(List<Save.Character> Caster, int CasterIdx, List<Save.St_Stat> status, Save.St_Stat volastatus, List<Save.Character> Enemy,int EnemyIdx)
     {
         Debug.Log("Trasure Hunter");
-        if(GI.Battletype != "Nomal")
+        if(GameManager.instance.ResultData.ResultMode != ResultEnum.NomalBattle)
         {
-            GI.Golds += 100;
+            GameManager.instance.ResultData.Gold += 100;
         }
         
         return volastatus; 
     }
 
-    Save_Charater_Class.Class_Status AfterBattle_2
-    (GameInformation GI, List<Save_Charater_Class.SD> Caster, int CasterIdx, List<Save_Charater_Class.Class_Status> status, Save_Charater_Class.Class_Status volastatus, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
+    Save.St_Stat AfterBattle_2
+    (List<Save.Character> Caster, int CasterIdx, List<Save.St_Stat> status, Save.St_Stat volastatus, List<Save.Character> Enemy,int EnemyIdx)
     {
         Debug.Log("ReGroup");
         foreach(var cha in Caster)
@@ -250,39 +250,39 @@ public class TellentsScripts
         }
         return volastatus; 
     }
-    Save_Charater_Class.Class_Status AfterBattle_3(GameInformation GI, List<Save_Charater_Class.SD> Caster, int CasterIdx, List<Save_Charater_Class.Class_Status> status, Save_Charater_Class.Class_Status volastatus, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
+    Save.St_Stat AfterBattle_3(List<Save.Character> Caster, int CasterIdx, List<Save.St_Stat> status, Save.St_Stat volastatus, List<Save.Character> Enemy,int EnemyIdx)
     {
         Debug.Log("Alchemy");
-        GI.ItemRate = 100;
+        GameManager.instance.ResultData.ItemRate = 100;
         return volastatus;    
     }
 
     // 전투 시작시
-    Save_Charater_Class.Class_Status BeforeBattle_0(GameInformation GI, List<Save_Charater_Class.SD> Caster, int CasterIdx, List<Save_Charater_Class.Class_Status> status, Save_Charater_Class.Class_Status volastatus, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
+    Save.St_Stat BeforeBattle_0(List<Save.Character> Caster, int CasterIdx, List<Save.St_Stat> status, Save.St_Stat volastatus, List<Save.Character> Enemy,int EnemyIdx)
     {
         Debug.Log("Reinforce");
-        List<Save_Charater_Class.Class_Status> newstatus = new List<Save_Charater_Class.Class_Status>();
+        List<Save.St_Stat> newstatus = new List<Save.St_Stat>();
         foreach (var st in status)
         {
-           Save_Charater_Class.Class_Status _st = st;
-           _st.s_Damage *= 1.3f;
+           Save.St_Stat _st = st;
+           _st.Damage *= 1.3f;
            newstatus.Add(_st);
         }
         status = newstatus;
         return volastatus;
     }
 
-    Save_Charater_Class.Class_Status BeforeBattle_1(GameInformation GI, List<Save_Charater_Class.SD> Caster, int CasterIdx, List<Save_Charater_Class.Class_Status> status, Save_Charater_Class.Class_Status volastatus, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
+    Save.St_Stat BeforeBattle_1(List<Save.Character> Caster, int CasterIdx, List<Save.St_Stat> status, Save.St_Stat volastatus, List<Save.Character> Enemy,int EnemyIdx)
     {
         Debug.Log("SoloPlayer");
         if(Caster.Count == 1)
         {
-            Save_Charater_Class.Class_Status st = status[0];
-            st.s_Armor = st.s_Armor * 1.3f;
-            st.s_Critical = (int)(st.s_Critical * 1.3f);
-            st.s_Damage = (st.s_Damage * 1.3f);
-            st.s_Dodge = (int)(st.s_Dodge * 1.3f);
-            st.s_Speed = (int)(st.s_Speed * 1.3f);
+            Save.St_Stat st = status[0];
+            st.Armor = st.Armor * 1.3f;
+            st.Critical = (int)(st.Critical * 1.3f);
+            st.Damage = (st.Damage * 1.3f);
+            st.Dodge = (int)(st.Dodge * 1.3f);
+            st.Speed = (int)(st.Speed * 1.3f);
 
             status.RemoveAt(0);
             status.Add(st);
@@ -290,19 +290,19 @@ public class TellentsScripts
         return volastatus; 
     }
 
-    Save_Charater_Class.Class_Status BeforeBattle_2(GameInformation GI, List<Save_Charater_Class.SD> Caster, int CasterIdx, List<Save_Charater_Class.Class_Status> status, Save_Charater_Class.Class_Status volastatus, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
+    Save.St_Stat BeforeBattle_2(List<Save.Character> Caster, int CasterIdx, List<Save.St_Stat> status, Save.St_Stat volastatus, List<Save.Character> Enemy,int EnemyIdx)
     {
         Debug.Log("ReaderShip");
-        List<Save_Charater_Class.Class_Status> newstatus = new List<Save_Charater_Class.Class_Status>();
+        List<Save.St_Stat> newstatus = new List<Save.St_Stat>();
         foreach (var _st in status)
         {
-            Save_Charater_Class.Class_Status st = _st;
+            Save.St_Stat st = _st;
 
-            st.s_Armor = st.s_Armor * 1.1f;
-            st.s_Critical = (int)(st.s_Critical * 1.1f);
-            st.s_Damage = (st.s_Damage * 1.1f);
-            st.s_Dodge = (int)(st.s_Dodge * 1.1f);
-            st.s_Speed = (int)(st.s_Speed * 1.1f);
+            st.Armor = st.Armor * 1.1f;
+            st.Critical = (int)(st.Critical * 1.1f);
+            st.Damage = (st.Damage * 1.1f);
+            st.Dodge = (int)(st.Dodge * 1.1f);
+            st.Speed = (int)(st.Speed * 1.1f);
             newstatus.Add(st);
             
         }
@@ -314,15 +314,15 @@ public class TellentsScripts
         
         return volastatus;
     }
-    Save_Charater_Class.Class_Status BeforeBattle_3(GameInformation GI, List<Save_Charater_Class.SD> Caster, int CasterIdx, List<Save_Charater_Class.Class_Status> status, Save_Charater_Class.Class_Status volastatus, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
+    Save.St_Stat BeforeBattle_3(List<Save.Character> Caster, int CasterIdx, List<Save.St_Stat> status, Save.St_Stat volastatus, List<Save.Character> Enemy,int EnemyIdx)
     {
         Debug.Log("Foresight");
-        List<Save_Charater_Class.Class_Status> newstatus = new List<Save_Charater_Class.Class_Status>();
+        List<Save.St_Stat> newstatus = new List<Save.St_Stat>();
         foreach (var _st in status)
         {
-            Save_Charater_Class.Class_Status st = _st;
+            Save.St_Stat st = _st;
 
-            st.s_Speed = (int)(st.s_Speed +2);
+            st.Speed = (int)(st.Speed +2);
             newstatus.Add(st);
         }
         

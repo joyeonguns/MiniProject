@@ -2362,12 +2362,13 @@ MonoBehaviour:
   Character: []
   Ch_Status: []
   volaStatus:
-    s_Damage: 0
-    s_Armor: 0
-    s_Speed: 0
-    s_Dodge: 0
-    s_Critical: 0
-    s_MaxHp: 0
+    Damage: 0
+    Armor: 0
+    Speed: 0
+    Dodge: 0
+    Critical: 0
+    MaxHp: 0
+    Resist: 0
   Enemy: []
   En_Status: []
   CharacterField:

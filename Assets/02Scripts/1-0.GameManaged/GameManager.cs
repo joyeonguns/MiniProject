@@ -7,7 +7,8 @@ using TMPro;
 using System.Linq;
 
 public enum ResultEnum {NomalBattle, EliteBattle, BossBattle, Run}
-// 전투 후 보상
+
+// 전투 보상
 public class ResultClass
 {
     public ResultEnum ResultMode = ResultEnum.NomalBattle;
@@ -56,12 +57,15 @@ public class GameManager : MonoBehaviour
 
     public List<TellentsScripts> TellentSeed = new List<TellentsScripts>();
 
-    public List<int> ItemList_num;
+    
 
 
     // 보상
     public ResultClass ResultData = new ResultClass();
+    // 골드
     public int curGold = 10000;
+    // 아이템
+    public List<int> ItemList_num;
     
     // 싱글턴 인스턴스
     private void Awake() 
@@ -121,8 +125,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if(cur_Map)
-        //floor = cur_Map.floor;
+
     }
 
     // 특성계수에 따른 할당 

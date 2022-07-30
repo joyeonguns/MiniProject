@@ -13,8 +13,8 @@ public class TownManager : MonoBehaviour
     public GameObject[] SkillText = new GameObject[4];
     public Sprite[] CharImage = new Sprite[4];
 
-    Save_Charater_Data Save;
-    Save_Charater_Class.SD[] NewCharacters = new Save_Charater_Class.SD[4];
+    Save_Charater_Data SaveData;
+    Save.Player[] NewCharacters = new Save.Player[4];
     int SelectNum;
     bool bSelect;
 
@@ -38,7 +38,7 @@ public class TownManager : MonoBehaviour
 
         BackGround.SetActive(false);
         SkillPannel.SetActive(false);
-        Save = GameManager.instance.GetComponent<Save_Charater_Data>();
+        SaveData = GameManager.instance.GetComponent<Save_Charater_Data>();
 
         SetCharData();
 
@@ -49,38 +49,38 @@ public class TownManager : MonoBehaviour
         for(int i = 0; i < 4; i++)
         {
             e_Class newClass = e_Class.worrier;
-            Save_Charater_Class.Class_Status newStatus = Save_Charater_Class.Worrier;
+            Save.St_Stat newStatus = Save.Worrier;
             int rnd = Random.Range(0,4);
             
             switch (rnd)
             {
                 case 0:
                 newClass = e_Class.worrier;
-                newStatus = Save_Charater_Class.Worrier;
+                newStatus = Save.Worrier;
                 Characters[i].GetComponent<Image>().sprite = CharImage[rnd];
                 break;
 
                 case 1:
                 newClass = e_Class.magicion;
-                newStatus = Save_Charater_Class.Magicion;
+                newStatus = Save.Magicion;
                 Characters[i].GetComponent<Image>().sprite = CharImage[rnd];
                 break;
                 
                 case 2:
                 newClass = e_Class.supporter;
-                newStatus = Save_Charater_Class.Supporter;
+                newStatus = Save.Supporter;
                 Characters[i].GetComponent<Image>().sprite = CharImage[rnd];
                 break;
                 
                 case 3:
                 newClass = e_Class.assassin;
-                newStatus = Save_Charater_Class.Assassin;
+                newStatus = Save.Assassin;
                 Characters[i].GetComponent<Image>().sprite = CharImage[rnd];
                 break;                
             }
-            NewCharacters[i] = new Save_Charater_Class.SD(newStatus,newClass);
+            NewCharacters[i] = new Save.Player(newStatus,newClass);
             var charName = Characters[i].transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-            charName.text = "[" + NewCharacters[i].c_Name + "]";
+            charName.text = "[" + NewCharacters[i].name + "]";
         }
     }
 
@@ -108,8 +108,8 @@ public class TownManager : MonoBehaviour
         SkillPannel.SetActive(true);
 
         SkillText[0].GetComponent<TextMeshProUGUI>().text = "Nomal";
-        SkillText[1].GetComponent<TextMeshProUGUI>().text = "Sk_"+ NewCharacters[n].skill[0];
-        SkillText[2].GetComponent<TextMeshProUGUI>().text = "Sk_"+ NewCharacters[n].skill[1];
+        SkillText[1].GetComponent<TextMeshProUGUI>().text = "Sk_"+ NewCharacters[n].SkillNum[1];
+        SkillText[2].GetComponent<TextMeshProUGUI>().text = "Sk_"+ NewCharacters[n].SkillNum[2];
         SkillText[3].GetComponent<TextMeshProUGUI>().text = "Ulti";
         
 
@@ -119,9 +119,9 @@ public class TownManager : MonoBehaviour
 
     public void ClickRecruit()
     {
-       if(3 > Save.S_Character.Count && bSelect == true)
+       if(3 > SaveData.MyParty.Count && bSelect == true)
        {
-            Save.S_Character.Add(NewCharacters[SelectNum]);
+            SaveData.MyParty.Add(NewCharacters[SelectNum]);
             Characters[SelectNum].SetActive(false);
             bSelect = false;
             SkillPannel.SetActive(false);

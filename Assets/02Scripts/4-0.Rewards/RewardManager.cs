@@ -129,27 +129,27 @@ public class RewardManager : MonoBehaviour
     void SetRewardPannel()
     {
         // 경험치 획득
-        Save_Charater_Data Save = GameManager.instance.GetComponent<Save_Charater_Data>();
+        Save_Charater_Data SaveData = Save_Charater_Data.instance;
         int gainExp = 150;
 
         for(int i = 0; i < 3; i++)
         {
-            if(i >= Save.S_Character.Count)
+            if(i >= SaveData.MyParty.Count)
             {
                 PlayerObj[i].SetActive(false);
             }                
         }
-        for(int i = 0; i < Save.S_Character.Count; i++)
+        for(int i = 0; i < SaveData.MyParty.Count; i++)
         {
-            if(Save.S_Character[i].bAlive == true)
+            if(SaveData.MyParty[i].bAlive == true)
             {                
-                int curExp = Save.S_Character[i].exp;
-                int maxExp = 100 + (Save.S_Character[i].Level* 50);
-                char_Name[i].text = Save.S_Character[i].c_Name;
+                int curExp = SaveData.MyParty[i].exp;
+                int maxExp = 100 + (SaveData.MyParty[i].Level* 50);
+                char_Name[i].text = SaveData.MyParty[i].name;
                 
-                Save.S_Character[i].SetEXp(gainExp);
-                int _max = Save.S_Character[i].Level * 50 +100;
-                int _cur = Save.S_Character[i].exp;
+                SaveData.MyParty[i].SetEXp(gainExp);
+                int _max = SaveData.MyParty[i].Level * 50 +100;
+                int _cur = SaveData.MyParty[i].exp;
                 StartCoroutine(FillExp(0, gainExp, _max, _cur, i));
             }            
         }

@@ -8,7 +8,7 @@ using TMPro;
 
 public enum e_Class {adventurer, worrier, magicion, supporter, assassin, bandit, witch, crystal, barlog};
 
-public class Save_Charater_Class : MonoBehaviour
+public class Save_Charater_Class1 : MonoBehaviour
 {
     [System.Serializable]
     public struct Class_Status

@@ -25,7 +25,7 @@ public class Save : MonoBehaviour
         public int Resist;
 
         public St_Stat(int _Damage, float _Armor, int _Speed, int _Dodge, int _Critical, double _MaxHp, int _Resist)
-        {
+        {            
             Damage = _Damage;
             Armor = _Armor;
             Speed = _Speed;
@@ -49,22 +49,23 @@ public class Save : MonoBehaviour
         public int mana;
         public int MaxMana;
         public bool bAlive;
+        public int turn = 0;
 
         // 레벨
         public int exp;
         public int Level;
 
         // 데미지 폰트
-        public TextMeshPro font;
+        public TextMeshProUGUI font;
         public Vector2 spwLoc;
 
         // 상태이상
-        int burnCount = 0;
-        int stunCount = 0;
-        int bleedCount = 0;
-        int corrotionCount = 0;
-        int frostCount = 0;
-        int rapidCount = 0;
+        public int burnCount = 0;
+        public int stunCount = 0;
+        public int bleedCount = 0;
+        public int corrotionCount = 0;
+        public int frostCount = 0;
+        public int rapidCount = 0;
 
         // 스킬
         public int[] SkillNum = new int[4];
@@ -104,8 +105,9 @@ public class Save : MonoBehaviour
             Role = _role;
             curHp = status.MaxHp;
             bAlive = true;
-            Level = 0;            
-            SetSkill();
+            Level = 0; 
+            MaxMana = 10;
+            Mana = 3;
         }
 
         public virtual void SetSkill()
@@ -126,37 +128,42 @@ public class Save : MonoBehaviour
             if(bAlive == false)
                 return;
 
+            double Damage = RealDamage(OtherStat, curStat);
+
+            // 체력 감소
+            Hp -= Damage;
+            Mana++;             
+        }
+        public double RealDamage(St_Stat OtherStat, St_Stat curStat)
+        {
             St_Stat myStat = curStat;
 
             //크리 계산
             int CriRate = OtherStat.Critical - myStat.Dodge;
             int rnd = UnityEngine.Random.Range(1,101);
 
-            int Damage;
+            double Damage;
             // 크리
             if(CriRate > 0 && CriRate > rnd)
             {
-                Damage = (int)(OtherStat.Damage * 2 * (1-myStat.Armor));
-                Printing_Damage(Color.red, ""+Damage, 2.1f);
+                Damage = OtherStat.Damage * 2 * (1-myStat.Armor);
+                Printing_Damage(Color.red, ""+(int)Damage, 2.1f);
             }
             // 회피 
             else if(CriRate < 0 && (CriRate * -1) > rnd)
             {
                 Damage = (int)(OtherStat.Damage / 2 * (1-myStat.Armor));
-                Printing_Damage(Color.gray, ""+Damage, 2.1f);
+                Printing_Damage(Color.gray, ""+(int)Damage, 2.1f);
             }
             // 기본
             else
             {
                 Damage = (int)(OtherStat.Damage * (1-myStat.Armor));
-                Printing_Damage(Color.black, ""+Damage, 2.1f);
+                Printing_Damage(Color.black, ""+(int)Damage, 2.1f);
             }
-
-
-            // 체력 감소
-            Hp -= Damage;
-            Mana++;             
+            return Damage;
         }
+
         public virtual void TakeDamage(int Damage, string type)
         {
             Hp -= Damage;
@@ -178,13 +185,13 @@ public class Save : MonoBehaviour
             if(CriRate > 0 && CriRate > rnd)
             {
                 _Heal = (int)(OtherStat.Damage * 2);
-                Printing_Damage(Color.green, ""+_Heal, 2.1f);
+                Printing_Damage(Color.green, ""+(int)_Heal, 2.1f);
             }
             // 기본
             else
             {
                 _Heal = (int)(OtherStat.Damage);
-                Printing_Damage(Color.yellow, ""+_Heal, 2.1f);
+                Printing_Damage(Color.yellow, ""+(int)_Heal, 2.1f);
             }
 
 
@@ -204,13 +211,13 @@ public class Save : MonoBehaviour
                 resultMana = 0;
             getMana =  resultMana - Mana;
 
-            Printing_Damage(Color.blue,""+getMana, 2.1f);
+            Printing_Damage(Color.blue,""+(int)getMana, 2.1f);
             Mana += getMana;
         }
 
         
 
-        public void Dead()
+        public virtual void Dead()
         {
             this.bAlive = false;
             Debug.Log(name + " : 사망 ");
@@ -248,10 +255,14 @@ public class Save : MonoBehaviour
             status.MaxHp += 8;
             status.Speed += 1;
             Hp += 8;
+            if(status.Armor > 0.9f)
+                status.Armor = 0.9f;
         }
 
         public virtual void StartTurn(List<Character> MyGrup)
         {
+            if(stunCount == 0)
+                turn++;
             if(burnCount > 0)
             {
                 foreach (var Char in MyGrup)
@@ -269,6 +280,15 @@ public class Save : MonoBehaviour
                 TakeDamage(Dmg, "출혈");
                 bleedCount--;
             }
+            
+        } 
+
+        public virtual void EndTurn()
+        {            
+            if(stunCount > 0)
+            {
+                stunCount--;
+            }
             if(corrotionCount > 0)
             {
                 corrotionCount--;
@@ -282,21 +302,13 @@ public class Save : MonoBehaviour
                 rapidCount--;
             }
         } 
-
-        public virtual void EndTurn()
-        {            
-            if(stunCount > 0)
-            {
-                stunCount--;
-            }
-        } 
     }
 
     [System.Serializable]
     public class Player : Character
     {
-        Player() {}
-        Player(St_Stat stat,  e_Class _role) : base(stat, _role)
+        public Player() {}
+        public Player(St_Stat stat,  e_Class _role) : base(stat, _role)
         {
             SetSkill();
             SetSkillClass();
@@ -304,14 +316,17 @@ public class Save : MonoBehaviour
 
         public override void SetSkill()
         {
+            
             base.SetSkill();
 
-            int[] arr = new int[4];
+            int[] arr = new int[4] {1,2,3,4};
             System.Random rnd = new System.Random();
             arr = arr.OrderBy(x => rnd.Next()).ToArray();
 
             SkillNum[1] = arr[1];
             SkillNum[2] = arr[2];
+            Debug.Log("1 : " +arr[1]);
+            Debug.Log("2 : " +arr[2]);
         }
         public override void SetSkillClass()
         {
@@ -345,11 +360,197 @@ public class Save : MonoBehaviour
         }
     }
 
+    [System.Serializable]
+    public class Enemy : Character
+    {
+       
+        public Enemy() {}
+        public Enemy(St_Stat stat,  e_Class _role) : base(stat, _role)
+        {
+            SetSkill();
+            SetSkillClass();
+        }
+
+        public override void SetSkill()
+        {
+            SkillNum[0] = 0;
+        }
+        public override void SetSkillClass()
+        {
+            MySkill[0] = new BossSkillScripts(0);
+        }
+
+        public override void StartTurn(List<Character> MyGrup)
+        {
+            base.StartTurn(MyGrup);
+            // 텔런트 적용
+        }
+
+        public virtual int Enemy_SetTarget(List<Player> characters)
+        {
+            // 타겟 설정
+            int target;
+            int rnd = UnityEngine.Random.Range(1, 11);
+            if (rnd >= 5) target = 0;
+            else if (rnd >= 3) target = 1;
+            else target = 2;
+
+            Debug.Log("target : " + target);
+            // 공격
+            if (target >= characters.Count || characters[target].bAlive == false)
+            {
+                target = (target + 1) % 3;
+                if (target >= characters.Count || characters[target].bAlive == false)
+                {
+                    target = (target + 1) % 3;
+                }
+            }
+            return target;
+        }
+        
+        public virtual int SelectSkill()
+        {
+            // MySkill[0].UseSkill(Casters, caster, Status, Targets, target);
+            return 0;
+        }
+
+    }
+
+    [System.Serializable]
+    public class Barlog : Enemy
+    {
+        public GameObject BressObj;
+        double bressHp;
+        public double BressHp
+        {
+            get{return bressHp;}
+            set{
+                bressHp = value;
+                if(bressHp < 0)
+                    bressHp = 0;
+            }
+        }
+        public Barlog() : base(Barlog_Stat, e_Class.barlog)
+        {            
+            SetSkillClass();
+        }
+
+        public override void TakeDamage(Character Other, St_Stat OtherStat, St_Stat curStat)
+        {
+            base.TakeDamage(Other, OtherStat, curStat);
+            BressHp -= RealDamage(OtherStat, curStat);
+        }
+
+        public override void SetSkillClass()
+        {
+            MySkill[0] = new BossSkillScripts(0);
+            MySkill[1] = new BossSkillScripts(8);
+            MySkill[2] = new BossSkillScripts(9);
+            MySkill[3] = new BossSkillScripts(10);
+        }
+        
+        public override int SelectSkill()
+        {         
+            int skillNum = 0;
+            if(turn % 5 == 3)
+            {
+                BressHp = 40;
+                BressObj.SetActive(true);
+                skillNum = 2;
+            }
+            else if(turn % 5 == 0)
+            {
+                Debug.Log("turn % 5 : " +(turn % 5));
+                BressObj.SetActive(false);
+                skillNum = 3;
+            }
+            else
+            {
+                skillNum = UnityEngine.Random.Range(0,2);                
+            }
+            return skillNum;
+        }
+
+    }
+
+    [System.Serializable]
+    public class Witch : Enemy
+    {
+        public bool pase = false;
+
+        public Witch() : base(Witch_Stat, e_Class.witch)
+        {            
+            MaxMana = 150;
+            pase =false;
+            SetSkillClass();
+        }
+
+        public override void SetSkillClass()
+        {
+           MySkill[1] = new BossSkillScripts(6);
+           MySkill[2] = new BossSkillScripts(7);
+        }
+        
+        public override int SelectSkill()
+        {
+            // if ((int)(Enemy[n].c_Class) != 8)
+            // {
+            //     // 발록이 아님
+            //     switch (n)
+            //     {   
+            //         case 0:
+            //             if (BattleInfo.TurnCounts != 3)
+            //                 skillIdx = 1;
+            //             else
+            //                 skillIdx = 2;
+            //             break;
+
+            //         case 1:
+            //             if (BattleInfo.TurnCounts != 7)
+            //                 skillIdx = 1;
+            //             else
+            //                 skillIdx = 2;
+            //             break;
+
+            //         case 2:
+            //             int rnd = UnityEngine.Random.Range(1, 4);
+            //             skillIdx = rnd;
+            //             break;
+            //     }
+
+            // }
+            int skillNum = 0;
+            if(turn == 7)
+            {
+                skillNum = 2;
+            }
+            else
+            {
+                skillNum = 1;                  
+            }
+            return skillNum;
+        }
+
+        public override void Dead()
+        {
+            base.Dead();
+            pase = true;
+        }
+
+    }
+
     public static St_Stat Adventure = new St_Stat(7, 0.2f, 3, 30, 50, 30, 0);
     public static St_Stat Worrier = new St_Stat(10,0.5f,5,40,70,40, 30);
     public static St_Stat Magicion = new St_Stat(14,0.1f,2,30,70,25, 0);    
     public static St_Stat Supporter = new St_Stat(5,0.3f,1,30,50,30, 30);
     public static St_Stat Assassin = new St_Stat(7,0.2f,7,70,100,27, 10); 
+
+    public static St_Stat Bandit = new St_Stat(10,0.2f,5,40,30,30,0);
+    public static St_Stat Witch_Stat = new St_Stat(0,0.2f,3,30,0,100,30);
+    public static St_Stat Crystal_Stat = new St_Stat(10,0,0,30,50,50,100);
+    public static St_Stat Barlog_Stat = new St_Stat(30,0.4f,10,100,100,0,40);
+
+
 }
 
 

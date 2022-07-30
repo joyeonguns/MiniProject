@@ -14,7 +14,7 @@ public class map_Ui_Manager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {                
-        SaveData sb = GameObject.Find("GameManager").GetComponent<SaveData>(); 
+        //SaveData sb = GameObject.Find("GameManager").GetComponent<SaveData>(); 
 
         GetComponent<MapDrowing>().MapDrow();
         Map_IMG.rectTransform.anchoredPosition += GameManager.instance.floor * new Vector2(0,-200);

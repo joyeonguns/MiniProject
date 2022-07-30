@@ -30,11 +30,11 @@ public class CampManager : MonoBehaviour
     int GetMp;
     int GetExp;
 
-    Save_Charater_Data S_Data; 
+    Save_Charater_Data SaveData; 
     void Start() 
     {
         BackGround.GetComponent<Image>().material.SetFloat("_Size",0);
-        S_Data = GameManager.instance.GetComponent<Save_Charater_Data>();
+        SaveData = Save_Charater_Data.instance;
 
         // 선택지 패널
         SelectPannel.SetActive(true);
@@ -52,7 +52,7 @@ public class CampManager : MonoBehaviour
 
         // 결과
         ResultPannel.SetActive(false);
-        Char_Count = S_Data.S_Character.Count;
+        Char_Count = SaveData.MyParty.Count;
         for(int i = 0; i < 3; i++)
         {
             if(i >= Char_Count) Character[i].SetActive(false);
@@ -64,7 +64,7 @@ public class CampManager : MonoBehaviour
     bool CheckingHp()
     {
         bool Check = true;
-        foreach(var Char in S_Data.S_Character)
+        foreach(var Char in SaveData.MyParty)
         {
             if(Char.Hp < 2) Check = false;
         }
@@ -79,18 +79,18 @@ public class CampManager : MonoBehaviour
             for(int i = 0; i < Char_Count; i++)
             {
 
-                int curHp = S_Data.S_Character[i].Hp;
-                int maxHp = S_Data.S_Character[i].status.s_MaxHp;
+                double curHp = SaveData.MyParty[i].Hp;
+                double maxHp = SaveData.MyParty[i].status.MaxHp;
 
-                int curExp = S_Data.S_Character[i].exp;
-                int maxExp = S_Data.S_Character[i].Level*50 + 100;
+                int curExp = SaveData.MyParty[i].exp;
+                int maxExp = SaveData.MyParty[i].Level*50 + 100;
 
-                int curMana = S_Data.S_Character[i].Mana;
+                int curMana = SaveData.MyParty[i].Mana;
 
 
-                S_Data.S_Character[i].Hp += GetHp[i];
-                S_Data.S_Character[i].Mana += GetMp;
-                S_Data.S_Character[i].SetEXp(GetExp);
+                SaveData.MyParty[i].Hp += GetHp[i];
+                SaveData.MyParty[i].Mana += GetMp;
+                SaveData.MyParty[i].SetEXp(GetExp);
 
                 int sign = 1;
                 string str_sign = "+";
@@ -110,14 +110,14 @@ public class CampManager : MonoBehaviour
         }
     }
     
-    IEnumerator FillAmount_Hp(int idx, int _get, int Gets, int cur, int _max, int sign)
+    IEnumerator FillAmount_Hp(int idx, int _get, int Gets, double cur, double _max, int sign)
     {
         Debug.Log("_get : "+ _get);
 
         _get++;
         cur += sign;        
 
-        Hp[idx].fillAmount = (float)cur / (float)_max;
+        Hp[idx].fillAmount = (float)(cur / _max);
 
         yield return new WaitForSeconds(0.3f);
         if(_get < Gets)  
@@ -168,7 +168,7 @@ public class CampManager : MonoBehaviour
         GetMp = 1;
         for (int i = 0; i < Char_Count; i++)
         {
-            GetHp[i] = (int)((float)S_Data.S_Character[i].Hp * 0.25f);
+            GetHp[i] = (int)((float)SaveData.MyParty[i].Hp * 0.25f);
         }
 
         SelectPannel.SetActive(false);
@@ -184,7 +184,7 @@ public class CampManager : MonoBehaviour
         GetMp = 3;
         for (int i = 0; i < Char_Count; i++)
         {
-            GetHp[i] = (int)((float)S_Data.S_Character[i].Hp * 0.5f);
+            GetHp[i] = (int)((float)SaveData.MyParty[i].Hp * 0.5f);
         }
 
         SelectPannel.SetActive(false);
@@ -207,7 +207,7 @@ public class CampManager : MonoBehaviour
         GetExp = 200;;
         for (int i = 0; i < Char_Count; i++)
         {
-            GetHp[i] = (-1)*(int)((float)S_Data.S_Character[i].Hp * 0.3f);
+            GetHp[i] = (-1)*(int)((float)SaveData.MyParty[i].Hp * 0.3f);
         }
 
         SelectPannel.SetActive(false);

@@ -13,14 +13,14 @@ public class Skills
     public bool bBuff = false;
     // 스킬 할당
     // 기본 공격
-    public void nomalAttack(List<Save_Charater_Class.SD> Caster, int CasterIdx, Save_Charater_Class.Class_Status status, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
+    public void nomalAttack(List<Save.Character> Caster, int CasterIdx, Save.St_Stat Mystatus, List<Save.Character> Enemy, int EnemyIdx, Save.St_Stat Targetstatus)
     {
         //GameManager.instance.Hit(Caster,CasterIdx,Enemy,EnemyIdx);
-        Debug.Log(Caster[CasterIdx].c_Name + " : 기본 공격!");
-        Enemy[EnemyIdx].TakeDamage(Caster[CasterIdx], status);
+        Debug.Log(Caster[CasterIdx].name + " : 기본 공격!");
+        Enemy[EnemyIdx].TakeDamage(Caster[CasterIdx], Mystatus, Targetstatus);
         Caster[CasterIdx].Mana += 1;
     }
-    public Action<List<Save_Charater_Class.SD>, int, Save_Charater_Class.Class_Status , List<Save_Charater_Class.SD>, int> UseSkill;
+    public Action<List<Save.Character>, int, Save.St_Stat , List<Save.Character>, int, Save.St_Stat> UseSkill;
 }
 
 public class Worrier_Skill : Skills
@@ -60,52 +60,53 @@ public class Worrier_Skill : Skills
         }
     } 
 
-    void skill_0(List<Save_Charater_Class.SD> Caster, int CasterIdx,Save_Charater_Class.Class_Status status, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
+    void skill_0(List<Save.Character> Caster, int CasterIdx,Save.St_Stat status, List<Save.Character> Enemy,int EnemyIdx, Save.St_Stat Targetstatus)
     {
-        Debug.Log(Caster[CasterIdx].c_Name + " : " + "Smash");
+        Debug.Log(Caster[CasterIdx].name + " : " + "Smash");
         // 마나 소모
         Caster[CasterIdx].Mana -= 2;
 
         // 스텟 가져옴
-        Save_Charater_Class.Class_Status curStatus = status;
+        Save.St_Stat curStatus = status;
         // 스킬 특성
-        curStatus.s_Damage *= 1.7f;
-        Enemy[EnemyIdx].TakeDamage(Caster[CasterIdx],curStatus);
+        curStatus.Damage *= 1.7f;
+        Enemy[EnemyIdx].TakeDamage(Caster[CasterIdx],curStatus,Targetstatus);
 
     }
-    void skill_1(List<Save_Charater_Class.SD> Caster, int CasterIdx,Save_Charater_Class.Class_Status status, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
+    void skill_1(List<Save.Character> Caster, int CasterIdx,Save.St_Stat status, List<Save.Character> Enemy, int EnemyIdx, Save.St_Stat Targetstatus)
     {
-        Debug.Log(Caster[CasterIdx].c_Name + " : " + "pierce");
+        Debug.Log(Caster[CasterIdx].name + " : " + "pierce");
         // 마나 소모
         Caster[CasterIdx].Mana -= 2;
 
         // 스텟 가져옴
-        Save_Charater_Class.Class_Status curStatus = status;
+        Save.St_Stat curStatus = status;
         // 스킬 특성
-        curStatus.s_Critical += 1000;
-        Enemy[EnemyIdx].TakeDamage(Caster[CasterIdx],curStatus);
+        curStatus.Critical += 1000;
+        Enemy[EnemyIdx].TakeDamage(Caster[CasterIdx],curStatus,Targetstatus);
+        Enemy[EnemyIdx].stunCount = 3;
     }
-    void skill_2(List<Save_Charater_Class.SD> Caster, int CasterIdx, Save_Charater_Class.Class_Status status, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
+    void skill_2(List<Save.Character> Caster, int CasterIdx, Save.St_Stat status, List<Save.Character> Enemy, int EnemyIdx, Save.St_Stat Targetstatus)
     {
-        Debug.Log(Caster[CasterIdx].c_Name + " : " + "aurora force");
+        Debug.Log(Caster[CasterIdx].name + " : " + "aurora force");
         // 마나 소모
         Caster[CasterIdx].Mana -= 4;
 
         // 스텟 가져옴
-        Save_Charater_Class.Class_Status curStatus = status;
+        Save.St_Stat curStatus = status;
         // 스킬 특성
-        curStatus.s_Damage *= 1.5f;
+        curStatus.Damage *= 1.5f;
         foreach(var enemy in Enemy)
-            enemy.TakeDamage(Caster[CasterIdx],curStatus);
+            enemy.TakeDamage(Caster[CasterIdx],curStatus,Targetstatus);
     }
-    void skill_3(List<Save_Charater_Class.SD> Caster, int CasterIdx, Save_Charater_Class.Class_Status status, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
+    void skill_3(List<Save.Character> Caster, int CasterIdx, Save.St_Stat status, List<Save.Character> Enemy, int EnemyIdx, Save.St_Stat Targetstatus)
     {
         Debug.Log("Tetkai");
         // 마나 소모
         Caster[CasterIdx].Mana -= 3;
 
         // 스텟 가져옴
-        Save_Charater_Class.Class_Status curStatus = status;
+        Save.St_Stat curStatus = status;
 
         // 스킬 특성        
         foreach(var character in Caster)
@@ -113,16 +114,16 @@ public class Worrier_Skill : Skills
 
     }
     
-    void Ulti(List<Save_Charater_Class.SD> Caster, int CasterIdx, Save_Charater_Class.Class_Status status, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
+    void Ulti(List<Save.Character> Caster, int CasterIdx, Save.St_Stat status, List<Save.Character> Enemy, int EnemyIdx, Save.St_Stat Targetstatus)
     {
         Debug.Log("Ulti");
         Caster[CasterIdx].Mana -= 10;
 
         // 스텟 가져옴
-        Save_Charater_Class.Class_Status curStatus = status;
-        curStatus.s_Damage *= 2; 
-        curStatus.s_Critical *= 2;
+        Save.St_Stat curStatus = status;
+        curStatus.Damage *= 2; 
+        curStatus.Critical *= 2;
         foreach(var enemy in Enemy)
-            enemy.TakeDamage(Caster[CasterIdx],curStatus);
+            enemy.TakeDamage(Caster[CasterIdx],curStatus,Targetstatus);
     }
 }

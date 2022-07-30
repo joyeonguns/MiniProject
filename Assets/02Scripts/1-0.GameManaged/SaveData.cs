@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class SaveData : MonoBehaviour
+public class SaveData2 : MonoBehaviour
 {
     public List<List<MapClass>> maps;
     public int col, row, floor;

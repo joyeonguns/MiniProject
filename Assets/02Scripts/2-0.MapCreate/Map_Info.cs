@@ -18,7 +18,7 @@ public class Map_Info : MonoBehaviour
     public bool bCheckedTarget_0;
     public bool bCheckedTarget_1;
     
-    Save_Charater_Data Save;
+    Save_Charater_Data SaveData;
     public int p_Count;
 
     // 스텟 패널
@@ -45,6 +45,7 @@ public class Map_Info : MonoBehaviour
     bool bOpenInfo = false;
     bool bOpenTellent = false;    
     
+    
 
     void Start() 
     {
@@ -55,8 +56,8 @@ public class Map_Info : MonoBehaviour
     void SetStartSetting()
     {
         Debug.Log("SetStartSetting");
-        Save = GameManager.instance.GetComponent<Save_Charater_Data>();
-        p_Count = Save.S_Character.Count;
+        SaveData = Save_Charater_Data.instance;
+        p_Count = SaveData.MyParty.Count;
 
         bCheckedTarget_0 = false;
         bCheckedTarget_1 = false;
@@ -69,15 +70,15 @@ public class Map_Info : MonoBehaviour
     void SetCharImage()
     {
         Debug.Log("SetCharImage");
-        Save = GameManager.instance.GetComponent<Save_Charater_Data>();   
-        p_Count = Save.S_Character.Count;
+        SaveData = Save_Charater_Data.instance;
+        p_Count = SaveData.MyParty.Count;
         for(int i = 0; i < 3; i++)
         {
             if(i < p_Count)
             {
-                Char_Name[i].text = Save.S_Character[i].c_Name;
+                Char_Name[i].text = SaveData.MyParty[i].name;
                 
-                switch (Save.S_Character[i].c_Class)
+                switch (SaveData.MyParty[i].Role)
                 {
                     case e_Class.worrier :
                         Char_Image[i].sprite = CharacterImage[0];
@@ -97,7 +98,7 @@ public class Map_Info : MonoBehaviour
             else
             {
                 CharacterBtn[i].gameObject.SetActive(false);
-                Debug.Log("p_Count : " + Save.S_Character.Count);
+                Debug.Log("p_Count : " + SaveData.MyParty.Count);
                 Debug.Log("i : " + i);
             }
         }
@@ -105,27 +106,27 @@ public class Map_Info : MonoBehaviour
 
     void SetStatus_Text(int n)
     {
-        Save = GameManager.instance.GetComponent<Save_Charater_Data>();
-        stat_Name.text = "" + Save.S_Character[n].c_Name;
+        SaveData = Save_Charater_Data.instance;
+        stat_Name.text = "" + SaveData.MyParty[n].name;
         stat_Comments.text = 
-        Save.S_Character[n].Level + "\n" +
-        "(" + Save.S_Character[n].exp + " / " + (Save.S_Character[n].Level * 50  + 100) + ")" + "\n" +
+        SaveData.MyParty[n].Level + "\n" +
+        "(" + SaveData.MyParty[n].exp + " / " + (SaveData.MyParty[n].Level * 50  + 100) + ")" + "\n" +
         "\n" +
-        Enum.GetName(typeof(e_Class),Save.S_Character[n].c_Class)  + "\n" +
+        Enum.GetName(typeof(e_Class),SaveData.MyParty[n].Role)  + "\n" +
         "\n" +
-        Save.S_Character[n].CurHp + " / " + Save.S_Character[n].status.s_MaxHp + "\n" +
+        SaveData.MyParty[n].Hp + " / " + SaveData.MyParty[n].status.MaxHp + "\n" +
         "\n" +
-        Save.S_Character[n].Mana +" / " + "10" + "\n" +
+        SaveData.MyParty[n].Mana +" / " + "10" + "\n" +
         "\n" +
-        Save.S_Character[n].status.s_Damage + "\n" +
+        SaveData.MyParty[n].status.Damage + "\n" +
         "\n" +
-        Save.S_Character[n].status.s_Armor * 100 + " %"+ "\n" +
+        SaveData.MyParty[n].status.Armor * 100 + " %"+ "\n" +
         "\n" +
-        Save.S_Character[n].status.s_Critical + " %"+ "\n" +
+        SaveData.MyParty[n].status.Critical + " %"+ "\n" +
         "\n" +
-        Save.S_Character[n].status.s_Dodge + " %" + "\n" +
+        SaveData.MyParty[n].status.Dodge + " %" + "\n" +
         "\n" +
-        Save.S_Character[n].status.s_Speed + "\n" +
+        SaveData.MyParty[n].status.Speed + "\n" +
         "\n";
     }
 
@@ -144,8 +145,8 @@ public class Map_Info : MonoBehaviour
         {
             sk.SetActive(true);
             TextMeshProUGUI sk_Text = sk.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-            Save.S_Character[n].SetSkillClass();
-            sk_Text.text = "" + Save.S_Character[n].MySkill[i].skillName;
+            SaveData.MyParty[n].SetSkillClass();
+            sk_Text.text = "" + SaveData.MyParty[n].MySkill[i].skillName;
             i++;
         }
         
@@ -195,9 +196,9 @@ public class Map_Info : MonoBehaviour
                 return;
             }
 
-            Save_Charater_Class.SD temp = Save.S_Character[Target_0];
-            Save.S_Character[Target_0] = Save.S_Character[Target_1];
-            Save.S_Character[Target_1] = temp;
+            Save.Player temp = SaveData.MyParty[Target_0];
+            SaveData.MyParty[Target_0] = SaveData.MyParty[Target_1];
+            SaveData.MyParty[Target_1] = temp;
             bCheckedTarget_0 = false;
 
             SetCharImage();
