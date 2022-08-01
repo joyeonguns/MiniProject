@@ -251,7 +251,15 @@ public class RewardManager : MonoBehaviour
     {
         _itemCode = 2;
         bCheckedItem = true;
-        GameManager.instance.ItemList_num.Add(2);
+        for (int i = 0; i < 3; i++)
+        {
+            if(GameManager.instance.ItemList_num[i] != 0)
+            {
+                GameManager.instance.ItemList_num[i] = 2;
+                break;
+            }
+        }
+        
         HUDManager.instance.SetBoom();
     }
 

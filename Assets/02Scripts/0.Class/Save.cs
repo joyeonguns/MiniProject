@@ -5,6 +5,8 @@ using System;
 using System.Linq;
 using TMPro;
 
+public enum BuffEnum {Burn, Bleeding, Stun, Corrotion, EnHanceCount, Frost, Rapid, Regen}
+
 public class Save : MonoBehaviour
 {
     [System.Serializable]
@@ -43,7 +45,7 @@ public class Save : MonoBehaviour
         // 캐릭터 정보
         public string name;
         public e_Class Role;
-        public St_Stat basestatus;
+        public St_Stat Battlestatus;
         public St_Stat status;
         public double curHp;
         public int mana;
@@ -64,8 +66,10 @@ public class Save : MonoBehaviour
         public int stunCount = 0;
         public int bleedCount = 0;
         public int corrotionCount = 0;
+        public int enHanceCount = 0;
         public int frostCount = 0;
         public int rapidCount = 0;
+        public int regenCount = 0;
 
         // 스킬
         public int[] SkillNum = new int[4];
@@ -101,7 +105,7 @@ public class Save : MonoBehaviour
         {
             name = Enum.GetName(typeof(e_Class), _role)+"_0";
             status = stat;
-            basestatus = stat;
+            Battlestatus = stat;
             Role = _role;
             curHp = status.MaxHp;
             bAlive = true;
@@ -123,42 +127,40 @@ public class Save : MonoBehaviour
             
         }
 
-        public virtual void TakeDamage(Character Other, St_Stat OtherStat, St_Stat curStat)
+        public virtual void TakeDamage(Character Other)
         {
             if(bAlive == false)
                 return;
 
-            double Damage = RealDamage(OtherStat, curStat);
+            double Damage = RealDamage(Other);
 
             // 체력 감소
             Hp -= Damage;
             Mana++;             
         }
-        public double RealDamage(St_Stat OtherStat, St_Stat curStat)
+        public double RealDamage(Character Other)
         {
-            St_Stat myStat = curStat;
-
             //크리 계산
-            int CriRate = OtherStat.Critical - myStat.Dodge;
+            int CriRate = Other.Battlestatus.Critical - Battlestatus.Dodge;
             int rnd = UnityEngine.Random.Range(1,101);
 
             double Damage;
             // 크리
             if(CriRate > 0 && CriRate > rnd)
             {
-                Damage = OtherStat.Damage * 2 * (1-myStat.Armor);
+                Damage = Other.Battlestatus.Damage * 2 * (1-Battlestatus.Armor);
                 Printing_Damage(Color.red, ""+(int)Damage, 2.1f);
             }
             // 회피 
             else if(CriRate < 0 && (CriRate * -1) > rnd)
             {
-                Damage = (int)(OtherStat.Damage / 2 * (1-myStat.Armor));
+                Damage = (int)(Other.Battlestatus.Damage / 2 * (1-Battlestatus.Armor));
                 Printing_Damage(Color.gray, ""+(int)Damage, 2.1f);
             }
             // 기본
             else
             {
-                Damage = (int)(OtherStat.Damage * (1-myStat.Armor));
+                Damage = (int)(Other.Battlestatus.Damage * (1-Battlestatus.Armor));
                 Printing_Damage(Color.black, ""+(int)Damage, 2.1f);
             }
             return Damage;
@@ -171,7 +173,7 @@ public class Save : MonoBehaviour
         }
 
         // 힐
-        public void TakeHeal(Character Other, St_Stat OtherStat)
+        public void TakeHeal(double getHill)
         {
             if(bAlive == false)
                 return;
@@ -184,13 +186,13 @@ public class Save : MonoBehaviour
             // 크리
             if(CriRate > 0 && CriRate > rnd)
             {
-                _Heal = (int)(OtherStat.Damage * 2);
+                _Heal = (int)(getHill * 2);
                 Printing_Damage(Color.green, ""+(int)_Heal, 2.1f);
             }
             // 기본
             else
             {
-                _Heal = (int)(OtherStat.Damage);
+                _Heal = (int)(getHill);
                 Printing_Damage(Color.yellow, ""+(int)_Heal, 2.1f);
             }
 
@@ -261,6 +263,7 @@ public class Save : MonoBehaviour
 
         public virtual void StartTurn(List<Character> MyGrup)
         {
+            Battlestatus = status;
             if(stunCount == 0)
                 turn++;
             if(burnCount > 0)
@@ -271,20 +274,48 @@ public class Save : MonoBehaviour
                     if(Dmg < 1) Dmg = 1;
                     Char.TakeDamage(Dmg, "화상");
                 }
-                burnCount--;
             }
             if(bleedCount > 0)
             {
                 int Dmg = (int)(status.MaxHp * 0.1f);
                 if(Dmg < 1) Dmg = 1;
                 TakeDamage(Dmg, "출혈");
-                bleedCount--;
             }
+            if(regenCount > 0)
+            {                
+                TakeHeal(5);
+            }
+            if(corrotionCount > 0)
+            {
+                Battlestatus.Armor /= 2;
+            }
+            if(frostCount > 0)
+            {
+                Battlestatus.Speed += 2;
+            }
+            if(rapidCount > 0)
+            {
+                Battlestatus.Speed -= 2;
+            }
+            if(enHanceCount > 0)
+            {
+                Battlestatus.Damage *= 1.3f;
+            }
+
+            // 특성 적용
             
         } 
 
         public virtual void EndTurn()
-        {            
+        {       
+            if(bleedCount > 0)
+            {
+                bleedCount--;
+            }
+            if(burnCount > 0)
+            {
+                burnCount--;
+            }     
             if(stunCount > 0)
             {
                 stunCount--;
@@ -300,6 +331,14 @@ public class Save : MonoBehaviour
             if(rapidCount > 0)
             {
                 rapidCount--;
+            }
+            if(enHanceCount > 0)
+            {
+                enHanceCount--;
+            }
+            if(regenCount > 0)
+            {                
+                regenCount--;
             }
         } 
     }
@@ -435,10 +474,10 @@ public class Save : MonoBehaviour
             SetSkillClass();
         }
 
-        public override void TakeDamage(Character Other, St_Stat OtherStat, St_Stat curStat)
+        public override void TakeDamage(Character Other)
         {
-            base.TakeDamage(Other, OtherStat, curStat);
-            BressHp -= RealDamage(OtherStat, curStat);
+            base.TakeDamage(Other);
+            BressHp -= RealDamage(Other);
         }
 
         public override void SetSkillClass()
@@ -549,6 +588,12 @@ public class Save : MonoBehaviour
     public static St_Stat Witch_Stat = new St_Stat(0,0.2f,3,30,0,100,30);
     public static St_Stat Crystal_Stat = new St_Stat(10,0,0,30,50,50,100);
     public static St_Stat Barlog_Stat = new St_Stat(30,0.4f,10,100,100,0,40);
+
+
+    
+
+
+
 
 
 }

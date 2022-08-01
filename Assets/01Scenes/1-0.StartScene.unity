@@ -1952,10 +1952,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2af19d0c287cf44a96fa31dd2fa3004, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  col: 0
-  row: 0
-  floor: 0
-  mapName: 
 --- !u!4 &1382951162
 Transform:
   m_ObjectHideFlags: 0
@@ -1992,10 +1988,8 @@ MonoBehaviour:
   GetAfterTellents_num: 
   BBTellent_num: 
   ABTelent_num: 
-  ItemList_num: 
-  gold: 0
   curGold: 3000
-  ItemRate: 0
+  ItemList_num: 000000000000000000000000
 --- !u!114 &1382951164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2008,7 +2002,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72e61f1d21f25c94f92cbdec828f1298, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  S_Character: []
+  MyParty: []
   c_Num: 0
 --- !u!1 &1663216489
 GameObject:

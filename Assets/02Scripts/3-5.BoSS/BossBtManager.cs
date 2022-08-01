@@ -17,10 +17,10 @@ public class BossBtManager : MonoBehaviour
 
     // 캐릭터 적 클래스
     [SerializeField] List<Save.Character> Character = new List<Save.Character>();
-    public List<Save.St_Stat> Ch_Status; 
-    public Save.St_Stat volaStatus;
+    //public List<Save.St_Stat> Ch_Status; 
+    //public Save.St_Stat volaStatus;
     [SerializeField] List<Save.Character> Enemy = new List<Save.Character>();
-    public List<Save.St_Stat> En_Status; 
+    //public List<Save.St_Stat> En_Status; 
 
     // 아군 필드
     // 아군 선택 필드
@@ -103,7 +103,10 @@ public class BossBtManager : MonoBehaviour
         SetEnemy();
         SetCharacter();
         SetStartUI();
+
         AttackObj.SetActive(false);
+        HUDManager.instance.players = Character.Cast<Save.Player>().ToList();
+        HUDManager.instance.Enemys = Enemy.Cast<Save.Enemy>().ToList();
     }
 
 
@@ -153,12 +156,6 @@ public class BossBtManager : MonoBehaviour
             Enemy[2].MySkill[3] = new BossSkillScripts(3);
         }       
 
-        foreach(var e in Enemy)
-        {
-            Save.St_Stat stat = new Save.St_Stat();
-            stat = e.status;
-            En_Status.Add(stat);
-        }
         
     }
     // 아군 저장
@@ -172,8 +169,6 @@ public class BossBtManager : MonoBehaviour
             Character[i].font = Damage;
             Character[i].spwLoc = CharacterField[i].GetComponent<RectTransform>().anchoredPosition + new Vector2(50,300);
            
-            Save.St_Stat stat = Character[i].status;
-            Ch_Status.Add(stat);
 
             CharacterImages[i].sprite = CharacterSprite[(int)Character[i].Role];
         }
@@ -227,7 +222,7 @@ public class BossBtManager : MonoBehaviour
         //GameManager.instance.SetTellent();
         foreach(var tel in GameManager.instance.BBTellent)
         {
-            tel.TellentApply(Character.Cast<Save.Character>().ToList(),0, Ch_Status, volaStatus, Enemy.Cast<Save.Character>().ToList(),target);
+            //tel.TellentApply(Character.Cast<Save.Character>().ToList(),0, Ch_Status, volaStatus, Enemy.Cast<Save.Character>().ToList(),target);
         }
 
     }
@@ -239,7 +234,7 @@ public class BossBtManager : MonoBehaviour
         //GameManager.instance.SetTellent();
         foreach(var tel in GameManager.instance.ABTelent)
         {
-            volaStatus = tel.TellentApply(Character.Cast<Save.Character>().ToList(),0, Ch_Status, volaStatus, Enemy.Cast<Save.Character>().ToList(),target);
+            //volaStatus = tel.TellentApply(Character.Cast<Save.Character>().ToList(),0, Ch_Status, volaStatus, Enemy.Cast<Save.Character>().ToList(),target);
         }
 
     }
@@ -250,7 +245,7 @@ public class BossBtManager : MonoBehaviour
         foreach (var tel in GameManager.instance.BeforTellents)
         {
             Debug.Log("tellents name : " + tel.Tel_Name);
-            volaStatus = tel.TellentApply(Character.Cast<Save.Character>().ToList(), Attacker, Ch_Status, volaStatus, Enemy.Cast<Save.Character>().ToList(), target);
+            //volaStatus = tel.TellentApply(Character.Cast<Save.Character>().ToList(), Attacker, Ch_Status, volaStatus, Enemy.Cast<Save.Character>().ToList(), target);
         }
     }
 
@@ -263,8 +258,8 @@ public class BossBtManager : MonoBehaviour
             if(Character[i].bAlive == true)
             {
                 int rnd1 = UnityEngine.Random.Range(1,7);
-                Save.St_Stat CurStatus = Ch_Status[i];
-                L_BattleSpeed.Add(Tuple.Create(CurStatus.Speed + rnd1, i, 0));
+                int rndSpeed = Character[i].Battlestatus.Speed;
+                L_BattleSpeed.Add(Tuple.Create(rndSpeed + rnd1, i, 0));
             }            
         }
         for(int i = 0; i < Enemy.Count; i++)
@@ -272,17 +267,14 @@ public class BossBtManager : MonoBehaviour
             if(Enemy[i].bAlive == true)
             {
                 int rnd2 = UnityEngine.Random.Range(1,7);
-                Save.St_Stat CurStatus = En_Status[i];
-                L_BattleSpeed.Add(Tuple.Create(CurStatus.Speed + rnd2, i, 1));
-                Debug.Log("e speed : " + CurStatus.Speed);
-            }
-            
+                int rndSpeed = Enemy[i].Battlestatus.Speed;
+                L_BattleSpeed.Add(Tuple.Create(rndSpeed + rnd2, i, 1));
+            }            
         }         
 
         List<Tuple<int,int,int>> sortList = L_BattleSpeed.OrderByDescending(x => x.Item1).ToList();
         L_BattleSpeed = sortList.ToList();
     }
-
    
     void SetSkillPannel(bool check, int n)
     {
@@ -341,7 +333,7 @@ public class BossBtManager : MonoBehaviour
         target = ((Save.Enemy)Enemy[n]).Enemy_SetTarget(players);
         
         
-        Enemy[n].MySkill[skillNum].UseSkill(Enemy.Cast<Save.Character>().ToList(), n, Enemy[n].status, Character.Cast<Save.Character>().ToList(), target, Character[target].status);
+        Enemy[n].MySkill[skillNum].UseSkill(Enemy.Cast<Save.Character>().ToList(), n, Character.Cast<Save.Character>().ToList(), target);
         // 공격 씬 출력
         SpwAttackAnim(Enemy[Attacker].MySkill[skillNum], false, Enemy[Attacker].MySkill[skillNum].bmultiTarget, Enemy[Attacker].MySkill[skillNum].bBuff);
                     
@@ -360,6 +352,7 @@ public class BossBtManager : MonoBehaviour
 
         Enemy.RemoveAll(x => true);
         Enemy.Add(Barlog);
+        HUDManager.instance.Enemys = Enemy.Cast<Save.Enemy>().ToList();
 
         EnemyField[1].SetActive(false);
         EnemyField[2].SetActive(false);
@@ -378,7 +371,6 @@ public class BossBtManager : MonoBehaviour
         // 550 150
 
         L_BattleSpeed.RemoveAll(x => true);
-        En_Status[0] = Barlog.status;
 
         
         battleState = BattleState.InBattle_SetTurn;
@@ -387,15 +379,15 @@ public class BossBtManager : MonoBehaviour
         BattleInfo.TurnCounts = 0;
     }
 
-    void SetAttackerStatus(int n, Save.St_Stat volaStat)
+    void SetAttackerStatus(int n)
     {
         // 공격자 스텟
         AttStatus.text =
         "Name : " + Character[n].name + ""+n + "\n" +
-        "Damage : " + volaStat.Damage + "\n" +
-        "Armor : " + volaStat.Armor + "\n" +
-        "Critical : " + volaStat.Critical + "\n" +
-        "Dodge : " + volaStat.Dodge + "\n" +
+        "Damage : " + Character[n].Battlestatus.Damage + "\n" +
+        "Armor : " + Character[n].Battlestatus.Armor + "\n" +
+        "Critical : " + Character[n].Battlestatus.Critical + "\n" +
+        "Dodge : " + Character[n].Battlestatus.Dodge + "\n" +
         "Hp : " + Character[n].Hp;
     }
     void SetTargetStatus(int n)
@@ -403,10 +395,10 @@ public class BossBtManager : MonoBehaviour
         // 타겟 스텟
         TargetStatus.text =
         "Name : " + Enemy[n].name + ""+n+ "\n" +
-        "Damage : " + Enemy[n].status.Damage + "\n" +
-        "Armor : " + Enemy[n].status.Armor + "\n" +
-        "Critical : " + Enemy[n].status.Critical + "\n" +
-        "Dodge : " + Enemy[n].status.Dodge + "\n" +
+        "Damage : " + Enemy[n].Battlestatus.Damage + "\n" +
+        "Armor : " + Enemy[n].Battlestatus.Armor + "\n" +
+        "Critical : " + Enemy[n].Battlestatus.Critical + "\n" +
+        "Dodge : " + Enemy[n].Battlestatus.Dodge + "\n" +
         "Hp : " + Enemy[n].Hp;
     }
     
@@ -531,14 +523,12 @@ public class BossBtManager : MonoBehaviour
                 // 생존 + 스턴 X
                 if (Character[Attacker].bAlive == true && Character[Attacker].stunCount == 0)
                 {
-                    // 특성 적용
-                    volaStatus = Ch_Status[Attacker];
                     Apply_BTTellent();
                     
                     // 스킬 패널 on / 이미지 설정
                     SetSkillPannel(true, Attacker);
                     // 공격자 스텟 표시
-                    SetAttackerStatus(Attacker, volaStatus);
+                    SetAttackerStatus(Attacker);
 
                     battleState = BattleState.InBattle_Battle_Waiting;
                 }
@@ -560,7 +550,7 @@ public class BossBtManager : MonoBehaviour
                 
                 // 공격
                 Character[Attacker].SetSkillClass();               
-                Character[Attacker].MySkill[selecSkill].UseSkill(Character,Attacker, volaStatus, Enemy, target, Enemy[target].status);
+                Character[Attacker].MySkill[selecSkill].UseSkill(Character,Attacker, Enemy, target);
                 
                 SpwAttackAnim(Character[Attacker].MySkill[selecSkill], true, Character[Attacker].MySkill[selecSkill].bmultiTarget, Character[Attacker].MySkill[selecSkill].bBuff);
                
@@ -588,8 +578,6 @@ public class BossBtManager : MonoBehaviour
                 bCheckSkill = false;
                 bChecktarget = false;                
                 SetSkillPannel(false,Attacker);
-                // 휘발성 스텟 초기화
-                volaStatus = new Save.St_Stat();
 
                 // 페이즈 변경
                 if (Enemy.Count > 1 && Enemy[1].Role == e_Class.witch && ((Save.Witch)Enemy[1]).pase == true)

@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
     // 골드
     public int curGold = 10000;
     // 아이템
-    public List<int> ItemList_num;
+    public int[] ItemList_num = {0,0,0};
     
     // 싱글턴 인스턴스
     private void Awake() 
@@ -79,6 +79,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        ItemList_num[0] = 1;
+        ItemList_num[1] = 2;
         // TellentSeed 설정
         for(int i = 0; i < 4; i++)
         {
