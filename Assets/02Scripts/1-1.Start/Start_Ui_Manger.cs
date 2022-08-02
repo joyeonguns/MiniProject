@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
+using System.Linq;
 
 public class Start_Ui_Manger : MonoBehaviour
 {
@@ -15,6 +17,12 @@ public class Start_Ui_Manger : MonoBehaviour
 
         // 씬 로드
         SceneManager.LoadScene("1-2.MapScene");        
+
+
+        for(int i = 0; i < Save_Charater_Data.instance.MyParty.Count; i++)
+        {
+            Save_Charater_Data.instance.MyParty[i].ApplyGetTellent((Save_Charater_Data.instance.MyParty).Cast<Save.Character>().ToList(), i, Save_Charater_Data.instance.MyParty.Cast<Save.Character>().ToList(), 0);
+        }
     }
 
     public void ExitBtn()

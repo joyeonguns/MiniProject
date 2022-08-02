@@ -212,64 +212,7 @@ public class Map_Info : MonoBehaviour
 
     void SetTellentBtn()
     {
-        telnum = 0;
-        float x = -400, y = 35; 
-        foreach(int btt in GameManager.instance.BeforTellents_num)
-        {
-            telnum++;
-            if(telnum == 5)
-            {
-                x = -400;
-                y = -35;
-            }
-            var spwTel = Instantiate(TellentPrefabs);
-            spwTel.transform.SetParent(SpwArea.transform);
-            spwTel.GetComponent<RectTransform>().anchoredPosition = new Vector2(x,y);
-            x += 200;
-            spwTel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "BTT " +btt;
-        }
-        foreach(var bbt in GameManager.instance.BBTellent_num)
-        {
-            telnum++;
-            if(telnum == 5)
-            {
-                x = -400;
-                y = -35;
-            }
-            var spwTel = Instantiate(TellentPrefabs);
-            spwTel.transform.SetParent(SpwArea.transform);
-            spwTel.GetComponent<RectTransform>().anchoredPosition = new Vector2(x,y);
-            x += 200;
-            spwTel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "BBT " + bbt;
-        }
-        foreach(var gat in GameManager.instance.GetAfterTellents_num)
-        {
-            telnum++;
-            if(telnum == 5)
-            {
-                x = -400;
-                y = -35;
-            }
-            var spwTel = Instantiate(TellentPrefabs);
-            spwTel.transform.SetParent(SpwArea.transform);
-            spwTel.GetComponent<RectTransform>().anchoredPosition = new Vector2(x,y);
-            x += 200;
-            spwTel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "GAT " + gat; 
-        }
-        foreach(var abt in GameManager.instance.ABTelent_num)
-        {
-            telnum++;
-            if(telnum == 5)
-            {
-                x = -400;
-                y = -35;
-            }
-            var spwTel = Instantiate(TellentPrefabs);
-            spwTel.transform.SetParent(SpwArea.transform);
-            spwTel.GetComponent<RectTransform>().anchoredPosition = new Vector2(x,y);
-            x += 200;
-            spwTel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "ABT " + abt; 
-        }
+        telnum = 0;       
         
     }
 

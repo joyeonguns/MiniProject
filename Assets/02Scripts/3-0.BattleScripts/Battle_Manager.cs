@@ -196,42 +196,7 @@ public class Battle_Manager : MonoBehaviour
         }
         
         
-    }
-
-    // 전투시작 특성
-    void BBSetTellent()
-    {
-        //Debug.Log("set Tellent");
-        //GameManager.instance.SetTellent();
-        foreach(var tel in GameManager.instance.BBTellent)
-        {
-            //tel.TellentApply(Character.Cast<Save.Character>().ToList(),0, Ch_Status, volaStatus, Enemy.Cast<Save.Character>().ToList(),target);
-        }
-
-    }
-
-    // 전투종료 특성
-    void ABSetTellent()
-    {
-        //Debug.Log("set Tellent");
-        //GameManager.instance.SetTellent();
-        foreach(var tel in GameManager.instance.ABTelent)
-        {
-            //volaStatus = tel.TellentApply(Character.Cast<Save.Character>().ToList(),0, Ch_Status, volaStatus, Enemy.Cast<Save.Character>().ToList(),target);
-        }
-
-    }
-
-    // 전투 중 특성
-    void Apply_BTTellent()
-    {
-        foreach (var tel in GameManager.instance.BeforTellents)
-        {
-            //Debug.Log("tellents name : " + tel.Tel_Name);
-            //volaStatus = tel.TellentApply(Character.Cast<Save.Character>().ToList(), Attacker, Ch_Status, volaStatus, Enemy.Cast<Save.Character>().ToList(), target);
-        }
-    }
-    
+    }    
 
     // 속도 설정
     // 속도에 따른 전투순서
@@ -288,9 +253,7 @@ public class Battle_Manager : MonoBehaviour
                     SkillButton[i].GetComponent<Button>().interactable = true;
                 }
             }
-        }
-        
-               
+        }          
     }
 
     void EnemyTurn(int n)
@@ -365,8 +328,7 @@ public class Battle_Manager : MonoBehaviour
                 battleState = BattleState.InBattle_Tellent;
                 break;
             // 2-1. 전투 전 특성 처리
-            case BattleState.InBattle_Tellent :
-                BBSetTellent();      
+            case BattleState.InBattle_Tellent :      
                 battleState = BattleState.InBattle_SetTurn;
                 break;
 
@@ -399,7 +361,7 @@ public class Battle_Manager : MonoBehaviour
                     {
                         AttackerHilight("Enemy", Attacker, true);
                         SetTargetStatus(Attacker);
-                        Enemy[Attacker].StartTurn(Enemy.Cast<Save.Character>().ToList());
+                        Enemy[Attacker].StartTurn(Enemy.Cast<Save.Character>().ToList(), Attacker, Character.Cast<Save.Character>().ToList(), 0);
 
                         StartCoroutine(WaitAnimate(BattleState.InBattle_Battle_Enemy));
                         battleState = BattleState.InBattle_Battle_Animate;
@@ -417,7 +379,7 @@ public class Battle_Manager : MonoBehaviour
                     
                     // 공격자 하이라이트
                     AttackerHilight("Character", Attacker, true);
-                    Character[Attacker].StartTurn(Character.Cast<Save.Character>().ToList());
+                    Character[Attacker].StartTurn(Character.Cast<Save.Character>().ToList(), Attacker, Enemy.Cast<Save.Character>().ToList(), 0);
                     
                     StartCoroutine(WaitAnimate(BattleState.InBattle_Battle_My1));
                     battleState = BattleState.InBattle_Battle_Animate;
@@ -536,7 +498,8 @@ public class Battle_Manager : MonoBehaviour
                  GameManager.instance.ResultData.Gold = BattleInfo.Golds;
                  GameManager.instance.ResultData.ItemRate = BattleInfo.ItemRate;
                  GameManager.instance.ResultData.Exp = BattleInfo.Exp;
-                 ABSetTellent();
+
+                 BettleEndTellent();
 
                  SceneManager.LoadScene("2-4.GiftScene");
                  battleState = BattleState.waiting;
@@ -732,6 +695,20 @@ public class Battle_Manager : MonoBehaviour
             }
         }
     }
+
+    public void BettleEndTellent()
+    {
+        foreach (var tel in GameManager.instance.Tellents_B)
+        {
+            if(tel.type == Etel_type.End)
+            {
+                tel.TellentApply(Character.Cast<Save.Character>().ToList(), 0, Enemy.Cast<Save.Character>().ToList(), 0);
+            }
+        }
+    }
+
+
+
 
 
     public void InputTargetBTN(int n)

@@ -36,6 +36,15 @@ public class Save : MonoBehaviour
             MaxHp = _MaxHp;  
             Resist = _Resist;
         }
+        public void AllStatBuff(float buff)
+        {
+            float f = 1+buff;
+            Damage *= f;
+            Armor *= (1+buff/2);
+            Speed = (int)(Speed * f);
+            Dodge = (int)(Dodge * f);
+            Critical = (int)(Critical * f);
+        }
     }  
 
     [System.Serializable]
@@ -52,6 +61,9 @@ public class Save : MonoBehaviour
         public int MaxMana;
         public bool bAlive;
         public int turn = 0;
+        public bool Main;
+        public bool pierce;
+
 
         // 레벨
         public int exp;
@@ -112,6 +124,8 @@ public class Save : MonoBehaviour
             Level = 0; 
             MaxMana = 10;
             Mana = 3;
+            Main = false;
+            pierce = false;
         }
 
         public virtual void SetSkill()
@@ -261,7 +275,7 @@ public class Save : MonoBehaviour
                 status.Armor = 0.9f;
         }
 
-        public virtual void StartTurn(List<Character> MyGrup)
+        public virtual void StartTurn(List<Character> MyGrup, int idx, List<Character> Enemy, int EnemyIdx)
         {
             Battlestatus = status;
             if(stunCount == 0)
@@ -345,10 +359,11 @@ public class Save : MonoBehaviour
 
     [System.Serializable]
     public class Player : Character
-    {
+    {        
         public Player() {}
         public Player(St_Stat stat,  e_Class _role) : base(stat, _role)
         {
+            
             SetSkill();
             SetSkillClass();
         }
@@ -364,8 +379,6 @@ public class Save : MonoBehaviour
 
             SkillNum[1] = arr[1];
             SkillNum[2] = arr[2];
-            Debug.Log("1 : " +arr[1]);
-            Debug.Log("2 : " +arr[2]);
         }
         public override void SetSkillClass()
         {
@@ -391,11 +404,70 @@ public class Save : MonoBehaviour
                 break;
             }
         }
-
-        public override void StartTurn(List<Character> MyGrup)
+        public void ApplyGetTellent(List<Character> MyGrup, int idx, List<Character> Enemy, int EnemyIdx)
         {
-            base.StartTurn(MyGrup);
+            foreach (var tel in GameManager.instance.Tellents_C)
+            {
+                if (tel.type == Etel_type.Get)
+                {
+                    tel.TellentApply(MyGrup.Cast<Save.Character>().ToList(), idx, Enemy.Cast<Save.Character>().ToList(), 0);
+                }
+            }
+            foreach (var tel in GameManager.instance.Tellents_B)
+            {
+                if (tel.type == Etel_type.Get)
+                {
+                    tel.TellentApply(MyGrup.Cast<Save.Character>().ToList(), idx, Enemy.Cast<Save.Character>().ToList(), 0);
+                }
+            }
+            foreach (var tel in GameManager.instance.Tellents_A)
+            {
+                if (tel.type == Etel_type.Get)
+                {
+                    tel.TellentApply(MyGrup.Cast<Save.Character>().ToList(), idx, Enemy.Cast<Save.Character>().ToList(), 0);
+                }
+            }
+            foreach (var tel in GameManager.instance.Tellents_S)
+            {
+                if (tel.type == Etel_type.Get)
+                {
+                    tel.TellentApply(MyGrup.Cast<Save.Character>().ToList(), idx, Enemy.Cast<Save.Character>().ToList(), 0);
+                }
+            }
+        }
+
+        public override void StartTurn(List<Character> MyGrup, int idx, List<Character> Enemy, int EnemyIdx)
+        {
+            base.StartTurn(MyGrup, idx, Enemy, EnemyIdx);
             // 텔런트 적용
+            foreach (var tel in GameManager.instance.Tellents_C)
+            {
+                if (tel.type == Etel_type.Battle)
+                {
+                    tel.TellentApply(MyGrup.Cast<Save.Character>().ToList(), idx, Enemy.Cast<Save.Character>().ToList(), 0);
+                }
+            }
+            foreach (var tel in GameManager.instance.Tellents_B)
+            {
+                if (tel.type == Etel_type.Battle)
+                {
+                    tel.TellentApply(MyGrup.Cast<Save.Character>().ToList(), idx, Enemy.Cast<Save.Character>().ToList(), 0);
+                }
+            }
+            foreach (var tel in GameManager.instance.Tellents_A)
+            {
+                if (tel.type == Etel_type.Battle)
+                {
+                    tel.TellentApply(MyGrup.Cast<Save.Character>().ToList(), idx, Enemy.Cast<Save.Character>().ToList(), 0);
+                }
+            }
+            foreach (var tel in GameManager.instance.Tellents_S)
+            {
+                if (tel.type == Etel_type.Battle)
+                {
+                    tel.TellentApply(MyGrup.Cast<Save.Character>().ToList(), idx, Enemy.Cast<Save.Character>().ToList(), 0);
+                }
+            }
         }
     }
 
@@ -419,9 +491,9 @@ public class Save : MonoBehaviour
             MySkill[0] = new BossSkillScripts(0);
         }
 
-        public override void StartTurn(List<Character> MyGrup)
+        public override void StartTurn(List<Character> MyGrup, int idx, List<Character> Enemy, int EnemyIdx)
         {
-            base.StartTurn(MyGrup);
+            base.StartTurn(MyGrup, idx, Enemy, EnemyIdx);
             // 텔런트 적용
         }
 

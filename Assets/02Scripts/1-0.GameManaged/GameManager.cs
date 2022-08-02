@@ -38,27 +38,10 @@ public class GameManager : MonoBehaviour
     public int BattleType = 1; 
 
     // 특성 리스트
-    // BeforTellents
-    public List<TellentsScripts> BeforTellents = new List<TellentsScripts>();
-    public List<int> BeforTellents_num;
-
-    // GetAfter
-    public List<TellentsScripts> GetAfterTellents = new List<TellentsScripts>();
-    public List<int> GetAfterTellents_num;
-
-    // BBTellent
-    public List<TellentsScripts> BBTellent = new List<TellentsScripts>();
-    public List<int> BBTellent_num;
-
-    // ABTelent
-    public List<TellentsScripts> ABTelent = new List<TellentsScripts>();
-    public List<int> ABTelent_num;
-
-
-    public List<TellentsScripts> TellentSeed = new List<TellentsScripts>();
-
-    
-
+    public List<TellentsScripts> Tellents_C = new List<TellentsScripts>();
+    public List<TellentsScripts> Tellents_B = new List<TellentsScripts>();
+    public List<TellentsScripts> Tellents_A = new List<TellentsScripts>();
+    public List<TellentsScripts> Tellents_S = new List<TellentsScripts>();
 
     // 보상
     public ResultClass ResultData = new ResultClass();
@@ -81,47 +64,13 @@ public class GameManager : MonoBehaviour
     {
         ItemList_num[0] = 1;
         ItemList_num[1] = 2;
+
         // TellentSeed 설정
-        for(int i = 0; i < 4; i++)
-        {
-            TellentSeed.Add(new TellentsScripts(Etel_type.AfterBattle,i));
-            TellentSeed.Add(new TellentsScripts(Etel_type.beforBattle,i));
-            TellentSeed.Add(new TellentsScripts(Etel_type.beforeTurn,i));
-            TellentSeed.Add(new TellentsScripts(Etel_type.getAfter,i));
-        }
-        System.Random rnd = new System.Random();
-
-        TellentSeed = TellentSeed.OrderBy(item => rnd.Next()).ToList<TellentsScripts>();
-
-
-        // 특성계수 할당
-        for(int i = 0; i < 4; i++)
-        {
-            Etel_type teltype = TellentSeed[0].type;
-            switch (teltype)
-            {
-                case Etel_type.AfterBattle : 
-                ABTelent.Add(TellentSeed[0]);
-                ABTelent_num.Add(TellentSeed[0].tel_num);
-                break;
-
-                case Etel_type.beforBattle : 
-                BBTellent.Add(TellentSeed[0]);
-                BBTellent_num.Add(TellentSeed[0].tel_num);
-                break;
-
-                case Etel_type.beforeTurn : 
-                BeforTellents.Add(TellentSeed[0]);
-                BeforTellents_num.Add(TellentSeed[0].tel_num);
-                break;
-
-                case Etel_type.getAfter : 
-                GetAfterTellents.Add(TellentSeed[0]);
-                GetAfterTellents_num.Add(TellentSeed[0].tel_num);
-                break;
-            }
-            TellentSeed.RemoveAt(0);
-        }       
+        Tellents_C.Add(new TellentsScripts(Etel_Rank.C,1));
+        Tellents_C.Add(new TellentsScripts(Etel_Rank.C,10));
+        Tellents_B.Add(new TellentsScripts(Etel_Rank.B,14));
+        Tellents_A.Add(new TellentsScripts(Etel_Rank.A,1));
+     
     }    
     
     // Update is called once per frame
@@ -133,15 +82,7 @@ public class GameManager : MonoBehaviour
     // 특성계수에 따른 할당 
     public void SetTellent()
     {
-        if(BeforTellents.Count != 0) BeforTellents.Clear();
-        if(BBTellent.Count != 0) BBTellent.Clear();
-        if(ABTelent.Count != 0) ABTelent.Clear();
-        for(int i = 0; i < 4; i++)
-        {
-            BeforTellents.Add(new TellentsScripts(Etel_type.beforeTurn,i));
-            //BBTellent.Add(new TellentsScripts(Etel_type.beforBattle,i));
-            //ABTelent.Add(new TellentsScripts(Etel_type.AfterBattle,i));
-        }        
+            
     }
 
     // 맵 정보

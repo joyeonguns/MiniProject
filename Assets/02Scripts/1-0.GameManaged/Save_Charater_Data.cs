@@ -53,6 +53,7 @@ public class Save_Charater_Data : MonoBehaviour
             for(int i = 0; i < level; i++ ){
                 MyParty[c_Num].LevelUp();
             }   
+            MyParty[c_Num].Main = true;
             c_Num++;             
         }
     }

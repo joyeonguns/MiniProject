@@ -87,18 +87,18 @@ public class RewardManager : MonoBehaviour
         System.Random rnd = new System.Random();
         arr = arr.OrderBy(x => rnd.Next()).ToArray();
         
-        tellentArray[0] = GameManager.instance.TellentSeed[0];
-        tellentArray[1] = GameManager.instance.TellentSeed[1];
-        tellentArray[2] = GameManager.instance.TellentSeed[2];
+        // tellentArray[0] = GameManager.instance.TellentSeed[0];
+        // tellentArray[1] = GameManager.instance.TellentSeed[1];
+        // tellentArray[2] = GameManager.instance.TellentSeed[2];
 
-        for(int i = 0; i < 3; i++)
-        {
-            Debug.Log(i + "_name : " + tellentArray[i].Tel_Name);
-            TextMeshProUGUI _Name = Tellents[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-            _Name.text = tellentArray[i].Tel_Name;
-            TextMeshProUGUI _Comments = Tellents[i].transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-            _Comments.text = tellentArray[i].Comments;
-        }
+        // for(int i = 0; i < 3; i++)
+        // {
+        //     Debug.Log(i + "_name : " + tellentArray[i].Tel_Name);
+        //     TextMeshProUGUI _Name = Tellents[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        //     _Name.text = tellentArray[i].Tel_Name;
+        //     TextMeshProUGUI _Comments = Tellents[i].transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        //     _Comments.text = tellentArray[i].Comments;
+        // }
 
     }
 
@@ -156,39 +156,39 @@ public class RewardManager : MonoBehaviour
 
 
         // 텍스트 출력
-        resultGold.text = ""+takeGold;
-        resultTellent.text = ""+  tellentArray[SelectTellentsCode].Tel_Name;
-        foreach(var exp in GainExp)
-        {
-            exp.text = "+"+gainExp;
-        }
+        // resultGold.text = ""+takeGold;
+        // resultTellent.text = ""+  tellentArray[SelectTellentsCode].Tel_Name;
+        // foreach(var exp in GainExp)
+        // {
+        //     exp.text = "+"+gainExp;
+        // }
 
-        Etel_type teltype = tellentArray[SelectTellentsCode].type;
-        switch (teltype)
-        {
-            case Etel_type.AfterBattle:
-                GameManager.instance.ABTelent.Add(tellentArray[SelectTellentsCode]);
-                GameManager.instance.ABTelent_num.Add(tellentArray[SelectTellentsCode].tel_num);
-                break;
+        // Etel_type teltype = tellentArray[SelectTellentsCode].type;
+        // switch (teltype)
+        // {
+        //     case Etel_type.AfterBattle:
+        //         GameManager.instance.ABTelent.Add(tellentArray[SelectTellentsCode]);
+        //         GameManager.instance.ABTelent_num.Add(tellentArray[SelectTellentsCode].tel_num);
+        //         break;
 
-            case Etel_type.beforBattle:
-                GameManager.instance.BBTellent.Add(tellentArray[SelectTellentsCode]);
-                GameManager.instance.BBTellent_num.Add(tellentArray[SelectTellentsCode].tel_num);
-                break;
+        //     case Etel_type.beforBattle:
+        //         GameManager.instance.BBTellent.Add(tellentArray[SelectTellentsCode]);
+        //         GameManager.instance.BBTellent_num.Add(tellentArray[SelectTellentsCode].tel_num);
+        //         break;
 
-            case Etel_type.beforeTurn:
-                GameManager.instance.BeforTellents.Add(tellentArray[SelectTellentsCode]);
-                GameManager.instance.BeforTellents_num.Add(tellentArray[SelectTellentsCode].tel_num);
-                break;
+        //     case Etel_type.beforeTurn:
+        //         GameManager.instance.BeforTellents.Add(tellentArray[SelectTellentsCode]);
+        //         GameManager.instance.BeforTellents_num.Add(tellentArray[SelectTellentsCode].tel_num);
+        //         break;
 
-            case Etel_type.getAfter:
-                GameManager.instance.GetAfterTellents.Add(tellentArray[SelectTellentsCode]);
-                GameManager.instance.GetAfterTellents_num.Add(tellentArray[SelectTellentsCode].tel_num);
-                break;
-        }
+        //     case Etel_type.getAfter:
+        //         GameManager.instance.GetAfterTellents.Add(tellentArray[SelectTellentsCode]);
+        //         GameManager.instance.GetAfterTellents_num.Add(tellentArray[SelectTellentsCode].tel_num);
+        //         break;
+        // }
 
-        HUDManager.instance.SetTellentTxt();
-        GameManager.instance.TellentSeed.RemoveAt(SelectTellentsCode);
+        // HUDManager.instance.SetTellentTxt();
+        // GameManager.instance.TellentSeed.RemoveAt(SelectTellentsCode);
 
         
     }

@@ -78,8 +78,8 @@ public class HUDManager : MonoBehaviour
 
     public void SetTellentTxt()
     {
-        int num = GameManager.instance.BBTellent_num.Count + GameManager.instance.BeforTellents_num.Count + GameManager.instance.GetAfterTellents.Count + GameManager.instance.ABTelent_num.Count;
-        
+        int num = GameManager.instance.Tellents_C.Count + GameManager.instance.Tellents_B.Count + GameManager.instance.Tellents_A.Count + GameManager.instance.Tellents_S.Count;
+
         TellentText.text = ""+num; 
     }
 
