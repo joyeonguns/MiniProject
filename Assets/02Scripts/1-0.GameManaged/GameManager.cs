@@ -38,10 +38,11 @@ public class GameManager : MonoBehaviour
     public int BattleType = 1; 
 
     // 특성 리스트
-    public List<TellentsScripts> Tellents_C = new List<TellentsScripts>();
-    public List<TellentsScripts> Tellents_B = new List<TellentsScripts>();
-    public List<TellentsScripts> Tellents_A = new List<TellentsScripts>();
-    public List<TellentsScripts> Tellents_S = new List<TellentsScripts>();
+    public List<List<TellentsScripts>> Tellents = new List<List<TellentsScripts>>();
+    // public List<TellentsScripts> Tellents_C = new List<TellentsScripts>();
+    // public List<TellentsScripts> Tellents_B = new List<TellentsScripts>();
+    // public List<TellentsScripts> Tellents_A = new List<TellentsScripts>();
+    // public List<TellentsScripts> Tellents_S = new List<TellentsScripts>();
 
     // 보상
     public ResultClass ResultData = new ResultClass();
@@ -66,10 +67,21 @@ public class GameManager : MonoBehaviour
         ItemList_num[1] = 2;
 
         // TellentSeed 설정
-        Tellents_C.Add(new TellentsScripts(Etel_Rank.C,1));
-        Tellents_C.Add(new TellentsScripts(Etel_Rank.C,10));
-        Tellents_B.Add(new TellentsScripts(Etel_Rank.B,14));
-        Tellents_A.Add(new TellentsScripts(Etel_Rank.A,1));
+
+        Tellents.Add(new List<TellentsScripts>());
+        Tellents.Add(new List<TellentsScripts>());
+        Tellents.Add(new List<TellentsScripts>());
+        Tellents.Add(new List<TellentsScripts>());
+
+        Tellents[0].Add(new TellentsScripts(Etel_Rank.C,1));
+        Tellents[0].Add(new TellentsScripts(Etel_Rank.C,10));
+        Tellents[1].Add(new TellentsScripts(Etel_Rank.B,14));
+        Tellents[2].Add(new TellentsScripts(Etel_Rank.A,1));
+
+        // Tellents_C.Add(new TellentsScripts(Etel_Rank.C,1));
+        // Tellents_C.Add(new TellentsScripts(Etel_Rank.C,10));
+        // Tellents_B.Add(new TellentsScripts(Etel_Rank.B,14));
+        // Tellents_A.Add(new TellentsScripts(Etel_Rank.A,1));
      
     }    
     
@@ -77,12 +89,10 @@ public class GameManager : MonoBehaviour
     void Update()
     {
 
-    }
-
-    // 특성계수에 따른 할당 
-    public void SetTellent()
+    }    
+    public void SetTellent(TellentsScripts newTellent)
     {
-            
+       Tellents[(int)newTellent.Rank].Add(newTellent);
     }
 
     // 맵 정보

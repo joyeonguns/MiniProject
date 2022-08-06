@@ -64,7 +64,7 @@ public class TellentsScripts
     public Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>[] Rank_S = new Tuple<string,Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>[]
     {
         new Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>("Berserker",Berserker, Etel_type.Battle),
-        new Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>("AccelationGrowth",AccelationGrowth, Etel_type.Battle)
+        new Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>("KeepGrowth",KeepGrowth, Etel_type.Battle)
     };
     
 
@@ -351,7 +351,7 @@ public class TellentsScripts
             Caster[CasterIdx].Battlestatus.Critical *= 2;
         }
     }
-    static void AccelationGrowth(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    static void KeepGrowth(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
     {
         Debug.Log("AccelationGrowth");
         if(Caster[CasterIdx].Main == true)

@@ -348,6 +348,7 @@ public class Battle_Manager : MonoBehaviour
                 SetAttackOrder();
                 Attacker = L_BattleSpeed[0].Item2;
 
+                Debug.Log("Speed : " + L_BattleSpeed[0].Item1);
                 // 적 차례
                 if(L_BattleSpeed[0].Item3 == 1) 
                 {
@@ -363,7 +364,7 @@ public class Battle_Manager : MonoBehaviour
                         SetTargetStatus(Attacker);
                         Enemy[Attacker].StartTurn(Enemy.Cast<Save.Character>().ToList(), Attacker, Character.Cast<Save.Character>().ToList(), 0);
 
-                        StartCoroutine(WaitAnimate(BattleState.InBattle_Battle_Enemy));
+                        StartCoroutine(WaitAnimate(BattleState.InBattle_Battle_Enemy, 1.5f));
                         battleState = BattleState.InBattle_Battle_Animate;
                     }                    
                 }                
@@ -381,7 +382,7 @@ public class Battle_Manager : MonoBehaviour
                     AttackerHilight("Character", Attacker, true);
                     Character[Attacker].StartTurn(Character.Cast<Save.Character>().ToList(), Attacker, Enemy.Cast<Save.Character>().ToList(), 0);
                     
-                    StartCoroutine(WaitAnimate(BattleState.InBattle_Battle_My1));
+                    StartCoroutine(WaitAnimate(BattleState.InBattle_Battle_My1, 1.5f));
                     battleState = BattleState.InBattle_Battle_Animate;
                 } 
 
@@ -394,7 +395,7 @@ public class Battle_Manager : MonoBehaviour
                 if(Enemy[Attacker].bAlive == true && Enemy[Attacker].stunCount == 0)
                 {                    
                     EnemyTurn(Attacker);
-                    StartCoroutine(WaitAnimate(BattleState.InBattle_EndBattle));
+                    StartCoroutine(WaitAnimate(BattleState.InBattle_EndBattle, 3.0f));
                     battleState = BattleState.InBattle_Battle_Animate;
                 }
                 else
@@ -440,7 +441,7 @@ public class Battle_Manager : MonoBehaviour
                                 
                 SpwAttackAnim(Character[Attacker].MySkill[selecSkill], true, Character[Attacker].MySkill[selecSkill].bmultiTarget, Character[Attacker].MySkill[selecSkill].bBuff);
                 
-                StartCoroutine(WaitAnimate(BattleState.InBattle_EndBattle));
+                StartCoroutine(WaitAnimate(BattleState.InBattle_EndBattle, 3.0f));
                 battleState = BattleState.InBattle_Battle_Animate;
                 // 턴 종료
                 Character[Attacker].EndTurn();
@@ -529,10 +530,10 @@ public class Battle_Manager : MonoBehaviour
         return charAlive;
     }
 
-    IEnumerator WaitAnimate(BattleState NextState)
+    IEnumerator WaitAnimate(BattleState NextState, float waitTime)
     {
         //Debug.Log("Animating...");
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(waitTime);
         //Debug.Log("Animated...");
         battleState = NextState;
         if (NextState == BattleState.InBattle_EndBattle)
@@ -698,7 +699,7 @@ public class Battle_Manager : MonoBehaviour
 
     public void BettleEndTellent()
     {
-        foreach (var tel in GameManager.instance.Tellents_B)
+        foreach (var tel in GameManager.instance.Tellents[1])
         {
             if(tel.type == Etel_type.End)
             {

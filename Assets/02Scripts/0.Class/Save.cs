@@ -185,6 +185,20 @@ public class Save : MonoBehaviour
             Hp -= Damage;
             Printing_Damage(Color.red, type + "\n" + Damage, 0.1f);
         }
+        public virtual void TakeDamage(int Damage, string type, float f)
+        {
+            Hp -= Damage;
+            Printing_Damage(Color.red, type + "\n" + Damage, f);
+        }
+        public virtual void TakeDamage(int Damage, string type, float f, Vector2 Loc)
+        {
+            Hp -= Damage;
+            Printing_Damage(Color.red, type + "\n" + Damage, f, Loc);
+        }
+        public virtual void TakeStun(float f)
+        {
+            Printing_Damage(Color.yellow, "Stun!!", f);
+        }
 
         // 힐
         public void TakeHeal(double getHill)
@@ -249,6 +263,15 @@ public class Save : MonoBehaviour
             spwDamage.GetComponent<D_fontScripts>().Damage =_Damage;
             spwDamage.GetComponent<D_fontScripts>().WaitTime =_WaitTime;
         }
+        void Printing_Damage(Color color, string _Damage, float _WaitTime, Vector2 loc)
+        {
+            var spwDamage = Instantiate(font);
+            spwDamage.transform.SetParent(GameObject.Find( "_Damage").transform);
+            spwDamage.rectTransform.anchoredPosition = spwLoc + loc;
+            spwDamage.color = color;
+            spwDamage.GetComponent<D_fontScripts>().Damage =_Damage;
+            spwDamage.GetComponent<D_fontScripts>().WaitTime =_WaitTime;
+        }
 
         // 레벨업
         public void SetEXp(int num)
@@ -259,6 +282,7 @@ public class Save : MonoBehaviour
             {
                 exp -= fullExp;
                 LevelUp();
+                fullExp += 50;
             }
         }
         public void LevelUp()
@@ -280,21 +304,24 @@ public class Save : MonoBehaviour
             Battlestatus = status;
             if(stunCount == 0)
                 turn++;
-            if(burnCount > 0)
-            {
-                foreach (var Char in MyGrup)
-                {
-                    int Dmg = (int)(Char.curHp * 0.1f);
-                    if(Dmg < 1) Dmg = 1;
-                    Char.TakeDamage(Dmg, "화상");
-                }
-            }
+
             if(bleedCount > 0)
             {
                 int Dmg = (int)(status.MaxHp * 0.1f);
                 if(Dmg < 1) Dmg = 1;
-                TakeDamage(Dmg, "출혈");
+                TakeDamage(Dmg, "출혈", 0.1f);
             }
+            if(burnCount > 0)
+            {
+                foreach (var Char in MyGrup)
+                {
+                    if(Char.bAlive != true)
+                        return;
+                    int Dmg = (int)(Char.curHp * 0.1f);
+                    if(Dmg < 1) Dmg = 1;
+                    Char.TakeDamage(Dmg, "화상", 0.4f, new Vector2(0,100));
+                }
+            }            
             if(regenCount > 0)
             {                
                 TakeHeal(5);
@@ -315,7 +342,11 @@ public class Save : MonoBehaviour
             {
                 Battlestatus.Damage *= 1.3f;
             }
-
+            if(stunCount > 0)
+            {
+                //stunCount--;
+            }
+            
             // 특성 적용
             
         } 
@@ -406,68 +437,33 @@ public class Save : MonoBehaviour
         }
         public void ApplyGetTellent(List<Character> MyGrup, int idx, List<Character> Enemy, int EnemyIdx)
         {
-            foreach (var tel in GameManager.instance.Tellents_C)
+            foreach (var telArray in GameManager.instance.Tellents)
             {
-                if (tel.type == Etel_type.Get)
+                foreach (var tel in telArray)
                 {
-                    tel.TellentApply(MyGrup.Cast<Save.Character>().ToList(), idx, Enemy.Cast<Save.Character>().ToList(), 0);
-                }
-            }
-            foreach (var tel in GameManager.instance.Tellents_B)
-            {
-                if (tel.type == Etel_type.Get)
-                {
-                    tel.TellentApply(MyGrup.Cast<Save.Character>().ToList(), idx, Enemy.Cast<Save.Character>().ToList(), 0);
-                }
-            }
-            foreach (var tel in GameManager.instance.Tellents_A)
-            {
-                if (tel.type == Etel_type.Get)
-                {
-                    tel.TellentApply(MyGrup.Cast<Save.Character>().ToList(), idx, Enemy.Cast<Save.Character>().ToList(), 0);
-                }
-            }
-            foreach (var tel in GameManager.instance.Tellents_S)
-            {
-                if (tel.type == Etel_type.Get)
-                {
-                    tel.TellentApply(MyGrup.Cast<Save.Character>().ToList(), idx, Enemy.Cast<Save.Character>().ToList(), 0);
-                }
-            }
+                    if (tel.type == Etel_type.Get)
+                    {
+                        tel.TellentApply(MyGrup.Cast<Save.Character>().ToList(), idx, Enemy.Cast<Save.Character>().ToList(), 0);
+                    }
+                }                
+            } 
         }
+
 
         public override void StartTurn(List<Character> MyGrup, int idx, List<Character> Enemy, int EnemyIdx)
         {
             base.StartTurn(MyGrup, idx, Enemy, EnemyIdx);
             // 텔런트 적용
-            foreach (var tel in GameManager.instance.Tellents_C)
+            foreach (var telArray in GameManager.instance.Tellents)
             {
-                if (tel.type == Etel_type.Battle)
+                foreach (var tel in telArray)
                 {
-                    tel.TellentApply(MyGrup.Cast<Save.Character>().ToList(), idx, Enemy.Cast<Save.Character>().ToList(), 0);
-                }
-            }
-            foreach (var tel in GameManager.instance.Tellents_B)
-            {
-                if (tel.type == Etel_type.Battle)
-                {
-                    tel.TellentApply(MyGrup.Cast<Save.Character>().ToList(), idx, Enemy.Cast<Save.Character>().ToList(), 0);
-                }
-            }
-            foreach (var tel in GameManager.instance.Tellents_A)
-            {
-                if (tel.type == Etel_type.Battle)
-                {
-                    tel.TellentApply(MyGrup.Cast<Save.Character>().ToList(), idx, Enemy.Cast<Save.Character>().ToList(), 0);
-                }
-            }
-            foreach (var tel in GameManager.instance.Tellents_S)
-            {
-                if (tel.type == Etel_type.Battle)
-                {
-                    tel.TellentApply(MyGrup.Cast<Save.Character>().ToList(), idx, Enemy.Cast<Save.Character>().ToList(), 0);
-                }
-            }
+                    if (tel.type == Etel_type.Battle)
+                    {
+                        tel.TellentApply(MyGrup.Cast<Save.Character>().ToList(), idx, Enemy.Cast<Save.Character>().ToList(), 0);
+                    }
+                }                
+            } 
         }
     }
 

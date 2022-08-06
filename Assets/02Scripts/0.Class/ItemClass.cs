@@ -46,6 +46,7 @@ public class ItemClass
         // 전체 20데미지
         foreach (var enemy in Enemy)
         {
+             Debug.Log("Use Item : Boom");
             enemy.TakeDamage(20,"Boom");   
         }
     }

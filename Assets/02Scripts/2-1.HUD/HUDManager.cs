@@ -14,15 +14,24 @@ public class HUDManager : MonoBehaviour
     
     public TextMeshProUGUI GoldText;
     public GameObject[] BoomObj = new GameObject[3];
-    public TextMeshProUGUI FloorText;    
-    public Button TellentButton;
-    public TextMeshProUGUI TellentText;
+    public TextMeshProUGUI FloorText;      
+    
+    // 아이템
     public GameObject Boom;
     public TextMeshProUGUI BoomText;
     public GameObject Boom_inBattle;
     public Button UseBoom_Btn;
     public Button CancleBoom_Btn;
 
+    // 텔런트 카드  
+    public GameObject TellentCard;
+    public GameObject BigCard;
+    public TextMeshProUGUI TellentText;
+    bool bOpenTell = false;
+
+    // 인포
+    bool bOpenInfo = false;
+    public GameObject InfoUI;
 
 
     private void Awake() {
@@ -76,12 +85,21 @@ public class HUDManager : MonoBehaviour
         FloorText.text = GameManager.instance._CurMap.floor + "F";
     }
 
+
+    public void ClickTellents()
+    {
+
+    }
+
     public void SetTellentTxt()
     {
-        int num = GameManager.instance.Tellents_C.Count + GameManager.instance.Tellents_B.Count + GameManager.instance.Tellents_A.Count + GameManager.instance.Tellents_S.Count;
+        int num = GameManager.instance.Tellents[0].Count + GameManager.instance.Tellents[1].Count + GameManager.instance.Tellents[2].Count + GameManager.instance.Tellents[3].Count;
 
         TellentText.text = ""+num; 
     }
+
+
+
 
     int SelectIdx;
     int itemCode;
@@ -92,19 +110,21 @@ public class HUDManager : MonoBehaviour
         if(itemCode == 0)
             return;
         Boom.SetActive(true);        
+
+        ItemClass Item = new ItemClass(itemCode);
         if(SceneManager.GetActiveScene().name == "2-0.BattleScene" || SceneManager.GetActiveScene().name == "4-0.BossScene")
         {   
-            ItemClass Item = new ItemClass(itemCode);
             BoomText.text = "["+Item.ItemName +"]";
 
             Boom_inBattle.SetActive(true);           
+            UseBoom_Btn.onClick.RemoveAllListeners();
             UseBoom_Btn.onClick.AddListener(Click_UseBoon);
             CancleBoom_Btn.onClick.AddListener(Click_Cancle);
         }
         else
         {
             Boom_inBattle.SetActive(false);
-            BoomText.text = "비 전투중...";
+            BoomText.text = "["+Item.ItemName +"]"+"\n 비 전투중...";
             Invoke("DeleteBoomText",2.0f);
         }
     }
@@ -117,6 +137,7 @@ public class HUDManager : MonoBehaviour
     public List<Save.Enemy> Enemys;
     public void Click_UseBoon()
     {
+        Debug.Log("Click_UseBoon");
         ItemClass Item = new ItemClass(itemCode);
         Item.UseItem(players,0,Enemys,0);
         GameManager.instance.ItemList_num[SelectIdx] = 0;
@@ -126,6 +147,43 @@ public class HUDManager : MonoBehaviour
     public void Click_Cancle()
     {
         DeleteBoomText();
+    }
+
+    
+
+    public void OpenTellentUI()
+    {
+        InfoUI.SetActive(false);
+        bOpenInfo = false;
+        BigCard.SetActive(false);
+
+        if(bOpenTell == false)
+        {
+            TellentCard.SetActive(true);
+            bOpenTell = true;
+        }
+        else
+        {
+            TellentCard.SetActive(false);
+            bOpenTell = false;
+        }        
+    }
+
+    public void OpenInfoUI()
+    {
+        TellentCard.SetActive(false);
+        bOpenTell = false;
+
+        if(bOpenInfo == false)
+        {
+            InfoUI.SetActive(true);
+            bOpenInfo = true;
+        }
+        else
+        {
+            InfoUI.SetActive(false);
+            bOpenInfo = false;
+        }        
     }
 
 }

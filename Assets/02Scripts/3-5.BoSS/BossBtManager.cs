@@ -171,6 +171,7 @@ public class BossBtManager : MonoBehaviour
 
 
             CharacterImages[i].sprite = CharacterSprite[(int)Character[i].Role];
+            Character[i].Battlestatus = Character[i].status;
         }
     }
 
@@ -220,7 +221,7 @@ public class BossBtManager : MonoBehaviour
     // 전투 특성
     public void BettleEndTellent()
     {
-        foreach (var tel in GameManager.instance.Tellents_B)
+        foreach (var tel in GameManager.instance.Tellents[1])
         {
             if (tel.type == Etel_type.End)
             {
@@ -322,7 +323,7 @@ public class BossBtManager : MonoBehaviour
     void ChangePase()
     {
         Func<double> Hp = () => { if (Enemy[1].Hp < 0) return 0; return Enemy[1].Hp; };
-        double BarlogHp = Hp() + Enemy[1].Mana + 3000;
+        double BarlogHp = Hp() + Enemy[1].Mana + 100;
 
         Save.Character Barlog = new Save.Barlog();
 
@@ -440,7 +441,8 @@ public class BossBtManager : MonoBehaviour
                 SetAttackOrder();
                 // 공격자 초기화
                 Attacker = L_BattleSpeed[0].Item2;
-
+                
+                Debug.Log("Speed : " + L_BattleSpeed[0].Item1);
                 // 적 공격
                 if (L_BattleSpeed[0].Item3 == 1)
                 {
@@ -456,7 +458,7 @@ public class BossBtManager : MonoBehaviour
                         SetTargetStatus(Attacker);
                         Enemy[Attacker].StartTurn(Enemy,Attacker,Character,0);
 
-                        StartCoroutine(WaitAnimate(BattleState.InBattle_Battle_Enemy));
+                        StartCoroutine(WaitAnimate(BattleState.InBattle_Battle_Enemy, 1.5f));
                         battleState = BattleState.InBattle_Battle_Animate;
                     }
                 }
@@ -474,7 +476,7 @@ public class BossBtManager : MonoBehaviour
                     AttackerHilight("Character", Attacker, true);
                     Character[Attacker].StartTurn(Character, Attacker, Enemy, 0);
 
-                    StartCoroutine(WaitAnimate(BattleState.InBattle_Battle_My1));
+                    StartCoroutine(WaitAnimate(BattleState.InBattle_Battle_My1, 1.5f));
                     battleState = BattleState.InBattle_Battle_Animate;
                 }
 
@@ -487,7 +489,7 @@ public class BossBtManager : MonoBehaviour
                 if (Enemy[Attacker].bAlive == true && Enemy[Attacker].stunCount == 0)
                 {
                     EnemyTurn(Attacker);
-                    StartCoroutine(WaitAnimate(BattleState.InBattle_EndBattle));
+                    StartCoroutine(WaitAnimate(BattleState.InBattle_EndBattle,3.0f));
                     battleState = BattleState.InBattle_Battle_Animate;
                 }
                 else
@@ -531,7 +533,7 @@ public class BossBtManager : MonoBehaviour
 
                 SpwAttackAnim(Character[Attacker].MySkill[selecSkill], true, Character[Attacker].MySkill[selecSkill].bmultiTarget, Character[Attacker].MySkill[selecSkill].bBuff);
 
-                StartCoroutine(WaitAnimate(BattleState.InBattle_EndBattle));
+                StartCoroutine(WaitAnimate(BattleState.InBattle_EndBattle,3.0f));
                 battleState = BattleState.InBattle_Battle_Animate;
                 // 턴 종료
                 Character[Attacker].EndTurn();
@@ -623,11 +625,11 @@ public class BossBtManager : MonoBehaviour
     }
 
 
-    IEnumerator WaitAnimate(BattleState NextState)
+    IEnumerator WaitAnimate(BattleState NextState, float WaitTime)
     {
         Debug.Log("Animating...");
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(WaitTime);
         Debug.Log("Animated...");
 
         battleState = NextState;

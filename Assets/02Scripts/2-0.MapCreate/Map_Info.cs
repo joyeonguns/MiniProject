@@ -39,10 +39,9 @@ public class Map_Info : MonoBehaviour
     // 맵
     // public GameObject MapUI;
     // 인포
-    public GameObject InfoUI;
+    
 
-    // 조작
-    bool bOpenInfo = false;
+    
     bool bOpenTellent = false;    
     
     
@@ -214,21 +213,5 @@ public class Map_Info : MonoBehaviour
     {
         telnum = 0;       
         
-    }
-
-    public void OpenInfoUI()
-    {
-        if(bOpenInfo == false)
-        {
-            InfoUI.SetActive(true);
-            bOpenInfo = true;
-        }
-        else
-        {
-            InfoUI.SetActive(false);
-            bOpenInfo = false;
-        }        
-    }
-
-
+    }    
 }

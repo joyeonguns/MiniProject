@@ -279,7 +279,13 @@ MonoBehaviour:
   TellentLoc: {fileID: 54342867}
   ItemLoc: {fileID: 2051049833}
   SaleLoc: {fileID: 394449043}
-  SpwObj: {fileID: 1829031403210089214, guid: 1983443d93dffa34bbc9411b29e00f9b, type: 3}
+  SpwTellent: {fileID: 1829031403210089214, guid: 1983443d93dffa34bbc9411b29e00f9b, type: 3}
+  TellentSprite:
+  - {fileID: 21300000, guid: f23eba7c9488972439e2ba3e45a5ee6e, type: 3}
+  - {fileID: 21300000, guid: c2a8004d4a4713d45ade8608c7a1a162, type: 3}
+  - {fileID: 21300000, guid: ade9b8dafb288e5419c20d4582d808e5, type: 3}
+  - {fileID: 21300000, guid: 3a81a485a7c647a4e96f9ee3112bb2c8, type: 3}
+  SpwItem: {fileID: 1829031403210089214, guid: 81f0ebdc0a0a140449951561939f4f95, type: 3}
 --- !u!1 &113517308
 GameObject:
   m_ObjectHideFlags: 0
@@ -1844,8 +1850,17 @@ MonoBehaviour:
   - {fileID: 1021437637}
   - {fileID: 1035456658}
   FloorText: {fileID: 1528773125}
-  TellentButton: {fileID: 1881973189}
+  Boom: {fileID: 0}
+  BoomText: {fileID: 0}
+  Boom_inBattle: {fileID: 0}
+  UseBoom_Btn: {fileID: 0}
+  CancleBoom_Btn: {fileID: 0}
+  TellentCard: {fileID: 0}
+  BigCard: {fileID: 0}
   TellentText: {fileID: 1993560838}
+  InfoUI: {fileID: 0}
+  players: []
+  Enemys: []
 --- !u!224 &1355249046
 RectTransform:
   m_ObjectHideFlags: 0

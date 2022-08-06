@@ -16,9 +16,9 @@ public class ItemPrefapScripts : MonoBehaviour
 
     public void OnClickBtn()
     {
-        RewardManager RM = GameObject.Find("RewardManager").GetComponent<RewardManager>();
-        Debug.Log("Item");
-        RM.SetItemBtn();
+        // RewardManager RM = GameObject.Find("RewardManager").GetComponent<RewardManager>();
+        // Debug.Log("Item");
+        // RM.SetItemBtn();
         Destroy(gameObject);
     }
 }

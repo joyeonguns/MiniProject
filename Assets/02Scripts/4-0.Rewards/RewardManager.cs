@@ -12,16 +12,20 @@ public class RewardManager : MonoBehaviour
     // 특성
     public GameObject TellentsPannel;
     public GameObject[] Tellents;
-    public int Tellent;
+    public Sprite[] TellentSprite;
 
     
     // 골드 / 아이템
     public GameObject GoldPannel;
     public GameObject Coments;
     public int Gold;
+    public int takeGold = 0;
+
     public int ItemRate;
     public GameObject GoldPrefab; // 100
     public GameObject ItemPrefab; // 50
+    public int itemCode;
+    public int takeitemCode = 0;
 
     // 결과창
     public GameObject ResultPannel;
@@ -38,10 +42,11 @@ public class RewardManager : MonoBehaviour
 
     public TellentsScripts[] tellentArray = new TellentsScripts[3];
 
-    int SelectTellentsCode;
+    int SelectTellentnum;
     bool bCheckedTellent;
-    public int takeGold;
-    public int _itemCode;
+    
+    public string TellentName;
+    
     bool bCheckedItem;
 
 
@@ -56,6 +61,13 @@ public class RewardManager : MonoBehaviour
     }
     void Start()
     {
+        if(GameManager.instance.ResultData.ResultMode == ResultEnum.Run)
+        {
+            TellentsPannel.SetActive(false);
+            GoldPannel.SetActive(false);
+            ResultPannel.SetActive(true);
+            return;
+        }
         // 특성 할당
         SetTellentArr();
         // 골드 패널 할당
@@ -83,22 +95,45 @@ public class RewardManager : MonoBehaviour
     // 특성 패널 
     void SetTellentArr()
     {
-        int[] arr = new int[4] {0,1,2,3};
-        System.Random rnd = new System.Random();
-        arr = arr.OrderBy(x => rnd.Next()).ToArray();
+        for (int i = 0; i < 3; i++)
+        {
+            int rnd = UnityEngine.Random.Range(1,101);
+            
+            int telCode = 0;
+            Etel_Rank rank;
+            if(rnd >= 40)
+            {
+                telCode = UnityEngine.Random.Range(0, 11);
+                rank = Etel_Rank.C;
+            }
+            else if(rnd >= 70)
+            {
+                telCode = UnityEngine.Random.Range(0, 18);
+                rank = Etel_Rank.B;
+            }
+            else if(rnd >= 95)
+            {
+                telCode = UnityEngine.Random.Range(0, 5);
+                rank = Etel_Rank.A;
+            }
+            else
+            {
+                telCode = UnityEngine.Random.Range(0, 2);
+                rank = Etel_Rank.S;
+            }
+            tellentArray[i] = new TellentsScripts(rank,telCode); 
+        }
         
-        // tellentArray[0] = GameManager.instance.TellentSeed[0];
-        // tellentArray[1] = GameManager.instance.TellentSeed[1];
-        // tellentArray[2] = GameManager.instance.TellentSeed[2];
 
-        // for(int i = 0; i < 3; i++)
-        // {
-        //     Debug.Log(i + "_name : " + tellentArray[i].Tel_Name);
-        //     TextMeshProUGUI _Name = Tellents[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-        //     _Name.text = tellentArray[i].Tel_Name;
-        //     TextMeshProUGUI _Comments = Tellents[i].transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-        //     _Comments.text = tellentArray[i].Comments;
-        // }
+        for(int i = 0; i < 3; i++)
+        {
+            TextMeshProUGUI _Name = Tellents[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+            _Name.text = tellentArray[i].name;
+            TextMeshProUGUI _Comments = Tellents[i].transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+            _Comments.text = "[ " + tellentArray[i].name + " ]";
+
+            Tellents[i].GetComponent<Image>().sprite = TellentSprite[(int)tellentArray[i].Rank];
+        }
 
     }
 
@@ -114,13 +149,18 @@ public class RewardManager : MonoBehaviour
         ItemRate = GameManager.instance.ResultData.ItemRate;
         int rnd = UnityEngine.Random.Range(1,101);
         Debug.Log("rnd : " + rnd);
+        
+        // 아이템 획득
         if (ItemRate >= rnd)
-        {
-            
+        {   
+            itemCode = UnityEngine.Random.Range(1,9);         
             GameObject spwItem = Instantiate(ItemPrefab);
+
             spwItem.transform.SetParent(GoldPannel.transform.GetChild(2));
             spwItem.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -50);
-            spwItem.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "연막탄";
+            spwItem.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = new ItemClass(itemCode).ItemName;
+
+            spwItem.GetComponent<Button>().onClick.AddListener(SetItemBtn);
         }        
 
     }
@@ -130,7 +170,13 @@ public class RewardManager : MonoBehaviour
     {
         // 경험치 획득
         Save_Charater_Data SaveData = Save_Charater_Data.instance;
-        int gainExp = 150;
+        
+        int gainExp = 0;
+        if(GameManager.instance.ResultData.ResultMode != ResultEnum.Run)
+        {
+            gainExp = GameManager.instance.ResultData.Exp;
+        }
+        
 
         for(int i = 0; i < 3; i++)
         {
@@ -147,50 +193,28 @@ public class RewardManager : MonoBehaviour
                 int maxExp = 100 + (SaveData.MyParty[i].Level* 50);
                 char_Name[i].text = SaveData.MyParty[i].name;
                 
-                SaveData.MyParty[i].SetEXp(gainExp);
+                
                 int _max = SaveData.MyParty[i].Level * 50 +100;
                 int _cur = SaveData.MyParty[i].exp;
                 StartCoroutine(FillExp(0, gainExp, _max, _cur, i));
+                SaveData.MyParty[i].SetEXp(gainExp);
             }            
         }
 
 
         // 텍스트 출력
-        // resultGold.text = ""+takeGold;
-        // resultTellent.text = ""+  tellentArray[SelectTellentsCode].Tel_Name;
+        resultGold.text = ""+takeGold;
+        resultTellent.text = ""+  TellentName;
+
         // foreach(var exp in GainExp)
         // {
         //     exp.text = "+"+gainExp;
-        // }
-
-        // Etel_type teltype = tellentArray[SelectTellentsCode].type;
-        // switch (teltype)
-        // {
-        //     case Etel_type.AfterBattle:
-        //         GameManager.instance.ABTelent.Add(tellentArray[SelectTellentsCode]);
-        //         GameManager.instance.ABTelent_num.Add(tellentArray[SelectTellentsCode].tel_num);
-        //         break;
-
-        //     case Etel_type.beforBattle:
-        //         GameManager.instance.BBTellent.Add(tellentArray[SelectTellentsCode]);
-        //         GameManager.instance.BBTellent_num.Add(tellentArray[SelectTellentsCode].tel_num);
-        //         break;
-
-        //     case Etel_type.beforeTurn:
-        //         GameManager.instance.BeforTellents.Add(tellentArray[SelectTellentsCode]);
-        //         GameManager.instance.BeforTellents_num.Add(tellentArray[SelectTellentsCode].tel_num);
-        //         break;
-
-        //     case Etel_type.getAfter:
-        //         GameManager.instance.GetAfterTellents.Add(tellentArray[SelectTellentsCode]);
-        //         GameManager.instance.GetAfterTellents_num.Add(tellentArray[SelectTellentsCode].tel_num);
-        //         break;
-        // }
-
-        // HUDManager.instance.SetTellentTxt();
-        // GameManager.instance.TellentSeed.RemoveAt(SelectTellentsCode);
-
-        
+        // }        
+        // 도망침
+        if(GameManager.instance.ResultData.ResultMode == ResultEnum.Run)
+        {
+            return;
+        }  
     }
 
     IEnumerator ReadyReward()
@@ -206,12 +230,13 @@ public class RewardManager : MonoBehaviour
     {   
         gained++;
         _cur++;
+        GainExp[idx].text = ""+gained;
         if(_cur > _Max)
         {
             _cur = 1; _Max +=50;
         }
         Player_Exp[idx].fillAmount = (float)_cur / ((float)_Max);
-        yield return new WaitForSeconds(0.08f);
+        yield return new WaitForSeconds(0.04f);
         if(gained < _goalExp)
             StartCoroutine(FillExp(gained, _goalExp, _Max, _cur, idx));
     }
@@ -234,10 +259,20 @@ public class RewardManager : MonoBehaviour
         SceneManager.LoadScene("1-2.MapScene");
     }
 
+
+
     public void SetTellBtn(int n)
     {
-        SelectTellentsCode = n;
+        SelectTellentnum = n;
         bCheckedTellent = true;
+
+        TellentsScripts GetTellent = tellentArray[n];
+        TellentName = GetTellent.name;
+        
+        GameManager.instance.SetTellent(GetTellent);
+
+        HUDManager.instance.SetTellentTxt();
+        HUDManager.instance.GetComponent<TellentCardUI>().SpawnTellentCard(GetTellent);
         Next_Tellent_Btn();
     } 
 
@@ -249,13 +284,13 @@ public class RewardManager : MonoBehaviour
     }
     public void SetItemBtn()
     {
-        _itemCode = 2;
+        takeitemCode = itemCode;
         bCheckedItem = true;
         for (int i = 0; i < 3; i++)
         {
-            if(GameManager.instance.ItemList_num[i] != 0)
+            if(GameManager.instance.ItemList_num[i] == 0)
             {
-                GameManager.instance.ItemList_num[i] = 2;
+                GameManager.instance.ItemList_num[i] = takeitemCode;
                 break;
             }
         }
