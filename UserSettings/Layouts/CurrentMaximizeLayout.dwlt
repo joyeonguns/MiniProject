@@ -86,7 +86,7 @@ MonoBehaviour:
     m_HSlider: 0
     m_VSlider: 0
     m_IgnoreScrollWheelUntilClicked: 0
-    m_EnableMouseInput: 0
+    m_EnableMouseInput: 1
     m_EnableSliderZoomHorizontal: 0
     m_EnableSliderZoomVertical: 0
     m_UniformScale: 1
@@ -469,9 +469,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 718.37726, y: 508.71783, z: -9.826639}
+    m_Target: {x: 693.57367, y: 482.24603, z: -5.6720333}
     speed: 2
-    m_Value: {x: 718.37726, y: 508.71783, z: -9.826639}
+    m_Value: {x: 698.3134, y: 471.84558, z: -5.5671306}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -522,9 +522,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 637.3119
+    m_Target: 243.6083
     speed: 2
-    m_Value: 637.3119
+    m_Value: 233.118
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -714,10 +714,10 @@ MonoBehaviour:
     m_SaveData: []
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
-      m_LastClickedID: 0
-      m_ExpandedIDs: 82c3ffff52caffff2ecfffff2cd2ffff2afbffff7e61000064a100005aa20000bca3000014a40000e0aa00008aae0000c4ae0000
+      scrollPos: {x: 0, y: 32}
+      m_SelectedIDs: 601e0100
+      m_LastClickedID: 73312
+      m_ExpandedIDs: fcdcfeff48ddfeff48dffeff94dffeff9ce4feffe8e4feff80e5feff08e9feffc6eafeff105dffff7e63fffffc69ffff5870ffff5677ffff5ea6ffffb6a7ffffd4a8ffff84d1ffffa0eeffffeaeeffffd2f0ffff74f1ffff16f2ffff9cf2ffffeef2ffff8ef3ffff30f4ffffeef4ffff42f7ffff94f7ffff24f8ffff2afbfffff4ffffff1c7400004e74000056740000c8740000e6740000fa740000d4a400001ea600006a1d0100601e0100bc1e0100c21f0100f81f01001e200100
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -809,22 +809,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/01Scenes
+    - Assets/Resources/Ui/Buff
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/01Scenes
+  - Assets/Resources/Ui/Buff
   m_LastFoldersGridSize: -1
   m_LastProjectPath: Z:\myDocuments\unityFile\MiniProject
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 95}
-    m_SelectedIDs: 32630000
-    m_LastClickedID: 25394
-    m_ExpandedIDs: 000000002463000026630000286300002c63000000ca9a3b
+    scrollPos: {x: 0, y: 128}
+    m_SelectedIDs: 80630000
+    m_LastClickedID: 25472
+    m_ExpandedIDs: 000000003063000032630000346300005263000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -852,7 +852,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000002463000026630000286300002c63000000ca9a3b
+    m_ExpandedIDs: 0000000030630000326300003463000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -877,9 +877,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 
-    m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_SelectedInstanceIDs: 601e0100
+    m_LastClickedInstanceID: 73312
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000ac82000000000000ce6e000072690000
     m_RenameOverlay:
       m_UserAcceptedRename: 0

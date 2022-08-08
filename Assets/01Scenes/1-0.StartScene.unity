@@ -1931,7 +1931,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1382951162}
   - component: {fileID: 1382951163}
-  - component: {fileID: 1382951161}
   - component: {fileID: 1382951164}
   m_Layer: 0
   m_Name: GameManager
@@ -1940,18 +1939,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1382951161
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1382951160}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2af19d0c287cf44a96fa31dd2fa3004, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1382951162
 Transform:
   m_ObjectHideFlags: 0
@@ -1984,10 +1971,6 @@ MonoBehaviour:
   floor: 0
   Battle_Lvl: 1
   BattleType: 1
-  BeforTellents_num: 
-  GetAfterTellents_num: 
-  BBTellent_num: 
-  ABTelent_num: 
   curGold: 3000
   ItemList_num: 000000000000000000000000
 --- !u!114 &1382951164

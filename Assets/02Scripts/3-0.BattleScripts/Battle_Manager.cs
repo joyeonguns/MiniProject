@@ -45,6 +45,7 @@ public class Battle_Manager : MonoBehaviour
     // 아군 스프라이트
     public Image[] CharacterImages = new Image[3];
     public Sprite[] CharacterSprite = new Sprite[4];
+    public Button[] CharacterButton = new Button[3];
     // 아군 HP / MP
     public Image[] Character_HP = new Image[3];
     public Image[] Character_MP = new Image[3];
@@ -54,6 +55,7 @@ public class Battle_Manager : MonoBehaviour
     // 적 스프라이트
     public Image[] EnemyImage = new Image[3];
     public Sprite[] EnemySprite = new Sprite[4];
+    public Button[] EnemyButton = new Button[3];
     // 적 HP / MP
     public Image[] Enemy_HP = new Image[3];
     public Image[] Enemy_MP = new Image[3];
@@ -93,10 +95,14 @@ public class Battle_Manager : MonoBehaviour
     public int selecSkill;
     // 스킬 선택 체크
     public bool bCheckSkill;
+    // 스킬 버프?
+    bool bBuffSkill;
     // 타겟
     public int target;
     // 타겟 선택 체크
     public bool bChecktarget;
+
+
     // 배틀 스피드
     [SerializeField] List<Tuple<int,int,int>> L_BattleSpeed = new List<Tuple<int, int, int>>();   
 
@@ -162,6 +168,7 @@ public class Battle_Manager : MonoBehaviour
             Character[i].spwLoc = CharacterField[i].GetComponent<RectTransform>().anchoredPosition + new Vector2(50,300);            
 
             CharacterImages[i].sprite = CharacterSprite[(int)Character[i].Role];
+            Character[i].Battlestatus = Character[i].status;
         }
     }
 
@@ -231,15 +238,31 @@ public class Battle_Manager : MonoBehaviour
         // 스킬 패널 오픈
         SkillPannel.SetActive(check);
         // 스킬 버튼 설정
-        //Assets/Resources/icon/crusader.ability.five.png
+        int rolenum = (int)Character[n].Role;
+        string root ="";
+        switch (rolenum)
+        {
+            case 1 :
+            root = "icon/Worrier/";
+            break;
+            case 2 :
+            root = "icon/Magition/";
+            break;
+            case 3 :
+            root = "icon/Hiller/";
+            break;
+            case 4 :
+            root = "icon/Assassin/";
+            break;
+        }
         if (check == true)
         {
-            SkillButton[0].sprite = Resources.Load<Sprite>("icon/crusader.ability.0") as Sprite;
+            SkillButton[0].sprite = Resources.Load<Sprite>(root+0) as Sprite;
             int skill_1 = Character[L_BattleSpeed[0].Item2].SkillNum[1];
             int skill_2 = Character[L_BattleSpeed[0].Item2].SkillNum[2];
-            SkillButton[1].sprite = Resources.Load<Sprite>("icon/crusader.ability." + skill_1) as Sprite;
-            SkillButton[2].sprite = Resources.Load<Sprite>("icon/crusader.ability." + skill_2) as Sprite;
-            SkillButton[3].sprite = Resources.Load<Sprite>("icon/crusader.ability.5") as Sprite;
+            SkillButton[1].sprite = Resources.Load<Sprite>(root + skill_1) as Sprite;
+            SkillButton[2].sprite = Resources.Load<Sprite>(root + skill_2) as Sprite;
+            SkillButton[3].sprite = Resources.Load<Sprite>(root +"5") as Sprite;
 
             for(int i = 1; i < 4; i++)
             {
@@ -436,9 +459,15 @@ public class Battle_Manager : MonoBehaviour
             case BattleState.InBattle_Battle_My2 :                
                 
                 // 공격
-                Character[Attacker].SetSkillClass();          
-                Character[Attacker].MySkill[selecSkill].UseSkill(Character.Cast<Save.Character>().ToList(),Attacker, Enemy.Cast<Save.Character>().ToList(), target);
-                                
+                Character[Attacker].SetSkillClass();         
+                if(bBuffSkill == false)
+                {
+                    Character[Attacker].MySkill[selecSkill].UseSkill(Character.Cast<Save.Character>().ToList(),Attacker, Enemy.Cast<Save.Character>().ToList(), target);
+                } 
+                else{                    
+                    Character[Attacker].MySkill[selecSkill].UseSkill(Character.Cast<Save.Character>().ToList(),Attacker, Character.Cast<Save.Character>().ToList(), target);
+                }
+                               
                 SpwAttackAnim(Character[Attacker].MySkill[selecSkill], true, Character[Attacker].MySkill[selecSkill].bmultiTarget, Character[Attacker].MySkill[selecSkill].bBuff);
                 
                 StartCoroutine(WaitAnimate(BattleState.InBattle_EndBattle, 3.0f));
@@ -463,7 +492,8 @@ public class Battle_Manager : MonoBehaviour
                     L_BattleSpeed.RemoveAt(0);
                 target = 0;
                 bCheckSkill = false;
-                bChecktarget = false;                
+                bChecktarget = false;          
+                bBuffSkill = false;      
                 SetSkillPannel(false,Attacker);
 
                 // 라이브 체크
@@ -726,6 +756,27 @@ public class Battle_Manager : MonoBehaviour
     {
         bCheckSkill = true;
         selecSkill = n;         
+        if(Character[Attacker].MySkill[n].bBuff == true)
+        {
+            bBuffSkill = true;
+            CharacterButton[0].interactable = true;
+            CharacterButton[1].interactable = true;
+            CharacterButton[2].interactable = true;
+
+            EnemyButton[0].interactable = false;
+            EnemyButton[1].interactable = false;
+            EnemyButton[2].interactable = false;
+        }
+        else
+        {
+            CharacterButton[0].interactable = false;
+            CharacterButton[1].interactable = false;
+            CharacterButton[2].interactable = false;
+
+            EnemyButton[0].interactable = true;
+            EnemyButton[1].interactable = true;
+            EnemyButton[2].interactable = true;
+        }
     }
     
     void AttackerHilight(string str, int idx, bool b)

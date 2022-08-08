@@ -98,7 +98,10 @@ public class Save : MonoBehaviour
                     curHp = 0;
                     Dead();
                 }
-                    
+                else if(curHp > status.MaxHp)
+                {
+                    curHp = status.MaxHp;
+                }                    
             }
         }
         public int Mana
@@ -344,7 +347,7 @@ public class Save : MonoBehaviour
             }
             if(stunCount > 0)
             {
-                //stunCount--;
+                TakeStun(0.1f);
             }
             
             // 특성 적용
@@ -413,26 +416,43 @@ public class Save : MonoBehaviour
         }
         public override void SetSkillClass()
         {
-            for(int i = 0; i < 4; i++)
-            {
-                MySkill[i] = new Worrier_Skill(SkillNum[i]);
-            }
+
             switch ((int)Role)
             {
                 case 0:
-                break;
+                    for (int i = 0; i < 4; i++)
+                    {
+                        MySkill[i] = new Worrier_Skill(SkillNum[i]);
+                    }
+                    break;
 
                 case 1:
-                break;
+                    for (int i = 0; i < 4; i++)
+                    {
+                        MySkill[i] = new Worrier_Skill(SkillNum[i]);
+                    }
+                    break;
 
                 case 2:
-                break;
+                    for (int i = 0; i < 4; i++)
+                    {
+                        MySkill[i] = new Magition_Skill(SkillNum[i]);
+                    }
+                    break;
 
                 case 3:
-                break;
+                    for (int i = 0; i < 4; i++)
+                    {
+                        MySkill[i] = new Hiller_Skill(SkillNum[i]);
+                    }
+                    break;
 
                 case 4:
-                break;
+                    for (int i = 0; i < 4; i++)
+                    {
+                        MySkill[i] = new Assassin_Skill(SkillNum[i]);
+                    }
+                    break;
             }
         }
         public void ApplyGetTellent(List<Character> MyGrup, int idx, List<Character> Enemy, int EnemyIdx)

@@ -6,7 +6,7 @@ using System.Linq;
 using TMPro;
 
 
-public enum e_Class {adventurer, worrier, magicion, supporter, assassin, bandit, witch, crystal, barlog};
+public enum e_Class {adventurer, worrier, magicion, supporter, assassin, bandit = 100, crystal = 101, witch = 200, barlog = 201};
 
 public class Save_Charater_Class1 : MonoBehaviour
 {
