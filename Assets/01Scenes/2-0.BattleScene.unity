@@ -1161,6 +1161,7 @@ GameObject:
   - component: {fileID: 261380922}
   - component: {fileID: 261380924}
   - component: {fileID: 261380925}
+  - component: {fileID: 261380926}
   - component: {fileID: 261380923}
   m_Layer: 5
   m_Name: skill_2
@@ -1283,6 +1284,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &261380926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 261380921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79d838b7b2bfae14380565dea7e6f28d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CommentsParents: {fileID: 823834357}
+  Comments: {fileID: 6039351085308061402, guid: e8dea9d39cb149b459822029674f5029, type: 3}
 --- !u!1 &312313983
 GameObject:
   m_ObjectHideFlags: 0
@@ -2967,7 +2982,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 126, y: -115}
+  m_AnchoredPosition: {x: 177, y: -75.895}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &695699777
@@ -3213,6 +3228,7 @@ MonoBehaviour:
   AttStatus: {fileID: 312313986}
   TargetStatus: {fileID: 1992663118}
   AttackerImage: {fileID: 1764214133}
+  SkillComment: {fileID: 823834357}
   AttackObj: {fileID: 1011864632}
   Attack_Text: {fileID: 1356909973}
   Attack: {fileID: 710970554}
@@ -3530,6 +3546,42 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &823834357
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 823834358}
+  m_Layer: 5
+  m_Name: Comments
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &823834358
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 823834357}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 856792755}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &829043099
 GameObject:
   m_ObjectHideFlags: 0
@@ -3702,6 +3754,7 @@ RectTransform:
   - {fileID: 2032400038}
   - {fileID: 1448120237}
   - {fileID: 450941235}
+  - {fileID: 823834358}
   - {fileID: 1011864633}
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -3961,7 +4014,7 @@ RectTransform:
   - {fileID: 710970555}
   - {fileID: 1784694190}
   m_Father: {fileID: 856792755}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5757,6 +5810,7 @@ GameObject:
   - component: {fileID: 1346803288}
   - component: {fileID: 1346803290}
   - component: {fileID: 1346803291}
+  - component: {fileID: 1346803292}
   - component: {fileID: 1346803289}
   m_Layer: 5
   m_Name: skill_0
@@ -5879,6 +5933,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1346803292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346803287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79d838b7b2bfae14380565dea7e6f28d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CommentsParents: {fileID: 823834357}
+  Comments: {fileID: 6039351085308061402, guid: e8dea9d39cb149b459822029674f5029, type: 3}
 --- !u!1 &1355885659
 GameObject:
   m_ObjectHideFlags: 0
@@ -7269,6 +7337,7 @@ GameObject:
   - component: {fileID: 1764356494}
   - component: {fileID: 1764356496}
   - component: {fileID: 1764356497}
+  - component: {fileID: 1764356498}
   - component: {fileID: 1764356495}
   m_Layer: 5
   m_Name: skill_3
@@ -7391,6 +7460,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1764356498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1764356493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79d838b7b2bfae14380565dea7e6f28d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CommentsParents: {fileID: 823834357}
+  Comments: {fileID: 6039351085308061402, guid: e8dea9d39cb149b459822029674f5029, type: 3}
 --- !u!1 &1776554672
 GameObject:
   m_ObjectHideFlags: 0
@@ -7402,6 +7485,7 @@ GameObject:
   - component: {fileID: 1776554673}
   - component: {fileID: 1776554675}
   - component: {fileID: 1776554676}
+  - component: {fileID: 1776554677}
   - component: {fileID: 1776554674}
   m_Layer: 5
   m_Name: skill_1
@@ -7524,6 +7608,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1776554677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1776554672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79d838b7b2bfae14380565dea7e6f28d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CommentsParents: {fileID: 823834357}
+  Comments: {fileID: 6039351085308061402, guid: e8dea9d39cb149b459822029674f5029, type: 3}
 --- !u!1 &1784694189
 GameObject:
   m_ObjectHideFlags: 0

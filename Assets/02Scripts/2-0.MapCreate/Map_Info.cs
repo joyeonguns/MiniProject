@@ -17,6 +17,12 @@ public class Map_Info : MonoBehaviour
     public int Target_1;
     public bool bCheckedTarget_0;
     public bool bCheckedTarget_1;
+
+    public GameObject firstCharacter;
+    public GameObject SecondCharacter;
+    public Vector3 firstLoc;
+    public Vector3 secondLoc;
+
     
     Save_Charater_Data SaveData;
     public int p_Count;
@@ -26,6 +32,7 @@ public class Map_Info : MonoBehaviour
     public TextMeshProUGUI stat_Comments;
 
     // 스킬 패널
+    public GameObject skillPannel;
     public GameObject[] skill;
 
     // tellent 패널
@@ -50,9 +57,10 @@ public class Map_Info : MonoBehaviour
     {
         SetStartSetting();
         SetTellentBtn();
+        
     }
 
-    void SetStartSetting()
+    public void SetStartSetting()
     {
         Debug.Log("SetStartSetting");
         SaveData = Save_Charater_Data.instance;
@@ -62,11 +70,13 @@ public class Map_Info : MonoBehaviour
         bCheckedTarget_1 = false;
         stat_Name.text = "";
         stat_Comments.text = "";
+
+        skillPannel.SetActive(false);
         
         SetCharImage();
     }
 
-    void SetCharImage()
+    public void SetCharImage()
     {
         Debug.Log("SetCharImage");
         SaveData = Save_Charater_Data.instance;
@@ -75,6 +85,7 @@ public class Map_Info : MonoBehaviour
         {
             if(i < p_Count)
             {
+                CharacterBtn[i].gameObject.SetActive(true);
                 Char_Name[i].text = SaveData.MyParty[i].name;
                 
                 switch (SaveData.MyParty[i].Role)
@@ -103,7 +114,7 @@ public class Map_Info : MonoBehaviour
         }
     }
 
-    void SetStatus_Text(int n)
+    public void SetStatus_Text(int n)
     {
         SaveData = Save_Charater_Data.instance;
         stat_Name.text = "" + SaveData.MyParty[n].name;
@@ -129,84 +140,94 @@ public class Map_Info : MonoBehaviour
         "\n";
     }
 
-    void SetSkillBtn(int n)
-    {
-        if(n < 0)
+    public void SetSkillBtn(int n)
+    {       
+        skillPannel.SetActive(true);
+        int rolenum = (int)SaveData.MyParty[n].Role;
+        string root ="";
+        switch (rolenum)
         {
-            foreach (var sk in skill)
-            {
-                sk.SetActive(false);
-            }
-            return;
+            case 1 :
+            root = "icon/Worrier/";
+            break;
+            case 2 :
+            root = "icon/Magition/";
+            break;
+            case 3 :
+            root = "icon/Hiller/";
+            break;
+            case 4 :
+            root = "icon/Assassin/";
+            break;
         }
-        int i = 1;
-        foreach (var sk in skill)
-        {
-            sk.SetActive(true);
-            TextMeshProUGUI sk_Text = sk.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-            SaveData.MyParty[n].SetSkillClass();
-            sk_Text.text = "" + SaveData.MyParty[n].MySkill[i].skillName;
-            i++;
-        }
+        int skill_1 = SaveData.MyParty[n].SkillNum[1];
+        int skill_2 = SaveData.MyParty[n].SkillNum[2];
+        skill[0].GetComponent<Image>().sprite = Resources.Load<Sprite>(root + skill_1) as Sprite;
+        skill[1].GetComponent<Image>().sprite = Resources.Load<Sprite>(root + skill_2) as Sprite;
+        skill[2].GetComponent<Image>().sprite = Resources.Load<Sprite>(root + "5") as Sprite;        
+
+        skill[0].GetComponent<SkillComment>().skill = SaveData.MyParty[n].MySkill[1];
+        skill[1].GetComponent<SkillComment>().skill = SaveData.MyParty[n].MySkill[2];
+        skill[2].GetComponent<SkillComment>().skill = SaveData.MyParty[n].MySkill[3];
         
     }
 
     public void SetTargetBtn(int n)
     {
-        // SetStartSetting(); 
-        // 버튼 색상 할당
-        ColorBlock clb_green = CharacterBtn[n].colors;
-        clb_green.normalColor = Color.green;
-        clb_green.selectedColor = Color.green;
+        // // SetStartSetting(); 
+        // // 버튼 색상 할당
+        // ColorBlock clb_green = CharacterBtn[n].colors;
+        // clb_green.normalColor = Color.green;
+        // clb_green.selectedColor = Color.green;
 
-        ColorBlock clb_white = CharacterBtn[n].colors;
-        clb_white.normalColor = Color.white;
-        clb_white.selectedColor = Color.white;
+        // ColorBlock clb_white = CharacterBtn[n].colors;
+        // clb_white.normalColor = Color.white;
+        // clb_white.selectedColor = Color.white;
 
-        CharacterBtn[n].colors = clb_green;
+        // CharacterBtn[n].colors = clb_green;
 
-        if (SceneManager.GetActiveScene().name != "1-2.MapScene")
-        {
-            bCheckedTarget_0 = false;
-            CharacterBtn[Target_0].colors = clb_white;
-            Target_0 = n;
-        }
+        // if (SceneManager.GetActiveScene().name != "1-2.MapScene")
+        // {
+        //     bCheckedTarget_0 = false;
+        //     CharacterBtn[Target_0].colors = clb_white;
+        //     Target_0 = n;
+        // }
         
-        else if (bCheckedTarget_0 == false)
-        {
-            bCheckedTarget_0 = true;
-            Target_0 = n;
-        }
+        // else if (bCheckedTarget_0 == false)
+        // {
+        //     bCheckedTarget_0 = true;
+        //     Target_0 = n;
+        // }
 
-        else
-        {
+        // else
+        // {
             
-            Target_1 = n;
+        //     Target_1 = n;
 
-            // 버튼 색상 해제
+        //     // 버튼 색상 해제
             
 
-            CharacterBtn[Target_0].colors = clb_white;
-            CharacterBtn[Target_1].colors = clb_white;
+        //     CharacterBtn[Target_0].colors = clb_white;
+        //     CharacterBtn[Target_1].colors = clb_white;
 
-            if(Target_0 == Target_1)
-            {
-                bCheckedTarget_0 = false;
-                return;
-            }
+        //     if(Target_0 == Target_1)
+        //     {
+        //         bCheckedTarget_0 = false;
+        //         return;
+        //     }
 
-            Save.Player temp = SaveData.MyParty[Target_0];
-            SaveData.MyParty[Target_0] = SaveData.MyParty[Target_1];
-            SaveData.MyParty[Target_1] = temp;
-            bCheckedTarget_0 = false;
+        //     Save.Player temp = SaveData.MyParty[Target_0];
+        //     SaveData.MyParty[Target_0] = SaveData.MyParty[Target_1];
+        //     SaveData.MyParty[Target_1] = temp;
+        //     bCheckedTarget_0 = false;
 
-            SetCharImage();
+        //     SetCharImage();
 
                      
                      
-        }
-        SetStatus_Text(n);
-        SetSkillBtn(n);
+        // }
+        // SetStatus_Text(n);
+        // SetSkillBtn(n);
     }
 
     void SetTellentBtn()
@@ -214,4 +235,24 @@ public class Map_Info : MonoBehaviour
         telnum = 0;       
         
     }    
+
+    public void ChangeCharacterLocation()
+    {
+        if (SceneManager.GetActiveScene().name != "1-2.MapScene")
+        {
+            bCheckedTarget_0 = false;
+        }
+        else
+        {
+            firstCharacter.transform.position = secondLoc;
+            firstCharacter.GetComponent<Info_Character>().num = Target_1;
+            SecondCharacter.transform.position = firstLoc;      
+            SecondCharacter.GetComponent<Info_Character>().num = Target_0;
+
+            Save.Player temp = SaveData.MyParty[Target_0];
+            SaveData.MyParty[Target_0] = SaveData.MyParty[Target_1];
+            SaveData.MyParty[Target_1] = temp;              
+                     
+        }
+    }
 }

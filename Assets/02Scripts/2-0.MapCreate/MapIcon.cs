@@ -116,12 +116,38 @@ public class MapIcon : MonoBehaviour
         else if (map.mapData == 1) str = "2-2.ShpScene";
         else if (map.mapData == 2) str = "2-1.CampScene";
         else if (map.mapData == 3) str = "2-4.GiftScene";
-        else if (map.mapData == 4) str = "2-3.RandomScene";
+        else if (map.mapData == 4)
+        {
+            int rnd = Random.Range(1,4);
+            rnd = 2;
+            switch (rnd)
+            {
+                case 1: 
+                str = "2-3.CaveScene";
+                break;
+
+                case 2: 
+                str = "2-3.ItemScene";
+                break;
+
+                case 3: 
+                str = "2-3.RecruitScene";
+                break;
+                
+            }
+            
+        } 
         else if (map.mapData == 6) str = "2-0.BattleScene";
 
+
+
+        // 2-3.CaveScene
+        // 2-3.ItemScene
+        // 2-3.RecruitScene 1
 
         //str = "2-3.CaveScene";
         HUDManager.instance.SetFloor();
         SceneManager.LoadScene(str);
     }
+
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class TownManager : MonoBehaviour
@@ -130,5 +131,9 @@ public class TownManager : MonoBehaviour
     }
 
 
+    public void NextScene()
+    {
+        SceneManager.LoadScene("1-2.MapScene");     
+    }
 
 }

@@ -101,17 +101,17 @@ public class RewardManager : MonoBehaviour
             
             int telCode = 0;
             Etel_Rank rank;
-            if(rnd >= 40)
+            if(rnd <= 35)
             {
                 telCode = UnityEngine.Random.Range(0, 11);
                 rank = Etel_Rank.C;
             }
-            else if(rnd >= 70)
+            else if(rnd <= 80)
             {
                 telCode = UnityEngine.Random.Range(0, 18);
                 rank = Etel_Rank.B;
             }
-            else if(rnd >= 95)
+            else if(rnd <= 99)
             {
                 telCode = UnityEngine.Random.Range(0, 5);
                 rank = Etel_Rank.A;
@@ -180,7 +180,7 @@ public class RewardManager : MonoBehaviour
 
         for(int i = 0; i < 3; i++)
         {
-            if(i >= SaveData.MyParty.Count)
+            if(i > SaveData.MyParty.Count)
             {
                 PlayerObj[i].SetActive(false);
             }                

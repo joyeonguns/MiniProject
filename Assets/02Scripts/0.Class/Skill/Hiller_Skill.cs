@@ -111,8 +111,19 @@ public class Hiller_Skill : Skills
             
             caster.bleedCount = 0;
             caster.burnCount = 0;
-            caster.frostCount = 0;
-            caster.corrotionCount = 0;
+
+            if(caster.frostCount != 0)
+            {
+                caster.frostCount = 0;
+                caster.Battlestatus.Speed += 2; 
+            }
+                       
+            if(caster.corrotionCount != 0)
+            {
+                caster.corrotionCount = 0;
+                caster.Battlestatus.Speed -= 2; 
+            }
+            
             caster.TakeHeal(heal);
         }
     }

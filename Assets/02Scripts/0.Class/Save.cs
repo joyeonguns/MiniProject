@@ -131,6 +131,8 @@ public class Save : MonoBehaviour
             pierce = false;
         }
 
+
+        // 스킬
         public virtual void SetSkill()
         {
             SkillNum[0] = 0;
@@ -144,6 +146,7 @@ public class Save : MonoBehaviour
             
         }
 
+        // 데미지
         public virtual void TakeDamage(Character Other)
         {
             if(bAlive == false)
@@ -335,11 +338,11 @@ public class Save : MonoBehaviour
             }
             if(frostCount > 0)
             {
-                Battlestatus.Speed += 2;
+                Battlestatus.Speed -= 2;
             }
             if(rapidCount > 0)
             {
-                Battlestatus.Speed -= 2;
+                Battlestatus.Speed += 2;
             }
             if(enHanceCount > 0)
             {
@@ -471,8 +474,7 @@ public class Save : MonoBehaviour
 
 
         public override void StartTurn(List<Character> MyGrup, int idx, List<Character> Enemy, int EnemyIdx)
-        {
-            base.StartTurn(MyGrup, idx, Enemy, EnemyIdx);
+        {            
             // 텔런트 적용
             foreach (var telArray in GameManager.instance.Tellents)
             {
@@ -484,6 +486,8 @@ public class Save : MonoBehaviour
                     }
                 }                
             } 
+
+            base.StartTurn(MyGrup, idx, Enemy, EnemyIdx);
         }
     }
 

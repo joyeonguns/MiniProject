@@ -72,6 +72,7 @@ public class Magition_Skill : Skills
         {
             enemy.TakeDamage(Caster[CasterIdx]);
             enemy.corrotionCount += 3;
+            enemy.Battlestatus.Armor *=  0.5f;
         }            
     }
     void skill_3(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
@@ -86,6 +87,7 @@ public class Magition_Skill : Skills
         {
             enemy.TakeDamage(Caster[CasterIdx]);
             enemy.frostCount += 3;
+            enemy.Battlestatus.Speed -= 2; 
         }            
 
     }

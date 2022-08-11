@@ -27,6 +27,9 @@ EditorBuildSettings:
     path: Assets/01Scenes/2-3.RandomScene.unity
     guid: f341b1e7bfa2ed34e95229f392f2705e
   - enabled: 1
+    path: Assets/01Scenes/2-3.RecruitScene.unity
+    guid: 5a313150509ff67498ed2df6d9e036e3
+  - enabled: 1
     path: Assets/01Scenes/2-3.CaveScene.unity
     guid: 353b2518e6ccfd14a887329ea82bce38
   - enabled: 1

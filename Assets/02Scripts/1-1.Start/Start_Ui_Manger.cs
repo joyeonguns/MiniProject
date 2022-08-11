@@ -16,8 +16,9 @@ public class Start_Ui_Manger : MonoBehaviour
         //GameManager.instance.SetData();        
 
         // 씬 로드
-        SceneManager.LoadScene("1-2.MapScene");        
+        SceneManager.LoadScene("1-1.TownScene");        
 
+        // 1-1.TownScene
 
         for(int i = 0; i < Save_Charater_Data.instance.MyParty.Count; i++)
         {

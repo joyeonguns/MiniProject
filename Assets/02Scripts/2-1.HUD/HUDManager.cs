@@ -176,8 +176,9 @@ public class HUDManager : MonoBehaviour
 
         if(bOpenInfo == false)
         {
+            GetComponent<Map_Info>().SetStartSetting();
             InfoUI.SetActive(true);
-            bOpenInfo = true;
+            bOpenInfo = true;            
         }
         else
         {

@@ -70,6 +70,7 @@ public class Battle_Manager : MonoBehaviour
     public TextMeshProUGUI AttStatus;
     public TextMeshProUGUI TargetStatus;
     public Image AttackerImage;
+    public GameObject SkillComment;
 
     // 전투 컷신
     public GameObject AttackObj;
@@ -262,7 +263,12 @@ public class Battle_Manager : MonoBehaviour
             int skill_2 = Character[L_BattleSpeed[0].Item2].SkillNum[2];
             SkillButton[1].sprite = Resources.Load<Sprite>(root + skill_1) as Sprite;
             SkillButton[2].sprite = Resources.Load<Sprite>(root + skill_2) as Sprite;
-            SkillButton[3].sprite = Resources.Load<Sprite>(root +"5") as Sprite;
+            SkillButton[3].sprite = Resources.Load<Sprite>(root + "5") as Sprite;
+
+            SkillButton[0].GetComponent<SkillComment>().skill = Character[n].MySkill[0];
+            SkillButton[1].GetComponent<SkillComment>().skill = Character[n].MySkill[1];
+            SkillButton[2].GetComponent<SkillComment>().skill = Character[n].MySkill[2];
+            SkillButton[3].GetComponent<SkillComment>().skill = Character[n].MySkill[3];
 
             for(int i = 1; i < 4; i++)
             {
@@ -276,7 +282,13 @@ public class Battle_Manager : MonoBehaviour
                     SkillButton[i].GetComponent<Button>().interactable = true;
                 }
             }
-        }          
+        } 
+        else{
+            if(SkillComment.transform.childCount != 0)
+            {
+                Destroy(SkillComment.transform.GetChild(0).gameObject);
+            }
+        }         
     }
 
     void EnemyTurn(int n)
@@ -488,13 +500,16 @@ public class Battle_Manager : MonoBehaviour
                 // 턴종료 셋팅 초기화
                 AttackerHilight("Enemy", L_BattleSpeed[0].Item2, false);
                 AttackerHilight("Character", L_BattleSpeed[0].Item2, false);
+                
+                if(L_BattleSpeed[0].Item3 == 0)      
+                    SetSkillPannel(false,Attacker);                
                 if(L_BattleSpeed.Count > 0)
                     L_BattleSpeed.RemoveAt(0);
                 target = 0;
                 bCheckSkill = false;
                 bChecktarget = false;          
-                bBuffSkill = false;      
-                SetSkillPannel(false,Attacker);
+                bBuffSkill = false;
+                
 
                 // 라이브 체크
                 if (LiveCheck_Character(Character.Cast<Save.Character>().ToList()) == false)
