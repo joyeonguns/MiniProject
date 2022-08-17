@@ -10,7 +10,7 @@ public class SkillComment : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public GameObject CommentsParents;
     public GameObject Comments;
 
-    public Skills skill = new Worrier_Skill(0);
+    public BaseSkill skill = new Healer_Skill(0);
 
     private void Start() {
     }

@@ -6,7 +6,7 @@ using System.Linq;
 using TMPro;
 
 
-public enum e_Class {adventurer, worrier, magicion, supporter, assassin, bandit = 100, crystal = 101, witch = 200, barlog = 201};
+
 
 public class Save_Charater_Class1 : MonoBehaviour
 {
@@ -54,7 +54,7 @@ public class Save_Charater_Class1 : MonoBehaviour
         public bool bAlive;
         // 스킬 인덱스
         public int[] skill = new int[2];
-        public Skills[] MySkill = new Skills[4];
+        public BaseSkill[] MySkill = new BaseSkill[4];
         
         // 경험치
         public int exp;
@@ -120,10 +120,7 @@ public class Save_Charater_Class1 : MonoBehaviour
 
         public void SetSkillClass()
         {
-            MySkill[0] = new Worrier_Skill(0);
-            MySkill[1] = new Worrier_Skill(skill[0]);
-            MySkill[2] = new Worrier_Skill(skill[1]);
-            MySkill[3] = new Worrier_Skill(5);
+        
         }
 
         // 전투
@@ -285,13 +282,5 @@ public class Save_Charater_Class1 : MonoBehaviour
     public static Class_Status Barlog = new Class_Status(30,0.4f,10,100,100,0);
 
 
-    [System.Serializable]
-    public class Barlog_Class : SD
-    {
-        public int BressHp = 0;
-        public Barlog_Class() : base(Barlog,e_Class.barlog)
-        {
-            Debug.Log(" 강 림 ");
-        }
-    }
+    
 }

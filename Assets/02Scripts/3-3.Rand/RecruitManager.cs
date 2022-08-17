@@ -51,28 +51,31 @@ public class RecruitManager : MonoBehaviour
         else if(rnd > 1) lvl = 3;
         else if(rnd == 1) lvl = 4;
         
-        e_Class newClass = e_Class.worrier;
-        Save.St_Stat newStatus = Save.Worrier;
+        e_Class newClass = e_Class.Warrior;
+        Save.St_Stat newStatus = Save.Warrior;
         
         rnd = UnityEngine.Random.Range(0,4);
 
         switch (rnd)
         {
-            case 0 : newClass = e_Class.worrier; newStatus = Save.Worrier;
+            case 0 : newClass = e_Class.Warrior; newStatus = Save.Warrior;
             break;
 
-            case 1 : newClass = e_Class.magicion; newStatus = Save.Magicion;
+            case 1 : newClass = e_Class.Magicion; newStatus = Save.Magicion;
             break;
 
-            case 2 : newClass = e_Class.supporter; newStatus = Save.Supporter;
+            case 2 : newClass = e_Class.Supporter; newStatus = Save.Supporter;
             break;
 
-            case 3 : newClass = e_Class.assassin; newStatus = Save.Assassin;
+            case 3 : newClass = e_Class.Assassin; newStatus = Save.Assassin;
             break;
         }
 
         newChar = new Save.Player(newStatus,newClass);
-        for(int i = 0; i < lvl; i++) newChar.LevelUp();
+        for(int i = 0; i < lvl; i++)
+        {
+            newChar.LevelUp();
+        }
     }
 
     void SaveChat()

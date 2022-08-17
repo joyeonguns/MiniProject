@@ -11,7 +11,7 @@ public class TownManager : MonoBehaviour
     public GameObject[] Characters = new GameObject[4];
     public Button[] CharacterBtn = new Button[4];
     public GameObject SkillPannel;
-    public GameObject[] SkillText = new GameObject[4];
+    public GameObject[] SkillBtn = new GameObject[4];
     public Sprite[] CharImage = new Sprite[4];
 
     Save_Charater_Data SaveData;
@@ -49,32 +49,32 @@ public class TownManager : MonoBehaviour
     {
         for(int i = 0; i < 4; i++)
         {
-            e_Class newClass = e_Class.worrier;
-            Save.St_Stat newStatus = Save.Worrier;
+            e_Class newClass = e_Class.Warrior;
+            Save.St_Stat newStatus = Save.Warrior;
             int rnd = Random.Range(0,4);
             
             switch (rnd)
             {
                 case 0:
-                newClass = e_Class.worrier;
-                newStatus = Save.Worrier;
+                newClass = e_Class.Warrior;
+                newStatus = Save.Warrior;
                 Characters[i].GetComponent<Image>().sprite = CharImage[rnd];
                 break;
 
                 case 1:
-                newClass = e_Class.magicion;
+                newClass = e_Class.Magicion;
                 newStatus = Save.Magicion;
                 Characters[i].GetComponent<Image>().sprite = CharImage[rnd];
                 break;
                 
                 case 2:
-                newClass = e_Class.supporter;
+                newClass = e_Class.Supporter;
                 newStatus = Save.Supporter;
                 Characters[i].GetComponent<Image>().sprite = CharImage[rnd];
                 break;
                 
                 case 3:
-                newClass = e_Class.assassin;
+                newClass = e_Class.Assassin;
                 newStatus = Save.Assassin;
                 Characters[i].GetComponent<Image>().sprite = CharImage[rnd];
                 break;                
@@ -108,10 +108,35 @@ public class TownManager : MonoBehaviour
 
         SkillPannel.SetActive(true);
 
-        SkillText[0].GetComponent<TextMeshProUGUI>().text = "Nomal";
-        SkillText[1].GetComponent<TextMeshProUGUI>().text = "Sk_"+ NewCharacters[n].SkillNum[1];
-        SkillText[2].GetComponent<TextMeshProUGUI>().text = "Sk_"+ NewCharacters[n].SkillNum[2];
-        SkillText[3].GetComponent<TextMeshProUGUI>().text = "Ulti";
+        int rolenum = (int)NewCharacters[n].Role;
+        string root ="";
+        switch (rolenum)
+        {
+            case 1 :
+            root = "icon/Worrier/";
+            break;
+            case 2 :
+            root = "icon/Magition/";
+            break;
+            case 3 :
+            root = "icon/Healer/";
+            break;
+            case 4 :
+            root = "icon/Assassin/";
+            break;
+        }
+        int skill_1 = NewCharacters[n].SkillNum[1];
+        int skill_2 = NewCharacters[n].SkillNum[2];
+
+        SkillBtn[0].GetComponent<Image>().sprite = Resources.Load<Sprite>(root + 0) as Sprite;
+        SkillBtn[1].GetComponent<Image>().sprite = Resources.Load<Sprite>(root + skill_1) as Sprite;
+        SkillBtn[2].GetComponent<Image>().sprite = Resources.Load<Sprite>(root + skill_2) as Sprite;
+        SkillBtn[3].GetComponent<Image>().sprite = Resources.Load<Sprite>(root + 5) as Sprite;
+
+        SkillBtn[0].GetComponent<SkillComment>().skill = NewCharacters[n].MySkill[0];
+        SkillBtn[1].GetComponent<SkillComment>().skill = NewCharacters[n].MySkill[1];
+        SkillBtn[2].GetComponent<SkillComment>().skill = NewCharacters[n].MySkill[2];
+        SkillBtn[3].GetComponent<SkillComment>().skill = NewCharacters[n].MySkill[3];
         
 
         SelectNum = n;
@@ -127,7 +152,11 @@ public class TownManager : MonoBehaviour
             bSelect = false;
             SkillPannel.SetActive(false);
 
-       } 
+       }
+       else
+       {
+            Debug.Log("이미 파티원의 수가 풀 입니다.");
+       }
     }
 
 

@@ -25,7 +25,7 @@ public class Save_Charater_Data : MonoBehaviour
         if(c_Num < 3)
         {
             MyParty.Add(new Save.Player());
-            MyParty[c_Num] = new Save.Player(Save.Worrier, e_Class.worrier);
+            MyParty[c_Num] = new Save.Player(Save.Warrior, e_Class.Warrior);
             for(int i = 0; i < level; i++ ){
                 MyParty[c_Num].LevelUp();
             }    
@@ -37,7 +37,7 @@ public class Save_Charater_Data : MonoBehaviour
         if(c_Num < 3)
         {
             MyParty.Add(new Save.Player());
-            MyParty[c_Num] = new Save.Player(Save.Magicion,e_Class.magicion);
+            MyParty[c_Num] = new Save.Player(Save.Magicion,e_Class.Magicion);
             for(int i = 0; i < level; i++ ){
                 MyParty[c_Num].LevelUp();
             }        
@@ -49,7 +49,7 @@ public class Save_Charater_Data : MonoBehaviour
         if(c_Num < 3)
         {
             MyParty.Add(new Save.Player());
-            MyParty[c_Num] = new Save.Player(Save.Supporter,e_Class.supporter);
+            MyParty[c_Num] = new Save.Player(Save.Supporter,e_Class.Supporter);
             for(int i = 0; i < level; i++ ){
                 MyParty[c_Num].LevelUp();
             }   
@@ -62,7 +62,7 @@ public class Save_Charater_Data : MonoBehaviour
         if(c_Num < 3)
         {
             MyParty.Add(new Save.Player());
-            MyParty[c_Num] = new Save.Player(Save.Assassin,e_Class.assassin);
+            MyParty[c_Num] = new Save.Player(Save.Assassin,e_Class.Assassin);
             for(int i = 0; i < level; i++ ){
                 MyParty[c_Num].LevelUp();
             }       
@@ -76,7 +76,6 @@ public class Save_Charater_Data : MonoBehaviour
     {
         if (MyParty.Count > 0)
         {
-
             c_Num--;
             MyParty.RemoveAt(c_Num);
         }

@@ -115,6 +115,14 @@ public class Battle_Manager : MonoBehaviour
 
     void Start()
     {       
+        StartSetting();
+        TurnStart();        
+    }
+
+    // START SETTING //
+
+    void StartSetting()
+    {
         SetBattleInfo();
         SetEnemy();
         SetCharacter();
@@ -123,8 +131,213 @@ public class Battle_Manager : MonoBehaviour
         HUDManager.instance.Enemys = Enemy;
     }
 
-    // START SETTING //
 
+    // 턴 진행 //
+    void TurnStart()
+    {
+        BattleInfo.TurnCounts++;
+        RoundText.text = "R:" + BattleInfo.TurnCounts;
+
+        SetSpeed();
+
+        SetAttacker();
+    }
+
+    void SetAttacker()
+    {
+        SetAttackOrder();
+        Attacker = L_BattleSpeed[0].Item2;
+
+        Debug.Log("Speed : " + L_BattleSpeed[0].Item1);
+        // 적 차례
+        if (L_BattleSpeed[0].Item3 == 1)
+        {
+            // 죽었으면 턴 종료
+            if (Enemy[Attacker].bAlive == false)
+            {
+                TurnEnd();
+            }
+            else    // 턴에너미 실행
+            {
+                AttackerHilight("Enemy", Attacker, true);
+                SetTargetStatus(Attacker);
+                Enemy[Attacker].StartTurn(Enemy.Cast<Save.Character>().ToList(), Attacker, Character.Cast<Save.Character>().ToList(), 0);
+
+                // 1.5초 후 TurnEnemy() 실행
+                Invoke("TurnEnemy",1.5f);                
+            }
+        }
+        // 캐릭터 차례
+        else
+        {
+            // 죽었으면 턴 종료
+            if (Character[Attacker].bAlive == false)
+            {
+                TurnEnd();
+            }
+            else
+            {
+                // 공격자 하이라이트
+                AttackerHilight("Character", Attacker, true);
+                Character[Attacker].StartTurn(Character.Cast<Save.Character>().ToList(), Attacker, Enemy.Cast<Save.Character>().ToList(), 0);
+
+                // 1.5초 후 TurnPlayer() 실행
+                Invoke("TurnPlayer",1.5f);  
+            }            
+        }
+    }
+
+    void TurnEnemy()
+    {
+        // 생존 + 스턴 X
+        if (Enemy[Attacker].bAlive == true && Enemy[Attacker].stunCount == 0)
+        {
+            // 타겟 선택 And 스킬 선택
+            target = Enemy[Attacker].Enemy_SetTarget(Character);
+            int skillNum = Enemy[Attacker].SelectSkill();
+
+            Enemy[Attacker].MySkill[skillNum].UseSkill(Enemy.Cast<Save.Character>().ToList(), Attacker, Character.Cast<Save.Character>().ToList(), target);
+            // 공격 씬 출력
+            SpwAttackAnim(Enemy[Attacker].MySkill[skillNum], false, Enemy[Attacker].MySkill[skillNum].bmultiTarget, Enemy[Attacker].MySkill[skillNum].bBuff);
+
+            Enemy[Attacker].EndTurn();
+            Invoke("TurnEnd", 3.0f);
+        }
+        else    // 스턴
+        {
+            Enemy[Attacker].EndTurn();
+            TurnEnd();
+        }          
+    }
+
+    void TurnPlayer()
+    {
+        // 생존 + 스턴 X
+        if (Character[Attacker].bAlive == true && Character[Attacker].stunCount == 0)
+        {
+            // 스킬 패널 on / 이미지 설정
+            SetSkillPannel(true, Attacker);
+            // 공격자 스텟 표시
+            SetAttackerStatus(Attacker);
+            
+            StartCoroutine(CheckSkillnTarget());
+        }
+        else
+        {
+            // 턴 종료
+            Character[Attacker].EndTurn();
+            TurnEnd();
+        }
+    }
+
+    IEnumerator CheckSkillnTarget()
+    {
+          
+        yield return null;
+        
+        if (bChecktarget == true && bCheckSkill == true)
+        {
+            TurnPlayer2();
+        }
+        else
+        {
+            StartCoroutine(CheckSkillnTarget());
+        } 
+    }
+
+    void TurnPlayer2()
+    {
+        // 공격
+        Character[Attacker].SetSkillClass();
+        if (bBuffSkill == false)
+        {
+            Character[Attacker].MySkill[selecSkill].UseSkill(Character.Cast<Save.Character>().ToList(), Attacker, Enemy.Cast<Save.Character>().ToList(), target);
+        }
+        else
+        {
+            Character[Attacker].MySkill[selecSkill].UseSkill(Character.Cast<Save.Character>().ToList(), Attacker, Character.Cast<Save.Character>().ToList(), target);
+        }
+
+        SpwAttackAnim(Character[Attacker].MySkill[selecSkill], true, Character[Attacker].MySkill[selecSkill].bmultiTarget, Character[Attacker].MySkill[selecSkill].bBuff);
+
+        
+        // 턴 종료
+        Character[Attacker].EndTurn();
+        Invoke("TurnEnd" ,3.0f);
+    }
+
+    void TurnEnd()
+    {
+        // 데드 체크 - 무덤
+        CheckDead();
+
+        // 턴종료 셋팅 초기화
+        AttackerHilight("Enemy", L_BattleSpeed[0].Item2, false);
+        AttackerHilight("Character", L_BattleSpeed[0].Item2, false);
+        
+        // 플레이어 턴 앤드
+        if(L_BattleSpeed[0].Item3 == 0)
+        {
+            SetSkillPannel(false, Attacker);
+        }
+        
+        target = 0;
+        bCheckSkill = false;
+        bChecktarget = false;
+        bBuffSkill = false;
+
+        // 라이브 체크
+        if (LiveCheck_Character(Character.Cast<Save.Character>().ToList()) == false)
+        {
+            Debug.Log("패배");
+            HUDManager.instance.Dead();
+            
+        }
+        else if (LiveCheck_Character(Enemy.Cast<Save.Character>().ToList()) == false)
+        {
+            Debug.Log("승리");
+            EndBattle();
+        }
+        else
+        {
+            // 다음 차례
+            if (L_BattleSpeed.Count > 0)
+            {
+                L_BattleSpeed.RemoveAt(0);
+            }
+            else    // 턴 초기화
+            {
+                Debug.LogError("L_BattleSpeed error");
+            }
+
+            // 다음 공격자 있음
+            if (L_BattleSpeed.Count != 0)
+            {
+                SetAttacker();
+            }
+            else
+            {
+                TurnStart();
+            }
+        }
+            
+    }
+
+    void EndBattle()
+    {
+        Debug.Log("승리");
+
+        GameManager.instance.ResultData.Gold = BattleInfo.Golds;
+        GameManager.instance.ResultData.ItemRate = BattleInfo.ItemRate;
+        GameManager.instance.ResultData.Exp = BattleInfo.Exp;
+
+        BettleEndTellent();
+
+        SceneManager.LoadScene("2-4.GiftScene");
+        //battleState = BattleState.waiting;
+    }
+
+    // 턴 진행 //
 
     void SetBattleInfo()
     {
@@ -134,29 +347,71 @@ public class Battle_Manager : MonoBehaviour
     // 적 정보 설정
     void SetEnemy()
     {
-        BtLvl = GameManager.instance.Battle_Lvl;
+        // 레벨 설정
+        int level = GameManager.instance.floor / 2 + UnityEngine.Random.Range(0, 1);   
+        
         Enemy.Add(new Save.Enemy());
         Enemy.Add(new Save.Enemy());
         Enemy.Add(new Save.Enemy());
-        if(GameManager.instance.BattleType == 1)
-        {            
-            // 1열 전사
-            Enemy[0] = new Save.Enemy(Save.Bandit,e_Class.bandit);
-            Enemy[0].font = Damage;
-            Enemy[0].spwLoc = EnemyField[0].GetComponent<RectTransform>().anchoredPosition + new Vector2(50,300);
 
-            // 2열 전사 / 궁수
-            Enemy[1] = new Save.Enemy(Save.Bandit,e_Class.bandit);
-            Enemy[1].font = Damage;
-            Enemy[1].spwLoc = EnemyField[1].GetComponent<RectTransform>().anchoredPosition + new Vector2(50,300);
-            
-            // 3열 궁수
-            Enemy[2] = new Save.Enemy(Save.Bandit,e_Class.bandit);
-            Enemy[2].font = Damage;
-            Enemy[2].spwLoc = EnemyField[2].GetComponent<RectTransform>().anchoredPosition + new Vector2(50,300);
-            
-        }        
+        if(level < 3)
+        {
+            SpawnBandit(level);
+        }
+        else if(level < 5)
+        {
+            SpawnKnight(level);
+        }
+        else
+        {
+            SpawnAbomination(level);
+        }
+             
     }
+
+    void SpawnBandit(int level)
+    {
+        for(int i = 0; i < Enemy.Count; i ++)
+        {
+            Enemy[i] = new Save.Enemy(Save.Bandit, e_Class.Bandit);
+            Enemy[i].font = Damage;
+            Enemy[i].spwLoc = EnemyField[i].GetComponent<RectTransform>().anchoredPosition + new Vector2(50,300);
+            EnemyImage[i].sprite = EnemySprite[0];
+            for(int j = 0; j < level; j++)
+            {
+                Enemy[i].LevelUp();
+            }
+        }
+    }
+    void SpawnKnight(int level)
+    {
+        for(int i = 0; i < Enemy.Count; i ++)
+        {
+            Enemy[i] = new Save.Enemy(Save.Knight, e_Class.Knight);
+            Enemy[i].font = Damage;
+            Enemy[i].spwLoc = EnemyField[i].GetComponent<RectTransform>().anchoredPosition + new Vector2(50,300);
+            EnemyImage[i].sprite = EnemySprite[1];
+            for(int j = 0; j < level; j++)
+            {
+                Enemy[i].LevelUp();
+            }
+        }
+    }
+    void SpawnAbomination(int level)
+    {
+        for(int i = 0; i < Enemy.Count; i ++)
+        {
+            Enemy[i] = new Save.Enemy(Save.Abomination, e_Class.Abomination);
+            Enemy[i].font = Damage;
+            Enemy[i].spwLoc = EnemyField[i].GetComponent<RectTransform>().anchoredPosition + new Vector2(50,300);
+            EnemyImage[i].sprite = EnemySprite[2];
+            for(int j = 0; j < level; j++)
+            {
+                Enemy[i].LevelUp();
+            }
+        }
+    }
+
     // 아군 저장
     void SetCharacter()
     {
@@ -250,7 +505,7 @@ public class Battle_Manager : MonoBehaviour
             root = "icon/Magition/";
             break;
             case 3 :
-            root = "icon/Hiller/";
+            root = "icon/Healer/";
             break;
             case 4 :
             root = "icon/Assassin/";
@@ -345,216 +600,11 @@ public class Battle_Manager : MonoBehaviour
         }
     }
 
-    
-    public BattleState battleState = BattleState.BeforBattle;
-    // Update is called once per frame
     void Update()
-    {
-        // 전투 단계
-        switch (battleState)
-        {            
-            // 1. 전투 이전
-            case BattleState.BeforBattle :
-                battleState = BattleState.InBattle;
-                break;
-
-            // 2. 전투 중 
-            case BattleState.InBattle :
-                battleState = BattleState.InBattle_Tellent;
-                break;
-            // 2-1. 전투 전 특성 처리
-            case BattleState.InBattle_Tellent :      
-                battleState = BattleState.InBattle_SetTurn;
-                break;
-
-            // 2-2. 턴 할당
-            case BattleState.InBattle_SetTurn :
-                BattleInfo.TurnCounts++;                
-                RoundText.text = "R:" + BattleInfo.TurnCounts;
-
-                SetSpeed();
-                battleState = BattleState.InBattle_BattleUi;
-                break;
-
-            // 2-2-1. 턴 배틀UI
-            case BattleState.InBattle_BattleUi :
-                // 공격 순서 UI             
-
-                SetAttackOrder();
-                Attacker = L_BattleSpeed[0].Item2;
-
-                Debug.Log("Speed : " + L_BattleSpeed[0].Item1);
-                // 적 차례
-                if(L_BattleSpeed[0].Item3 == 1) 
-                {
-                    // 죽었으면 다음 씬으로
-                    if (Enemy[Attacker].bAlive == false)
-                    {
-                        battleState = BattleState.InBattle_EndBattle;
-                        break;
-                    }
-                    else
-                    {
-                        AttackerHilight("Enemy", Attacker, true);
-                        SetTargetStatus(Attacker);
-                        Enemy[Attacker].StartTurn(Enemy.Cast<Save.Character>().ToList(), Attacker, Character.Cast<Save.Character>().ToList(), 0);
-
-                        StartCoroutine(WaitAnimate(BattleState.InBattle_Battle_Enemy, 1.5f));
-                        battleState = BattleState.InBattle_Battle_Animate;
-                    }                    
-                }                
-                // 캐릭터 차례
-                else
-                {
-                    // 죽었으면 넘어감
-                    if (Character[Attacker].bAlive == false)
-                    {
-                        battleState = BattleState.InBattle_EndBattle;
-                        break;
-                    }
-                    
-                    // 공격자 하이라이트
-                    AttackerHilight("Character", Attacker, true);
-                    Character[Attacker].StartTurn(Character.Cast<Save.Character>().ToList(), Attacker, Enemy.Cast<Save.Character>().ToList(), 0);
-                    
-                    StartCoroutine(WaitAnimate(BattleState.InBattle_Battle_My1, 1.5f));
-                    battleState = BattleState.InBattle_Battle_Animate;
-                } 
-
-                break;
-
-            // 2-2-2 적 공격
-            case BattleState.InBattle_Battle_Enemy :
-
-                // 생존 + 스턴 X
-                if(Enemy[Attacker].bAlive == true && Enemy[Attacker].stunCount == 0)
-                {                    
-                    EnemyTurn(Attacker);
-                    StartCoroutine(WaitAnimate(BattleState.InBattle_EndBattle, 3.0f));
-                    battleState = BattleState.InBattle_Battle_Animate;
-                }
-                else
-                    battleState = BattleState.InBattle_EndBattle;   
-
-                Enemy[Attacker].EndTurn();            
-
-                break;
-            // 2-2-3  캐릭터 턴
-            case BattleState.InBattle_Battle_My1 :          
-
-                // 생존 + 스턴 X
-                if (Character[Attacker].bAlive == true && Character[Attacker].stunCount == 0)
-                {
-                    // 특성 적용
-                    
-                    // 스킬 패널 on / 이미지 설정
-                    SetSkillPannel(true, Attacker);
-                    // 공격자 스텟 표시
-                    SetAttackerStatus(Attacker);
-
-                    battleState = BattleState.InBattle_Battle_Waiting;
-                }
-                else
-                {
-                    battleState = BattleState.InBattle_EndBattle;
-                    // 턴 종료
-                    Character[Attacker].EndTurn();
-                }                    
-                
-                break;
-            // 2-2-3-1 스킬 및 타겟 선택
-            case BattleState.InBattle_Battle_Waiting :
-                if(bChecktarget == true && bCheckSkill == true)
-                    battleState = BattleState.InBattle_Battle_My2;
-                break;
-            // 2-2-3-2 My 공격
-            case BattleState.InBattle_Battle_My2 :                
-                
-                // 공격
-                Character[Attacker].SetSkillClass();         
-                if(bBuffSkill == false)
-                {
-                    Character[Attacker].MySkill[selecSkill].UseSkill(Character.Cast<Save.Character>().ToList(),Attacker, Enemy.Cast<Save.Character>().ToList(), target);
-                } 
-                else{                    
-                    Character[Attacker].MySkill[selecSkill].UseSkill(Character.Cast<Save.Character>().ToList(),Attacker, Character.Cast<Save.Character>().ToList(), target);
-                }
-                               
-                SpwAttackAnim(Character[Attacker].MySkill[selecSkill], true, Character[Attacker].MySkill[selecSkill].bmultiTarget, Character[Attacker].MySkill[selecSkill].bBuff);
-                
-                StartCoroutine(WaitAnimate(BattleState.InBattle_EndBattle, 3.0f));
-                battleState = BattleState.InBattle_Battle_Animate;
-                // 턴 종료
-                Character[Attacker].EndTurn();
-                break;
-            // 2-2-4. 공격 애니메이션
-            case BattleState.InBattle_Battle_Animate :                
-                
-                break;
-            // 2-2-5. 턴종료
-            case BattleState.InBattle_EndBattle : 
-
-                // 데드 체크 - 무덤
-                CheckDead();
-
-                // 턴종료 셋팅 초기화
-                AttackerHilight("Enemy", L_BattleSpeed[0].Item2, false);
-                AttackerHilight("Character", L_BattleSpeed[0].Item2, false);
-                
-                if(L_BattleSpeed[0].Item3 == 0)      
-                    SetSkillPannel(false,Attacker);                
-                if(L_BattleSpeed.Count > 0)
-                    L_BattleSpeed.RemoveAt(0);
-                target = 0;
-                bCheckSkill = false;
-                bChecktarget = false;          
-                bBuffSkill = false;
-                
-
-                // 라이브 체크
-                if (LiveCheck_Character(Character.Cast<Save.Character>().ToList()) == false)
-                {
-                    Debug.Log("패배");
-                    Application.Quit();
-                    battleState = BattleState.EndBattle;
-                    break;
-                }
-                if (LiveCheck_Character(Enemy.Cast<Save.Character>().ToList()) == false)
-                {
-                    Debug.Log("승리");
-                    battleState = BattleState.EndBattle;
-                    break;
-                }
-
-                // 다음 공격자 있음
-                if(L_BattleSpeed.Count != 0)
-                {
-                    battleState = BattleState.InBattle_BattleUi;
-                }
-                else
-                {
-                    battleState = BattleState.InBattle_SetTurn;
-                }
-                break;
-            // (1~2 반복)
-            // 3. 전투 종료
-            case BattleState.EndBattle :
-                 Debug.Log("승리");                 
-
-                 GameManager.instance.ResultData.Gold = BattleInfo.Golds;
-                 GameManager.instance.ResultData.ItemRate = BattleInfo.ItemRate;
-                 GameManager.instance.ResultData.Exp = BattleInfo.Exp;
-
-                 BettleEndTellent();
-
-                 SceneManager.LoadScene("2-4.GiftScene");
-                 battleState = BattleState.waiting;
-                break;
-            default :
-                break;
-        }       
+    {        
         SetHP_MP();
     }
+
     void BeforeTheBattle()
     {
         SetEnemy();
@@ -574,21 +624,9 @@ public class Battle_Manager : MonoBehaviour
 
         return charAlive;
     }
+ 
 
-    IEnumerator WaitAnimate(BattleState NextState, float waitTime)
-    {
-        //Debug.Log("Animating...");
-        yield return new WaitForSeconds(waitTime);
-        //Debug.Log("Animated...");
-        battleState = NextState;
-        if (NextState == BattleState.InBattle_EndBattle)
-        {
-            AttackerHilight("Enemy", L_BattleSpeed[0].Item2, false);
-            AttackerHilight("Character", L_BattleSpeed[0].Item2, false);
-        }
-    }
-
-    void SpwAttackAnim(Skills usingSkill, bool bPlayerAtk, bool bmultiTarget, bool bBuff)
+    void SpwAttackAnim(BaseSkill usingSkill, bool bPlayerAtk, bool bmultiTarget, bool bBuff)
     {
         AttackObj.SetActive(true);
         Attack_Text.text = "[" + usingSkill.skillName + "]";
@@ -815,9 +853,4 @@ public class Battle_Manager : MonoBehaviour
     }
 }
 
-// 배틀 단계
-    public enum BattleState {BeforBattle, InBattle, InBattle_Tellent, 
-    InBattle_SetTurn, InBattle_BattleUi,InBattle_Battle_Enemy,
-    InBattle_Battle_My1, InBattle_Battle_Waiting, InBattle_Battle_My2, InBattle_Battle_Animate,
-    InBattle_EndBattle, EndBattle,waiting};
     

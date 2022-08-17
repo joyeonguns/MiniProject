@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossSkillScripts : Skills
+public class BossSkillScripts : BaseSkill
 {
     Dictionary<int,string> DSkillName = new Dictionary<int, string>() {
         {0,"Attack"},
@@ -69,7 +69,11 @@ public class BossSkillScripts : Skills
             case 10:
                 UseSkill = Bress;
                 bmultiTarget = true;
-                break;        
+                break;    
+
+            default :
+                Debug.LogError("BossSkillScripts Error");
+                break;    
         }
     }
     void Attack(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
@@ -96,7 +100,9 @@ public class BossSkillScripts : Skills
         Caster[CasterIdx].Battlestatus.Damage *= 1f;
 
         foreach(var enemy in Enemy)
+        {
             enemy.TakeDamage(Caster[CasterIdx]);
+        }            
     }
     void Heal(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
     {

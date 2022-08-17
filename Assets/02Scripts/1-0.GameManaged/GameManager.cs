@@ -8,15 +8,7 @@ using System.Linq;
 
 public enum ResultEnum {NomalBattle, EliteBattle, BossBattle, Run}
 
-// 전투 보상
-public class ResultClass
-{
-    public ResultEnum ResultMode = ResultEnum.NomalBattle;
-    public int Gold;
-    public int Exp;
-    public int ItemRate;
-    public string TellentRank;
-}
+
 
 
 public class GameManager : MonoBehaviour
@@ -33,16 +25,9 @@ public class GameManager : MonoBehaviour
     public List<List<MapClass>> maps = new List<List<MapClass>>();
     public int row, col,floor;
 
-    // 현재 전투 난이도
-    public int Battle_Lvl = 1;
-    public int BattleType = 1; 
 
     // 특성 리스트
     public List<List<TellentsScripts>> Tellents = new List<List<TellentsScripts>>();
-    // public List<TellentsScripts> Tellents_C = new List<TellentsScripts>();
-    // public List<TellentsScripts> Tellents_B = new List<TellentsScripts>();
-    // public List<TellentsScripts> Tellents_A = new List<TellentsScripts>();
-    // public List<TellentsScripts> Tellents_S = new List<TellentsScripts>();
 
     // 보상
     public ResultClass ResultData = new ResultClass();
@@ -77,11 +62,6 @@ public class GameManager : MonoBehaviour
         Tellents[0].Add(new TellentsScripts(Etel_Rank.C,10));
         Tellents[1].Add(new TellentsScripts(Etel_Rank.B,14));
         Tellents[2].Add(new TellentsScripts(Etel_Rank.A,1));
-
-        // Tellents_C.Add(new TellentsScripts(Etel_Rank.C,1));
-        // Tellents_C.Add(new TellentsScripts(Etel_Rank.C,10));
-        // Tellents_B.Add(new TellentsScripts(Etel_Rank.B,14));
-        // Tellents_A.Add(new TellentsScripts(Etel_Rank.A,1));
      
     }    
     

@@ -22,18 +22,27 @@ public class ItemClass
 
     public ItemClass(int code)
     {
-        ItemCode = code;
-        UseItem = ItemFunction[ItemCode];
-        ItemName = ItemNames[ItemCode];
-        ItemComments = "NULL";
+        if(ItemNames.Length < code)
+        {
+            ItemCode = code;
+            UseItem = ItemFunction[ItemCode];
+            ItemName = ItemNames[ItemCode];
+            ItemComments = "NULL";
 
-        Debug.Log("Use Item : " + ItemName);
+            Debug.Log("Use Item : " + ItemName);
+        }
+        else
+        {
+            Debug.LogError("ItemClass Error code : " + code);
+        }
+        
     }
     static void Nothing(List<Save.Player> Caster, int CasterIdx, List<Save.Enemy> Enemy, int EnemyIdx)
     {
 
     }
 
+    
     static void SmokePotion(List<Save.Player> Caster, int CasterIdx, List<Save.Enemy> Enemy, int EnemyIdx)
     {
         // ResultManager 초기화
@@ -47,7 +56,7 @@ public class ItemClass
         foreach (var enemy in Enemy)
         {
              Debug.Log("Use Item : Boom");
-            enemy.TakeDamage(20,"Boom");   
+            enemy.TakeDamage_Item(ConstData.BoomDmg,"Boom");   
         }
     }
     static void ManaPotion(List<Save.Player> Caster, int CasterIdx, List<Save.Enemy> Enemy, int EnemyIdx)
@@ -63,7 +72,7 @@ public class ItemClass
         // 전체 체력 15회복        
         foreach (var target in Caster)
         {
-            target.TakeHeal(15);   
+            target.TakeHeal(ConstData.ItemHeal);   
         }
     }
     static void RecoverPotion(List<Save.Player> Caster, int CasterIdx, List<Save.Enemy> Enemy, int EnemyIdx)
@@ -82,6 +91,10 @@ public class ItemClass
             if(target.corrotionCount == 0)
             {
                 target.Battlestatus.Armor /= 2;
+            }
+            else
+            {
+                Debug.Log("Corrotion ++");
             }
             target.corrotionCount += 3;   
         }

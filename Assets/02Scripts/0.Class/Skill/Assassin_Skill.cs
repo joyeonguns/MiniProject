@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Assassin_Skill : Skills
+public class Assassin_Skill : BaseSkill
 {
     Dictionary<int,string> DSkillName = new Dictionary<int, string>() {{0,"단검투척"},{1,"칼날비"},{2,"약점공략"},{3,"특제 폭탄"},{4,"신속"},{5,"암살"}};
     Dictionary<int,int> DSkillCost = new Dictionary<int, int>() {{0,0},{1,2},{2,3},{3,5},{4,2},{5,10}};
@@ -36,6 +36,9 @@ public class Assassin_Skill : Skills
             case 5:
                 UseSkill = Ulti;
                 break;
+            default :
+                Debug.LogError("Assassin_Skill error");
+                break;
         }
     } 
 
@@ -43,7 +46,7 @@ public class Assassin_Skill : Skills
     {
         Debug.Log(Caster[CasterIdx].name + " : " + "Blade Rain");
         // 마나 소모
-        Caster[CasterIdx].Mana -= 2;
+        Caster[CasterIdx].Mana -= DSkillCost[1];
 
         // 스텟 가져옴
         // 스킬 특성
@@ -59,7 +62,7 @@ public class Assassin_Skill : Skills
     {
         Debug.Log(Caster[CasterIdx].name + " : " + "Week Search");
         // 마나 소모
-        Caster[CasterIdx].Mana -= 3;
+        Caster[CasterIdx].Mana -= DSkillCost[2];
         Enemy[EnemyIdx].corrotionCount += 2;
         Enemy[EnemyIdx].frostCount += 2;
     }
@@ -67,7 +70,7 @@ public class Assassin_Skill : Skills
     {
         Debug.Log(Caster[CasterIdx].name + " : " + "Special Boom");
         // 마나 소모
-        Caster[CasterIdx].Mana -= 5;
+        Caster[CasterIdx].Mana -= DSkillCost[3];
 
         foreach(var enemy in Enemy)
         {
@@ -80,7 +83,7 @@ public class Assassin_Skill : Skills
     {
         Debug.Log(Caster[CasterIdx].name + " : " + "Swift");
         // 마나 소모
-        Caster[CasterIdx].Mana -= 2;
+        Caster[CasterIdx].Mana -= DSkillCost[4];
 
         // 스킬 특성              
         Caster[CasterIdx].rapidCount += 4;

@@ -90,17 +90,17 @@ public class Map_Info : MonoBehaviour
                 
                 switch (SaveData.MyParty[i].Role)
                 {
-                    case e_Class.worrier :
+                    case e_Class.Warrior :
                         Char_Image[i].sprite = CharacterImage[0];
 
                         break;
-                    case e_Class.magicion :
+                    case e_Class.Magicion :
                         Char_Image[i].sprite = CharacterImage[1];
                         break;
-                    case e_Class.supporter :
+                    case e_Class.Supporter :
                         Char_Image[i].sprite = CharacterImage[2];
                         break;
-                    case e_Class.assassin :
+                    case e_Class.Assassin :
                         Char_Image[i].sprite = CharacterImage[3];
                         break;
                 }
@@ -154,7 +154,7 @@ public class Map_Info : MonoBehaviour
             root = "icon/Magition/";
             break;
             case 3 :
-            root = "icon/Hiller/";
+            root = "icon/Healer/";
             break;
             case 4 :
             root = "icon/Assassin/";
@@ -174,60 +174,7 @@ public class Map_Info : MonoBehaviour
 
     public void SetTargetBtn(int n)
     {
-        // // SetStartSetting(); 
-        // // 버튼 색상 할당
-        // ColorBlock clb_green = CharacterBtn[n].colors;
-        // clb_green.normalColor = Color.green;
-        // clb_green.selectedColor = Color.green;
-
-        // ColorBlock clb_white = CharacterBtn[n].colors;
-        // clb_white.normalColor = Color.white;
-        // clb_white.selectedColor = Color.white;
-
-        // CharacterBtn[n].colors = clb_green;
-
-        // if (SceneManager.GetActiveScene().name != "1-2.MapScene")
-        // {
-        //     bCheckedTarget_0 = false;
-        //     CharacterBtn[Target_0].colors = clb_white;
-        //     Target_0 = n;
-        // }
         
-        // else if (bCheckedTarget_0 == false)
-        // {
-        //     bCheckedTarget_0 = true;
-        //     Target_0 = n;
-        // }
-
-        // else
-        // {
-            
-        //     Target_1 = n;
-
-        //     // 버튼 색상 해제
-            
-
-        //     CharacterBtn[Target_0].colors = clb_white;
-        //     CharacterBtn[Target_1].colors = clb_white;
-
-        //     if(Target_0 == Target_1)
-        //     {
-        //         bCheckedTarget_0 = false;
-        //         return;
-        //     }
-
-        //     Save.Player temp = SaveData.MyParty[Target_0];
-        //     SaveData.MyParty[Target_0] = SaveData.MyParty[Target_1];
-        //     SaveData.MyParty[Target_1] = temp;
-        //     bCheckedTarget_0 = false;
-
-        //     SetCharImage();
-
-                     
-                     
-        // }
-        // SetStatus_Text(n);
-        // SetSkillBtn(n);
     }
 
     void SetTellentBtn()

@@ -5,7 +5,7 @@ using System;
 using System.Linq;
 using TMPro;
 
-public enum BuffEnum {Burn, Bleeding, Stun, Corrotion, EnHanceCount, Frost, Rapid, Regen}
+
 
 public class Save : MonoBehaviour
 {
@@ -85,7 +85,7 @@ public class Save : MonoBehaviour
 
         // 스킬
         public int[] SkillNum = new int[4];
-        public Skills[] MySkill = new Skills[4];
+        public BaseSkill[] MySkill = new BaseSkill[4];
 
         public double Hp
         {
@@ -150,7 +150,9 @@ public class Save : MonoBehaviour
         public virtual void TakeDamage(Character Other)
         {
             if(bAlive == false)
+            {
                 return;
+            }                
 
             double Damage = RealDamage(Other);
 
@@ -158,6 +160,7 @@ public class Save : MonoBehaviour
             Hp -= Damage;
             Mana++;             
         }
+
         public double RealDamage(Character Other)
         {
             //크리 계산
@@ -186,17 +189,17 @@ public class Save : MonoBehaviour
             return Damage;
         }
 
-        public virtual void TakeDamage(int Damage, string type)
+        public virtual void TakeDamage_Item(int Damage, string type)
         {
             Hp -= Damage;
             Printing_Damage(Color.red, type + "\n" + Damage, 0.1f);
         }
-        public virtual void TakeDamage(int Damage, string type, float f)
+        public virtual void TakeDamage_Bleed(int Damage, string type, float f)
         {
             Hp -= Damage;
             Printing_Damage(Color.red, type + "\n" + Damage, f);
         }
-        public virtual void TakeDamage(int Damage, string type, float f, Vector2 Loc)
+        public virtual void TakeDamage_Burn(int Damage, string type, float f, Vector2 Loc)
         {
             Hp -= Damage;
             Printing_Damage(Color.red, type + "\n" + Damage, f, Loc);
@@ -309,13 +312,15 @@ public class Save : MonoBehaviour
         {
             Battlestatus = status;
             if(stunCount == 0)
+            {
                 turn++;
+            }                
 
             if(bleedCount > 0)
             {
-                int Dmg = (int)(status.MaxHp * 0.1f);
+                int Dmg = (int)(status.MaxHp * 0.1f) + bleedCount;
                 if(Dmg < 1) Dmg = 1;
-                TakeDamage(Dmg, "출혈", 0.1f);
+                TakeDamage_Bleed(Dmg, "출혈", 0.1f);
             }
             if(burnCount > 0)
             {
@@ -323,14 +328,14 @@ public class Save : MonoBehaviour
                 {
                     if(Char.bAlive != true)
                         return;
-                    int Dmg = (int)(Char.curHp * 0.1f);
+                    int Dmg = (int)(Char.curHp * 0.1f) + burnCount;
                     if(Dmg < 1) Dmg = 1;
-                    Char.TakeDamage(Dmg, "화상", 0.4f, new Vector2(0,100));
+                    Char.TakeDamage_Burn(Dmg, "화상", 0.4f, new Vector2(0,100));
                 }
             }            
             if(regenCount > 0)
             {                
-                TakeHeal(5);
+                TakeHeal(2 + regenCount);
             }
             if(corrotionCount > 0)
             {
@@ -425,14 +430,14 @@ public class Save : MonoBehaviour
                 case 0:
                     for (int i = 0; i < 4; i++)
                     {
-                        MySkill[i] = new Worrier_Skill(SkillNum[i]);
+                        MySkill[i] = new Warrior_Skill(SkillNum[i]);
                     }
                     break;
 
                 case 1:
                     for (int i = 0; i < 4; i++)
                     {
-                        MySkill[i] = new Worrier_Skill(SkillNum[i]);
+                        MySkill[i] = new Warrior_Skill(SkillNum[i]);
                     }
                     break;
 
@@ -446,7 +451,7 @@ public class Save : MonoBehaviour
                 case 3:
                     for (int i = 0; i < 4; i++)
                     {
-                        MySkill[i] = new Hiller_Skill(SkillNum[i]);
+                        MySkill[i] = new Healer_Skill(SkillNum[i]);
                     }
                     break;
 
@@ -455,6 +460,10 @@ public class Save : MonoBehaviour
                     {
                         MySkill[i] = new Assassin_Skill(SkillNum[i]);
                     }
+                    break;
+
+                default :
+                    Debug.LogError("SetSkillClass error");
                     break;
             }
         }
@@ -522,9 +531,18 @@ public class Save : MonoBehaviour
             // 타겟 설정
             int target;
             int rnd = UnityEngine.Random.Range(1, 11);
-            if (rnd >= 5) target = 0;
-            else if (rnd >= 3) target = 1;
-            else target = 2;
+            if (rnd >= 5) 
+            {
+                target = 0;
+            }
+            else if (rnd >= 3)
+            {
+                target = 1;
+            }
+            else
+            {
+                target = 2;
+            } 
 
             Debug.Log("target : " + target);
             // 공격
@@ -534,6 +552,10 @@ public class Save : MonoBehaviour
                 if (target >= characters.Count || characters[target].bAlive == false)
                 {
                     target = (target + 1) % 3;
+                    if (target >= characters.Count || characters[target].bAlive == false)
+                    {
+                        Debug.LogError("enemy target error : " + target);
+                    }
                 }
             }
             return target;
@@ -558,10 +580,12 @@ public class Save : MonoBehaviour
             set{
                 bressHp = value;
                 if(bressHp < 0)
+                {
                     bressHp = 0;
+                }                    
             }
         }
-        public Barlog() : base(Barlog_Stat, e_Class.barlog)
+        public Barlog() : base(Barlog_Stat, e_Class.Barlog)
         {            
             SetSkillClass();
         }
@@ -609,10 +633,10 @@ public class Save : MonoBehaviour
     {
         public bool pase = false;
 
-        public Witch() : base(Witch_Stat, e_Class.witch)
+        public Witch() : base(Witch_Stat, e_Class.Witch)
         {            
             MaxMana = 150;
-            pase =false;
+            pase = false;
             SetSkillClass();
         }
 
@@ -671,12 +695,14 @@ public class Save : MonoBehaviour
     }
 
     public static St_Stat Adventure = new St_Stat(7, 0.2f, 3, 30, 50, 30, 0);
-    public static St_Stat Worrier = new St_Stat(10,0.5f,5,40,70,40, 30);
+    public static St_Stat Warrior = new St_Stat(10,0.5f,5,40,70,40, 30);
     public static St_Stat Magicion = new St_Stat(14,0.1f,2,30,70,25, 0);    
     public static St_Stat Supporter = new St_Stat(5,0.3f,1,30,50,30, 30);
     public static St_Stat Assassin = new St_Stat(7,0.2f,7,70,100,27, 10); 
 
     public static St_Stat Bandit = new St_Stat(10,0.2f,5,40,30,30,0);
+    public static St_Stat Knight = new St_Stat(10,0.2f,5,40,30,30,0);
+    public static St_Stat Abomination = new St_Stat(10,0.2f,5,40,30,30,0);
     public static St_Stat Witch_Stat = new St_Stat(0,0.2f,3,30,0,100,30);
     public static St_Stat Crystal_Stat = new St_Stat(10,0,0,30,50,50,100);
     public static St_Stat Barlog_Stat = new St_Stat(30,0.4f,10,100,100,0,40);

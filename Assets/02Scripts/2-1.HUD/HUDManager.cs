@@ -33,6 +33,9 @@ public class HUDManager : MonoBehaviour
     bool bOpenInfo = false;
     public GameObject InfoUI;
 
+    // Dead
+    public GameObject DeadUI;
+
 
     private void Awake() {
 
@@ -185,6 +188,31 @@ public class HUDManager : MonoBehaviour
             InfoUI.SetActive(false);
             bOpenInfo = false;
         }        
+    }
+
+    public void Dead()
+    {
+        DeadUI.SetActive(true);
+    }
+
+    public void GotoMainBtn()
+    {
+        DeadUI.SetActive(false);        
+        SceneManager.LoadScene("1-0.StartScene");
+        Destroy(GameManager.instance.gameObject);
+        Destroy(this.gameObject);        
+    }
+    public void DestroyHUD()
+    {
+        
+    }
+
+    public void QuitBtn()
+    {        
+        DeadUI.SetActive(false);
+        Application.Quit();
+        Destroy(GameManager.instance.gameObject);
+        Destroy(this.gameObject);
     }
 
 }

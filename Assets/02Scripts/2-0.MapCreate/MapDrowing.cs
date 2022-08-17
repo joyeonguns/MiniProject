@@ -16,16 +16,7 @@ public class MapDrowing : MonoBehaviour
     int row, col;
     List<List<MapClass>> maps = new List<List<MapClass>>();
 
-    private void Awake()
-    {
-        
-    }
-
-    void Start()
-    {
-
-    }
-
+    
     void saveMapData()
     {
         maps = GM.maps;

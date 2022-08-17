@@ -127,6 +127,10 @@ public class ItemBoxManager1 : MonoBehaviour
                 telObj.SetActive(false);
                 break;
             }
+            else
+            {
+                Debug.Log(i + " 번 아이템 있음");
+            }
         }
         HUDManager.instance.SetAll();
     }
