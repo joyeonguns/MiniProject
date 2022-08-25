@@ -6,7 +6,7 @@ using System;
 using TMPro;
 using System.Linq;
 
-public enum ResultEnum {NomalBattle, EliteBattle, BossBattle, Run}
+
 
 
 

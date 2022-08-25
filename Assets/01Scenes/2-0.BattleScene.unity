@@ -3203,8 +3203,8 @@ MonoBehaviour:
   - {fileID: 437663012}
   EnemySprite:
   - {fileID: 21300000, guid: f48be425fb5fec8478507ebcebaa9048, type: 3}
-  - {fileID: 21300000, guid: f48be425fb5fec8478507ebcebaa9048, type: 3}
-  - {fileID: 21300000, guid: e0e3fc0ce608404448d3cfa358190682, type: 3}
+  - {fileID: 21300000, guid: 135add904bebb49458313f8c2fe5ec71, type: 3}
+  - {fileID: 21300000, guid: 4b26894c3db88e444810c21f4a370c88, type: 3}
   EnemyButton:
   - {fileID: 1881556133}
   - {fileID: 249945248}

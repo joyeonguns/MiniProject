@@ -145,7 +145,7 @@ public class MapIcon : MonoBehaviour
         // 2-3.ItemScene
         // 2-3.RecruitScene 1
 
-        //str = "2-3.CaveScene";
+        str = "4-0.BossScene";
         HUDManager.instance.SetFloor();
         SceneManager.LoadScene(str);
     }

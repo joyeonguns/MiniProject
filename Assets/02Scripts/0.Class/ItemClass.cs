@@ -22,7 +22,7 @@ public class ItemClass
 
     public ItemClass(int code)
     {
-        if(ItemNames.Length < code)
+        if(ItemNames.Length > code)
         {
             ItemCode = code;
             UseItem = ItemFunction[ItemCode];
@@ -33,7 +33,7 @@ public class ItemClass
         }
         else
         {
-            Debug.LogError("ItemClass Error code : " + code);
+            Debug.LogError("ItemClass Error code : " + code +"\n" + "ItemNames.Length : " + ItemNames.Length );
         }
         
     }

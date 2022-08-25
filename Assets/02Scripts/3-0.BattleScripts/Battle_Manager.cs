@@ -33,10 +33,10 @@ public class Battle_Manager : MonoBehaviour
     int BtLvl;
     
     // 캐릭터 적 클래스
-    [SerializeField] List<Save.Player> Character = new List<Save.Player>();
+    [SerializeField]public List<Save.Player> Character = new List<Save.Player>();
     // public List<Save.St_Stat> Ch_Status; 
     // public Save.St_Stat volaStatus;
-    [SerializeField] List<Save.Enemy> Enemy = new List<Save.Enemy>();
+    [SerializeField]public List<Save.Enemy> Enemy = new List<Save.Enemy>();
     // public List<Save.St_Stat> En_Status; 
 
     // 아군 필드
@@ -105,7 +105,7 @@ public class Battle_Manager : MonoBehaviour
 
 
     // 배틀 스피드
-    [SerializeField] List<Tuple<int,int,int>> L_BattleSpeed = new List<Tuple<int, int, int>>();   
+    [SerializeField] public List<Tuple<int,int,int>> L_BattleSpeed = new List<Tuple<int, int, int>>();   
 
     // 현재 공격자
     public int Attacker;
@@ -121,7 +121,7 @@ public class Battle_Manager : MonoBehaviour
 
     // START SETTING //
 
-    void StartSetting()
+    protected void StartSetting()
     {
         SetBattleInfo();
         SetEnemy();
@@ -133,7 +133,7 @@ public class Battle_Manager : MonoBehaviour
 
 
     // 턴 진행 //
-    void TurnStart()
+    protected void TurnStart()
     {
         BattleInfo.TurnCounts++;
         RoundText.text = "R:" + BattleInfo.TurnCounts;
@@ -143,7 +143,7 @@ public class Battle_Manager : MonoBehaviour
         SetAttacker();
     }
 
-    void SetAttacker()
+    public void SetAttacker()
     {
         SetAttackOrder();
         Attacker = L_BattleSpeed[0].Item2;
@@ -187,7 +187,7 @@ public class Battle_Manager : MonoBehaviour
         }
     }
 
-    void TurnEnemy()
+    public virtual void TurnEnemy()
     {
         // 생존 + 스턴 X
         if (Enemy[Attacker].bAlive == true && Enemy[Attacker].stunCount == 0)
@@ -266,26 +266,9 @@ public class Battle_Manager : MonoBehaviour
         Invoke("TurnEnd" ,3.0f);
     }
 
-    void TurnEnd()
+    public virtual void TurnEnd()
     {
-        // 데드 체크 - 무덤
-        CheckDead();
-
-        // 턴종료 셋팅 초기화
-        AttackerHilight("Enemy", L_BattleSpeed[0].Item2, false);
-        AttackerHilight("Character", L_BattleSpeed[0].Item2, false);
-        
-        // 플레이어 턴 앤드
-        if(L_BattleSpeed[0].Item3 == 0)
-        {
-            SetSkillPannel(false, Attacker);
-        }
-        
-        target = 0;
-        bCheckSkill = false;
-        bChecktarget = false;
-        bBuffSkill = false;
-
+        ResetSetting();
         // 라이브 체크
         if (LiveCheck_Character(Character.Cast<Save.Character>().ToList()) == false)
         {
@@ -323,7 +306,29 @@ public class Battle_Manager : MonoBehaviour
             
     }
 
-    void EndBattle()
+    public void ResetSetting()
+    {
+        // 데드 체크 - 무덤
+        CheckDead();
+
+        // 턴종료 셋팅 초기화
+        AttackerHilight("Enemy", L_BattleSpeed[0].Item2, false);
+        AttackerHilight("Character", L_BattleSpeed[0].Item2, false);
+        
+        // 플레이어 턴 앤드
+        if(L_BattleSpeed[0].Item3 == 0)
+        {
+            SetSkillPannel(false, Attacker);
+        }
+        
+        target = 0;
+        bCheckSkill = false;
+        bChecktarget = false;
+        bBuffSkill = false;
+
+    }
+
+    public void EndBattle()
     {
         Debug.Log("승리");
 
@@ -339,13 +344,13 @@ public class Battle_Manager : MonoBehaviour
 
     // 턴 진행 //
 
-    void SetBattleInfo()
+    protected void SetBattleInfo()
     {
         BattleInfo = new GameInformation(80, 80, 30);
     }
 
     // 적 정보 설정
-    void SetEnemy()
+    public virtual void SetEnemy()
     {
         // 레벨 설정
         int level = GameManager.instance.floor / 2 + UnityEngine.Random.Range(0, 1);   
@@ -445,7 +450,7 @@ public class Battle_Manager : MonoBehaviour
     // START SETTING END //
     //                   //
 
-    void SetHP_MP()
+    public virtual void SetHP_MP()
     {
         for(int i = 0; i < Character.Count; i++)
         {
@@ -605,14 +610,7 @@ public class Battle_Manager : MonoBehaviour
         SetHP_MP();
     }
 
-    void BeforeTheBattle()
-    {
-        SetEnemy();
-        SetCharacter();        
-        SetStartUI();
-    }
-
-    bool LiveCheck_Character(List<Save.Character> characters)
+    public bool LiveCheck_Character(List<Save.Character> characters)
     {
         // 생사 확인
         bool charAlive = false;

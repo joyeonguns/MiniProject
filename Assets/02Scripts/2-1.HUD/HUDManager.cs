@@ -17,9 +17,11 @@ public class HUDManager : MonoBehaviour
     public TextMeshProUGUI FloorText;      
     
     // 아이템
-    public GameObject Boom;
+    public GameObject[] Booms;
     public TextMeshProUGUI BoomText;
     public GameObject Boom_inBattle;
+    public GameObject Boom_outBattle;
+
     public Button UseBoom_Btn;
     public Button CancleBoom_Btn;
 
@@ -110,39 +112,53 @@ public class HUDManager : MonoBehaviour
     {
         SelectIdx = i;
         itemCode = GameManager.instance.ItemList_num[i];
+
         if(itemCode == 0)
-            return;
-        Boom.SetActive(true);        
-
-        ItemClass Item = new ItemClass(itemCode);
-        if(SceneManager.GetActiveScene().name == "2-0.BattleScene" || SceneManager.GetActiveScene().name == "4-0.BossScene")
-        {   
-            BoomText.text = "["+Item.ItemName +"]";
-
-            Boom_inBattle.SetActive(true);           
-            UseBoom_Btn.onClick.RemoveAllListeners();
-            UseBoom_Btn.onClick.AddListener(Click_UseBoon);
-            CancleBoom_Btn.onClick.AddListener(Click_Cancle);
+        {
+            return; 
         }
         else
         {
-            Boom_inBattle.SetActive(false);
-            BoomText.text = "["+Item.ItemName +"]"+"\n 비 전투중...";
-            Invoke("DeleteBoomText",2.0f);
+            
+            if (SceneManager.GetActiveScene().name == "2-0.BattleScene" || SceneManager.GetActiveScene().name == "4-0.BossScene")
+            {
+                Boom_inBattle.transform.position = Booms[i].transform.position;
+
+                ItemClass Item = new ItemClass(itemCode);
+                Boom_inBattle.SetActive(true);
+                Boom_outBattle.SetActive(false);
+
+                BoomText.text = "[" + Item.ItemName + "]";
+
+                UseBoom_Btn.onClick.RemoveAllListeners();
+                UseBoom_Btn.onClick.AddListener(() => Click_UseBoon(Item));
+                CancleBoom_Btn.onClick.AddListener(Click_Cancle);
+            }
+            else
+            {
+                Boom_outBattle.transform.position = Booms[i].transform.position;
+                Boom_inBattle.SetActive(false);
+                Boom_outBattle.SetActive(true);
+                Invoke("DeleteBoomText", 1.5f);
+            }
         }
+                 
+
+        
     }
     void DeleteBoomText()
     {
-        Boom.SetActive(false);        
+        Boom_outBattle.SetActive(false);        
+        Boom_inBattle.SetActive(false); 
     }
 
     public List<Save.Player> players;
     public List<Save.Enemy> Enemys;
-    public void Click_UseBoon()
+    public void Click_UseBoon(ItemClass Item)
     {
         Debug.Log("Click_UseBoon");
-        ItemClass Item = new ItemClass(itemCode);
         Item.UseItem(players,0,Enemys,0);
+
         GameManager.instance.ItemList_num[SelectIdx] = 0;
         SetBoom();
         Click_Cancle();

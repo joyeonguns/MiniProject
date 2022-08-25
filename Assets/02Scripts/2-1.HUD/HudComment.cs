@@ -14,6 +14,7 @@ public class HudComment : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public GameObject CommentsParents;
     public GameObject Comments;
     public HudEnum hudEnum;
+    public int num = 0;
 
 
     private void Start() {
@@ -26,7 +27,25 @@ public class HudComment : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         var comment = Instantiate(Comments);
         comment.transform.SetParent(CommentsParents.transform);  
         comment.transform.position = this.transform.position;    
-        comment.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = ""+hudEnum;  
+        
+        if(hudEnum == HudEnum.아이템)
+        {
+            int itemcode = GameManager.instance.ItemList_num[num];
+            if(itemcode == 0)
+            {
+                comment.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "없음...";  
+            }
+            else
+            {                
+                ItemClass item = new ItemClass(itemcode);
+                comment.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = ""+item.ItemName; 
+            }
+            
+        }
+        else
+        {
+            comment.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = ""+hudEnum;  
+        }        
     }
 
     public void OnPointerExit(PointerEventData eventData)

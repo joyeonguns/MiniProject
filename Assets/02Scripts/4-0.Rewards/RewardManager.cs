@@ -61,6 +61,14 @@ public class RewardManager : MonoBehaviour
     }
     void Start()
     {
+        for (int i = 0; i < Save_Charater_Data.instance.MyParty.Count; i++)
+        {
+            if(Save_Charater_Data.instance.MyParty[i].bAlive == false)
+            {
+                Save_Charater_Data.instance.MyParty.RemoveAt(i);
+            }
+        }
+
         if(GameManager.instance.ResultData.ResultMode == ResultEnum.Run)
         {
             TellentsPannel.SetActive(false);
