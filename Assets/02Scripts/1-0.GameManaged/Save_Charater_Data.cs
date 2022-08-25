@@ -9,6 +9,9 @@ public class Save_Charater_Data : MonoBehaviour
 
     public static Save_Charater_Data instance = null;
     public List<Save.Player> MyParty = new List<Save.Player>();
+
+    public List<CharacterDatas> characterData;
+
     
     public int c_Num;
 
@@ -25,7 +28,8 @@ public class Save_Charater_Data : MonoBehaviour
         if(c_Num < 3)
         {
             MyParty.Add(new Save.Player());
-            MyParty[c_Num] = new Save.Player(Save.Warrior, e_Class.Warrior);
+            Save.St_Stat worrier = new Save.St_Stat(characterData[1]);
+            MyParty[c_Num] = new Save.Player(worrier, e_Class.Warrior);
             for(int i = 0; i < level; i++ ){
                 MyParty[c_Num].LevelUp();
             }    
@@ -37,7 +41,8 @@ public class Save_Charater_Data : MonoBehaviour
         if(c_Num < 3)
         {
             MyParty.Add(new Save.Player());
-            MyParty[c_Num] = new Save.Player(Save.Magicion,e_Class.Magicion);
+            Save.St_Stat magicion = new Save.St_Stat(characterData[2]);
+            MyParty[c_Num] = new Save.Player(magicion,e_Class.Magicion);
             for(int i = 0; i < level; i++ ){
                 MyParty[c_Num].LevelUp();
             }        
@@ -49,7 +54,8 @@ public class Save_Charater_Data : MonoBehaviour
         if(c_Num < 3)
         {
             MyParty.Add(new Save.Player());
-            MyParty[c_Num] = new Save.Player(Save.Supporter,e_Class.Supporter);
+            Save.St_Stat supporter = new Save.St_Stat(characterData[3]);
+            MyParty[c_Num] = new Save.Player(supporter,e_Class.Supporter);
             for(int i = 0; i < level; i++ ){
                 MyParty[c_Num].LevelUp();
             }   
@@ -62,7 +68,8 @@ public class Save_Charater_Data : MonoBehaviour
         if(c_Num < 3)
         {
             MyParty.Add(new Save.Player());
-            MyParty[c_Num] = new Save.Player(Save.Assassin,e_Class.Assassin);
+            Save.St_Stat assassin = new Save.St_Stat(characterData[4]);
+            MyParty[c_Num] = new Save.Player(assassin,e_Class.Assassin);
             for(int i = 0; i < level; i++ ){
                 MyParty[c_Num].LevelUp();
             }       

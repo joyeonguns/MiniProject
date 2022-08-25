@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum e_Class {Adventurer = 0, Warrior = 1, Magicion = 2, Supporter = 3, Assassin = 4, Bandit = 100, Knight = 101, Abomination = 102, Crystal = 202, Witch = 200, Barlog = 201};
+public enum e_Class {Adventurer = 0, Warrior = 1, Magicion = 2, Supporter = 3, Assassin = 4, Bandit = 100, Knight = 101, Abomination = 102, Crystal_Melle = 202, Crystal_Range = 203, Witch = 200, Barlog = 201};
 public enum BuffEnum {Burn, Bleeding, Stun, Corrotion, EnHanceCount, Frost, Rapid, Regen}
 public enum ResultEnum {NomalBattle, EliteBattle, BossBattle, Run}
 public class ConstData

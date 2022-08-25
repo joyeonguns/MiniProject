@@ -45,33 +45,26 @@ public class RecruitManager : MonoBehaviour
 
     void SetNewChar()
     {
+        // 레벨
         int lvl = 0;
         int rnd = UnityEngine.Random.Range(1,11);
         if(rnd > 5) lvl = 2;
         else if(rnd > 1) lvl = 3;
-        else if(rnd == 1) lvl = 4;
+        else if(rnd == 1) lvl = 4;       
         
-        e_Class newClass = e_Class.Warrior;
-        Save.St_Stat newStatus = Save.Warrior;
         
+
+        // 캐릭터 생성
         rnd = UnityEngine.Random.Range(0,4);
 
-        switch (rnd)
-        {
-            case 0 : newClass = e_Class.Warrior; newStatus = Save.Warrior;
-            break;
+        e_Class newClass = (e_Class)(rnd + 1);
 
-            case 1 : newClass = e_Class.Magicion; newStatus = Save.Magicion;
-            break;
-
-            case 2 : newClass = e_Class.Supporter; newStatus = Save.Supporter;
-            break;
-
-            case 3 : newClass = e_Class.Assassin; newStatus = Save.Assassin;
-            break;
-        }
+        CharacterDatas charData = Save_Charater_Data.instance.characterData[rnd + 1];
+        Save.St_Stat newStatus = new Save.St_Stat(charData);
+        
 
         newChar = new Save.Player(newStatus,newClass);
+
         for(int i = 0; i < lvl; i++)
         {
             newChar.LevelUp();

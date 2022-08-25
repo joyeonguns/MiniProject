@@ -48,38 +48,16 @@ public class TownManager : MonoBehaviour
     void SetCharData()
     {
         for(int i = 0; i < 4; i++)
-        {
-            e_Class newClass = e_Class.Warrior;
-            Save.St_Stat newStatus = Save.Warrior;
+        {            
             int rnd = Random.Range(0,4);
-            
-            switch (rnd)
-            {
-                case 0:
-                newClass = e_Class.Warrior;
-                newStatus = Save.Warrior;
-                Characters[i].GetComponent<Image>().sprite = CharImage[rnd];
-                break;
 
-                case 1:
-                newClass = e_Class.Magicion;
-                newStatus = Save.Magicion;
-                Characters[i].GetComponent<Image>().sprite = CharImage[rnd];
-                break;
-                
-                case 2:
-                newClass = e_Class.Supporter;
-                newStatus = Save.Supporter;
-                Characters[i].GetComponent<Image>().sprite = CharImage[rnd];
-                break;
-                
-                case 3:
-                newClass = e_Class.Assassin;
-                newStatus = Save.Assassin;
-                Characters[i].GetComponent<Image>().sprite = CharImage[rnd];
-                break;                
-            }
-            NewCharacters[i] = new Save.Player(newStatus,newClass);
+            CharacterDatas charData = Save_Charater_Data.instance.characterData[rnd+1];
+            Save.St_Stat newStatus = new Save.St_Stat(charData);
+            
+            e_Class newRole = (e_Class)(rnd + 1);
+            Characters[i].GetComponent<Image>().sprite = CharImage[rnd];
+
+            NewCharacters[i] = new Save.Player(newStatus,newRole);
             var charName = Characters[i].transform.GetChild(1).GetComponent<TextMeshProUGUI>();
             charName.text = "[" + NewCharacters[i].name + "]";
         }

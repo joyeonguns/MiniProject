@@ -5,8 +5,6 @@ using System;
 using System.Linq;
 using TMPro;
 
-
-
 public class Save : MonoBehaviour
 {
     [System.Serializable]
@@ -35,6 +33,16 @@ public class Save : MonoBehaviour
             Critical = _Critical;
             MaxHp = _MaxHp;  
             Resist = _Resist;
+        }
+        public St_Stat(CharacterDatas charData)
+        {            
+            Damage = charData.Damage;
+            Armor = charData.Armor;
+            Speed = charData.Speed;
+            Dodge = charData.Dodge;
+            Critical = charData.Critical;
+            MaxHp = charData.MaxHp;  
+            Resist = charData.Resist;
         }
         public void AllStatBuff(float buff)
         {
@@ -503,7 +511,7 @@ public class Save : MonoBehaviour
     [System.Serializable]
     public class Enemy : Character
     {
-       
+        public bool melee = true;
         public Enemy() {}
         public Enemy(St_Stat stat,  e_Class _role) : base(stat, _role)
         {
@@ -647,40 +655,16 @@ public class Save : MonoBehaviour
         }
         
         public override int SelectSkill()
-        {
-            // if ((int)(Enemy[n].c_Class) != 8)
-            // {
-            //     // 발록이 아님
-            //     switch (n)
-            //     {   
-            //         case 0:
-            //             if (BattleInfo.TurnCounts != 3)
-            //                 skillIdx = 1;
-            //             else
-            //                 skillIdx = 2;
-            //             break;
-
-            //         case 1:
-            //             if (BattleInfo.TurnCounts != 7)
-            //                 skillIdx = 1;
-            //             else
-            //                 skillIdx = 2;
-            //             break;
-
-            //         case 2:
-            //             int rnd = UnityEngine.Random.Range(1, 4);
-            //             skillIdx = rnd;
-            //             break;
-            //     }
-
-            // }
+        {            
             int skillNum = 0;
+
             if(turn == 7)
             {
                 skillNum = 2;
             }
             else
             {
+                
                 skillNum = 1;                  
             }
             return skillNum;
@@ -694,11 +678,85 @@ public class Save : MonoBehaviour
 
     }
 
-    public static St_Stat Adventure = new St_Stat(7, 0.2f, 3, 30, 50, 30, 0);
-    public static St_Stat Warrior = new St_Stat(10,0.5f,5,40,70,40, 30);
-    public static St_Stat Magicion = new St_Stat(14,0.1f,2,30,70,25, 0);    
-    public static St_Stat Supporter = new St_Stat(5,0.3f,1,30,50,30, 30);
-    public static St_Stat Assassin = new St_Stat(7,0.2f,7,70,100,27, 10); 
+    [System.Serializable]
+    public class Cristal_Melle : Enemy
+    {
+        public Cristal_Melle() : base(Crystal_Stat, e_Class.Crystal_Melle)
+        {        
+            MaxMana = 100;
+            SetSkillClass();
+        }
+
+        public override void SetSkillClass()
+        {
+           MySkill[1] = new BossSkillScripts(4);
+           MySkill[2] = new BossSkillScripts(5);
+        }
+        
+        public override int SelectSkill()
+        {            
+            int skillNum = 0;
+
+            if (turn % 3 != 0)
+            {
+                skillNum = 1;
+            }
+            else
+            {
+                skillNum = 2;
+            }
+            return skillNum;
+        }
+
+        public override void Dead()
+        {
+            base.Dead();
+        }
+    }
+
+    [System.Serializable]
+    public class Cristal_Range : Enemy
+    {
+        public Cristal_Range() : base(Crystal_Stat, e_Class.Crystal_Range)
+        {        
+            MaxMana = 100;
+            SetSkillClass();
+        }
+
+        public override void SetSkillClass()
+        {
+           MySkill[1] = new BossSkillScripts(1);
+           MySkill[2] = new BossSkillScripts(2);
+           MySkill[3] = new BossSkillScripts(3);
+        }
+        
+        public override int SelectSkill()
+        {            
+            int skillNum = 0;
+
+            if(this.curHp < 20)
+            {
+                skillNum = 3;
+            }
+            else
+            {
+                skillNum = UnityEngine.Random.Range(1,3);
+            }
+            return skillNum;
+        }
+
+        public override void Dead()
+        {
+            base.Dead();
+        }
+
+    }
+
+    // public static St_Stat Adventure = new St_Stat(7, 0.2f, 3, 30, 50, 30, 0);
+    // public static St_Stat Warrior = new St_Stat(10,0.5f,5,40,70,40, 30);
+    // public static St_Stat Magicion = new St_Stat(14,0.1f,2,30,70,25, 0);    
+    // public static St_Stat Supporter = new St_Stat(5,0.3f,1,30,50,30, 30);
+    // public static St_Stat Assassin = new St_Stat(7,0.2f,7,70,100,27, 10); 
 
     public static St_Stat Bandit = new St_Stat(10,0.2f,5,40,30,30,0);
     public static St_Stat Knight = new St_Stat(10,0.2f,5,40,30,30,0);

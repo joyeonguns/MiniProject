@@ -1984,6 +1984,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MyParty: []
+  characterData:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   c_Num: 0
 --- !u!1 &1663216489
 GameObject:

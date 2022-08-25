@@ -94,14 +94,12 @@ public class BossBtManager : Battle_Manager
         if (true)
         {
             // 1열 침묵 크리스탈
-            Enemy[0] = new Save.Enemy(Save.Crystal_Stat, e_Class.Crystal);
+            Enemy[0] = new Save.Enemy(Save.Crystal_Stat, e_Class.Crystal_Melle);
             Enemy[0].font = Damage;
             Enemy[0].spwLoc = EnemyField[0].GetComponent<RectTransform>().anchoredPosition + new Vector2(50, 300);
 
             EnemyImage[0].sprite = EnemySprite[0];
 
-            Enemy[0].MySkill[1] = new BossSkillScripts(4);
-            Enemy[0].MySkill[2] = new BossSkillScripts(5);
 
             // 2열 흑마법사
             Enemy[1] = new Save.Witch();
@@ -111,15 +109,11 @@ public class BossBtManager : Battle_Manager
             EnemyImage[1].sprite = EnemySprite[1];
 
             // 3열 공격 크리스탈
-            Enemy[2] = new Save.Enemy(Save.Crystal_Stat, e_Class.Crystal);
+            Enemy[2] = new Save.Enemy(Save.Crystal_Stat, e_Class.Crystal_Range);
             Enemy[2].font = Damage;
             Enemy[2].spwLoc = EnemyField[2].GetComponent<RectTransform>().anchoredPosition + new Vector2(50, 300);
             EnemyImage[2].sprite = EnemySprite[0];
             EnemyImage[2].color = Color.red;
-
-            Enemy[2].MySkill[1] = new BossSkillScripts(1);
-            Enemy[2].MySkill[2] = new BossSkillScripts(2);
-            Enemy[2].MySkill[3] = new BossSkillScripts(3);
         }
 
 
