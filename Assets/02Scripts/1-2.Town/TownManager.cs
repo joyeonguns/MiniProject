@@ -13,11 +13,12 @@ public class TownManager : MonoBehaviour
     public GameObject SkillPannel;
     public GameObject[] SkillBtn = new GameObject[4];
     public Sprite[] CharImage = new Sprite[4];
+    
 
     Save_Charater_Data SaveData;
     Save.Player[] NewCharacters = new Save.Player[4];
     int SelectNum;
-    bool bSelect;
+    bool bSelect;    
 
 
     // Start is called before the first frame update
