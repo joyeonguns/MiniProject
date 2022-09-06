@@ -13,12 +13,20 @@ public class Map_Info : MonoBehaviour
     public Button[] CharacterBtn;
     public TextMeshProUGUI[] Char_Name;
     public Image[] Char_Image;
+    public GameObject[] Captain;
+
     public int Target_0;
     public int Target_1;
     public bool bCheckedTarget_0;
     public bool bCheckedTarget_1;
+
+    public GameObject firstCharacter;
+    public GameObject SecondCharacter;
+    public Vector3 firstLoc;
+    public Vector3 secondLoc;
+
     
-    Save_Charater_Data Save;
+    GameManager GM;
     public int p_Count;
 
     // 스텟 패널
@@ -26,6 +34,7 @@ public class Map_Info : MonoBehaviour
     public TextMeshProUGUI stat_Comments;
 
     // 스킬 패널
+    public GameObject skillPannel;
     public GameObject[] skill;
 
     // tellent 패널
@@ -39,57 +48,62 @@ public class Map_Info : MonoBehaviour
     // 맵
     // public GameObject MapUI;
     // 인포
-    public GameObject InfoUI;
+    
 
-    // 조작
-    bool bOpenInfo = false;
+    
     bool bOpenTellent = false;    
+    
     
 
     void Start() 
     {
+        GM = GameManager.instance;
         SetStartSetting();
         SetTellentBtn();
+        
     }
 
-    void SetStartSetting()
+    public void SetStartSetting()
     {
         Debug.Log("SetStartSetting");
-        Save = GameManager.instance.GetComponent<Save_Charater_Data>();
-        p_Count = Save.S_Character.Count;
+        p_Count = GM.MyParty.Count;
 
         bCheckedTarget_0 = false;
         bCheckedTarget_1 = false;
         stat_Name.text = "";
         stat_Comments.text = "";
+
+        skillPannel.SetActive(false);
         
         SetCharImage();
     }
 
-    void SetCharImage()
+    public void SetCharImage()
     {
         Debug.Log("SetCharImage");
-        Save = GameManager.instance.GetComponent<Save_Charater_Data>();   
-        p_Count = Save.S_Character.Count;
+        p_Count = GM.MyParty.Count;
         for(int i = 0; i < 3; i++)
         {
             if(i < p_Count)
             {
-                Char_Name[i].text = Save.S_Character[i].c_Name;
+                CharacterBtn[i].gameObject.SetActive(true);
+                Char_Name[i].text = GM.MyParty[i].name;
                 
-                switch (Save.S_Character[i].c_Class)
+                Captain[i].SetActive(GM.MyParty[i].Main);
+
+                switch (GM.MyParty[i].Role)
                 {
-                    case e_Class.worrier :
+                    case e_Class.Warrior :
                         Char_Image[i].sprite = CharacterImage[0];
 
                         break;
-                    case e_Class.magicion :
+                    case e_Class.Magicion :
                         Char_Image[i].sprite = CharacterImage[1];
                         break;
-                    case e_Class.supporter :
+                    case e_Class.Supporter :
                         Char_Image[i].sprite = CharacterImage[2];
                         break;
-                    case e_Class.assassin :
+                    case e_Class.Assassin :
                         Char_Image[i].sprite = CharacterImage[3];
                         break;
                 }
@@ -97,194 +111,103 @@ public class Map_Info : MonoBehaviour
             else
             {
                 CharacterBtn[i].gameObject.SetActive(false);
-                Debug.Log("p_Count : " + Save.S_Character.Count);
+                Debug.Log("p_Count : " + GM.MyParty.Count);
                 Debug.Log("i : " + i);
             }
         }
     }
 
-    void SetStatus_Text(int n)
+    public void SetStatus_Text(int n)
     {
-        Save = GameManager.instance.GetComponent<Save_Charater_Data>();
-        stat_Name.text = "" + Save.S_Character[n].c_Name;
+        stat_Name.text = "" + GM.MyParty[n].name;
         stat_Comments.text = 
-        Save.S_Character[n].Level + "\n" +
-        "(" + Save.S_Character[n].exp + " / " + (Save.S_Character[n].Level * 50  + 100) + ")" + "\n" +
+        GM.MyParty[n].Level + "\n" +
+        "(" + GM.MyParty[n].exp + " / " + (GM.MyParty[n].Level * 50  + 100) + ")" + "\n" +
         "\n" +
-        Enum.GetName(typeof(e_Class),Save.S_Character[n].c_Class)  + "\n" +
+        Enum.GetName(typeof(e_Class),GM.MyParty[n].Role)  + "\n" +
         "\n" +
-        Save.S_Character[n].CurHp + " / " + Save.S_Character[n].status.s_MaxHp + "\n" +
+        GM.MyParty[n].Hp + " / " + GM.MyParty[n].status.MaxHp + "\n" +
         "\n" +
-        Save.S_Character[n].Mana +" / " + "10" + "\n" +
+        GM.MyParty[n].Mana +" / " + "10" + "\n" +
         "\n" +
-        Save.S_Character[n].status.s_Damage + "\n" +
+        GM.MyParty[n].status.Damage + "\n" +
         "\n" +
-        Save.S_Character[n].status.s_Armor * 100 + " %"+ "\n" +
+        GM.MyParty[n].status.Armor * 100 + " %"+ "\n" +
         "\n" +
-        Save.S_Character[n].status.s_Critical + " %"+ "\n" +
+        GM.MyParty[n].status.Critical + " %"+ "\n" +
         "\n" +
-        Save.S_Character[n].status.s_Dodge + " %" + "\n" +
+        GM.MyParty[n].status.Dodge + " %" + "\n" +
         "\n" +
-        Save.S_Character[n].status.s_Speed + "\n" +
+        GM.MyParty[n].status.Speed + "\n" +
         "\n";
     }
 
-    void SetSkillBtn(int n)
-    {
-        if(n < 0)
+    public void SetSkillBtn(int n)
+    {       
+        skillPannel.SetActive(true);
+        int rolenum = (int)GM.MyParty[n].Role;
+        string root ="";
+        switch (rolenum)
         {
-            foreach (var sk in skill)
-            {
-                sk.SetActive(false);
-            }
-            return;
+            case 1 :
+            root = "icon/Worrier/";
+            break;
+            case 2 :
+            root = "icon/Magition/";
+            break;
+            case 3 :
+            root = "icon/Healer/";
+            break;
+            case 4 :
+            root = "icon/Assassin/";
+            break;
         }
-        int i = 1;
-        foreach (var sk in skill)
-        {
-            sk.SetActive(true);
-            TextMeshProUGUI sk_Text = sk.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-            Save.S_Character[n].SetSkillClass();
-            sk_Text.text = "" + Save.S_Character[n].MySkill[i].skillName;
-            i++;
-        }
+        int skill_1 = GM.MyParty[n].SkillNum[1];
+        int skill_2 = GM.MyParty[n].SkillNum[2];
+        skill[0].GetComponent<Image>().sprite = Resources.Load<Sprite>(root + skill_1) as Sprite;
+        skill[1].GetComponent<Image>().sprite = Resources.Load<Sprite>(root + skill_2) as Sprite;
+        skill[2].GetComponent<Image>().sprite = Resources.Load<Sprite>(root + "5") as Sprite;        
+
+        skill[0].GetComponent<SkillComment>().skill = GM.MyParty[n].MySkill[1];
+        skill[1].GetComponent<SkillComment>().skill = GM.MyParty[n].MySkill[2];
+        skill[2].GetComponent<SkillComment>().skill = GM.MyParty[n].MySkill[3];
         
     }
 
     public void SetTargetBtn(int n)
     {
-        // SetStartSetting(); 
-        // 버튼 색상 할당
-        ColorBlock clb_green = CharacterBtn[n].colors;
-        clb_green.normalColor = Color.green;
-        clb_green.selectedColor = Color.green;
-
-        ColorBlock clb_white = CharacterBtn[n].colors;
-        clb_white.normalColor = Color.white;
-        clb_white.selectedColor = Color.white;
-
-        CharacterBtn[n].colors = clb_green;
-
-        if (SceneManager.GetActiveScene().name != "1-2.MapScene")
-        {
-            bCheckedTarget_0 = false;
-            CharacterBtn[Target_0].colors = clb_white;
-            Target_0 = n;
-        }
         
-        else if (bCheckedTarget_0 == false)
-        {
-            bCheckedTarget_0 = true;
-            Target_0 = n;
-        }
-
-        else
-        {
-            
-            Target_1 = n;
-
-            // 버튼 색상 해제
-            
-
-            CharacterBtn[Target_0].colors = clb_white;
-            CharacterBtn[Target_1].colors = clb_white;
-
-            if(Target_0 == Target_1)
-            {
-                bCheckedTarget_0 = false;
-                return;
-            }
-
-            Save_Charater_Class.SD temp = Save.S_Character[Target_0];
-            Save.S_Character[Target_0] = Save.S_Character[Target_1];
-            Save.S_Character[Target_1] = temp;
-            bCheckedTarget_0 = false;
-
-            SetCharImage();
-
-                     
-                     
-        }
-        SetStatus_Text(n);
-        SetSkillBtn(n);
     }
 
     void SetTellentBtn()
     {
-        telnum = 0;
-        float x = -400, y = 35; 
-        foreach(int btt in GameManager.instance.BeforTellents_num)
-        {
-            telnum++;
-            if(telnum == 5)
-            {
-                x = -400;
-                y = -35;
-            }
-            var spwTel = Instantiate(TellentPrefabs);
-            spwTel.transform.SetParent(SpwArea.transform);
-            spwTel.GetComponent<RectTransform>().anchoredPosition = new Vector2(x,y);
-            x += 200;
-            spwTel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "BTT " +btt;
-        }
-        foreach(var bbt in GameManager.instance.BBTellent_num)
-        {
-            telnum++;
-            if(telnum == 5)
-            {
-                x = -400;
-                y = -35;
-            }
-            var spwTel = Instantiate(TellentPrefabs);
-            spwTel.transform.SetParent(SpwArea.transform);
-            spwTel.GetComponent<RectTransform>().anchoredPosition = new Vector2(x,y);
-            x += 200;
-            spwTel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "BBT " + bbt;
-        }
-        foreach(var gat in GameManager.instance.GetAfterTellents_num)
-        {
-            telnum++;
-            if(telnum == 5)
-            {
-                x = -400;
-                y = -35;
-            }
-            var spwTel = Instantiate(TellentPrefabs);
-            spwTel.transform.SetParent(SpwArea.transform);
-            spwTel.GetComponent<RectTransform>().anchoredPosition = new Vector2(x,y);
-            x += 200;
-            spwTel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "GAT " + gat; 
-        }
-        foreach(var abt in GameManager.instance.ABTelent_num)
-        {
-            telnum++;
-            if(telnum == 5)
-            {
-                x = -400;
-                y = -35;
-            }
-            var spwTel = Instantiate(TellentPrefabs);
-            spwTel.transform.SetParent(SpwArea.transform);
-            spwTel.GetComponent<RectTransform>().anchoredPosition = new Vector2(x,y);
-            x += 200;
-            spwTel.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "ABT " + abt; 
-        }
+        telnum = 0;       
         
-    }
+    }    
 
-    public void OpenInfoUI()
+    public void ChangeCharacterLocation()
     {
-        if(bOpenInfo == false)
+        if (SceneManager.GetActiveScene().name != "1-2.MapScene")
         {
-            InfoUI.SetActive(true);
-            bOpenInfo = true;
+            bCheckedTarget_0 = false;
         }
         else
         {
-            InfoUI.SetActive(false);
-            bOpenInfo = false;
-        }        
+            // 위치 초기화
+            firstCharacter.transform.position = firstLoc;
+            firstCharacter.GetComponent<Info_Character>().num = Target_1;
+            SecondCharacter.transform.position = secondLoc;      
+            SecondCharacter.GetComponent<Info_Character>().num = Target_0;
+
+
+
+            // 캐릭터 위치변경
+            Save.Player temp = GM.MyParty[Target_0];
+            GM.MyParty[Target_0] = GM.MyParty[Target_1];
+            GM.MyParty[Target_1] = temp;              
+
+            SetCharImage();
+                     
+        }
     }
-
-
 }

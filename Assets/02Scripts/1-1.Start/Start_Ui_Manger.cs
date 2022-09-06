@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
+using System.Linq;
 
 public class Start_Ui_Manger : MonoBehaviour
 {
@@ -14,7 +16,14 @@ public class Start_Ui_Manger : MonoBehaviour
         //GameManager.instance.SetData();        
 
         // 씬 로드
-        SceneManager.LoadScene("1-2.MapScene");        
+        SceneManager.LoadScene("1-1.TownScene");        
+
+        // 1-1.TownScene
+
+        for(int i = 0; i < GameManager.instance.MyParty.Count; i++)
+        {
+            GameManager.instance.MyParty[i].ApplyGetTellent((GameManager.instance.MyParty).Cast<Save.Character>().ToList(), i, GameManager.instance.MyParty.Cast<Save.Character>().ToList(), 0);
+        }
     }
 
     public void ExitBtn()

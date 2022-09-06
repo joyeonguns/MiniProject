@@ -245,8 +245,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 188018475}
-        m_TargetAssemblyTypeName: BossBtManager, Assembly-CSharp
+      - m_Target: {fileID: 188018477}
+        m_TargetAssemblyTypeName: Battle_Manager, Assembly-CSharp
         m_MethodName: InputTargetBTN
         m_Mode: 3
         m_Arguments:
@@ -710,7 +710,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 188018476}
-  - component: {fileID: 188018475}
+  - component: {fileID: 188018477}
   m_Layer: 0
   m_Name: BattleManager
   m_TagString: Untagged
@@ -718,7 +718,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &188018475
+--- !u!4 &188018476
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188018474}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 770.9688, y: 891.868, z: 4.303346}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &188018477
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -733,16 +748,7 @@ MonoBehaviour:
   _time: 0
   _turn: 0
   Character: []
-  Ch_Status: []
-  volaStatus:
-    s_Damage: 0
-    s_Armor: 0
-    s_Speed: 0
-    s_Dodge: 0
-    s_Critical: 0
-    s_MaxHp: 0
   Enemy: []
-  En_Status: []
   CharacterField:
   - {fileID: 993842820}
   - {fileID: 1941044863}
@@ -752,11 +758,15 @@ MonoBehaviour:
   - {fileID: 1816658930}
   - {fileID: 341616924}
   CharacterSprite:
-  - {fileID: 21300000, guid: f8eebfa5b3c47a54781249cc37f8abde, type: 3}
+  - {fileID: 21300000, guid: 1369d760a1b8675439277d666b29a825, type: 3}
   - {fileID: 21300000, guid: f8eebfa5b3c47a54781249cc37f8abde, type: 3}
   - {fileID: 21300000, guid: 88f9c431bb136c848b4b143a08eb5151, type: 3}
   - {fileID: 21300000, guid: 8d541c3cb68d0784d85cf39987823c0a, type: 3}
   - {fileID: 21300000, guid: ee8fa8094bc1e654eb2bf1cc429f03e3, type: 3}
+  CharacterButton:
+  - {fileID: 824163716}
+  - {fileID: 497902884}
+  - {fileID: 673052026}
   Character_HP:
   - {fileID: 1198347323}
   - {fileID: 1516043559}
@@ -777,6 +787,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: f55506a3ba866914593eac3bf438d076, type: 3}
   - {fileID: 21300000, guid: ad8e7feee6872394693ccc66ca9d8d41, type: 3}
   - {fileID: 21300000, guid: 429c30d4dcc1eb74d8b5f7e4b4eb9f45, type: 3}
+  - {fileID: 0}
+  EnemyButton:
+  - {fileID: 1688176574}
+  - {fileID: 55422805}
+  - {fileID: 1055810684}
   Enemy_HP:
   - {fileID: 172394131}
   - {fileID: 1322110791}
@@ -785,9 +800,6 @@ MonoBehaviour:
   - {fileID: 710003572}
   - {fileID: 64592367}
   - {fileID: 1514575380}
-  BressObj: {fileID: 417934448}
-  BressImage: {fileID: 2026349791}
-  BressText: {fileID: 618034581}
   TombSprite: {fileID: 21300000, guid: f7aa3a82cae1fc048bd434d99b983655, type: 3}
   SkillPannel: {fileID: 150897881}
   SkillButtonPannel: {fileID: 150897881}
@@ -799,6 +811,7 @@ MonoBehaviour:
   AttStatus: {fileID: 796704628}
   TargetStatus: {fileID: 825841279}
   AttackerImage: {fileID: 1030747546}
+  SkillComment: {fileID: 260494624}
   AttackObj: {fileID: 1064561470}
   Attack_Text: {fileID: 1671415315}
   Attack: {fileID: 139779167}
@@ -827,22 +840,45 @@ MonoBehaviour:
   target: 0
   bChecktarget: 0
   Attacker: 0
-  battleState: 0
---- !u!4 &188018476
-Transform:
+  BressObj: {fileID: 417934448}
+  BressImage: {fileID: 2026349791}
+  BressText: {fileID: 618034581}
+--- !u!1 &260494624
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 188018474}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 260494625}
+  m_Layer: 5
+  m_Name: SKillComment
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &260494625
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 260494624}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 770.9688, y: 891.868, z: 4.303346}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_Father: {fileID: 519592914}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &314461291
 GameObject:
   m_ObjectHideFlags: 0
@@ -967,6 +1003,7 @@ GameObject:
   - component: {fileID: 385106441}
   - component: {fileID: 385106443}
   - component: {fileID: 385106444}
+  - component: {fileID: 385106445}
   - component: {fileID: 385106442}
   m_Layer: 5
   m_Name: skill_1
@@ -1039,8 +1076,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 188018475}
-        m_TargetAssemblyTypeName: BossBtManager, Assembly-CSharp
+      - m_Target: {fileID: 188018477}
+        m_TargetAssemblyTypeName: Battle_Manager, Assembly-CSharp
         m_MethodName: InputSkillBTN
         m_Mode: 3
         m_Arguments:
@@ -1089,6 +1126,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &385106445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 385106440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79d838b7b2bfae14380565dea7e6f28d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CommentsParents: {fileID: 260494624}
+  Comments: {fileID: 6039351085308061402, guid: e8dea9d39cb149b459822029674f5029, type: 3}
 --- !u!1 &417934448
 GameObject:
   m_ObjectHideFlags: 0
@@ -1363,8 +1414,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 188018475}
-        m_TargetAssemblyTypeName: BossBtManager, Assembly-CSharp
+      - m_Target: {fileID: 188018477}
+        m_TargetAssemblyTypeName: Battle_Manager, Assembly-CSharp
         m_MethodName: InputTargetBTN
         m_Mode: 3
         m_Arguments:
@@ -1572,6 +1623,7 @@ RectTransform:
   - {fileID: 417934449}
   - {fileID: 1470143392}
   - {fileID: 1064561471}
+  - {fileID: 260494625}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2012,8 +2064,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 188018475}
-        m_TargetAssemblyTypeName: BossBtManager, Assembly-CSharp
+      - m_Target: {fileID: 188018477}
+        m_TargetAssemblyTypeName: Battle_Manager, Assembly-CSharp
         m_MethodName: InputTargetBTN
         m_Mode: 3
         m_Arguments:
@@ -2378,6 +2430,7 @@ GameObject:
   - component: {fileID: 758642376}
   - component: {fileID: 758642378}
   - component: {fileID: 758642379}
+  - component: {fileID: 758642380}
   - component: {fileID: 758642377}
   m_Layer: 5
   m_Name: skill_0
@@ -2450,8 +2503,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 188018475}
-        m_TargetAssemblyTypeName: BossBtManager, Assembly-CSharp
+      - m_Target: {fileID: 188018477}
+        m_TargetAssemblyTypeName: Battle_Manager, Assembly-CSharp
         m_MethodName: InputSkillBTN
         m_Mode: 3
         m_Arguments:
@@ -2500,6 +2553,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &758642380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 758642375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79d838b7b2bfae14380565dea7e6f28d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CommentsParents: {fileID: 260494624}
+  Comments: {fileID: 6039351085308061402, guid: e8dea9d39cb149b459822029674f5029, type: 3}
 --- !u!1 &789624288
 GameObject:
   m_ObjectHideFlags: 0
@@ -2511,6 +2578,7 @@ GameObject:
   - component: {fileID: 789624289}
   - component: {fileID: 789624291}
   - component: {fileID: 789624292}
+  - component: {fileID: 789624293}
   - component: {fileID: 789624290}
   m_Layer: 5
   m_Name: skill_2
@@ -2583,8 +2651,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 188018475}
-        m_TargetAssemblyTypeName: BossBtManager, Assembly-CSharp
+      - m_Target: {fileID: 188018477}
+        m_TargetAssemblyTypeName: Battle_Manager, Assembly-CSharp
         m_MethodName: InputSkillBTN
         m_Mode: 3
         m_Arguments:
@@ -2633,6 +2701,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &789624293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789624288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79d838b7b2bfae14380565dea7e6f28d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CommentsParents: {fileID: 260494624}
+  Comments: {fileID: 6039351085308061402, guid: e8dea9d39cb149b459822029674f5029, type: 3}
 --- !u!1 &796704625
 GameObject:
   m_ObjectHideFlags: 0
@@ -2927,8 +3009,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 188018475}
-        m_TargetAssemblyTypeName: BossBtManager, Assembly-CSharp
+      - m_Target: {fileID: 188018477}
+        m_TargetAssemblyTypeName: Battle_Manager, Assembly-CSharp
         m_MethodName: InputTargetBTN
         m_Mode: 3
         m_Arguments:
@@ -3494,8 +3576,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 188018475}
-        m_TargetAssemblyTypeName: BossBtManager, Assembly-CSharp
+      - m_Target: {fileID: 188018477}
+        m_TargetAssemblyTypeName: Battle_Manager, Assembly-CSharp
         m_MethodName: InputTargetBTN
         m_Mode: 3
         m_Arguments:
@@ -5412,6 +5494,7 @@ GameObject:
   - component: {fileID: 1664083883}
   - component: {fileID: 1664083885}
   - component: {fileID: 1664083886}
+  - component: {fileID: 1664083887}
   - component: {fileID: 1664083884}
   m_Layer: 5
   m_Name: skill_3
@@ -5484,8 +5567,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 188018475}
-        m_TargetAssemblyTypeName: BossBtManager, Assembly-CSharp
+      - m_Target: {fileID: 188018477}
+        m_TargetAssemblyTypeName: Battle_Manager, Assembly-CSharp
         m_MethodName: InputSkillBTN
         m_Mode: 3
         m_Arguments:
@@ -5534,6 +5617,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1664083887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1664083882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79d838b7b2bfae14380565dea7e6f28d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CommentsParents: {fileID: 260494624}
+  Comments: {fileID: 6039351085308061402, guid: e8dea9d39cb149b459822029674f5029, type: 3}
 --- !u!1 &1667407736
 GameObject:
   m_ObjectHideFlags: 0
@@ -5944,8 +6041,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 188018475}
-        m_TargetAssemblyTypeName: BossBtManager, Assembly-CSharp
+      - m_Target: {fileID: 188018477}
+        m_TargetAssemblyTypeName: Battle_Manager, Assembly-CSharp
         m_MethodName: InputTargetBTN
         m_Mode: 3
         m_Arguments:

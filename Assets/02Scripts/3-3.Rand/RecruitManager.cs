@@ -18,7 +18,7 @@ public class RecruitManager : MonoBehaviour
     public Dictionary<int, string> Chat_Dic = new Dictionary<int,string>();
     public int ChatNum;
 
-    Save_Charater_Class.SD newChar;
+    Save.Player newChar;
 
     public Action ResulfAction;
 
@@ -27,7 +27,7 @@ public class RecruitManager : MonoBehaviour
         SetNewChar();
         SaveChat();
 
-        if(GameManager.instance.GetComponent<Save_Charater_Data>().S_Character.Count == 3)
+        if(GameManager.instance.MyParty.Count == 3)
         {
             SelectBtn_0.interactable = false;
         }
@@ -45,48 +45,44 @@ public class RecruitManager : MonoBehaviour
 
     void SetNewChar()
     {
+        // 레벨
         int lvl = 0;
         int rnd = UnityEngine.Random.Range(1,11);
         if(rnd > 5) lvl = 2;
         else if(rnd > 1) lvl = 3;
-        else if(rnd == 1) lvl = 4;
+        else if(rnd == 1) lvl = 4;       
         
-        e_Class newClass = e_Class.worrier;
-        Save_Charater_Class.Class_Status newStatus = Save_Charater_Class.Worrier;
         
+
+        // 캐릭터 생성
         rnd = UnityEngine.Random.Range(0,4);
 
-        switch (rnd)
+        e_Class newClass = (e_Class)(rnd + 1);
+
+        CharacterDatas charData = SOManager.instance.CharSO.CharDatas[rnd + 1];
+        Save.St_Stat newStatus = new Save.St_Stat(charData);
+        
+
+        newChar = new Save.Player(newStatus,newClass);
+
+        for(int i = 0; i < lvl; i++)
         {
-            case 0 : newClass = e_Class.worrier; newStatus = Save_Charater_Class.Worrier;
-            break;
-
-            case 1 : newClass = e_Class.magicion; newStatus = Save_Charater_Class.Magicion;
-            break;
-
-            case 2 : newClass = e_Class.supporter; newStatus = Save_Charater_Class.Supporter;
-            break;
-
-            case 3 : newClass = e_Class.assassin; newStatus = Save_Charater_Class.Assassin;
-            break;
+            newChar.LevelUp();
         }
-
-        newChar = new Save_Charater_Class.SD(newStatus,newClass);
-        for(int i = 0; i < lvl; i++) newChar.LevelUp();
     }
 
     void SaveChat()
     {
         Chat_Dic.Add(0,"[ 거수자 발견 ]");
         Chat_Dic.Add(1," ??? \n 잠깐 멈춰!");
-        Chat_Dic.Add(2," ??? \n 난 " + newChar.c_Name +" 이야 \n 길을 잃어서 그런대 마차 좀 같이 탈 수 있을까? ");
+        Chat_Dic.Add(2," ??? \n 난 " + newChar.name +" 이야 \n 길을 잃어서 그런대 마차 좀 같이 탈 수 있을까? ");
         Chat_Dic.Add(3,"");
-        Chat_Dic.Add(10, " "+newChar.c_Name + "\n 으윽 150골드면 거의 전 재산이잔아?");
+        Chat_Dic.Add(10, " "+newChar.name + "\n 으윽 150골드면 거의 전 재산이잔아?");
         Chat_Dic.Add(11,"[ 그래서 안탈거야? ]");
-        Chat_Dic.Add(12, " "+newChar.c_Name + "\n 어쩔수 없지 자 받아");
-        Chat_Dic.Add(20, " "+newChar.c_Name + "\n 뭐? 갑자기?");
+        Chat_Dic.Add(12, " "+newChar.name + "\n 어쩔수 없지 자 받아");
+        Chat_Dic.Add(20, " "+newChar.name + "\n 뭐? 갑자기?");
         Chat_Dic.Add(21,"[ 마침 파티원을 구하고 있어서 ]");
-        Chat_Dic.Add(22, " "+newChar.c_Name + "\n 음.. 마침 일도 없으니 좋아");
+        Chat_Dic.Add(22, " "+newChar.name + "\n 음.. 마침 일도 없으니 좋아");
     }
 
     public void NextBtn()
@@ -119,10 +115,9 @@ public class RecruitManager : MonoBehaviour
 
     void Recruit()
     {
-        Save_Charater_Data save = GameManager.instance.GetComponent<Save_Charater_Data>();
-        if(save.S_Character.Count < 3)
+        if(GameManager.instance.MyParty.Count < 3)
         {
-            save.S_Character.Add(newChar);
+            GameManager.instance.MyParty.Add(newChar);
         }
     }
 

@@ -6,20 +6,41 @@ using UnityEngine.UI;
 
 public class Save_Charater_Data : MonoBehaviour
 {
-    public List<Save_Charater_Class.SD>  S_Character = new List<Save_Charater_Class.SD>();
+
+    // public static Save_Charater_Data instance = null;
+    
+
+    
     
     public int c_Num;
 
+    public List<Save.Player> My = new List<Save.Player>();
+    public CharacterSO CharSO;
+    
+    private void Awake() 
+    {
+        // instance = this;
+        //cur_Map = new MapClass();
+        // DontDestroyOnLoad(this.gameObject); 
+
+    }
+
+    private void Start()
+    {
+        My = GameManager.instance.MyParty;
+        CharSO = SOManager.instance.CharSO;
+    }
 
     // 캐릭터 생성
     public void new_Charater_Worrier(int level)
     {        
         if(c_Num < 3)
         {
-            S_Character.Add(new Save_Charater_Class.SD());
-            S_Character[c_Num] = new Save_Charater_Class.SD(Save_Charater_Class.Worrier,e_Class.worrier);
+            My.Add(new Save.Player());
+            Save.St_Stat worrier = new Save.St_Stat(CharSO.CharDatas[1]);
+            My[c_Num] = new Save.Player(worrier, e_Class.Warrior);
             for(int i = 0; i < level; i++ ){
-                S_Character[c_Num].LevelUp();
+                My[c_Num].LevelUp();
             }    
             c_Num++;            
         }
@@ -28,10 +49,11 @@ public class Save_Charater_Data : MonoBehaviour
     {        
         if(c_Num < 3)
         {
-            S_Character.Add(new Save_Charater_Class.SD());
-            S_Character[c_Num] = new Save_Charater_Class.SD(Save_Charater_Class.Magicion,e_Class.magicion);
+            My.Add(new Save.Player());
+            Save.St_Stat magicion = new Save.St_Stat(CharSO.CharDatas[2]);
+            My[c_Num] = new Save.Player(magicion,e_Class.Magicion);
             for(int i = 0; i < level; i++ ){
-                S_Character[c_Num].LevelUp();
+                My[c_Num].LevelUp();
             }        
             c_Num++;        
         }
@@ -40,11 +62,16 @@ public class Save_Charater_Data : MonoBehaviour
     {        
         if(c_Num < 3)
         {
-            S_Character.Add(new Save_Charater_Class.SD());
-            S_Character[c_Num] = new Save_Charater_Class.SD(Save_Charater_Class.Supporter,e_Class.supporter);
+            My.Add(new Save.Player());
+            Save.St_Stat supporter = new Save.St_Stat(CharSO.CharDatas[3]);
+            My[c_Num] = new Save.Player(supporter,e_Class.Supporter);
+
+            // MyParty[c_Num] = new Save.Player(Save.Supporter,e_Class.Supporter);
+
             for(int i = 0; i < level; i++ ){
-                S_Character[c_Num].LevelUp();
+                My[c_Num].LevelUp();
             }   
+            My[c_Num].Main = true;
             c_Num++;             
         }
     }
@@ -52,10 +79,11 @@ public class Save_Charater_Data : MonoBehaviour
     {        
         if(c_Num < 3)
         {
-            S_Character.Add(new Save_Charater_Class.SD());
-            S_Character[c_Num] = new Save_Charater_Class.SD(Save_Charater_Class.Assassin,e_Class.assassin);
+            My.Add(new Save.Player());
+            Save.St_Stat assassin = new Save.St_Stat(CharSO.CharDatas[4]);
+            My[c_Num] = new Save.Player(assassin,e_Class.Assassin);
             for(int i = 0; i < level; i++ ){
-                S_Character[c_Num].LevelUp();
+                My[c_Num].LevelUp();
             }       
             c_Num++;         
         }
@@ -65,11 +93,10 @@ public class Save_Charater_Data : MonoBehaviour
     // 캐릭터 제거
     public void Delete_Character()
     {
-        if (S_Character.Count > 0)
+        if (My.Count > 0)
         {
-
             c_Num--;
-            S_Character.RemoveAt(c_Num);
+            My.RemoveAt(c_Num);
         }
     }
 
@@ -77,38 +104,7 @@ public class Save_Charater_Data : MonoBehaviour
     public void ExpUp(int num)
     {
         if(c_Num > num)
-            S_Character[num].SetEXp(500);        
+            My[num].SetEXp(500);        
     }
 
-    public void Ex_sk(int n)
-    {
-        Debug.Log(n+ " 번째 스킬 사용");
-    }
-    public void Ex_sk2(Save_Charater_Class.SD _this, int n)
-    {
-        Debug.Log(n+ " 번째 스킬 사용");
-        
-        Debug.Log(" 체력 : "+_this.Hp);
-    }
-
-    public void Attack(int n)
-    {
-        S_Character[1].nomalAttack(S_Character[n]);
-    }
-
-    public void Use_Skill(int n)
-    {
-        //S_Character[2].MySkill[3].UseSkill(S_Character,2,S_Character,1);
-    }
-    public void SetSkill(int k)
-    {
-
-    }
-
-    //public Button btn;
-
-    private void Start()
-    {
-        //btn.onClick.AddListener(() => {Debug.Log("버튼 클릭");});
-    }
 }

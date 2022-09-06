@@ -2,26 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class TownManager : MonoBehaviour
 {
+    public GameManager GM;
+
     public GameObject BackGround;
     public GameObject[] Characters = new GameObject[4];
     public Button[] CharacterBtn = new Button[4];
     public GameObject SkillPannel;
-    public GameObject[] SkillText = new GameObject[4];
+    public GameObject[] SkillBtn = new GameObject[4];
     public Sprite[] CharImage = new Sprite[4];
-
-    Save_Charater_Data Save;
-    Save_Charater_Class.SD[] NewCharacters = new Save_Charater_Class.SD[4];
+    
+    Save.Player[] NewCharacters = new Save.Player[4];
     int SelectNum;
-    bool bSelect;
+    bool bSelect;    
 
 
     // Start is called before the first frame update
     void Start()
     {
+        GM = GameManager.instance;
+
         CharacterBtn[0].onClick.AddListener(() => {
             ClickCharBtn(0);
         });
@@ -38,7 +42,6 @@ public class TownManager : MonoBehaviour
 
         BackGround.SetActive(false);
         SkillPannel.SetActive(false);
-        Save = GameManager.instance.GetComponent<Save_Charater_Data>();
 
         SetCharData();
 
@@ -47,40 +50,18 @@ public class TownManager : MonoBehaviour
     void SetCharData()
     {
         for(int i = 0; i < 4; i++)
-        {
-            e_Class newClass = e_Class.worrier;
-            Save_Charater_Class.Class_Status newStatus = Save_Charater_Class.Worrier;
+        {            
             int rnd = Random.Range(0,4);
-            
-            switch (rnd)
-            {
-                case 0:
-                newClass = e_Class.worrier;
-                newStatus = Save_Charater_Class.Worrier;
-                Characters[i].GetComponent<Image>().sprite = CharImage[rnd];
-                break;
 
-                case 1:
-                newClass = e_Class.magicion;
-                newStatus = Save_Charater_Class.Magicion;
-                Characters[i].GetComponent<Image>().sprite = CharImage[rnd];
-                break;
-                
-                case 2:
-                newClass = e_Class.supporter;
-                newStatus = Save_Charater_Class.Supporter;
-                Characters[i].GetComponent<Image>().sprite = CharImage[rnd];
-                break;
-                
-                case 3:
-                newClass = e_Class.assassin;
-                newStatus = Save_Charater_Class.Assassin;
-                Characters[i].GetComponent<Image>().sprite = CharImage[rnd];
-                break;                
-            }
-            NewCharacters[i] = new Save_Charater_Class.SD(newStatus,newClass);
+            CharacterDatas charData = SOManager.instance.CharSO.CharDatas[rnd+1];
+            Save.St_Stat newStatus = new Save.St_Stat(charData);
+            
+            e_Class newRole = (e_Class)(rnd + 1);
+            Characters[i].GetComponent<Image>().sprite = CharImage[rnd];
+
+            NewCharacters[i] = new Save.Player(newStatus,newRole);
             var charName = Characters[i].transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-            charName.text = "[" + NewCharacters[i].c_Name + "]";
+            charName.text = "[" + NewCharacters[i].name + "]";
         }
     }
 
@@ -107,10 +88,35 @@ public class TownManager : MonoBehaviour
 
         SkillPannel.SetActive(true);
 
-        SkillText[0].GetComponent<TextMeshProUGUI>().text = "Nomal";
-        SkillText[1].GetComponent<TextMeshProUGUI>().text = "Sk_"+ NewCharacters[n].skill[0];
-        SkillText[2].GetComponent<TextMeshProUGUI>().text = "Sk_"+ NewCharacters[n].skill[1];
-        SkillText[3].GetComponent<TextMeshProUGUI>().text = "Ulti";
+        int rolenum = (int)NewCharacters[n].Role;
+        string root ="";
+        switch (rolenum)
+        {
+            case 1 :
+            root = "icon/Worrier/";
+            break;
+            case 2 :
+            root = "icon/Magition/";
+            break;
+            case 3 :
+            root = "icon/Healer/";
+            break;
+            case 4 :
+            root = "icon/Assassin/";
+            break;
+        }
+        int skill_1 = NewCharacters[n].SkillNum[1];
+        int skill_2 = NewCharacters[n].SkillNum[2];
+
+        SkillBtn[0].GetComponent<Image>().sprite = Resources.Load<Sprite>(root + 0) as Sprite;
+        SkillBtn[1].GetComponent<Image>().sprite = Resources.Load<Sprite>(root + skill_1) as Sprite;
+        SkillBtn[2].GetComponent<Image>().sprite = Resources.Load<Sprite>(root + skill_2) as Sprite;
+        SkillBtn[3].GetComponent<Image>().sprite = Resources.Load<Sprite>(root + 5) as Sprite;
+
+        SkillBtn[0].GetComponent<SkillComment>().skill = NewCharacters[n].MySkill[0];
+        SkillBtn[1].GetComponent<SkillComment>().skill = NewCharacters[n].MySkill[1];
+        SkillBtn[2].GetComponent<SkillComment>().skill = NewCharacters[n].MySkill[2];
+        SkillBtn[3].GetComponent<SkillComment>().skill = NewCharacters[n].MySkill[3];
         
 
         SelectNum = n;
@@ -119,16 +125,24 @@ public class TownManager : MonoBehaviour
 
     public void ClickRecruit()
     {
-       if(3 > Save.S_Character.Count && bSelect == true)
+       if(3 > GM.MyParty.Count && bSelect == true)
        {
-            Save.S_Character.Add(NewCharacters[SelectNum]);
+            GM.MyParty.Add(NewCharacters[SelectNum]);
             Characters[SelectNum].SetActive(false);
             bSelect = false;
             SkillPannel.SetActive(false);
 
-       } 
+       }
+       else
+       {
+            Debug.Log("이미 파티원의 수가 풀 입니다.");
+       }
     }
 
 
+    public void NextScene()
+    {
+        SceneManager.LoadScene("1-2.MapScene");     
+    }
 
 }

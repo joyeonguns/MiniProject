@@ -3,336 +3,368 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public enum Etel_type {getAfter,beforBattle,beforeTurn,AfterBattle};
-public enum Etel_Rank {A,B,C};
+public enum Etel_type {Get,Battle,End};
+public enum Etel_Rank {C,B,A,S};
 public class TellentsScripts
 {
-    public int tel_num;
-    public string Tel_Name;
+    public int Code;
+    public string name;
     public string Comments;
     public Etel_type type;
-    Etel_Rank rank;
+    public Etel_Rank Rank;
 
-    // Func 특성 적용 함수
-    public Func<GameInformation, List<Save_Charater_Class.SD>, int, List<Save_Charater_Class.Class_Status>, Save_Charater_Class.Class_Status, List<Save_Charater_Class.SD>, int,Save_Charater_Class.Class_Status> TellentApply;
+    // Action 적용 함수
+    public Action<List<Save.Character>, int, List<Save.Character>, int> TellentApply;
+    public Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>[] Rank_C = new Tuple<string,Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>[]
+    {
+        new Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>("Strength1",Strength1, Etel_type.Get),
+        new Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>("Strength2",Strength2, Etel_type.Get),
+        new Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>("Handy1",Handy1, Etel_type.Get),
+        new Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>("Handy2",Handy2, Etel_type.Get),
+        new Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>("Nimble1",Nimble1, Etel_type.Get),
+        new Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>("Nimble2",Nimble2, Etel_type.Get),
+        new Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>("HardSkin1",HardSkin1, Etel_type.Get),
+        new Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>("HardSkin2",HardSkin2, Etel_type.Get),
+        new Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>("Squat1",Squat1, Etel_type.Get),
+        new Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>("Squat2",Squat2, Etel_type.Get),
+        new Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>("Ungijosic",Ungi, Etel_type.Battle)
+    };
+
+    public Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>[] Rank_B = new Tuple<string,Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>[]
+    {
+        new Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>("Protein1",Protein1, Etel_type.Get),
+        new Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>("Protein2",Protein2, Etel_type.Get),
+        new Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>("Pinpoint1",Pinpoint1, Etel_type.Get),
+        new Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>("Pinpoint2",Pinpoint2, Etel_type.Get),
+        new Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>("Flexible1",Flexible1, Etel_type.Get),
+        new Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>("Flexible2",Flexible2, Etel_type.Get),
+        new Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>("LuckyBrooch",LuckyBrooch, Etel_type.Get),
+        new Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>("Greasing1",Greasing1, Etel_type.Get),
+        new Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>("Greasing2",Greasing2, Etel_type.Get),
+        new Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>("StonSkin1",StonSkin1, Etel_type.Get),
+        new Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>("StonSkin2",StonSkin2, Etel_type.Get),
+        new Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>("Speedster1",Speedster1, Etel_type.Get),
+        new Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>("Speedster2",Speedster2, Etel_type.Get),
+        new Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>("OutSider",OutSider, Etel_type.Battle),
+        new Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>("Insider",Insider, Etel_type.Battle),
+        new Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>("Rob",Rob, Etel_type.End),
+        new Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>("MeetParty",MeetParty, Etel_type.Get),
+        new Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>("Rest",Rest, Etel_type.Get)
+    };
+
+    public Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>[] Rank_A = new Tuple<string,Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>[]
+    {
+        new Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>("ReadedShot",ReadedShot, Etel_type.Battle),
+        new Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>("Battery",Battery, Etel_type.Battle),
+        new Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>("FullCondition",FullCondition, Etel_type.Battle),
+        new Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>("ManaForce",ManaForce, Etel_type.Battle),
+        new Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>("ThroughStrike",ThroughStrike, Etel_type.Get)
+    };
+
+    public Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>[] Rank_S = new Tuple<string,Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>[]
+    {
+        new Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>("Berserker",Berserker, Etel_type.Battle),
+        new Tuple<string, Action<List<Save.Character>, int, List<Save.Character>, int>, Etel_type>("KeepGrowth",KeepGrowth, Etel_type.Battle)
+    };
     
-    public List<Tuple<string,string>> BBComents = new List<Tuple<string,string>>
+
+    public TellentsScripts(){}
+    public TellentsScripts(Etel_Rank rank, int Code)
     {
+        switch((int)rank)
+        {
+            case 0:
+            name = Rank_C[Code].Item1;
+            TellentApply = Rank_C[Code].Item2;
+            type = Rank_C[Code].Item3;
+            Rank = rank;
+            break;
+
+            case 1:
+            name = Rank_B[Code].Item1;
+            TellentApply = Rank_B[Code].Item2;
+            type = Rank_B[Code].Item3;
+            Rank = rank;
+            break;
+
+            case 2:
+            name = Rank_A[Code].Item1;
+            TellentApply = Rank_A[Code].Item2;
+            type = Rank_A[Code].Item3;
+            Rank = rank;
+            break;
+
+            case 3:
+            name = Rank_S[Code].Item1;
+            TellentApply = Rank_S[Code].Item2;
+            type = Rank_S[Code].Item3;
+            Rank = rank;
+            break;
+        }
         
-    }; 
+    }
+
     
-    public TellentsScripts()
-    {
 
-    }
-    public TellentsScripts(Etel_type _type, int tel_num)
+    // C 랭크
+    static void Strength1(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
     {
-        Tel_Name = "특성";
-        type = _type;
-        switch(type)
+        Debug.Log("Strength1");
+        Caster[CasterIdx].status.Damage += 1;
+    }
+    static void Strength2(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    {        
+        if(Caster[CasterIdx].Main == true)
         {
-            case Etel_type.beforBattle :
-                SetBeforeBattle(tel_num);
-                break;
-            case Etel_type.AfterBattle :
-                SetAfterBattle(tel_num);
-                break;
-            case Etel_type.beforeTurn :
-                SetBeforeTurn(tel_num);
-                break;
-            case Etel_type.getAfter :
-                SetGetAfter(tel_num);
-                break;
+            Debug.Log("Strength2");
+            Caster[CasterIdx].status.Damage += 2;
+        }              
+    }
+
+    static void Handy1(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    {
+        Debug.Log("Handy1");
+        Caster[CasterIdx].status.Critical += 10;
+    }
+    static void Handy2(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    {
+        Debug.Log("Handy2");
+        if(Caster[CasterIdx].Main == true)
+            Caster[CasterIdx].status.Critical += 15;  
+    }
+
+    static void Nimble1(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    {
+        Debug.Log("Nimble1");
+        Caster[CasterIdx].status.Dodge += 10;
+    }
+    static void Nimble2(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    {
+        Debug.Log("Nimble2");
+        if(Caster[CasterIdx].Main == true)
+            Caster[CasterIdx].status.Dodge += 15;  
+    }
+
+    static void HardSkin1(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    {
+        Debug.Log("HardSkin1");
+        Caster[CasterIdx].status.Armor += 0.05f;
+    }
+    static void HardSkin2(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    {
+        Debug.Log("HardSkin2");
+        if(Caster[CasterIdx].Main == true)
+            Caster[CasterIdx].status.Armor += 0.07f;  
+    }
+
+    static void Squat1(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    {
+        Debug.Log("Squat1");
+        Caster[CasterIdx].status.Speed += 1;
+    }
+    static void Squat2(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    {
+        Debug.Log("Squat2");
+        if(Caster[CasterIdx].Main == true)
+            Caster[CasterIdx].status.Speed += 2;  
+    }
+    static void Ungi(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    {
+        Debug.Log("Ungijosic");
+        if(Caster[CasterIdx].turn == 1)
+            Caster[CasterIdx].Mana += 2;
+    }
+
+    // B 랭크
+    static void Protein1(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    {
+        Debug.Log("Protein1");
+        Caster[CasterIdx].status.Damage += 2;
+    }
+    static void Protein2(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    {
+        Debug.Log("Protein2");
+        if(Caster[CasterIdx].Main == true)
+            Caster[CasterIdx].status.Damage += 4;  
+    }
+
+    static void Pinpoint1(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    {
+        Debug.Log("Pinpoint1");
+        Caster[CasterIdx].status.Critical += 15;
+        Caster[CasterIdx].status.Damage += 1;
+    }
+    static void Pinpoint2(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    {
+        Debug.Log("Pinpoint2");
+        if(Caster[CasterIdx].Main == true)
+        {
+            Caster[CasterIdx].status.Critical += 30;
+            Caster[CasterIdx].status.Damage += 2;
+        }  
+    }
+
+    static void Flexible1(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    {
+        Debug.Log("Flexible1");
+        Caster[CasterIdx].status.Dodge += 20;
+    }
+    static void Flexible2(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    {
+        Debug.Log("Flexible2");
+        if(Caster[CasterIdx].Main == true)
+            Caster[CasterIdx].status.Dodge += 40;  
+    }
+
+    static void LuckyBrooch(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    {
+        Debug.Log("LuckyBrooch");
+    }
+    static void Greasing1(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    {
+        Debug.Log("Greasing1");
+        Caster[CasterIdx].status.Dodge += 40;  
+        Caster[CasterIdx].status.Critical -= 20;  
+    }
+
+    static void Greasing2(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    {
+        Debug.Log("Greasing2");
+        if(Caster[CasterIdx].Main == true)
+        {
+            Caster[CasterIdx].status.Dodge += 60;
+            Caster[CasterIdx].status.Critical -= 20;
         }
-        
+             
+    }
+    static void StonSkin1(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    {
+        Debug.Log("StonSkin1");
+        Caster[CasterIdx].status.Armor += 0.08f;  
+        Caster[CasterIdx].status.Speed -= 2;  
     }
 
-    public void SetBeforeTurn(int _tel_num)
-    {    
-        tel_num = _tel_num;
-        switch(tel_num)
+    static void StonSkin2(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    {
+        Debug.Log("StonSkin2");
+        if(Caster[CasterIdx].Main == true)
         {
-            case 0 :
-                TellentApply = BeforeTurn_0;
-                //_telApp = BeforeTurn_0;
-                break;
-            case 1 :
-                TellentApply = BeforeTurn_1;
-                break;
-            case 2 :
-                TellentApply = BeforeTurn_2;
-                break;
-            case 3 :
-                TellentApply = BeforeTurn_3;
-                break;
-        }
+            Caster[CasterIdx].status.Armor += 0.12f;  
+            Caster[CasterIdx].status.Speed -= 2;  
+        }             
+    }
+    static void Speedster1(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    {
+        Debug.Log("Speedster1");
+        Caster[CasterIdx].status.Speed += 3;  
+        Caster[CasterIdx].status.Armor -= 0.08f;  
     }
 
-    public void SetGetAfter(int _tel_num)
+    static void Speedster2(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
     {
-        tel_num = _tel_num;
-        switch(tel_num)
+        Debug.Log("Speedster2");
+        if(Caster[CasterIdx].Main == true)
         {
-            case 0 :
-                TellentApply = GetAfter_0;
-                Tel_Name = "0";
-                Comments = "급속 성장 \n 모두 레벨업";
-                
-                break;
-            case 1 :
-                TellentApply = GetAfter_1;
-                Tel_Name = "1";
-                Comments = "포 식 \n 모두 체력 20회복 \n 최대체력 +5";
-                break;
-            case 2 :
-                TellentApply = GetAfter_2;
-                Tel_Name = "2";
-                Comments = "육체 수양 \n 최대체력 +20";
-                break;
-            case 3 :
-                TellentApply = GetAfter_3;
-                Tel_Name = "3";
-                Comments = "행 운 \n 행운 + 3";
-                break;
-        }
+            Caster[CasterIdx].status.Armor -= 0.08f;  
+            Caster[CasterIdx].status.Speed += 6;  
+        }             
     }
-
-    public void SetAfterBattle(int _tel_num)
+    static void OutSider(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
     {
-        tel_num = _tel_num;
-        switch(tel_num)
+        Debug.Log("OutSider");
+        if(Caster[CasterIdx].Main == true && Caster.Count != 3)
         {
-            case 0 :
-                TellentApply = AfterBattle_0;
-                //_telApp = BeforeTurn_0;
-                break;
-            case 1 :
-                TellentApply = AfterBattle_1;
-                break;
-            case 2 :
-                TellentApply = AfterBattle_2;
-                break;
-            case 3 :
-                TellentApply = AfterBattle_3;
-                break;
-        }
+            float buff = (3-Caster.Count)*0.1f;
+            Caster[CasterIdx].Battlestatus.AllStatBuff(buff); 
+        }   
     }
 
-    public void SetBeforeBattle(int _tel_num)
+    static void Insider(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
     {
-        tel_num = _tel_num;
-        switch(tel_num)
+        Debug.Log("Insider");
+        if(Caster[CasterIdx].Main == true && Caster.Count == 3)
         {
-            case 0 :
-                TellentApply = BeforeBattle_0;
-                //_telApp = BeforeTurn_0;
-                break;
-            case 1 :
-                TellentApply = BeforeBattle_1;
-                break;
-            case 2 :
-                TellentApply = BeforeBattle_2;
-                break;
-            case 3 :
-                TellentApply = BeforeBattle_3;
-                break;
-        }
+            Caster[CasterIdx].Battlestatus.AllStatBuff(0.1f);   
+        }             
     }
-
-    // 턴 직전
-    Save_Charater_Class.Class_Status BeforeTurn_0(GameInformation GI, List<Save_Charater_Class.SD> Caster, int CasterIdx, List<Save_Charater_Class.Class_Status> status, Save_Charater_Class.Class_Status volastatus, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
+    static void Rob(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
     {
-        Debug.Log("Intelligence");
-        Caster[CasterIdx].Mana += 2;
-        
-        return volastatus;
+        Debug.Log("Rob");
+        GameManager.instance.ResultData.Gold += 50;
     }
 
-    Save_Charater_Class.Class_Status BeforeTurn_1(GameInformation GI, List<Save_Charater_Class.SD> Caster, int CasterIdx, List<Save_Charater_Class.Class_Status> status, Save_Charater_Class.Class_Status volastatus, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
+    static void MeetParty(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
     {
-        Debug.Log("SlowStarter");
-        Save_Charater_Class.Class_Status st = status[CasterIdx];        
-        st.s_Damage += GI.TurnCounts; 
-        status[CasterIdx] = st;
-        volastatus.s_Damage += GI.TurnCounts;
-        
-        return volastatus; 
+        Debug.Log("MeetParty");
+        Caster[CasterIdx].status.MaxHp += 10;           
     }
-
-    Save_Charater_Class.Class_Status BeforeTurn_2(GameInformation GI, List<Save_Charater_Class.SD> Caster, int CasterIdx, List<Save_Charater_Class.Class_Status> status, Save_Charater_Class.Class_Status volastatus, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
+    static void Rest(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
     {
-        Debug.Log("LuckyStrike");
-        if(GI.TurnCounts == 3)
-            volastatus.s_Damage += GI.TurnCounts;
-
-        return volastatus;
-    }
-    Save_Charater_Class.Class_Status BeforeTurn_3(GameInformation GI, List<Save_Charater_Class.SD> Caster, int CasterIdx, List<Save_Charater_Class.Class_Status> status, Save_Charater_Class.Class_Status volastatus, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
-    {
-        Debug.Log("Ready");
-        if(GI.TurnCounts == 1)
-        {
-            Debug.Log("10000");
-            volastatus.s_Critical += 10000;
-           
-            Debug.Log(volastatus.s_Critical);
-        }
-        return volastatus;    
-    }
-
-
-    // 특성 획득
-    Save_Charater_Class.Class_Status GetAfter_0(GameInformation GI, List<Save_Charater_Class.SD> Caster, int CasterIdx, List<Save_Charater_Class.Class_Status> status, Save_Charater_Class.Class_Status volastatus, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
-    {
-        Debug.Log("Giant");
-        foreach (var cha in Caster)
-        {
-            cha.LevelUp();
-        }        
-        
-        return volastatus;
-    }
-
-    Save_Charater_Class.Class_Status GetAfter_1(GameInformation GI, List<Save_Charater_Class.SD> Caster, int CasterIdx, List<Save_Charater_Class.Class_Status> status, Save_Charater_Class.Class_Status volastatus, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
-    {
-        Debug.Log("predation");
-        foreach (var cha in Caster)
-        {
-            cha.status.s_MaxHp +=5;
-            cha.Hp +=20;            
-        }
-        
-        return volastatus; 
-    }
-
-    Save_Charater_Class.Class_Status GetAfter_2(GameInformation GI, List<Save_Charater_Class.SD> Caster, int CasterIdx, List<Save_Charater_Class.Class_Status> status, Save_Charater_Class.Class_Status volastatus, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
-    {
-        Debug.Log("Exercise");
-        Caster[CasterIdx].status.s_MaxHp += 20;
-        Caster[CasterIdx].Hp +=20;
-
-        return volastatus;
-    }
-    Save_Charater_Class.Class_Status GetAfter_3(GameInformation GI, List<Save_Charater_Class.SD> Caster, int CasterIdx, List<Save_Charater_Class.Class_Status> status, Save_Charater_Class.Class_Status volastatus, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
-    {
-        Debug.Log("Fortune");
-        
-        return volastatus;    
-    }
-
-    // 전투 이후
-    Save_Charater_Class.Class_Status AfterBattle_0(GameInformation GI, List<Save_Charater_Class.SD> Caster, int CasterIdx, List<Save_Charater_Class.Class_Status> status, Save_Charater_Class.Class_Status volastatus, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
-    {
-        Debug.Log("Robbery");
-        GI.Golds = (int)(GI.Golds*1.3f);
-        
-        return volastatus;
-    }
-
-    Save_Charater_Class.Class_Status AfterBattle_1(GameInformation GI, List<Save_Charater_Class.SD> Caster, int CasterIdx, List<Save_Charater_Class.Class_Status> status, Save_Charater_Class.Class_Status volastatus, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
-    {
-        Debug.Log("Trasure Hunter");
-        if(GI.Battletype != "Nomal")
-        {
-            GI.Golds += 100;
-        }
-        
-        return volastatus; 
-    }
-
-    Save_Charater_Class.Class_Status AfterBattle_2
-    (GameInformation GI, List<Save_Charater_Class.SD> Caster, int CasterIdx, List<Save_Charater_Class.Class_Status> status, Save_Charater_Class.Class_Status volastatus, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
-    {
-        Debug.Log("ReGroup");
-        foreach(var cha in Caster)
-        {
-            cha.Mana +=2;
-        }
-        return volastatus; 
-    }
-    Save_Charater_Class.Class_Status AfterBattle_3(GameInformation GI, List<Save_Charater_Class.SD> Caster, int CasterIdx, List<Save_Charater_Class.Class_Status> status, Save_Charater_Class.Class_Status volastatus, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
-    {
-        Debug.Log("Alchemy");
-        GI.ItemRate = 100;
-        return volastatus;    
-    }
-
-    // 전투 시작시
-    Save_Charater_Class.Class_Status BeforeBattle_0(GameInformation GI, List<Save_Charater_Class.SD> Caster, int CasterIdx, List<Save_Charater_Class.Class_Status> status, Save_Charater_Class.Class_Status volastatus, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
-    {
-        Debug.Log("Reinforce");
-        List<Save_Charater_Class.Class_Status> newstatus = new List<Save_Charater_Class.Class_Status>();
-        foreach (var st in status)
-        {
-           Save_Charater_Class.Class_Status _st = st;
-           _st.s_Damage *= 1.3f;
-           newstatus.Add(_st);
-        }
-        status = newstatus;
-        return volastatus;
-    }
-
-    Save_Charater_Class.Class_Status BeforeBattle_1(GameInformation GI, List<Save_Charater_Class.SD> Caster, int CasterIdx, List<Save_Charater_Class.Class_Status> status, Save_Charater_Class.Class_Status volastatus, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
-    {
-        Debug.Log("SoloPlayer");
-        if(Caster.Count == 1)
-        {
-            Save_Charater_Class.Class_Status st = status[0];
-            st.s_Armor = st.s_Armor * 1.3f;
-            st.s_Critical = (int)(st.s_Critical * 1.3f);
-            st.s_Damage = (st.s_Damage * 1.3f);
-            st.s_Dodge = (int)(st.s_Dodge * 1.3f);
-            st.s_Speed = (int)(st.s_Speed * 1.3f);
-
-            status.RemoveAt(0);
-            status.Add(st);
-        }
-        return volastatus; 
-    }
-
-    Save_Charater_Class.Class_Status BeforeBattle_2(GameInformation GI, List<Save_Charater_Class.SD> Caster, int CasterIdx, List<Save_Charater_Class.Class_Status> status, Save_Charater_Class.Class_Status volastatus, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
-    {
-        Debug.Log("ReaderShip");
-        List<Save_Charater_Class.Class_Status> newstatus = new List<Save_Charater_Class.Class_Status>();
-        foreach (var _st in status)
-        {
-            Save_Charater_Class.Class_Status st = _st;
-
-            st.s_Armor = st.s_Armor * 1.1f;
-            st.s_Critical = (int)(st.s_Critical * 1.1f);
-            st.s_Damage = (st.s_Damage * 1.1f);
-            st.s_Dodge = (int)(st.s_Dodge * 1.1f);
-            st.s_Speed = (int)(st.s_Speed * 1.1f);
-            newstatus.Add(st);
-            
-        }
-        status.Clear();
-        for(int i = 0; i < newstatus.Count; i++)
-        {
-            status.Add(newstatus[i]);
-        }
-        
-        return volastatus;
-    }
-    Save_Charater_Class.Class_Status BeforeBattle_3(GameInformation GI, List<Save_Charater_Class.SD> Caster, int CasterIdx, List<Save_Charater_Class.Class_Status> status, Save_Charater_Class.Class_Status volastatus, List<Save_Charater_Class.SD> Enemy,int EnemyIdx)
-    {
-        Debug.Log("Foresight");
-        List<Save_Charater_Class.Class_Status> newstatus = new List<Save_Charater_Class.Class_Status>();
-        foreach (var _st in status)
-        {
-            Save_Charater_Class.Class_Status st = _st;
-
-            st.s_Speed = (int)(st.s_Speed +2);
-            newstatus.Add(st);
-        }
-        
-        status.Clear();
-        for(int i = 0; i < newstatus.Count; i++)
-        {
-            status.Add(newstatus[i]);
-        }
-
-        return volastatus;    
-    }
+        Debug.Log("Rest");
+        Caster[CasterIdx].Hp += (Caster[CasterIdx].status.MaxHp * 0.5f);   
+    } 
     
+    // Rank A
+    static void ReadedShot(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    {
+        Debug.Log("ReadedShot");
+        if(Caster[CasterIdx].turn == 1)
+        {
+            Caster[CasterIdx].Battlestatus.Damage += 15;  
+            Caster[CasterIdx].Battlestatus.Critical += 40;  
+        }
+                     
+    }
+    static void Battery(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    {
+        Debug.Log("Battery");
+        Caster[CasterIdx].Mana += 3;   
+    } 
+    static void FullCondition(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    {
+        Debug.Log("FullCondition");
+        if(Caster[CasterIdx].Hp == Caster[CasterIdx].status.MaxHp)
+        {
+            Caster[CasterIdx].Battlestatus.Damage *= 1.5f;
+            Caster[CasterIdx].Battlestatus.Critical += (int)(Caster[CasterIdx].status.Critical * 1.5f);
+        }
+                   
+    }
+    static void ManaForce(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    {
+        Debug.Log("ManaForce");
+        Caster[CasterIdx].Battlestatus.Damage += Caster[CasterIdx].Mana;   
+    } 
+    static void ThroughStrike(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    {
+        Debug.Log("ThroughStrike");
+        Caster[CasterIdx].pierce = true;
+    }
+
+    // 랭크 S
+    static void Berserker(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    {
+        Debug.Log("Berserker");
+        if(Caster[CasterIdx].Hp < (Caster[CasterIdx].status.MaxHp / 2))
+        {
+            Caster[CasterIdx].Battlestatus.Damage *= 2;
+            Caster[CasterIdx].Battlestatus.Critical *= 2;
+        }
+    }
+    static void KeepGrowth(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    {
+        Debug.Log("AccelationGrowth");
+        if(Caster[CasterIdx].Main == true)
+        {
+            int n = 0;
+            float dmg = 0;
+            while(n < Caster[CasterIdx].turn)
+            {                
+                n++;
+                dmg += n;
+            }
+            Caster[CasterIdx].Battlestatus.Damage += dmg;
+            Caster[CasterIdx].Battlestatus.Critical += (int)(dmg*5);
+        }
+    }
 }

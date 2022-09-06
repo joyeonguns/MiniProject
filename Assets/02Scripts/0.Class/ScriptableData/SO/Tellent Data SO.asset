@@ -1,0 +1,166 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4260242eef338a04c94deb55c946a2bc, type: 3}
+  m_Name: Tellent Data SO
+  m_EditorClassIdentifier: 
+  tellentData_C:
+  - Name: "\uADFC\uB825\uAC15\uD6541"
+    Type: 0
+    Contents: Damage +1
+    Rank: 0
+  - Name: "\uADFC\uB825\uAC15\uD6542"
+    Type: 0
+    Contents: Damage +2
+    Rank: 0
+  - Name: "\uC190\uC7AC\uC8FC1"
+    Type: 0
+    Contents: Critical + 10
+    Rank: 0
+  - Name: "\uC190\uC7AC\uC8FC2"
+    Type: 0
+    Contents: Critical + 15
+    Rank: 0
+  - Name: "\uBAB8\uB180\uB9BC1"
+    Type: 0
+    Contents: Dodge + 10
+    Rank: 0
+  - Name: "\uBAB8\uB180\uB9BC2"
+    Type: 0
+    Contents: Dodge + 15
+    Rank: 0
+  - Name: "\uB2E8\uB2E8\uD55C\uD53C\uBD801"
+    Type: 0
+    Contents: Armor + 5%
+    Rank: 0
+  - Name: "\uB2E8\uB2E8\uD55C\uD53C\uBD802"
+    Type: 0
+    Contents: Armor + 7%
+    Rank: 0
+  - Name: "\uD558\uCCB4\uAC15\uD6541"
+    Type: 0
+    Contents: Speed + 1
+    Rank: 0
+  - Name: "\uD558\uCCB4\uAC15\uD6542"
+    Type: 0
+    Contents: Speed + 2
+    Rank: 0
+  - Name: "\uC6B4\uAE30\uC870\uC2DD"
+    Type: 1
+    Contents: "\uC804\uD22C \uC2DC\uC791\uC2DC Mana +2"
+    Rank: 0
+  tellentData_B:
+  - Name: "\uD504\uB85C\uD2F41"
+    Type: 0
+    Contents: Damage +2,
+    Rank: 1
+  - Name: "\uD504\uB85C\uD2F42"
+    Type: 0
+    Contents: Damage +4,
+    Rank: 1
+  - Name: "\uC815\uBC00\uD0C0\uACA91"
+    Type: 0
+    Contents: Critical + 15, Damage +1
+    Rank: 1
+  - Name: "\uC815\uBC00\uD0C0\uACA92"
+    Type: 0
+    Contents: Critical + 30, Damage +2
+    Rank: 1
+  - Name: "\uC720\uC5F0\uD5681"
+    Type: 0
+    Contents: Dodge + 20
+    Rank: 1
+  - Name: "\uC720\uC5F0\uD5682"
+    Type: 0
+    Contents: Dodge + 30
+    Rank: 1
+  - Name: "\uD589\uC6B4\uC758 \uBE0C\uB85C\uCC0C"
+    Type: 0
+    Contents: 
+    Rank: 1
+  - Name: "\uAE30\uB984\uCE601"
+    Type: 0
+    Contents: Dodge + 40, Critical -20
+    Rank: 1
+  - Name: "\uAE30\uB984\uCE602"
+    Type: 0
+    Contents: Dodge + 60, Critical -20
+    Rank: 1
+  - Name: "\uB3CC\uD53C\uBD801"
+    Type: 0
+    Contents: Armor + 8%, Speed -1
+    Rank: 1
+  - Name: "\uB3CC\uD53C\uBD802"
+    Type: 0
+    Contents: Armor + 12%, Speed -1
+    Rank: 1
+  - Name: "\uC18D\uB3C4\uAD111 [C]"
+    Type: 0
+    Contents: Speed + 3, Armor - 8%
+    Rank: 1
+  - Name: "\uC18D\uB3C4\uAD112 [C]"
+    Type: 0
+    Contents: Speed + 6, Armor - 8%
+    Rank: 1
+  - Name: "\uC544\uC6C3\uC0AC\uC774\uB354"
+    Type: 0
+    Contents: "\uD30C\uD2F0\uC6D0\uC774 \uBD80\uC871\uD560\uB54C\uB9C8\uB2E4 \uBAA8\uB4E0
+      \uB2A5\uB825\uCE58 +10%"
+    Rank: 1
+  - Name: "\uC678\uD5A5\uC131"
+    Type: 0
+    Contents: "\uD30C\uD2F0\uC6D0\uC774 \uAC00\uB4DD\uCC28\uBA74 \uBAA8\uB4E0 \uB2A5\uB825\uCE58
+      +10%"
+    Rank: 1
+  - Name: "\uAC15\uD0C8"
+    Type: 2
+    Contents: "\uC804\uD22C \uC885\uB8CC\uC2DC gold +50"
+    Rank: 1
+  - Name: "\uACE0\uAE30\uD30C\uD2F0"
+    Type: 0
+    Contents: MaxHp +10
+    Rank: 1
+  - Name: "\uD734\uC2DD"
+    Type: 0
+    Contents: Hp +50%
+    Rank: 1
+  tellentData_A:
+  - Name: "\uC900\uBE44\uB41C \uD55C\uBC1C"
+    Type: 1
+    Contents: "\uCCAB\uD134 \uACF5\uACA9\uB825 +15, Criticla +40"
+    Rank: 2
+  - Name: "\uBC30\uD130\uB9AC"
+    Type: 1
+    Contents: "\uB9E4\uD134 \uB9C8\uB098 +3"
+    Rank: 2
+  - Name: "\uD480\uCEE8\uB514\uC158"
+    Type: 1
+    Contents: "\uCCB4\uB825\uC774 100% \uC77C\uB54C \uB370\uBBF8\uC9C0 \uD06C\uB9AC\uD2F0\uCEEC
+      +50%"
+    Rank: 2
+  - Name: "\uB9C8\uB098\uD3EC\uC2A4"
+    Type: 1
+    Contents: "\uB370\uBBF8\uC9C0 = \uB370\uBBF8\uC9C0 + \uB9C8\uB098"
+    Rank: 2
+  - Name: "\uC57D\uC810\uBD84\uC11D"
+    Type: 0
+    Contents: "\uACF5\uACA9\uC774 \uBC29\uC5B4\uB825\uC744 \uBB34\uC2DC\uD55C\uB2E4"
+    Rank: 2
+  tellentData_S:
+  - Name: "\uBC84\uC11C\uCEE4"
+    Type: 1
+    Contents: "\uCCB4\uB825\uC774 50% \uBBF8\uB9CC\uC77C\uB54C \uB370\uBBF8\uC9C0
+      \uD06C\uB9AC\uD2F0\uCEEC +100%"
+    Rank: 3
+  - Name: "\uAC00\uC18D\uC131\uC7A5"
+    Type: 1
+    Contents: "\uB9E4\uD134 \uB370\uBBF8\uC9C0 += \uD134, \uD06C\uB9AC +=\uD134*5"
+    Rank: 3

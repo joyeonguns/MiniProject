@@ -7,6 +7,10 @@ using TMPro;
 using System.Linq;
 
 
+
+
+
+
 public class GameManager : MonoBehaviour
 {
     // 싱클턴 클래스
@@ -21,113 +25,65 @@ public class GameManager : MonoBehaviour
     public List<List<MapClass>> maps = new List<List<MapClass>>();
     public int row, col,floor;
 
-    // 현재 전투 난이도
-    public int Battle_Lvl = 1;
-    public int BattleType = 1; 
 
     // 특성 리스트
-    // BeforTellents
-    public List<TellentsScripts> BeforTellents = new List<TellentsScripts>();
-    public List<int> BeforTellents_num;
-
-    // GetAfter
-    public List<TellentsScripts> GetAfterTellents = new List<TellentsScripts>();
-    public List<int> GetAfterTellents_num;
-
-    // BBTellent
-    public List<TellentsScripts> BBTellent = new List<TellentsScripts>();
-    public List<int> BBTellent_num;
-
-    // ABTelent
-    public List<TellentsScripts> ABTelent = new List<TellentsScripts>();
-    public List<int> ABTelent_num;
-
-
-    public List<TellentsScripts> TellentSeed = new List<TellentsScripts>();
-
-    public List<ItemClass> ItemList;
-    public List<int> ItemList_num;
-
+    public List<List<TellentsScripts>> Tellents = new List<List<TellentsScripts>>();
 
     // 보상
-    public int gold;
+    public ResultClass ResultData = new ResultClass();
+    // 골드
     public int curGold = 10000;
-    public int ItemRate;
+    // 아이템
+    public int[] ItemList_num = {0,0,0};
+
+    // 파티
+    public List<Save.Player> MyParty = new List<Save.Player>();
     
     // 싱글턴 인스턴스
     private void Awake() 
     {
-        instance = this;
-        //cur_Map = new MapClass();
-        DontDestroyOnLoad(this.gameObject); 
+        if(instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject); 
+            this.gameObject.SetActive(true);
+        }
+        else if(instance != this)
+        {
+            //instance = null;
+            Destroy(this.gameObject);
+        }  
     }
 
 
     // Start is called before the first frame update
     void Start()
     {
+        ItemList_num[0] = 1;
+        ItemList_num[1] = 2;
+
         // TellentSeed 설정
-        for(int i = 0; i < 4; i++)
-        {
-            TellentSeed.Add(new TellentsScripts(Etel_type.AfterBattle,i));
-            TellentSeed.Add(new TellentsScripts(Etel_type.beforBattle,i));
-            TellentSeed.Add(new TellentsScripts(Etel_type.beforeTurn,i));
-            TellentSeed.Add(new TellentsScripts(Etel_type.getAfter,i));
-        }
-        System.Random rnd = new System.Random();
 
-        TellentSeed = TellentSeed.OrderBy(item => rnd.Next()).ToList<TellentsScripts>();
+        Tellents.Add(new List<TellentsScripts>());
+        Tellents.Add(new List<TellentsScripts>());
+        Tellents.Add(new List<TellentsScripts>());
+        Tellents.Add(new List<TellentsScripts>());
 
-
-        // 특성계수 할당
-        for(int i = 0; i < 4; i++)
-        {
-            Etel_type teltype = TellentSeed[0].type;
-            switch (teltype)
-            {
-                case Etel_type.AfterBattle : 
-                ABTelent.Add(TellentSeed[0]);
-                ABTelent_num.Add(TellentSeed[0].tel_num);
-                break;
-
-                case Etel_type.beforBattle : 
-                BBTellent.Add(TellentSeed[0]);
-                BBTellent_num.Add(TellentSeed[0].tel_num);
-                break;
-
-                case Etel_type.beforeTurn : 
-                BeforTellents.Add(TellentSeed[0]);
-                BeforTellents_num.Add(TellentSeed[0].tel_num);
-                break;
-
-                case Etel_type.getAfter : 
-                GetAfterTellents.Add(TellentSeed[0]);
-                GetAfterTellents_num.Add(TellentSeed[0].tel_num);
-                break;
-            }
-            TellentSeed.RemoveAt(0);
-        }       
+        Tellents[0].Add(new TellentsScripts(Etel_Rank.C,1));
+        Tellents[0].Add(new TellentsScripts(Etel_Rank.C,10));
+        Tellents[1].Add(new TellentsScripts(Etel_Rank.B,14));
+        Tellents[2].Add(new TellentsScripts(Etel_Rank.A,1));
+     
     }    
     
     // Update is called once per frame
     void Update()
     {
-        //if(cur_Map)
-        //floor = cur_Map.floor;
-    }
 
-    // 특성계수에 따른 할당 
-    public void SetTellent()
+    }    
+    public void SetTellent(TellentsScripts newTellent)
     {
-        if(BeforTellents.Count != 0) BeforTellents.Clear();
-        if(BBTellent.Count != 0) BBTellent.Clear();
-        if(ABTelent.Count != 0) ABTelent.Clear();
-        for(int i = 0; i < 4; i++)
-        {
-            BeforTellents.Add(new TellentsScripts(Etel_type.beforeTurn,i));
-            //BBTellent.Add(new TellentsScripts(Etel_type.beforBattle,i));
-            //ABTelent.Add(new TellentsScripts(Etel_type.AfterBattle,i));
-        }        
+       Tellents[(int)newTellent.Rank].Add(newTellent);
     }
 
     // 맵 정보
