@@ -44,6 +44,7 @@ public class Save : MonoBehaviour
             MaxHp = charData.MaxHp;  
             Resist = charData.Resist;
         }
+        
         public void AllStatBuff(float buff)
         {
             float f = 1+buff;
@@ -120,6 +121,8 @@ public class Save : MonoBehaviour
                 mana = value;
                 if(mana < 0)
                     mana = 0;
+                else if(mana > MaxMana)
+                    mana = MaxMana;
             }
         }
 
@@ -755,7 +758,7 @@ public class Save : MonoBehaviour
     // public static St_Stat Adventure = new St_Stat(7, 0.2f, 3, 30, 50, 30, 0);
     // public static St_Stat Warrior = new St_Stat(10,0.5f,5,40,70,40, 30);
     // public static St_Stat Magicion = new St_Stat(14,0.1f,2,30,70,25, 0);    
-    // public static St_Stat Supporter = new St_Stat(5,0.3f,1,30,50,30, 30);
+    public static St_Stat Supporter = new St_Stat(5,0.3f,1,30,50,30, 30);
     // public static St_Stat Assassin = new St_Stat(7,0.2f,7,70,100,27, 10); 
 
     public static St_Stat Bandit = new St_Stat(10,0.2f,5,40,30,30,0);

@@ -7,6 +7,8 @@ using TMPro;
 
 public class TownManager : MonoBehaviour
 {
+    public GameManager GM;
+
     public GameObject BackGround;
     public GameObject[] Characters = new GameObject[4];
     public Button[] CharacterBtn = new Button[4];
@@ -14,8 +16,6 @@ public class TownManager : MonoBehaviour
     public GameObject[] SkillBtn = new GameObject[4];
     public Sprite[] CharImage = new Sprite[4];
     
-
-    Save_Charater_Data SaveData;
     Save.Player[] NewCharacters = new Save.Player[4];
     int SelectNum;
     bool bSelect;    
@@ -24,6 +24,8 @@ public class TownManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GM = GameManager.instance;
+
         CharacterBtn[0].onClick.AddListener(() => {
             ClickCharBtn(0);
         });
@@ -40,7 +42,6 @@ public class TownManager : MonoBehaviour
 
         BackGround.SetActive(false);
         SkillPannel.SetActive(false);
-        SaveData = GameManager.instance.GetComponent<Save_Charater_Data>();
 
         SetCharData();
 
@@ -52,7 +53,7 @@ public class TownManager : MonoBehaviour
         {            
             int rnd = Random.Range(0,4);
 
-            CharacterDatas charData = Save_Charater_Data.instance.characterData[rnd+1];
+            CharacterDatas charData = SOManager.instance.CharSO.CharDatas[rnd+1];
             Save.St_Stat newStatus = new Save.St_Stat(charData);
             
             e_Class newRole = (e_Class)(rnd + 1);
@@ -124,9 +125,9 @@ public class TownManager : MonoBehaviour
 
     public void ClickRecruit()
     {
-       if(3 > SaveData.MyParty.Count && bSelect == true)
+       if(3 > GM.MyParty.Count && bSelect == true)
        {
-            SaveData.MyParty.Add(NewCharacters[SelectNum]);
+            GM.MyParty.Add(NewCharacters[SelectNum]);
             Characters[SelectNum].SetActive(false);
             bSelect = false;
             SkillPannel.SetActive(false);

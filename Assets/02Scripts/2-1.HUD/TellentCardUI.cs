@@ -35,8 +35,35 @@ public class TellentCardUI : MonoBehaviour
         var spwCard = Instantiate(CardPreFabs);
         spwCard.transform.SetParent(SpwLocation.transform);
         spwCard.GetComponent<Image>().sprite = CardSprite[(int)(Tellent.Rank)];
-        spwCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = Tellent.name;
-        spwCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "[ " + Tellent.name +" ]";
+        
+        TellentDataSO TellSO = SOManager.GetTellent();
+
+        List<TellentData> targetTell = new List<TellentData>();
+        switch (Tellent.Rank)
+        {
+            case Etel_Rank.C :
+            targetTell = TellSO.tellentData_C;
+            break;
+
+            case Etel_Rank.B :
+            targetTell = TellSO.tellentData_B;
+            break;
+
+            case Etel_Rank.A :
+            targetTell = TellSO.tellentData_A;
+            break;
+
+            case Etel_Rank.S:
+            targetTell = TellSO.tellentData_S;
+            break;
+
+            default:
+            Debug.LogError("Tellent Rank Over");
+            break;
+        }
+
+        spwCard.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = targetTell[Tellent.Code].Name;
+        spwCard.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = targetTell[Tellent.Code].Contents;
         spwCard.GetComponent<RectTransform>().anchoredPosition = NextSpwLoc;
         spwCard.GetComponent<Button>().onClick.AddListener(() => ClickCard(spwCard));
         if(CardNum % 5 == 0)

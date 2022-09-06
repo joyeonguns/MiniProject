@@ -197,6 +197,7 @@ public class HUDManager : MonoBehaviour
         {
             GetComponent<Map_Info>().SetStartSetting();
             InfoUI.SetActive(true);
+            //InfoUI.GetComponent<Map_Info>().SetCharImage();
             bOpenInfo = true;            
         }
         else

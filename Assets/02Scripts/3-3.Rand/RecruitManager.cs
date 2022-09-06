@@ -27,7 +27,7 @@ public class RecruitManager : MonoBehaviour
         SetNewChar();
         SaveChat();
 
-        if(GameManager.instance.GetComponent<Save_Charater_Data>().MyParty.Count == 3)
+        if(GameManager.instance.MyParty.Count == 3)
         {
             SelectBtn_0.interactable = false;
         }
@@ -59,7 +59,7 @@ public class RecruitManager : MonoBehaviour
 
         e_Class newClass = (e_Class)(rnd + 1);
 
-        CharacterDatas charData = Save_Charater_Data.instance.characterData[rnd + 1];
+        CharacterDatas charData = SOManager.instance.CharSO.CharDatas[rnd + 1];
         Save.St_Stat newStatus = new Save.St_Stat(charData);
         
 
@@ -115,10 +115,9 @@ public class RecruitManager : MonoBehaviour
 
     void Recruit()
     {
-        Save_Charater_Data save = Save_Charater_Data.instance;
-        if(save.MyParty.Count < 3)
+        if(GameManager.instance.MyParty.Count < 3)
         {
-            save.MyParty.Add(newChar);
+            GameManager.instance.MyParty.Add(newChar);
         }
     }
 

@@ -495,7 +495,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -1710,7 +1710,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CommentsParents: {fileID: 49093314}
   Comments: {fileID: 6039351085308061402, guid: e8dea9d39cb149b459822029674f5029, type: 3}
-  skill: {fileID: 0}
 --- !u!1 &698520873
 GameObject:
   m_ObjectHideFlags: 0
@@ -2078,7 +2077,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -2213,7 +2212,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -2930,7 +2929,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CommentsParents: {fileID: 49093314}
   Comments: {fileID: 6039351085308061402, guid: e8dea9d39cb149b459822029674f5029, type: 3}
-  skill: {fileID: 0}
 --- !u!1 &1445758260
 GameObject:
   m_ObjectHideFlags: 0
@@ -3421,7 +3419,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -3802,7 +3800,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CommentsParents: {fileID: 49093314}
   Comments: {fileID: 6039351085308061402, guid: e8dea9d39cb149b459822029674f5029, type: 3}
-  skill: {fileID: 0}
 --- !u!1 &1708849608
 GameObject:
   m_ObjectHideFlags: 0
@@ -4027,7 +4024,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CommentsParents: {fileID: 49093314}
   Comments: {fileID: 6039351085308061402, guid: e8dea9d39cb149b459822029674f5029, type: 3}
-  skill: {fileID: 0}
 --- !u!1 &1834967142
 GameObject:
   m_ObjectHideFlags: 0
@@ -4057,6 +4053,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6212a25557c519a4a9044b2efad01749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GM: {fileID: 0}
   BackGround: {fileID: 1890640428}
   Characters:
   - {fileID: 380931895}

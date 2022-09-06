@@ -13,6 +13,8 @@ public class Map_Info : MonoBehaviour
     public Button[] CharacterBtn;
     public TextMeshProUGUI[] Char_Name;
     public Image[] Char_Image;
+    public GameObject[] Captain;
+
     public int Target_0;
     public int Target_1;
     public bool bCheckedTarget_0;
@@ -24,7 +26,7 @@ public class Map_Info : MonoBehaviour
     public Vector3 secondLoc;
 
     
-    Save_Charater_Data SaveData;
+    GameManager GM;
     public int p_Count;
 
     // 스텟 패널
@@ -55,6 +57,7 @@ public class Map_Info : MonoBehaviour
 
     void Start() 
     {
+        GM = GameManager.instance;
         SetStartSetting();
         SetTellentBtn();
         
@@ -63,8 +66,7 @@ public class Map_Info : MonoBehaviour
     public void SetStartSetting()
     {
         Debug.Log("SetStartSetting");
-        SaveData = Save_Charater_Data.instance;
-        p_Count = SaveData.MyParty.Count;
+        p_Count = GM.MyParty.Count;
 
         bCheckedTarget_0 = false;
         bCheckedTarget_1 = false;
@@ -79,16 +81,17 @@ public class Map_Info : MonoBehaviour
     public void SetCharImage()
     {
         Debug.Log("SetCharImage");
-        SaveData = Save_Charater_Data.instance;
-        p_Count = SaveData.MyParty.Count;
+        p_Count = GM.MyParty.Count;
         for(int i = 0; i < 3; i++)
         {
             if(i < p_Count)
             {
                 CharacterBtn[i].gameObject.SetActive(true);
-                Char_Name[i].text = SaveData.MyParty[i].name;
+                Char_Name[i].text = GM.MyParty[i].name;
                 
-                switch (SaveData.MyParty[i].Role)
+                Captain[i].SetActive(GM.MyParty[i].Main);
+
+                switch (GM.MyParty[i].Role)
                 {
                     case e_Class.Warrior :
                         Char_Image[i].sprite = CharacterImage[0];
@@ -108,7 +111,7 @@ public class Map_Info : MonoBehaviour
             else
             {
                 CharacterBtn[i].gameObject.SetActive(false);
-                Debug.Log("p_Count : " + SaveData.MyParty.Count);
+                Debug.Log("p_Count : " + GM.MyParty.Count);
                 Debug.Log("i : " + i);
             }
         }
@@ -116,34 +119,33 @@ public class Map_Info : MonoBehaviour
 
     public void SetStatus_Text(int n)
     {
-        SaveData = Save_Charater_Data.instance;
-        stat_Name.text = "" + SaveData.MyParty[n].name;
+        stat_Name.text = "" + GM.MyParty[n].name;
         stat_Comments.text = 
-        SaveData.MyParty[n].Level + "\n" +
-        "(" + SaveData.MyParty[n].exp + " / " + (SaveData.MyParty[n].Level * 50  + 100) + ")" + "\n" +
+        GM.MyParty[n].Level + "\n" +
+        "(" + GM.MyParty[n].exp + " / " + (GM.MyParty[n].Level * 50  + 100) + ")" + "\n" +
         "\n" +
-        Enum.GetName(typeof(e_Class),SaveData.MyParty[n].Role)  + "\n" +
+        Enum.GetName(typeof(e_Class),GM.MyParty[n].Role)  + "\n" +
         "\n" +
-        SaveData.MyParty[n].Hp + " / " + SaveData.MyParty[n].status.MaxHp + "\n" +
+        GM.MyParty[n].Hp + " / " + GM.MyParty[n].status.MaxHp + "\n" +
         "\n" +
-        SaveData.MyParty[n].Mana +" / " + "10" + "\n" +
+        GM.MyParty[n].Mana +" / " + "10" + "\n" +
         "\n" +
-        SaveData.MyParty[n].status.Damage + "\n" +
+        GM.MyParty[n].status.Damage + "\n" +
         "\n" +
-        SaveData.MyParty[n].status.Armor * 100 + " %"+ "\n" +
+        GM.MyParty[n].status.Armor * 100 + " %"+ "\n" +
         "\n" +
-        SaveData.MyParty[n].status.Critical + " %"+ "\n" +
+        GM.MyParty[n].status.Critical + " %"+ "\n" +
         "\n" +
-        SaveData.MyParty[n].status.Dodge + " %" + "\n" +
+        GM.MyParty[n].status.Dodge + " %" + "\n" +
         "\n" +
-        SaveData.MyParty[n].status.Speed + "\n" +
+        GM.MyParty[n].status.Speed + "\n" +
         "\n";
     }
 
     public void SetSkillBtn(int n)
     {       
         skillPannel.SetActive(true);
-        int rolenum = (int)SaveData.MyParty[n].Role;
+        int rolenum = (int)GM.MyParty[n].Role;
         string root ="";
         switch (rolenum)
         {
@@ -160,15 +162,15 @@ public class Map_Info : MonoBehaviour
             root = "icon/Assassin/";
             break;
         }
-        int skill_1 = SaveData.MyParty[n].SkillNum[1];
-        int skill_2 = SaveData.MyParty[n].SkillNum[2];
+        int skill_1 = GM.MyParty[n].SkillNum[1];
+        int skill_2 = GM.MyParty[n].SkillNum[2];
         skill[0].GetComponent<Image>().sprite = Resources.Load<Sprite>(root + skill_1) as Sprite;
         skill[1].GetComponent<Image>().sprite = Resources.Load<Sprite>(root + skill_2) as Sprite;
         skill[2].GetComponent<Image>().sprite = Resources.Load<Sprite>(root + "5") as Sprite;        
 
-        skill[0].GetComponent<SkillComment>().skill = SaveData.MyParty[n].MySkill[1];
-        skill[1].GetComponent<SkillComment>().skill = SaveData.MyParty[n].MySkill[2];
-        skill[2].GetComponent<SkillComment>().skill = SaveData.MyParty[n].MySkill[3];
+        skill[0].GetComponent<SkillComment>().skill = GM.MyParty[n].MySkill[1];
+        skill[1].GetComponent<SkillComment>().skill = GM.MyParty[n].MySkill[2];
+        skill[2].GetComponent<SkillComment>().skill = GM.MyParty[n].MySkill[3];
         
     }
 
@@ -191,14 +193,20 @@ public class Map_Info : MonoBehaviour
         }
         else
         {
-            firstCharacter.transform.position = secondLoc;
+            // 위치 초기화
+            firstCharacter.transform.position = firstLoc;
             firstCharacter.GetComponent<Info_Character>().num = Target_1;
-            SecondCharacter.transform.position = firstLoc;      
+            SecondCharacter.transform.position = secondLoc;      
             SecondCharacter.GetComponent<Info_Character>().num = Target_0;
 
-            Save.Player temp = SaveData.MyParty[Target_0];
-            SaveData.MyParty[Target_0] = SaveData.MyParty[Target_1];
-            SaveData.MyParty[Target_1] = temp;              
+
+
+            // 캐릭터 위치변경
+            Save.Player temp = GM.MyParty[Target_0];
+            GM.MyParty[Target_0] = GM.MyParty[Target_1];
+            GM.MyParty[Target_1] = temp;              
+
+            SetCharImage();
                      
         }
     }

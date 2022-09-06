@@ -119,7 +119,7 @@ public class MapIcon : MonoBehaviour
         else if (map.mapData == 4)
         {
             int rnd = Random.Range(1,4);
-            rnd = 2;
+            //rnd = 2;
             switch (rnd)
             {
                 case 1: 
@@ -145,7 +145,7 @@ public class MapIcon : MonoBehaviour
         // 2-3.ItemScene
         // 2-3.RecruitScene 1
 
-        str = "4-0.BossScene";
+        //str = "4-0.BossScene";
         HUDManager.instance.SetFloor();
         SceneManager.LoadScene(str);
     }

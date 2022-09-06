@@ -149,7 +149,7 @@ public class ItemBoxManager1 : MonoBehaviour
         TrapPannel.SetActive(false);
         NextButton.SetActive(true);
 
-        Save_Charater_Data.instance.MyParty[0].Hp -= 7;
+        GameManager.instance.MyParty[0].Hp -= 7;
     }
 
 

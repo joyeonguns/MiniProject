@@ -39,6 +39,7 @@ public class RewardManager : MonoBehaviour
 
 
 
+    GameManager GM;
 
     public TellentsScripts[] tellentArray = new TellentsScripts[3];
 
@@ -61,15 +62,17 @@ public class RewardManager : MonoBehaviour
     }
     void Start()
     {
-        for (int i = 0; i < Save_Charater_Data.instance.MyParty.Count; i++)
+        GM = GameManager.instance;
+
+        for (int i = 0; i < GM.MyParty.Count; i++)
         {
-            if(Save_Charater_Data.instance.MyParty[i].bAlive == false)
+            if(GM.MyParty[i].bAlive == false)
             {
-                Save_Charater_Data.instance.MyParty.RemoveAt(i);
+                GM.MyParty.RemoveAt(i);
             }
         }
 
-        if(GameManager.instance.ResultData.ResultMode == ResultEnum.Run)
+        if(GM.ResultData.ResultMode == ResultEnum.Run)
         {
             TellentsPannel.SetActive(false);
             GoldPannel.SetActive(false);
@@ -148,13 +151,13 @@ public class RewardManager : MonoBehaviour
     // Other 패널
     void SetGoldPannel()
     {
-        Gold = GameManager.instance.ResultData.Gold;
+        Gold = GM.ResultData.Gold;
         GameObject spwGold = Instantiate(GoldPrefab);
         spwGold.transform.SetParent(GoldPannel.transform.GetChild(2));
         spwGold.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,100);
         spwGold.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = ""+Gold;
 
-        ItemRate = GameManager.instance.ResultData.ItemRate;
+        ItemRate = GM.ResultData.ItemRate;
         int rnd = UnityEngine.Random.Range(1,101);
         Debug.Log("rnd : " + rnd);
         
@@ -177,35 +180,34 @@ public class RewardManager : MonoBehaviour
     void SetRewardPannel()
     {
         // 경험치 획득
-        Save_Charater_Data SaveData = Save_Charater_Data.instance;
         
         int gainExp = 0;
-        if(GameManager.instance.ResultData.ResultMode != ResultEnum.Run)
+        if(GM.ResultData.ResultMode != ResultEnum.Run)
         {
-            gainExp = GameManager.instance.ResultData.Exp;
+            gainExp = GM.ResultData.Exp;
         }
         
 
         for(int i = 0; i < 3; i++)
         {
-            if(i > SaveData.MyParty.Count)
+            if(i > GM.MyParty.Count)
             {
                 PlayerObj[i].SetActive(false);
             }                
         }
-        for(int i = 0; i < SaveData.MyParty.Count; i++)
+        for(int i = 0; i < GM.MyParty.Count; i++)
         {
-            if(SaveData.MyParty[i].bAlive == true)
+            if(GM.MyParty[i].bAlive == true)
             {                
-                int curExp = SaveData.MyParty[i].exp;
-                int maxExp = 100 + (SaveData.MyParty[i].Level* 50);
-                char_Name[i].text = SaveData.MyParty[i].name;
+                int curExp = GM.MyParty[i].exp;
+                int maxExp = 100 + (GM.MyParty[i].Level* 50);
+                char_Name[i].text = GM.MyParty[i].name;
                 
                 
-                int _max = SaveData.MyParty[i].Level * 50 +100;
-                int _cur = SaveData.MyParty[i].exp;
+                int _max = GM.MyParty[i].Level * 50 +100;
+                int _cur = GM.MyParty[i].exp;
                 StartCoroutine(FillExp(0, gainExp, _max, _cur, i));
-                SaveData.MyParty[i].SetEXp(gainExp);
+                GM.MyParty[i].SetEXp(gainExp);
             }            
         }
 

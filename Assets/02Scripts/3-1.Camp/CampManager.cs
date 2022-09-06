@@ -30,11 +30,11 @@ public class CampManager : MonoBehaviour
     int GetMp;
     int GetExp;
 
-    Save_Charater_Data SaveData; 
+    GameManager GM; 
     void Start() 
     {
         BackGround.GetComponent<Image>().material.SetFloat("_Size",0);
-        SaveData = Save_Charater_Data.instance;
+        GM = GameManager.instance;
 
         // 선택지 패널
         SelectPannel.SetActive(true);
@@ -52,7 +52,7 @@ public class CampManager : MonoBehaviour
 
         // 결과
         ResultPannel.SetActive(false);
-        Char_Count = SaveData.MyParty.Count;
+        Char_Count = GM.MyParty.Count;
         for(int i = 0; i < 3; i++)
         {
             if(i >= Char_Count) Character[i].SetActive(false);
@@ -64,7 +64,7 @@ public class CampManager : MonoBehaviour
     bool CheckingHp()
     {
         bool Check = true;
-        foreach(var Char in SaveData.MyParty)
+        foreach(var Char in GM.MyParty)
         {
             if(Char.Hp < 2) Check = false;
         }
@@ -79,18 +79,18 @@ public class CampManager : MonoBehaviour
             for(int i = 0; i < Char_Count; i++)
             {
 
-                double curHp = SaveData.MyParty[i].Hp;
-                double maxHp = SaveData.MyParty[i].status.MaxHp;
+                double curHp = GM.MyParty[i].Hp;
+                double maxHp = GM.MyParty[i].status.MaxHp;
 
-                int curExp = SaveData.MyParty[i].exp;
-                int maxExp = SaveData.MyParty[i].Level*50 + 100;
+                int curExp = GM.MyParty[i].exp;
+                int maxExp = GM.MyParty[i].Level*50 + 100;
 
-                int curMana = SaveData.MyParty[i].Mana;
+                int curMana = GM.MyParty[i].Mana;
 
 
-                SaveData.MyParty[i].Hp += GetHp[i];
-                SaveData.MyParty[i].Mana += GetMp;
-                SaveData.MyParty[i].SetEXp(GetExp);
+                GM.MyParty[i].Hp += GetHp[i];
+                GM.MyParty[i].Mana += GetMp;
+                GM.MyParty[i].SetEXp(GetExp);
 
                 int sign = 1;
                 string str_sign = "+";
@@ -168,7 +168,7 @@ public class CampManager : MonoBehaviour
         GetMp = 1;
         for (int i = 0; i < Char_Count; i++)
         {
-            GetHp[i] = (int)((float)SaveData.MyParty[i].Hp * 0.25f);
+            GetHp[i] = (int)((float)GM.MyParty[i].Hp * 0.25f);
         }
 
         SelectPannel.SetActive(false);
@@ -184,7 +184,7 @@ public class CampManager : MonoBehaviour
         GetMp = 3;
         for (int i = 0; i < Char_Count; i++)
         {
-            GetHp[i] = (int)((float)SaveData.MyParty[i].Hp * 0.5f);
+            GetHp[i] = (int)((float)GM.MyParty[i].Hp * 0.5f);
         }
 
         SelectPannel.SetActive(false);
@@ -207,7 +207,7 @@ public class CampManager : MonoBehaviour
         GetExp = 200;;
         for (int i = 0; i < Char_Count; i++)
         {
-            GetHp[i] = (-1)*(int)((float)SaveData.MyParty[i].Hp * 0.3f);
+            GetHp[i] = (-1)*(int)((float)GM.MyParty[i].Hp * 0.3f);
         }
 
         SelectPannel.SetActive(false);

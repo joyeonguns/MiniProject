@@ -36,6 +36,12 @@ public class BossBtManager : Battle_Manager
     public override void TurnEnd()
     {
         ResetSetting();
+        
+        for(int i = 0; i < 3; i++)
+        {
+            SetCharCondition(i);
+            SetEnCondition(i);
+        }
 
         // 페이즈 변경
         if (Enemy.Count > 1 && Enemy[1].Role == e_Class.Witch && ((Save.Witch)Enemy[1]).pase == true)
@@ -94,7 +100,7 @@ public class BossBtManager : Battle_Manager
         if (true)
         {
             // 1열 침묵 크리스탈
-            Enemy[0] = new Save.Enemy(Save.Crystal_Stat, e_Class.Crystal_Melle);
+            Enemy[0] = new Save.Cristal_Melle();
             Enemy[0].font = Damage;
             Enemy[0].spwLoc = EnemyField[0].GetComponent<RectTransform>().anchoredPosition + new Vector2(50, 300);
 
@@ -109,7 +115,7 @@ public class BossBtManager : Battle_Manager
             EnemyImage[1].sprite = EnemySprite[1];
 
             // 3열 공격 크리스탈
-            Enemy[2] = new Save.Enemy(Save.Crystal_Stat, e_Class.Crystal_Range);
+            Enemy[2] = new Save.Cristal_Range();
             Enemy[2].font = Damage;
             Enemy[2].spwLoc = EnemyField[2].GetComponent<RectTransform>().anchoredPosition + new Vector2(50, 300);
             EnemyImage[2].sprite = EnemySprite[0];

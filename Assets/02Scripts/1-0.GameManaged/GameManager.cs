@@ -35,13 +35,24 @@ public class GameManager : MonoBehaviour
     public int curGold = 10000;
     // 아이템
     public int[] ItemList_num = {0,0,0};
+
+    // 파티
+    public List<Save.Player> MyParty = new List<Save.Player>();
     
     // 싱글턴 인스턴스
     private void Awake() 
     {
-        instance = this;
-        //cur_Map = new MapClass();
-        DontDestroyOnLoad(this.gameObject); 
+        if(instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject); 
+            this.gameObject.SetActive(true);
+        }
+        else if(instance != this)
+        {
+            //instance = null;
+            Destroy(this.gameObject);
+        }  
     }
 
 

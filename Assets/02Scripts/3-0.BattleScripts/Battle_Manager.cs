@@ -34,10 +34,9 @@ public class Battle_Manager : MonoBehaviour
     
     // 캐릭터 적 클래스
     [SerializeField]public List<Save.Player> Character = new List<Save.Player>();
-    // public List<Save.St_Stat> Ch_Status; 
-    // public Save.St_Stat volaStatus;
+    
     [SerializeField]public List<Save.Enemy> Enemy = new List<Save.Enemy>();
-    // public List<Save.St_Stat> En_Status; 
+    
 
     // 아군 필드
     // 아군 선택 필드
@@ -49,6 +48,9 @@ public class Battle_Manager : MonoBehaviour
     // 아군 HP / MP
     public Image[] Character_HP = new Image[3];
     public Image[] Character_MP = new Image[3];
+    public List<GameObject> CharCondition_0;
+    public List<GameObject> CharCondition_1;
+    public List<GameObject> CharCondition_2;
 
     // 적 선택 필드
     public GameObject[] EnemyField = new GameObject[3];
@@ -59,6 +61,10 @@ public class Battle_Manager : MonoBehaviour
     // 적 HP / MP
     public Image[] Enemy_HP = new Image[3];
     public Image[] Enemy_MP = new Image[3];
+
+    public List<GameObject> EnCondition_0;
+    public List<GameObject> EnCondition_1;
+    public List<GameObject> EnCondition_2;
 
     // Sprites
     public Sprite TombSprite;
@@ -127,6 +133,11 @@ public class Battle_Manager : MonoBehaviour
         SetEnemy();
         SetCharacter();
         SetStartUI();
+        for(int i = 0; i < 3; i++)
+        {
+            SetCharCondition(i);
+            SetEnCondition(i);
+        }
         HUDManager.instance.players = Character;
         HUDManager.instance.Enemys = Enemy;
     }
@@ -268,6 +279,11 @@ public class Battle_Manager : MonoBehaviour
 
     public virtual void TurnEnd()
     {
+        for(int i = 0; i < 3; i++)
+        {
+            SetCharCondition(i);
+            SetEnCondition(i);
+        }
         ResetSetting();
         // 라이브 체크
         if (LiveCheck_Character(Character.Cast<Save.Character>().ToList()) == false)
@@ -420,8 +436,7 @@ public class Battle_Manager : MonoBehaviour
     // 아군 저장
     void SetCharacter()
     {
-        Save_Charater_Data SaveData = GameManager.instance.GetComponent<Save_Charater_Data>();
-        Character = SaveData.MyParty;
+        Character = GameManager.instance.MyParty;
         
         for(int i = 0; i< Character.Count; i++)
         {
@@ -845,9 +860,161 @@ public class Battle_Manager : MonoBehaviour
             else img.color = Color.white;
         }
     }
-    void SpwDamage(Save.Player[] hitted)
+    
+    public void SetCharCondition(int _Attacker)
     {
+        List<List<GameObject>> Conditions = new List<List<GameObject>>(){CharCondition_0,CharCondition_1,CharCondition_2};
 
+        // 출혈
+        if(Character[_Attacker].bleedCount != 0)
+        {
+            Conditions[_Attacker][0].SetActive(true);
+        }
+        else
+        {
+            Conditions[_Attacker][0].SetActive(false);
+        }
+        // 화상
+        if(Character[_Attacker].bleedCount != 0)
+        {
+            Conditions[_Attacker][1].SetActive(true);
+        }
+        else
+        {
+            Conditions[_Attacker][1].SetActive(false);
+        }
+        // 부식
+        if(Character[_Attacker].corrotionCount != 0)
+        {
+            Conditions[_Attacker][2].SetActive(true);
+        }
+        else
+        {
+            Conditions[_Attacker][2].SetActive(false);
+        }
+        // 강화
+        if(Character[_Attacker].enHanceCount != 0)
+        {
+            Conditions[_Attacker][3].SetActive(true);
+        }
+        else
+        {
+            Conditions[_Attacker][3].SetActive(false);
+        }
+        // 둔화
+        if(Character[_Attacker].frostCount != 0)
+        {
+            Conditions[_Attacker][4].SetActive(true);
+        }
+        else
+        {
+            Conditions[_Attacker][4].SetActive(false);
+        }
+        // 속도
+        if(Character[_Attacker].rapidCount != 0)
+        {
+            Conditions[_Attacker][5].SetActive(true);
+        }
+        else
+        {
+            Conditions[_Attacker][5].SetActive(false);
+        }
+        // 리젠
+        if(Character[_Attacker].regenCount != 0)
+        {
+            Conditions[_Attacker][6].SetActive(true);
+        }
+        else
+        {
+            Conditions[_Attacker][6].SetActive(false);
+        }
+        // 스턴
+        if(Character[_Attacker].stunCount != 0)
+        {
+            Conditions[_Attacker][7].SetActive(true);
+        }
+        else
+        {
+            Conditions[_Attacker][7].SetActive(false);
+        }
+    }
+
+    public void SetEnCondition(int _Attacker)
+    {
+        List<List<GameObject>> Conditions = new List<List<GameObject>>(){EnCondition_0,EnCondition_1,EnCondition_2};
+
+        // 출혈
+        if(Enemy[_Attacker].bleedCount != 0)
+        {
+            Conditions[_Attacker][0].SetActive(true);
+        }
+        else
+        {
+            Conditions[_Attacker][0].SetActive(false);
+        }
+        // 화상
+        if(Enemy[_Attacker].bleedCount != 0)
+        {
+            Conditions[_Attacker][1].SetActive(true);
+        }
+        else
+        {
+            Conditions[_Attacker][1].SetActive(false);
+        }
+        // 부식
+        if(Enemy[_Attacker].corrotionCount != 0)
+        {
+            Conditions[_Attacker][2].SetActive(true);
+        }
+        else
+        {
+            Conditions[_Attacker][2].SetActive(false);
+        }
+        // 강화
+        if(Enemy[_Attacker].enHanceCount != 0)
+        {
+            Conditions[_Attacker][3].SetActive(true);
+        }
+        else
+        {
+            Conditions[_Attacker][3].SetActive(false);
+        }
+        // 둔화
+        if(Enemy[_Attacker].frostCount != 0)
+        {
+            Conditions[_Attacker][4].SetActive(true);
+        }
+        else
+        {
+            Conditions[_Attacker][4].SetActive(false);
+        }
+        // 속도
+        if(Enemy[_Attacker].rapidCount != 0)
+        {
+            Conditions[_Attacker][5].SetActive(true);
+        }
+        else
+        {
+            Conditions[_Attacker][5].SetActive(false);
+        }
+        // 리젠
+        if(Enemy[_Attacker].regenCount != 0)
+        {
+            Conditions[_Attacker][6].SetActive(true);
+        }
+        else
+        {
+            Conditions[_Attacker][6].SetActive(false);
+        }
+        // 스턴
+        if(Enemy[_Attacker].stunCount != 0)
+        {
+            Conditions[_Attacker][7].SetActive(true);
+        }
+        else
+        {
+            Conditions[_Attacker][7].SetActive(false);
+        }
     }
 }
 

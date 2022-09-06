@@ -38,7 +38,7 @@ public class HudComment : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
             else
             {                
                 ItemClass item = new ItemClass(itemcode);
-                comment.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = ""+item.ItemName; 
+                comment.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{item.ItemName} \n {item.ItemComments}"; 
             }
             
         }

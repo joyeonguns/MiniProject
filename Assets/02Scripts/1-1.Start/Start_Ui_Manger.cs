@@ -20,9 +20,9 @@ public class Start_Ui_Manger : MonoBehaviour
 
         // 1-1.TownScene
 
-        for(int i = 0; i < Save_Charater_Data.instance.MyParty.Count; i++)
+        for(int i = 0; i < GameManager.instance.MyParty.Count; i++)
         {
-            Save_Charater_Data.instance.MyParty[i].ApplyGetTellent((Save_Charater_Data.instance.MyParty).Cast<Save.Character>().ToList(), i, Save_Charater_Data.instance.MyParty.Cast<Save.Character>().ToList(), 0);
+            GameManager.instance.MyParty[i].ApplyGetTellent((GameManager.instance.MyParty).Cast<Save.Character>().ToList(), i, GameManager.instance.MyParty.Cast<Save.Character>().ToList(), 0);
         }
     }
 

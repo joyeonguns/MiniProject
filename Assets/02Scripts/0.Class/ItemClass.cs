@@ -18,22 +18,24 @@ public class ItemClass
      new Action<List<Save.Player>, int, List<Save.Enemy>, int>[]
       {Nothing, SmokePotion, ExplotionPotion, ManaPotion, HelthPotion, RecoverPotion, CorrotionPotion, EnhanthPotion, IcePotion};
 
-    string[] ItemNames = {"No","Smoke", "Explotion", "Mana", "Helth", "Recover", "Corrotion", "Enhanth", "Ice"};
+    //string[] ItemNames = {"No","Smoke", "Explotion", "Mana", "Helth", "Recover", "Corrotion", "Enhanth", "Ice"};
 
     public ItemClass(int code)
-    {
-        if(ItemNames.Length > code)
+    {        
+        if(9 > code)
         {
+            ItemData item = SOManager.instance.ItemSO.itemDatas[code];
+
             ItemCode = code;
             UseItem = ItemFunction[ItemCode];
-            ItemName = ItemNames[ItemCode];
-            ItemComments = "NULL";
+            ItemName = item.ItemName;
+            ItemComments = item.ItemComments;
 
             Debug.Log("Use Item : " + ItemName);
         }
         else
         {
-            Debug.LogError("ItemClass Error code : " + code +"\n" + "ItemNames.Length : " + ItemNames.Length );
+            Debug.LogError("ItemClass Error code : " + code +"\n" + "ItemNames.Length : " + 9 );
         }
         
     }

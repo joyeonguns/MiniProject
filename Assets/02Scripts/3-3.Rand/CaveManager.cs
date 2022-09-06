@@ -160,13 +160,13 @@ public class CaveManager : MonoBehaviour
         if(rnd == 1)
         {
             ChatNum = 12;
-            foreach (var Char in Save_Charater_Data.instance.MyParty)
+            foreach (var Char in GameManager.instance.MyParty)
             {
                 Char.LevelUp();
             }
         }
         else {
-            foreach (var Char in Save_Charater_Data.instance.MyParty)
+            foreach (var Char in GameManager.instance.MyParty)
             {
                 Char.Hp -= 10;
             }
@@ -186,7 +186,7 @@ public class CaveManager : MonoBehaviour
         if(rnd == 1)
         {
             ChatNum = 20;
-            foreach (var Char in Save_Charater_Data.instance.MyParty)
+            foreach (var Char in GameManager.instance.MyParty)
             {
                 Char.Hp -= 3;
             }
