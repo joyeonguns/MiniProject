@@ -775,6 +775,9 @@ MonoBehaviour:
   - {fileID: 2061837216}
   - {fileID: 1976336112}
   - {fileID: 1519877342}
+  CharCondition_0: []
+  CharCondition_1: []
+  CharCondition_2: []
   EnemyField:
   - {fileID: 2029757273}
   - {fileID: 475694078}
@@ -800,6 +803,9 @@ MonoBehaviour:
   - {fileID: 710003572}
   - {fileID: 64592367}
   - {fileID: 1514575380}
+  EnCondition_0: []
+  EnCondition_1: []
+  EnCondition_2: []
   TombSprite: {fileID: 21300000, guid: f7aa3a82cae1fc048bd434d99b983655, type: 3}
   SkillPannel: {fileID: 150897881}
   SkillButtonPannel: {fileID: 150897881}
@@ -834,7 +840,7 @@ MonoBehaviour:
   - {fileID: 716881853}
   - {fileID: 542729667}
   RoundText: {fileID: 1562551415}
-  Damage: {fileID: 169089954867111849, guid: 9033ecc3a507393488b690723e429699, type: 3}
+  Damage: {fileID: 4045861130709342509, guid: 9033ecc3a507393488b690723e429699, type: 3}
   selecSkill: 0
   bCheckSkill: 0
   target: 0

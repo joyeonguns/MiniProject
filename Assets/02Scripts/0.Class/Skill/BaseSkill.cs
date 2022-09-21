@@ -4,14 +4,11 @@ using UnityEngine;
 using System.Linq;
 using System;
 
+
 public class BaseSkill
 {
-     // 스킬 정보
-    public string skillName;   
-    public string skillComent;   
-    public int manaCost;
-    public bool bmultiTarget = false;
-    public bool bBuff = false;
+    // 스킬 정보
+    public CharSKillDatas SKill_Data = new CharSKillDatas();
     // 스킬 할당
     // 기본 공격
     public void nomalAttack(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)

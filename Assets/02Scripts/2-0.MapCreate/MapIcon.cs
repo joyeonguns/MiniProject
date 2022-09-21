@@ -27,7 +27,7 @@ public class MapIcon : MonoBehaviour
     void Start()
     {
         GM = GameManager.instance;
-        floor = GM._CurMap.floor;
+        //floor = GM._CurMap.floor;
 
         // 아이콘 텍스트;
         if (x < 13)
@@ -108,7 +108,6 @@ public class MapIcon : MonoBehaviour
     public void ClickBTN()
     {
 
-        Debug.Log("set : " + x + " " + y);
         GM.SetCurMap(x - 1, y);
 
         string str = "";

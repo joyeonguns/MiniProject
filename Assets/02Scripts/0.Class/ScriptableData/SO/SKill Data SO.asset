@@ -1,0 +1,163 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95d6f0cf5db7910448ecff677544f098, type: 3}
+  m_Name: SKill Data SO
+  m_EditorClassIdentifier: 
+  WarriorSKillDatas:
+  - Code: 0
+    Name: "\uD718\uB450\uB974\uAE30"
+    Contents: "100%\uC758 \uB370\uBBF8\uC9C0"
+    MultiTarget: 0
+    Cost: 0
+    Buff: 0
+  - Code: 1
+    Name: "\uAC15\uD0C0"
+    Contents: "30%\uD655\uB960 \uAE30\uC808, 150% \uB370\uBBF8\uC9C0"
+    MultiTarget: 0
+    Cost: 3
+    Buff: 0
+  - Code: 2
+    Name: "\uCC0C\uB974\uAE30"
+    Contents: "\uCD9C\uD608 3\uD134, \uCE58\uBA85\uD0C0 +50%, 100% \uB370\uBBF8\uC9C0"
+    MultiTarget: 0
+    Cost: 2
+    Buff: 0
+  - Code: 3
+    Name: "\uC624\uB7EC\uC18C\uB4DC"
+    Contents: "\uB370\uBBF8\uC9C0 150%"
+    MultiTarget: 1
+    Cost: 5
+    Buff: 0
+  - Code: 4
+    Name: "\uC6CC\uD06C\uB77C\uC774"
+    Contents: "\uAC15\uD654 2\uD134, 3 + \uB808\uBCA8*2 \uD68C\uBCF5"
+    MultiTarget: 0
+    Cost: 2
+    Buff: 1
+  - Code: 5
+    Name: "\uC561\uC2A4 \uCE7C\uB9AC\uBC84"
+    Contents: "\uCE58\uBA85\uD0C0 + 100%, 200% \uB370\uBBF8\uC9C0"
+    MultiTarget: 1
+    Cost: 10
+    Buff: 0
+  MagitionSKillDatas:
+  - Code: 0
+    Name: "\uB9E4\uC9C1 \uBBF8\uC0AC\uC77C"
+    Contents: "100%\uC758 \uB370\uBBF8\uC9C0"
+    MultiTarget: 0
+    Cost: 0
+    Buff: 0
+  - Code: 1
+    Name: "\uD30C\uC774\uC5B4\uBCFC"
+    Contents: "\uD654\uC0C1 3\uD134, 120% \uB370\uBBF8\uC9C0"
+    MultiTarget: 0
+    Cost: 2
+    Buff: 0
+  - Code: 2
+    Name: "\uBA85\uC0C1"
+    Contents: "\uB9C8\uB098 + 3"
+    MultiTarget: 0
+    Cost: 0
+    Buff: 1
+  - Code: 3
+    Name: "\uC5D0\uC2DC\uB4DC \uD074\uB77C\uC6B0\uB4DC"
+    Contents: "\uBD80\uC2DD +3\uD134, 70% \uB370\uBBF8\uC9C0"
+    MultiTarget: 1
+    Cost: 5
+    Buff: 0
+  - Code: 4
+    Name: "\uB208\uC0AC\uD14C"
+    Contents: "\uB454\uD654 +3\uD134, 100% \uB370\uBBF8\uC9C0"
+    MultiTarget: 1
+    Cost: 5
+    Buff: 0
+  - Code: 5
+    Name: "\uC288\uD37C\uB178\uBC14"
+    Contents: "250% \uB370\uBBF8\uC9C0, \uD655\uC815 \uC2A4\uD134"
+    MultiTarget: 1
+    Cost: 10
+    Buff: 0
+  SupporterSKillDatas:
+  - Code: 0
+    Name: "\uCCA0\uD1F4 \uD718\uB450\uB974\uAE30"
+    Contents: "100%\uC758 \uB370\uBBF8\uC9C0"
+    MultiTarget: 0
+    Cost: 0
+    Buff: 0
+  - Code: 1
+    Name: "\uD790"
+    Contents: "Hp +15% \uC808\uBC18\uC774\uD558\uC77C\uC2DC \uB808\uBCA8% \uCD94\uAC00"
+    MultiTarget: 0
+    Cost: 2
+    Buff: 1
+  - Code: 2
+    Name: "\uC751\uAE09\uAD6C\uC870"
+    Contents: "\uBD80\uC2DD \uB454\uD654 \uCD9C\uD608 \uD654\uC0C1 \uD574\uC81C,
+      Hp +20%\uD68C\uBCF5 +\uB9AC\uC820 2\uD134"
+    MultiTarget: 0
+    Cost: 5
+    Buff: 1
+  - Code: 3
+    Name: "\uD5E4\uC774\uC2A4\uD2B8"
+    Contents: "\uC18D\uB3C4 +2\uD134"
+    MultiTarget: 1
+    Cost: 2
+    Buff: 1
+  - Code: 4
+    Name: "\uAD11\uBA85"
+    Contents: "50% \uD655\uB960 \uC2A4\uD134"
+    MultiTarget: 1
+    Cost: 3
+    Buff: 0
+  - Code: 5
+    Name: "\uC131\uC2A4\uB7EC\uC6B4 \uCD95\uBCF5"
+    Contents: "\uD574\uC81C, \uC18D\uB3C4 \uAC15\uD654 \uB9AC\uC820 3\uD134, Hp +30%\uD68C\uBCF5"
+    MultiTarget: 1
+    Cost: 10
+    Buff: 1
+  AssassinSKillDatas:
+  - Code: 0
+    Name: "\uB2E8\uAC80\uD22C\uCC99"
+    Contents: "100% \uC758 \uB370\uBBF8\uC9C0"
+    MultiTarget: 0
+    Cost: 0
+    Buff: 0
+  - Code: 1
+    Name: "\uCE7C\uB0A0\uBE44"
+    Contents: "\uCD9C\uD608 2\uD134, \uB370\uBBF8\uC9C0 50%"
+    MultiTarget: 1
+    Cost: 2
+    Buff: 0
+  - Code: 2
+    Name: "\uC57D\uC810\uACF5\uB7B5"
+    Contents: "\uBD80\uC2DD 2\uD134, \uB454\uD654 2\uD134, 100% \uB370\uBBF8\uC9C0"
+    MultiTarget: 0
+    Cost: 3
+    Buff: 0
+  - Code: 3
+    Name: "\uD2B9\uC81C \uD3ED\uD0C4"
+    Contents: "\uD654\uC0C1 \uCD9C\uD608 \uBD80\uC2DD +2\uD134"
+    MultiTarget: 1
+    Cost: 5
+    Buff: 0
+  - Code: 4
+    Name: "\uC2E0\uC18D"
+    Contents: "\uC18D\uB3C4\uAC15\uD654 4\uD134"
+    MultiTarget: 0
+    Cost: 2
+    Buff: 1
+  - Code: 5
+    Name: "\uC554\uC0B4"
+    Contents: "\uCE58\uBA85\uD0C0 +100%, \uB370\uBBF8\uC9C0 350%, \uCD9C\uD608 5\uD134"
+    MultiTarget: 0
+    Cost: 10
+    Buff: 0

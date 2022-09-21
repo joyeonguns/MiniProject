@@ -94,7 +94,7 @@ public class Battle_Manager : MonoBehaviour
     public TextMeshProUGUI RoundText;
    
     // 데미지 폰트
-    public TextMeshProUGUI Damage;
+    public GameObject Damage;
 
 
     // --- 필요 정보 ---
@@ -209,7 +209,7 @@ public class Battle_Manager : MonoBehaviour
 
             Enemy[Attacker].MySkill[skillNum].UseSkill(Enemy.Cast<Save.Character>().ToList(), Attacker, Character.Cast<Save.Character>().ToList(), target);
             // 공격 씬 출력
-            SpwAttackAnim(Enemy[Attacker].MySkill[skillNum], false, Enemy[Attacker].MySkill[skillNum].bmultiTarget, Enemy[Attacker].MySkill[skillNum].bBuff);
+            SpwAttackAnim(Enemy[Attacker].MySkill[skillNum], false, Enemy[Attacker].MySkill[skillNum].SKill_Data.MultiTarget, Enemy[Attacker].MySkill[skillNum].SKill_Data.Buff);
 
             Enemy[Attacker].EndTurn();
             Invoke("TurnEnd", 3.0f);
@@ -269,7 +269,7 @@ public class Battle_Manager : MonoBehaviour
             Character[Attacker].MySkill[selecSkill].UseSkill(Character.Cast<Save.Character>().ToList(), Attacker, Character.Cast<Save.Character>().ToList(), target);
         }
 
-        SpwAttackAnim(Character[Attacker].MySkill[selecSkill], true, Character[Attacker].MySkill[selecSkill].bmultiTarget, Character[Attacker].MySkill[selecSkill].bBuff);
+        SpwAttackAnim(Character[Attacker].MySkill[selecSkill], true, Character[Attacker].MySkill[selecSkill].SKill_Data.MultiTarget, Character[Attacker].MySkill[selecSkill].SKill_Data.Buff);
 
         
         // 턴 종료
@@ -292,7 +292,7 @@ public class Battle_Manager : MonoBehaviour
             HUDManager.instance.Dead();
             
         }
-        else if (LiveCheck_Character(Enemy.Cast<Save.Character>().ToList()) == false)
+        else if (LiveCheck_Enemy(Enemy.Cast<Save.Character>().ToList()) == false)
         {
             Debug.Log("승리");
             EndBattle();
@@ -395,7 +395,7 @@ public class Battle_Manager : MonoBehaviour
         for(int i = 0; i < Enemy.Count; i ++)
         {
             Enemy[i] = new Save.Enemy(Save.Bandit, e_Class.Bandit);
-            Enemy[i].font = Damage;
+            Enemy[i].PoolSave = GetComponent<DamagePool>();
             Enemy[i].spwLoc = EnemyField[i].GetComponent<RectTransform>().anchoredPosition + new Vector2(50,300);
             EnemyImage[i].sprite = EnemySprite[0];
             for(int j = 0; j < level; j++)
@@ -409,7 +409,7 @@ public class Battle_Manager : MonoBehaviour
         for(int i = 0; i < Enemy.Count; i ++)
         {
             Enemy[i] = new Save.Enemy(Save.Knight, e_Class.Knight);
-            Enemy[i].font = Damage;
+            Enemy[i].PoolSave = GetComponent<DamagePool>();
             Enemy[i].spwLoc = EnemyField[i].GetComponent<RectTransform>().anchoredPosition + new Vector2(50,300);
             EnemyImage[i].sprite = EnemySprite[1];
             for(int j = 0; j < level; j++)
@@ -423,7 +423,7 @@ public class Battle_Manager : MonoBehaviour
         for(int i = 0; i < Enemy.Count; i ++)
         {
             Enemy[i] = new Save.Enemy(Save.Abomination, e_Class.Abomination);
-            Enemy[i].font = Damage;
+            Enemy[i].PoolSave = GetComponent<DamagePool>();
             Enemy[i].spwLoc = EnemyField[i].GetComponent<RectTransform>().anchoredPosition + new Vector2(50,300);
             EnemyImage[i].sprite = EnemySprite[2];
             for(int j = 0; j < level; j++)
@@ -440,7 +440,7 @@ public class Battle_Manager : MonoBehaviour
         
         for(int i = 0; i< Character.Count; i++)
         {
-            Character[i].font = Damage;
+            Character[i].PoolSave = GetComponent<DamagePool>();
             Character[i].spwLoc = CharacterField[i].GetComponent<RectTransform>().anchoredPosition + new Vector2(50,300);            
 
             CharacterImages[i].sprite = CharacterSprite[(int)Character[i].Role];
@@ -548,7 +548,7 @@ public class Battle_Manager : MonoBehaviour
             for(int i = 1; i < 4; i++)
             {
                 Character[n].SetSkillClass();
-                if(Character[n].MySkill[i].manaCost > Character[n].Mana)
+                if(Character[n].MySkill[i].SKill_Data.Cost > Character[n].Mana)
                 {
                     SkillButton[i].GetComponent<Button>().interactable = false;
                 }
@@ -564,18 +564,6 @@ public class Battle_Manager : MonoBehaviour
                 Destroy(SkillComment.transform.GetChild(0).gameObject);
             }
         }         
-    }
-
-    void EnemyTurn(int n)
-    {  
-        // 타겟 선택 And 스킬 선택
-        target = Enemy[n].Enemy_SetTarget(Character);
-        int skillNum = Enemy[n].SelectSkill();
-        
-        Enemy[n].MySkill[skillNum].UseSkill(Enemy.Cast<Save.Character>().ToList(), n, Character.Cast<Save.Character>().ToList(), target);
-        // 공격 씬 출력
-        SpwAttackAnim(Enemy[Attacker].MySkill[skillNum], false, Enemy[Attacker].MySkill[skillNum].bmultiTarget, Enemy[Attacker].MySkill[skillNum].bBuff);
-       
     }
 
     void SetAttackerStatus(int n)
@@ -628,10 +616,22 @@ public class Battle_Manager : MonoBehaviour
     public bool LiveCheck_Character(List<Save.Character> characters)
     {
         // 생사 확인
-        bool charAlive = false;
+        bool charAlive = true;
         foreach (var Char in characters)
         {
-            if (Char.bAlive == true)
+            if (Char.Main == true && Char.bAlive == false)
+                charAlive = false;
+        }
+
+        return charAlive;
+    }
+    public bool LiveCheck_Enemy(List<Save.Character> enemy)
+    {
+        // 생사 확인
+        bool charAlive = false;
+        foreach (var en in enemy)
+        {
+            if (en.bAlive == true)
                 charAlive = true;
         }
 
@@ -642,7 +642,7 @@ public class Battle_Manager : MonoBehaviour
     void SpwAttackAnim(BaseSkill usingSkill, bool bPlayerAtk, bool bmultiTarget, bool bBuff)
     {
         AttackObj.SetActive(true);
-        Attack_Text.text = "[" + usingSkill.skillName + "]";
+        Attack_Text.text = "[" + usingSkill.SKill_Data.Name + "]";
         Invoke("DeleteAttackAnim",2.0f);
 
         // 버프
@@ -822,7 +822,7 @@ public class Battle_Manager : MonoBehaviour
     {
         bCheckSkill = true;
         selecSkill = n;         
-        if(Character[Attacker].MySkill[n].bBuff == true)
+        if(Character[Attacker].MySkill[n].SKill_Data.Buff == true)
         {
             bBuffSkill = true;
             CharacterButton[0].interactable = true;

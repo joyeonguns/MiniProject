@@ -13,13 +13,19 @@ public class TakeSheetDataManager : MonoBehaviour
     //const string ItemURL = "https://docs.google.com/spreadsheets/d/1rfcfKjTVHpXqtF_5ADRL1l5i1wVQiwepq4YmAknUmjo/export?format=tsv&gid=1908062173&&range=B2:H6";
     const string TellURL = "https://docs.google.com/spreadsheets/d/1rfcfKjTVHpXqtF_5ADRL1l5i1wVQiwepq4YmAknUmjo/export?format=tsv&gid=374789293&&range=A2:F250";
 
+    const string SkillURL = "https://docs.google.com/spreadsheets/d/1rfcfKjTVHpXqtF_5ADRL1l5i1wVQiwepq4YmAknUmjo/export?format=tsv&gid=6294707&&range=B2:G25";
 
     public CharacterSO CharSO;
     public ItemDataSO ItemSO;
     public TellentDataSO TellSO;
+    public CharSKillDataSO SkillSO;
+
+    public GameObject PatchLoading;
+
 
     public void OnClickPatch()
     {
+        PatchLoading.SetActive(true);
         StartCoroutine(PatchData());
     }
 
@@ -29,21 +35,26 @@ public class TakeSheetDataManager : MonoBehaviour
         yield return www.SendWebRequest();
 
         string data = www.downloadHandler.text;
-        //print(data);    // 디버그 로그 출력
         SaveCharSO(data);
 
-        // foreach(List<string> st in Data)
-        // {
-        //     print($"{st[0]} , {st[1]} , {st[2]} , {st[3]} , {st[4]}, {st[5]}, {st[6]}" );
-        // }
 
         Data.RemoveAll(x => true);
-
         www = UnityWebRequest.Get(TellURL);
         yield return www.SendWebRequest();
 
         data = www.downloadHandler.text;
         SaveTellSO(data);
+
+
+        Data.RemoveAll(x => true);
+        www = UnityWebRequest.Get(SkillURL);
+        yield return www.SendWebRequest();
+
+        data = www.downloadHandler.text;
+        SaveSKillSO(data);
+
+        PatchLoading.SetActive(false);
+        Debug.Log("Patch Complete");
         
     }
 
@@ -126,5 +137,63 @@ public class TakeSheetDataManager : MonoBehaviour
             targetData.Rank = (Etel_Rank)Enum.Parse(typeof(Etel_Rank), Data[i][1]);;
             targetData.Contents = Data[i][4];
         }  
+    }
+
+    public void SaveSKillSO(string data)
+    {
+        string[] splitRow = data.Split("\n");       // 엔터를 기준으로 스플릿
+
+        foreach (string str in splitRow)
+        {
+            string[] split = str.Split("\t");       // 탭을 기준으로 스플릿
+            Data.Add(split.ToList());               // 데이터 추가
+
+        }
+        for (int i = 0; i < 6; i++)
+        {
+            CharSKillDatas targetData = SkillSO.WarriorSKillDatas[i];
+
+            targetData.Code = int.Parse(Data[i][0]);
+            targetData.Name = Data[i][1];
+            targetData.Contents = Data[i][2];
+            targetData.MultiTarget = bool.Parse(Data[i][3]);
+            targetData.Cost = int.Parse(Data[i][4]);
+            targetData.Buff = bool.Parse(Data[i][5]);
+        }
+        for (int i = 6; i < 12; i++)
+        {
+            CharSKillDatas targetData = SkillSO.MagitionSKillDatas[i - 6];
+
+            targetData.Code = int.Parse(Data[i][0]);
+            targetData.Name = Data[i][1];
+            targetData.Contents = Data[i][2];
+            targetData.MultiTarget = bool.Parse(Data[i][3]);
+            targetData.Cost = int.Parse(Data[i][4]);
+            targetData.Buff = bool.Parse(Data[i][5]);
+        }
+        for (int i = 12; i < 18; i++)
+        {
+            CharSKillDatas targetData = SkillSO.SupporterSKillDatas[i - 12];
+
+            targetData.Code = int.Parse(Data[i][0]);
+            targetData.Name = Data[i][1];
+            targetData.Contents = Data[i][2];
+            targetData.MultiTarget = bool.Parse(Data[i][3]);
+            targetData.Cost = int.Parse(Data[i][4]);
+            targetData.Buff = bool.Parse(Data[i][5]);
+        }
+        for (int i = 18; i < 24; i++)
+        {
+            CharSKillDatas targetData = SkillSO.AssassinSKillDatas[i - 18];
+
+            targetData.Code = int.Parse(Data[i][0]);
+            targetData.Name = Data[i][1];
+            targetData.Contents = Data[i][2];
+            targetData.MultiTarget = bool.Parse(Data[i][3]);
+            targetData.Cost = int.Parse(Data[i][4]);
+            targetData.Buff = bool.Parse(Data[i][5]);
+        }
+
+
     }
 }

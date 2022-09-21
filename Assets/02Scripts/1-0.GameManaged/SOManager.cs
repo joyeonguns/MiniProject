@@ -10,6 +10,7 @@ public class SOManager : MonoBehaviour
     public CharacterSO CharSO;
     public ItemDataSO ItemSO;
     public TellentDataSO TellSO;
+    public CharSKillDataSO SkillSO;
 
     private void Awake() {
         if(instance == null)
@@ -28,6 +29,10 @@ public class SOManager : MonoBehaviour
     public static TellentDataSO GetTellent()
     {
         return instance.TellSO;
+    }
+    public static CharSKillDataSO GetSkill()
+    {
+        return instance.SkillSO;
     }
 
 

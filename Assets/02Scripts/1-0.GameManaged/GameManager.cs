@@ -99,7 +99,6 @@ public class GameManager : MonoBehaviour
     {
         cur_Map = maps[a][b];
         floor = cur_Map.floor;
-        Debug.Log("GM : " + cur_Map.floor);
     }
     
 }

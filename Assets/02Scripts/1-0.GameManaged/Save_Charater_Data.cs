@@ -7,10 +7,7 @@ using UnityEngine.UI;
 public class Save_Charater_Data : MonoBehaviour
 {
 
-    // public static Save_Charater_Data instance = null;
-    
-
-    
+    // public static Save_Charater_Data instance = null;   
     
     public int c_Num;
 
@@ -29,6 +26,8 @@ public class Save_Charater_Data : MonoBehaviour
     {
         My = GameManager.instance.MyParty;
         CharSO = SOManager.instance.CharSO;
+
+
     }
 
     // 캐릭터 생성

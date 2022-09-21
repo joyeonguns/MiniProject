@@ -5,6 +5,8 @@ using System;
 
 public enum Etel_type {Get,Battle,End};
 public enum Etel_Rank {C,B,A,S};
+
+[System.Serializable]
 public class TellentsScripts
 {
     public int Code;
@@ -69,8 +71,9 @@ public class TellentsScripts
     
 
     public TellentsScripts(){}
-    public TellentsScripts(Etel_Rank rank, int Code)
+    public TellentsScripts(Etel_Rank rank, int _Code)
     {
+        Code = _Code;
         switch((int)rank)
         {
             case 0:
@@ -306,10 +309,10 @@ public class TellentsScripts
     
     // Rank A
     static void ReadedShot(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
-    {
-        Debug.Log("ReadedShot");
+    {        
         if(Caster[CasterIdx].turn == 1)
         {
+            Debug.Log("ReadedShot");
             Caster[CasterIdx].Battlestatus.Damage += 15;  
             Caster[CasterIdx].Battlestatus.Critical += 40;  
         }

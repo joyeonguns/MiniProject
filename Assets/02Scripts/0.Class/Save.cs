@@ -4,8 +4,10 @@ using UnityEngine;
 using System;
 using System.Linq;
 using TMPro;
+using UnityEngine.Pool;
 
-public class Save : MonoBehaviour
+[System.Serializable]
+public class Save
 {
     [System.Serializable]
     public struct St_Stat
@@ -79,7 +81,8 @@ public class Save : MonoBehaviour
         public int Level;
 
         // 데미지 폰트
-        public TextMeshProUGUI font;
+        public DamagePool PoolSave;
+        //public D_fontScripts font;
         public Vector2 spwLoc;
 
         // 상태이상
@@ -102,7 +105,7 @@ public class Save : MonoBehaviour
             set 
             {
                 curHp = value;
-                if(curHp < 0)
+                if(curHp <= 0)
                 {
                     curHp = 0;
                     Dead();
@@ -276,21 +279,29 @@ public class Save : MonoBehaviour
         // 데미지 적용
         void Printing_Damage(Color color, string _Damage, float _WaitTime)
         {
-            var spwDamage = Instantiate(font);
-            spwDamage.transform.SetParent(GameObject.Find( "_Damage").transform);
-            spwDamage.rectTransform.anchoredPosition = spwLoc;
-            spwDamage.color = color;
-            spwDamage.GetComponent<D_fontScripts>().Damage =_Damage;
-            spwDamage.GetComponent<D_fontScripts>().WaitTime =_WaitTime;
+            var spwDamage = PoolSave.GetPoolObject();
+            spwDamage.GetComponent<RectTransform>().anchoredPosition = spwLoc;
+
+            TextMeshProUGUI damageText = spwDamage.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+                    
+            damageText.color = color;
+            damageText.GetComponent<D_fontScripts>().Damage =_Damage;
+            damageText.GetComponent<D_fontScripts>().WaitTime =_WaitTime;
+
+            damageText.GetComponent<D_fontScripts>().StartEffect();
         }
         void Printing_Damage(Color color, string _Damage, float _WaitTime, Vector2 loc)
         {
-            var spwDamage = Instantiate(font);
-            spwDamage.transform.SetParent(GameObject.Find( "_Damage").transform);
-            spwDamage.rectTransform.anchoredPosition = spwLoc + loc;
-            spwDamage.color = color;
-            spwDamage.GetComponent<D_fontScripts>().Damage =_Damage;
-            spwDamage.GetComponent<D_fontScripts>().WaitTime =_WaitTime;
+            var spwDamage = PoolSave.GetPoolObject();
+            spwDamage.GetComponent<RectTransform>().anchoredPosition = spwLoc;
+
+            TextMeshProUGUI damageText = spwDamage.transform.GetChild(0).GetComponent<TextMeshProUGUI>();   
+                   
+            damageText.color = color;
+            damageText.GetComponent<D_fontScripts>().Damage =_Damage;
+            damageText.GetComponent<D_fontScripts>().WaitTime =_WaitTime;
+            
+            damageText.GetComponent<D_fontScripts>().StartEffect();  
         }
 
         // 레벨업

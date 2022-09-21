@@ -3,16 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Magition_Skill : BaseSkill
-{
-    Dictionary<int,string> DSkillName = new Dictionary<int, string>() {{0,"휘두르기"},{1,"파이어볼"},{2,"명상"},{3,"산성비"},{4,"눈사태"},{5,"Ultimate"}};
-    Dictionary<int,int> DSkillCost = new Dictionary<int, int>() {{0,0},{1,2},{2,0},{3,5},{4,5},{5,10}};
-    Dictionary<int,string> DSkillComent = new Dictionary<int, string>() {{0,"a"},{1,"b"},{2,"c"},{3,"d"},{4,"e"},{5,"u"}};      
+{   
     public Magition_Skill(int num)
     {
-        skillName = DSkillName[num];
-        skillComent = DSkillComent[num];
-        manaCost = DSkillCost[num];
-
+        SKill_Data = SOManager.GetSkill().MagitionSKillDatas[num];
         switch (num)
         {
             case 0:
@@ -20,23 +14,18 @@ public class Magition_Skill : BaseSkill
                 break;
             case 1:
                 UseSkill = skill_0;
-                bmultiTarget = false;
                 break;
             case 2:
                 UseSkill = skill_1;
-                bBuff = true;
                 break;
             case 3:
                 UseSkill = skill_2;
-                bmultiTarget = true;
                 break;
             case 4:
                 UseSkill = skill_3;
-                bmultiTarget = true;
                 break;
             case 5:
                 UseSkill = Ulti;
-                bmultiTarget = true;
                 break;
             default :
                 Debug.LogError("Magition_Skill error");
@@ -48,7 +37,7 @@ public class Magition_Skill : BaseSkill
     {
         Debug.Log(Caster[CasterIdx].name + " : " + "FireBall");
         // 마나 소모
-        Caster[CasterIdx].Mana -= DSkillCost[1];
+        Caster[CasterIdx].Mana -= SKill_Data.Cost;
 
         // 스텟 가져옴
         // 스킬 특성
@@ -67,7 +56,7 @@ public class Magition_Skill : BaseSkill
     {
         Debug.Log(Caster[CasterIdx].name + " : " + "Acid Rain");
         // 마나 소모
-        Caster[CasterIdx].Mana -= DSkillCost[3];
+        Caster[CasterIdx].Mana -= SKill_Data.Cost;
 
         // 스킬 특성
         Caster[CasterIdx].Battlestatus.Damage *= 0.7f;
@@ -90,7 +79,7 @@ public class Magition_Skill : BaseSkill
     {
         Debug.Log(Caster[CasterIdx].name + " : " + "Tetkai");
         // 마나 소모
-        Caster[CasterIdx].Mana -= DSkillCost[4];
+        Caster[CasterIdx].Mana -= SKill_Data.Cost;
 
         Caster[CasterIdx].Battlestatus.Damage *= 1f;
         // 스킬 특성        
@@ -114,7 +103,7 @@ public class Magition_Skill : BaseSkill
     void Ulti(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
     {
         Debug.Log("Super Nova");
-        Caster[CasterIdx].Mana -= DSkillCost[5];
+        Caster[CasterIdx].Mana -= SKill_Data.Cost;
 
         Caster[CasterIdx].Battlestatus.Damage *= 2; 
         foreach(var enemy in Enemy)

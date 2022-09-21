@@ -22,7 +22,9 @@ public class SkillComment : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         var comment = Instantiate(Comments);
         comment.transform.SetParent(CommentsParents.transform);  
         comment.transform.position = this.transform.position + new Vector3(110,80,0);    
-        comment.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "[ " + skill.skillName + " ]";  
+
+        string multitarget = (skill.SKill_Data.MultiTarget == true) ? "MultiTarget" : "SingleTarget";
+        comment.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "[ " + multitarget + " ]" + "\n" + skill.SKill_Data.Contents;  
     }
 
     public void OnPointerExit(PointerEventData eventData)

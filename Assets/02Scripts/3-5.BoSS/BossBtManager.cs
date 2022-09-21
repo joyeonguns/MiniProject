@@ -101,7 +101,7 @@ public class BossBtManager : Battle_Manager
         {
             // 1열 침묵 크리스탈
             Enemy[0] = new Save.Cristal_Melle();
-            Enemy[0].font = Damage;
+            Enemy[0].PoolSave = GetComponent<DamagePool>();
             Enemy[0].spwLoc = EnemyField[0].GetComponent<RectTransform>().anchoredPosition + new Vector2(50, 300);
 
             EnemyImage[0].sprite = EnemySprite[0];
@@ -109,14 +109,14 @@ public class BossBtManager : Battle_Manager
 
             // 2열 흑마법사
             Enemy[1] = new Save.Witch();
-            Enemy[1].font = Damage;
+            Enemy[1].PoolSave = GetComponent<DamagePool>();
             Enemy[1].spwLoc = EnemyField[1].GetComponent<RectTransform>().anchoredPosition + new Vector2(50, 300);
 
             EnemyImage[1].sprite = EnemySprite[1];
 
             // 3열 공격 크리스탈
             Enemy[2] = new Save.Cristal_Range();
-            Enemy[2].font = Damage;
+            Enemy[2].PoolSave = GetComponent<DamagePool>();
             Enemy[2].spwLoc = EnemyField[2].GetComponent<RectTransform>().anchoredPosition + new Vector2(50, 300);
             EnemyImage[2].sprite = EnemySprite[0];
             EnemyImage[2].color = Color.red;
@@ -163,7 +163,7 @@ public class BossBtManager : Battle_Manager
         EnemyField[1].SetActive(false);
         EnemyField[2].SetActive(false);
 
-        Enemy[0].font = Damage;
+        Enemy[0].PoolSave = GetComponent<DamagePool>();
         Enemy[0].spwLoc = EnemyField[0].GetComponent<RectTransform>().anchoredPosition + new Vector2(50, 300);
         EnemyImage[0].sprite = EnemySprite[2];
         EnemyImage[0].GetComponent<RectTransform>().sizeDelta = new Vector2(800, 800);

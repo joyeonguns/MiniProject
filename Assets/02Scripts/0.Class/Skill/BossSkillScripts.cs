@@ -25,7 +25,7 @@ public class BossSkillScripts : BaseSkill
         //skillComent = DSkillComent[num];
         //manaCost = DSkillCost[num];
 
-        skillName = DSkillName[num];
+        SKill_Data.Name = DSkillName[num];
         switch (num)
         {            
             case 0:
@@ -36,39 +36,39 @@ public class BossSkillScripts : BaseSkill
                 break;
             case 2:
                 UseSkill = IceRain;
-                bmultiTarget = true;
+                SKill_Data.MultiTarget = true;
                 break;
             case 3:
                 UseSkill = Heal;
-                bBuff = true;
+                SKill_Data.Buff = true;
                 break;
             case 4:
                 UseSkill = ManaDrain;
-                bmultiTarget = true;
+                SKill_Data.MultiTarget = true;
                 break;
             case 5:
                 UseSkill = Injection;
-                bBuff = true;
+                SKill_Data.Buff = true;
                 break;
             case 6:
                 UseSkill = ManaCharge;
-                bBuff = true;
+                SKill_Data.Buff = true;
                 break;
             case 7:
                 UseSkill = SummonBarlog;
-                bBuff = true;
+                SKill_Data.Buff = true;
                 break;
             case 8:
                 UseSkill = Earthquake;
-                bmultiTarget = true;
+                SKill_Data.MultiTarget = true;
                 break;
             case 9:
                 UseSkill = Charge;
-                bBuff = true;
+                SKill_Data.Buff = true;
                 break;
             case 10:
                 UseSkill = Bress;
-                bmultiTarget = true;
+                SKill_Data.MultiTarget = true;
                 break;    
 
             default :
