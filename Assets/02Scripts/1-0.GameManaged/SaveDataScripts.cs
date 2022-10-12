@@ -7,8 +7,7 @@ public class SaveDataScripts : MonoBehaviour
 {
     
     public void SaveDataFuction()
-    {        
-        Debug.Log("Save!!");
+    {      
         SaveDataManager.instance.SaveData();
     }
 }

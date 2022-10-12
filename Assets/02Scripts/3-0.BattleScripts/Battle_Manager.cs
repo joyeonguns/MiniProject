@@ -44,7 +44,10 @@ public class Battle_Manager : MonoBehaviour
     // 아군 스프라이트
     public Image[] CharacterImages = new Image[3];
     public Sprite[] CharacterSprite = new Sprite[4];
+    // 타겟 버튼
     public Button[] CharacterButton = new Button[3];
+    // 순서 
+    public GameObject[] CharOrder;
     // 아군 HP / MP
     public Image[] Character_HP = new Image[3];
     public Image[] Character_MP = new Image[3];
@@ -58,6 +61,7 @@ public class Battle_Manager : MonoBehaviour
     public Image[] EnemyImage = new Image[3];
     public Sprite[] EnemySprite = new Sprite[4];
     public Button[] EnemyButton = new Button[3];
+    public GameObject[] EnOrder;
     // 적 HP / MP
     public Image[] Enemy_HP = new Image[3];
     public Image[] Enemy_MP = new Image[3];
@@ -92,6 +96,9 @@ public class Battle_Manager : MonoBehaviour
     // 공격 순서
     public GameObject[] AttOrder = new GameObject[3];
     public TextMeshProUGUI RoundText;
+    // public Sprite[] CharIcon;
+    public Sprite[] EnemyIcon;
+    public Image[] CoverImage;
    
     // 데미지 폰트
     public GameObject Damage;
@@ -102,15 +109,17 @@ public class Battle_Manager : MonoBehaviour
     public int selecSkill;
     // 스킬 선택 체크
     public bool bCheckSkill;
+
     // 스킬 버프?
     bool bBuffSkill;
+
     // 타겟
     public int target;
     // 타겟 선택 체크
     public bool bChecktarget;
 
 
-    // 배틀 스피드
+    // 배틀 스피드 스피드, idx. char
     [SerializeField] public List<Tuple<int,int,int>> L_BattleSpeed = new List<Tuple<int, int, int>>();   
 
     // 현재 공격자
@@ -135,8 +144,11 @@ public class Battle_Manager : MonoBehaviour
         SetStartUI();
         for(int i = 0; i < 3; i++)
         {
-            SetCharCondition(i);
-            SetEnCondition(i);
+            if(i < Character.Count)
+            {
+                SetCharCondition(i);
+                SetEnCondition(i);
+            }
         }
         HUDManager.instance.players = Character;
         HUDManager.instance.Enemys = Enemy;
@@ -271,6 +283,18 @@ public class Battle_Manager : MonoBehaviour
 
         SpwAttackAnim(Character[Attacker].MySkill[selecSkill], true, Character[Attacker].MySkill[selecSkill].SKill_Data.MultiTarget, Character[Attacker].MySkill[selecSkill].SKill_Data.Buff);
 
+        if(Character[Attacker].MySkill[selecSkill].SKill_Data.Code == 0)
+        {
+            GameManager.instance.GameScoreData.Attack_Count++;
+        }
+        else if(Character[Attacker].MySkill[selecSkill].SKill_Data.Code == 5)
+        {
+            GameManager.instance.GameScoreData.Ulti_Count++;
+        }
+        else
+        {
+            GameManager.instance.GameScoreData.Skill_Count++;
+        }
         
         // 턴 종료
         Character[Attacker].EndTurn();
@@ -281,9 +305,13 @@ public class Battle_Manager : MonoBehaviour
     {
         for(int i = 0; i < 3; i++)
         {
-            SetCharCondition(i);
-            SetEnCondition(i);
+            if(i < Character.Count && i < Enemy.Count)
+            {
+                SetCharCondition(i);
+                SetEnCondition(i);
+            }            
         }
+        // 셋팅 초기화 
         ResetSetting();
         // 라이브 체크
         if (LiveCheck_Character(Character.Cast<Save.Character>().ToList()) == false)
@@ -295,7 +323,7 @@ public class Battle_Manager : MonoBehaviour
         else if (LiveCheck_Enemy(Enemy.Cast<Save.Character>().ToList()) == false)
         {
             Debug.Log("승리");
-            EndBattle();
+            EndBattle(10);
         }
         else
         {
@@ -344,17 +372,18 @@ public class Battle_Manager : MonoBehaviour
 
     }
 
-    public void EndBattle()
+    public virtual void EndBattle(int num)
     {
         Debug.Log("승리");
 
+        GameManager.instance.ResultData.ResultMode = ResultEnum.NomalBattle;
         GameManager.instance.ResultData.Gold = BattleInfo.Golds;
         GameManager.instance.ResultData.ItemRate = BattleInfo.ItemRate;
         GameManager.instance.ResultData.Exp = BattleInfo.Exp;
 
-        BettleEndTellent();
+        BattleEndTellent();
 
-        SceneManager.LoadScene("2-4.GiftScene");
+        SceneManager.LoadScene(num);
         //battleState = BattleState.waiting;
     }
 
@@ -515,30 +544,33 @@ public class Battle_Manager : MonoBehaviour
         SkillPannel.SetActive(check);
         // 스킬 버튼 설정
         int rolenum = (int)Character[n].Role;
-        string root ="";
-        switch (rolenum)
-        {
-            case 1 :
-            root = "icon/Worrier/";
-            break;
-            case 2 :
-            root = "icon/Magition/";
-            break;
-            case 3 :
-            root = "icon/Healer/";
-            break;
-            case 4 :
-            root = "icon/Assassin/";
-            break;
-        }
+        // string root ="";
+        // switch (rolenum)
+        // {
+        //     case 1 :
+        //     root = "icon/Worrier/";
+        //     break;
+        //     case 2 :
+        //     root = "icon/Magition/";
+        //     break;
+        //     case 3 :
+        //     root = "icon/Healer/";
+        //     break;
+        //     case 4 :
+        //     root = "icon/Assassin/";
+        //     break;
+        // }
+
+        CharacterDatas charData = SOManager.instance.CharSO.CharDatas[rolenum];
+        
         if (check == true)
         {
-            SkillButton[0].sprite = Resources.Load<Sprite>(root+0) as Sprite;
+            SkillButton[0].sprite = charData.attack;
             int skill_1 = Character[L_BattleSpeed[0].Item2].SkillNum[1];
             int skill_2 = Character[L_BattleSpeed[0].Item2].SkillNum[2];
-            SkillButton[1].sprite = Resources.Load<Sprite>(root + skill_1) as Sprite;
-            SkillButton[2].sprite = Resources.Load<Sprite>(root + skill_2) as Sprite;
-            SkillButton[3].sprite = Resources.Load<Sprite>(root + "5") as Sprite;
+            SkillButton[1].sprite = charData.skill[skill_1 - 1];
+            SkillButton[2].sprite = charData.skill[skill_2 - 1];
+            SkillButton[3].sprite = charData.ulti;
 
             SkillButton[0].GetComponent<SkillComment>().skill = Character[n].MySkill[0];
             SkillButton[1].GetComponent<SkillComment>().skill = Character[n].MySkill[1];
@@ -597,15 +629,52 @@ public class Battle_Manager : MonoBehaviour
             if(i >= L_BattleSpeed.Count)
             {
                 AttOrder[i].SetActive(false);
+                CoverImage[i].color = Color.white;
                 return;
             }
             AttOrder[i].SetActive(true);
-            TextMeshProUGUI AttText = AttOrder[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>(); 
+            Image icon =  AttOrder[i].GetComponent<Image>();
             
-            string first = "E";
-            if(L_BattleSpeed[i].Item3 == 0) first = "C";
-            AttText.text = first +":"+ L_BattleSpeed[i].Item2;
+            // 캐릭터, 적
+            if(L_BattleSpeed[i].Item3 == 0) 
+            {
+                int roleCode = (int)Character[L_BattleSpeed[i].Item2].Role;
+                icon.sprite = SOManager.GetChar().CharDatas[roleCode].Icon;
+                CoverImage[i].color = Color.green;
+            }
+            else
+            {
+                if(Enemy[L_BattleSpeed[i].Item2].Role == e_Class.Barlog || Enemy[L_BattleSpeed[i].Item2].Role == e_Class.Witch)
+                {
+                    icon.sprite = EnemyIcon[1];
+                }
+                else
+                {
+                    icon.sprite = EnemyIcon[0];
+                }
+                CoverImage[i].color = Color.red;
+            }
+            
         }
+        
+        // 순서표시 오브젝트 비활성화
+        CharOrder[0].SetActive(false);
+        CharOrder[1].SetActive(false);
+        CharOrder[2].SetActive(false);
+
+        EnOrder[0].SetActive(false);
+        EnOrder[1].SetActive(false);
+        EnOrder[2].SetActive(false);
+
+        // 타겟 버튼 비활성화
+        CharacterButton[0].gameObject.SetActive(false); 
+        CharacterButton[1].gameObject.SetActive(false); 
+        CharacterButton[2].gameObject.SetActive(false);
+
+        EnemyButton[0].gameObject.SetActive(false); 
+        EnemyButton[1].gameObject.SetActive(false); 
+        EnemyButton[2].gameObject.SetActive(false);
+
     }
 
     void Update()
@@ -793,7 +862,7 @@ public class Battle_Manager : MonoBehaviour
         }
     }
 
-    public void BettleEndTellent()
+    public void BattleEndTellent()
     {
         foreach (var tel in GameManager.instance.Tellents[1])
         {
@@ -818,46 +887,78 @@ public class Battle_Manager : MonoBehaviour
             target = n;
         }            
     }
+
     public void InputSkillBTN(int n)
     {
         bCheckSkill = true;
         selecSkill = n;         
+        
+        
         if(Character[Attacker].MySkill[n].SKill_Data.Buff == true)
         {
-            bBuffSkill = true;
-            CharacterButton[0].interactable = true;
-            CharacterButton[1].interactable = true;
-            CharacterButton[2].interactable = true;
+            bBuffSkill = true;    
+            
+            for(int i = 0; i < 3; i++)
+            {
+                CharacterButton[i].gameObject.SetActive(true); 
+                EnemyButton[i].gameObject.SetActive(false); 
 
-            EnemyButton[0].interactable = false;
-            EnemyButton[1].interactable = false;
-            EnemyButton[2].interactable = false;
+                if(Character[Attacker].MySkill[n].SKill_Data.MultiTarget == true)
+                {
+                    CharacterButton[i].GetComponent<BattleButtonEvents>().isMultiTarget = true;
+                }
+                else
+                {
+                    CharacterButton[i].GetComponent<BattleButtonEvents>().isMultiTarget = false;
+                }
+            }                  
         }
-        else
+        else    // 공격
         {
-            CharacterButton[0].interactable = false;
-            CharacterButton[1].interactable = false;
-            CharacterButton[2].interactable = false;
+            bBuffSkill = false;
 
-            EnemyButton[0].interactable = true;
-            EnemyButton[1].interactable = true;
-            EnemyButton[2].interactable = true;
+            for(int i = 0; i < 3; i++)
+            {
+                CharacterButton[i].gameObject.SetActive(false); 
+                EnemyButton[i].gameObject.SetActive(true); 
+
+                if(Character[Attacker].MySkill[n].SKill_Data.MultiTarget == true)
+                {
+                    EnemyButton[i].GetComponent<BattleButtonEvents>().isMultiTarget = true;
+                }
+                else
+                {
+                    EnemyButton[i].GetComponent<BattleButtonEvents>().isMultiTarget = false;
+                }
+            }
         }
+
+  
     }
     
     void AttackerHilight(string str, int idx, bool b)
     {
         if(str == "Enemy")
         {
-            Image img =  EnemyField[idx].transform.GetChild(1).GetComponent<Image>();
-            if(b == true) img.color = Color.black;
-            else img.color = Color.white;
+            if(b == true) 
+            {
+                EnOrder[idx].SetActive(true);
+            }
+            else 
+            {
+                EnOrder[idx].SetActive(false);
+            }
         }
         else
         {
-            Image img =  CharacterField[idx].transform.GetChild(1).GetComponent<Image>();
-            if(b == true) img.color = Color.black;
-            else img.color = Color.white;
+            if(b == true) 
+            {
+                CharOrder[idx].SetActive(true);
+            }
+            else 
+            {
+                CharOrder[idx].SetActive(false);
+            }
         }
     }
     

@@ -89,29 +89,37 @@ public class TownManager : MonoBehaviour
         SkillPannel.SetActive(true);
 
         int rolenum = (int)NewCharacters[n].Role;
-        string root ="";
-        switch (rolenum)
-        {
-            case 1 :
-            root = "icon/Worrier/";
-            break;
-            case 2 :
-            root = "icon/Magition/";
-            break;
-            case 3 :
-            root = "icon/Healer/";
-            break;
-            case 4 :
-            root = "icon/Assassin/";
-            break;
-        }
+        // string root ="";
+        // switch (rolenum)
+        // {
+        //     case 1 :
+        //     root = "icon/Worrier/";
+        //     break;
+        //     case 2 :
+        //     root = "icon/Magition/";
+        //     break;
+        //     case 3 :
+        //     root = "icon/Healer/";
+        //     break;
+        //     case 4 :
+        //     root = "icon/Assassin/";
+        //     break;
+        // }
+
+        CharacterDatas charData = SOManager.instance.CharSO.CharDatas[rolenum];
+
         int skill_1 = NewCharacters[n].SkillNum[1];
         int skill_2 = NewCharacters[n].SkillNum[2];
 
-        SkillBtn[0].GetComponent<Image>().sprite = Resources.Load<Sprite>(root + 0) as Sprite;
-        SkillBtn[1].GetComponent<Image>().sprite = Resources.Load<Sprite>(root + skill_1) as Sprite;
-        SkillBtn[2].GetComponent<Image>().sprite = Resources.Load<Sprite>(root + skill_2) as Sprite;
-        SkillBtn[3].GetComponent<Image>().sprite = Resources.Load<Sprite>(root + 5) as Sprite;
+        SkillBtn[0].GetComponent<Image>().sprite = charData.attack;
+        SkillBtn[1].GetComponent<Image>().sprite = charData.skill[skill_1 - 1];
+        SkillBtn[2].GetComponent<Image>().sprite = charData.skill[skill_2 - 1];
+        SkillBtn[3].GetComponent<Image>().sprite = charData.ulti;        
+
+        // SkillBtn[0].GetComponent<Image>().sprite = Resources.Load<Sprite>(root + 0) as Sprite;
+        // SkillBtn[1].GetComponent<Image>().sprite = Resources.Load<Sprite>(root + skill_1) as Sprite;
+        // SkillBtn[2].GetComponent<Image>().sprite = Resources.Load<Sprite>(root + skill_2) as Sprite;
+        // SkillBtn[3].GetComponent<Image>().sprite = Resources.Load<Sprite>(root + 5) as Sprite;
 
         SkillBtn[0].GetComponent<SkillComment>().skill = NewCharacters[n].MySkill[0];
         SkillBtn[1].GetComponent<SkillComment>().skill = NewCharacters[n].MySkill[1];

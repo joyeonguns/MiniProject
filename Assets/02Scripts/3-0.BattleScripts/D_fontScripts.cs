@@ -54,11 +54,11 @@ public class D_fontScripts : MonoBehaviour
         
 
         //tmpro.DOFade(0,2f).SetDelay(3.0f);
-        rect.DOScale(Vector3.zero, 2).SetDelay(3.0f);
+        rect.DOScale(Vector3.zero, 1.5f).SetDelay(3.0f);
 
         x_val = Random.Range(-1.5f, 1.5f);
 
-        Invoke("Release", 6.0f);
+        Invoke("Release", 5.0f);
     }
 
     void SetActive_true()
@@ -73,7 +73,11 @@ public class D_fontScripts : MonoBehaviour
     {      
         if (bTrigger == true)
         {
-            tmp.color = tmp.color - new Color32(0, 0, 0, 2);
+            if(curTime > 0.5f)
+            {
+                tmp.color = tmp.color - new Color32(0, 0, 0, 15);
+            }
+            
             curTime += Time.deltaTime;
 
             var x = x_Anim.Evaluate(curTime) * x_val * 10;
@@ -84,7 +88,7 @@ public class D_fontScripts : MonoBehaviour
             
         if (tmp.color.a <= 0)
         {
-            tmp.color = new Color32((byte)tmp.color.r, (byte)tmp.color.g, (byte)tmp.color.b, 255); ;
+            // tmp.color = new Color32((byte)tmp.color.r, (byte)tmp.color.g, (byte)tmp.color.b, 255); ;
             bTrigger = false;
             //Release();
         }

@@ -145,8 +145,16 @@ public class MapIcon : MonoBehaviour
         // 2-3.RecruitScene 1
 
         //str = "4-0.BossScene";
+        int i = 5;
         HUDManager.instance.SetFloor();
+        // SceneManager.LoadScene(11);
+        
         SceneManager.LoadScene(str);
+    }
+
+    public void inBossRoom()
+    {
+        SceneManager.LoadScene(11);
     }
 
 }

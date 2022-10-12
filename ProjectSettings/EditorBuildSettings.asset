@@ -41,4 +41,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/01Scenes/4-0.BossScene.unity
     guid: 774611f0d93486e418caac3889c748f3
+  - enabled: 1
+    path: Assets/01Scenes/5-0.Ranking.unity
+    guid: 64a5162311c20a643878e154d61bc93b
   m_configObjects: {}

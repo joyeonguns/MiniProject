@@ -17,8 +17,7 @@ public class Start_Ui_Manger : MonoBehaviour
     {
         if (File.Exists(SaveDataManager.instance.path))
         {
-            SaveDataManager.instance.LoadData();
-            
+            ReStartBtn.SetActive(true);            
         }
         else
         {
@@ -29,6 +28,7 @@ public class Start_Ui_Manger : MonoBehaviour
     public void OnClickReStart()
     {        
         
+        SaveDataManager.instance.LoadData();
         // 맵 로드
         List<MapClass> rowData = new List<MapClass>();
 
@@ -96,7 +96,7 @@ public class Start_Ui_Manger : MonoBehaviour
         }
 
         // 씬로드          
-        SceneManager.LoadScene("1-1.TownScene");  
+        SceneManager.LoadScene(2);  
     }
     
     public void StartBtn()

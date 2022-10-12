@@ -15,7 +15,7 @@ public class DamagePool : MonoBehaviour
     void Awake()
     {
         Pool = new ObjectPool<GameObject>(
-            CreateFont, OnGetFonte, OnReleaseFont, OnDestroyFont, maxSize:10);
+            CreateFont, OnGetFont, OnReleaseFont, OnDestroyFont, maxSize:10);
     }
 
     public GameObject GetPoolObject()
@@ -31,7 +31,7 @@ public class DamagePool : MonoBehaviour
         return  font;
     }
 
-    void OnGetFonte(GameObject font)
+    void OnGetFont(GameObject font)
     {
         font.gameObject.SetActive(true);
     }

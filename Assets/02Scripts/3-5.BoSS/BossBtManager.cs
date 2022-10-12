@@ -39,8 +39,12 @@ public class BossBtManager : Battle_Manager
         
         for(int i = 0; i < 3; i++)
         {
-            SetCharCondition(i);
-            SetEnCondition(i);
+            if(i < Character.Count && i < Enemy.Count)
+            {
+                SetCharCondition(i);
+                SetEnCondition(i);
+            }
+            
         }
 
         // 페이즈 변경
@@ -59,10 +63,10 @@ public class BossBtManager : Battle_Manager
                 HUDManager.instance.Dead();
 
             }
-            else if (LiveCheck_Character(Enemy.Cast<Save.Character>().ToList()) == false)
+            else if (LiveCheck_Enemy(Enemy.Cast<Save.Character>().ToList()) == false)
             {
                 Debug.Log("승리");
-                EndBattle();
+                EndBattle(12);
             }
             else
             {

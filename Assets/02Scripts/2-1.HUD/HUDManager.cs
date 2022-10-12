@@ -162,6 +162,8 @@ public class HUDManager : MonoBehaviour
         GameManager.instance.ItemList_num[SelectIdx] = 0;
         SetBoom();
         Click_Cancle();
+
+        GameManager.instance.GameScoreData.Used_Itme++;
     }
     public void Click_Cancle()
     {

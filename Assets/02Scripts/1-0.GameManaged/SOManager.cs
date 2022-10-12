@@ -26,6 +26,10 @@ public class SOManager : MonoBehaviour
         }  
     }
 
+    public static CharacterSO GetChar()
+    {
+        return instance.CharSO;
+    }
     public static TellentDataSO GetTellent()
     {
         return instance.TellSO;
@@ -34,6 +38,4 @@ public class SOManager : MonoBehaviour
     {
         return instance.SkillSO;
     }
-
-
 }

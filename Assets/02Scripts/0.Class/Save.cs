@@ -187,12 +187,24 @@ public class Save
             {
                 Damage = Other.Battlestatus.Damage * 2 * (1-Battlestatus.Armor);
                 Printing_Damage(Color.red, ""+(int)Damage, 2.1f);
+
+                // 크리티컬 스코어 업데이트
+                if((int)Other.Role <= 10)
+                {
+                    GameManager.instance.GameScoreData.Critical_Count++;
+                }
             }
             // 회피 
             else if(CriRate < 0 && (CriRate * -1) > rnd)
             {
                 Damage = (int)(Other.Battlestatus.Damage / 2 * (1-Battlestatus.Armor));
                 Printing_Damage(Color.gray, ""+(int)Damage, 2.1f);
+                
+                // 회피 스코어 업데이트
+                if((int)this.Role <= 10)
+                {
+                    GameManager.instance.GameScoreData.Dodge_Count++;
+                }
             }
             // 기본
             else
@@ -614,8 +626,18 @@ public class Save
 
         public override void TakeDamage(Character Other)
         {
-            base.TakeDamage(Other);
-            BressHp -= RealDamage(Other);
+            if(bAlive == false)
+            {
+                return;
+            }                
+
+            double Damage = RealDamage(Other);
+
+            // 체력 감소
+            Hp -= Damage;
+            Mana++;
+            
+            BressHp -= Damage;
         }
 
         public override void SetSkillClass()

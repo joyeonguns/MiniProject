@@ -29,11 +29,43 @@ public class SaveDataManager : MonoBehaviour
 
     public void SaveData()
     {
-        nowSave.Saves();
-        
+        //nowSave = new SaveData();
+        nowSave.Saves();        
         string jsonData = JsonUtility.ToJson(nowSave);
+
+        if (File.Exists(path))
+        {
+            System.IO.File.Delete(path);            
+            // StartCoroutine(WaitDelete());
+        }
+        else
+        {
+            
+        }
         
-        File.WriteAllText(path,jsonData);
+        Invoke("savetest", 1.5f);
+        
+    }
+
+    IEnumerator WaitDelete()
+    {     
+        yield return null;
+        if(File.Exists(path))
+        {
+            StartCoroutine(WaitDelete());
+        }
+        else
+        {
+            Debug.Log("Delete File");
+            File.WriteAllText(path, JsonUtility.ToJson(nowSave));
+            Debug.Log("Save!!");
+        }
+    }
+
+    void savetest()
+    {
+        File.WriteAllText(path, JsonUtility.ToJson(nowSave));
+        Debug.Log("Save!!");
     }
 
     public void LoadData()

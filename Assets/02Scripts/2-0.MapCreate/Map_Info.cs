@@ -146,27 +146,30 @@ public class Map_Info : MonoBehaviour
     {       
         skillPannel.SetActive(true);
         int rolenum = (int)GM.MyParty[n].Role;
-        string root ="";
-        switch (rolenum)
-        {
-            case 1 :
-            root = "icon/Worrier/";
-            break;
-            case 2 :
-            root = "icon/Magition/";
-            break;
-            case 3 :
-            root = "icon/Healer/";
-            break;
-            case 4 :
-            root = "icon/Assassin/";
-            break;
-        }
+        // string root ="";
+        // switch (rolenum)
+        // {
+        //     case 1 :
+        //     root = "icon/Worrier/";
+        //     break;
+        //     case 2 :
+        //     root = "icon/Magition/";
+        //     break;
+        //     case 3 :
+        //     root = "icon/Healer/";
+        //     break;
+        //     case 4 :
+        //     root = "icon/Assassin/";
+        //     break;
+        // }
+
+        CharacterDatas charData = SOManager.instance.CharSO.CharDatas[rolenum];
+
         int skill_1 = GM.MyParty[n].SkillNum[1];
         int skill_2 = GM.MyParty[n].SkillNum[2];
-        skill[0].GetComponent<Image>().sprite = Resources.Load<Sprite>(root + skill_1) as Sprite;
-        skill[1].GetComponent<Image>().sprite = Resources.Load<Sprite>(root + skill_2) as Sprite;
-        skill[2].GetComponent<Image>().sprite = Resources.Load<Sprite>(root + "5") as Sprite;        
+        skill[0].GetComponent<Image>().sprite = charData.skill[skill_1 - 1];
+        skill[1].GetComponent<Image>().sprite = charData.skill[skill_2 - 1];
+        skill[2].GetComponent<Image>().sprite = charData.ulti;        
 
         skill[0].GetComponent<SkillComment>().skill = GM.MyParty[n].MySkill[1];
         skill[1].GetComponent<SkillComment>().skill = GM.MyParty[n].MySkill[2];

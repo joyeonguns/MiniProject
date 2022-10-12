@@ -56,7 +56,13 @@ public class CampManager : MonoBehaviour
         for(int i = 0; i < 3; i++)
         {
             if(i >= Char_Count) Character[i].SetActive(false);
-            else Character[i].SetActive(true);
+            else
+            {
+                Character[i].SetActive(true);
+                
+                int roleCOde = (int)GM.MyParty[i].Role;
+                Character[i].GetComponent<Image>().sprite = SOManager.GetChar().CharDatas[roleCOde].Icon;
+            } 
         }       
 
     }
@@ -78,6 +84,8 @@ public class CampManager : MonoBehaviour
         {
             for(int i = 0; i < Char_Count; i++)
             {
+
+
 
                 double curHp = GM.MyParty[i].Hp;
                 double maxHp = GM.MyParty[i].status.MaxHp;

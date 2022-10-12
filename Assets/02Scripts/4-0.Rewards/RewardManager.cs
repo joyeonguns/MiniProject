@@ -26,6 +26,7 @@ public class RewardManager : MonoBehaviour
     public GameObject ItemPrefab; // 50
     public int itemCode;
     public int takeitemCode = 0;
+    public GameObject SpwLoc;
 
     // 결과창
     public GameObject ResultPannel;
@@ -33,9 +34,13 @@ public class RewardManager : MonoBehaviour
     public Image[] Player_Exp;
     public TextMeshProUGUI[] GainExp;
     public TextMeshProUGUI[] char_Name;
+
     bool bReadyResul;
+    public GameObject Result_Gettellent;
     public TextMeshProUGUI resultGold;
     public TextMeshProUGUI resultTellent;
+
+    public Sprite[] CharIcon;
 
 
 
@@ -77,6 +82,8 @@ public class RewardManager : MonoBehaviour
             TellentsPannel.SetActive(false);
             GoldPannel.SetActive(false);
             ResultPannel.SetActive(true);
+
+            SetRewardPannel();
             return;
         }
         // 특성 할당
@@ -90,10 +97,7 @@ public class RewardManager : MonoBehaviour
         ResultPannel.SetActive(false);
 
         StartCoroutine(ReadyReward());
-        // 특성 선택
-
-        // 골드 획득
-        // 결과 화면
+        GM.GameScoreData.win_Battle++;
 
     }
 
@@ -139,9 +143,9 @@ public class RewardManager : MonoBehaviour
         for(int i = 0; i < 3; i++)
         {
             TextMeshProUGUI _Name = Tellents[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-            _Name.text = tellentArray[i].name;
+            _Name.text = tellentArray[i].telData.Name;
             TextMeshProUGUI _Comments = Tellents[i].transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-            _Comments.text = "[ " + tellentArray[i].name + " ]";
+            _Comments.text = tellentArray[i].telData.Contents;
 
             Tellents[i].GetComponent<Image>().sprite = TellentSprite[(int)tellentArray[i].Rank];
         }
@@ -153,8 +157,7 @@ public class RewardManager : MonoBehaviour
     {
         Gold = GM.ResultData.Gold;
         GameObject spwGold = Instantiate(GoldPrefab);
-        spwGold.transform.SetParent(GoldPannel.transform.GetChild(2));
-        spwGold.GetComponent<RectTransform>().anchoredPosition = new Vector2(0,100);
+        spwGold.transform.SetParent(SpwLoc.transform);
         spwGold.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = ""+Gold;
 
         ItemRate = GM.ResultData.ItemRate;
@@ -167,8 +170,7 @@ public class RewardManager : MonoBehaviour
             itemCode = UnityEngine.Random.Range(1,9);         
             GameObject spwItem = Instantiate(ItemPrefab);
 
-            spwItem.transform.SetParent(GoldPannel.transform.GetChild(2));
-            spwItem.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -50);
+            spwItem.transform.SetParent(SpwLoc.transform);
             spwItem.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = new ItemClass(itemCode).ItemName;
 
             spwItem.GetComponent<Button>().onClick.AddListener(SetItemBtn);
@@ -185,6 +187,15 @@ public class RewardManager : MonoBehaviour
         if(GM.ResultData.ResultMode != ResultEnum.Run)
         {
             gainExp = GM.ResultData.Exp;
+
+            // 텍스트 출력
+            resultGold.text = "" + takeGold;
+            resultTellent.text = "" + TellentName;
+        }
+        else
+        {
+            gainExp = 0;
+            Result_Gettellent.SetActive(false);
         }
         
 
@@ -194,6 +205,11 @@ public class RewardManager : MonoBehaviour
             {
                 PlayerObj[i].SetActive(false);
             }                
+            else
+            {
+                int roleCode = (int)GM.MyParty[i].Role;
+                PlayerObj[i].GetComponent<Image>().sprite = CharIcon[roleCode];
+            }
         }
         for(int i = 0; i < GM.MyParty.Count; i++)
         {
@@ -211,20 +227,7 @@ public class RewardManager : MonoBehaviour
             }            
         }
 
-
-        // 텍스트 출력
-        resultGold.text = ""+takeGold;
-        resultTellent.text = ""+  TellentName;
-
-        // foreach(var exp in GainExp)
-        // {
-        //     exp.text = "+"+gainExp;
-        // }        
-        // 도망침
-        if(GameManager.instance.ResultData.ResultMode == ResultEnum.Run)
-        {
-            return;
-        }  
+  
     }
 
     IEnumerator ReadyReward()

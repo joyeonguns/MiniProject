@@ -24,7 +24,7 @@ public class SkillComment : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         comment.transform.position = this.transform.position + new Vector3(110,80,0);    
 
         string multitarget = (skill.SKill_Data.MultiTarget == true) ? "MultiTarget" : "SingleTarget";
-        comment.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "[ " + multitarget + " ]" + "\n" + skill.SKill_Data.Contents;  
+        comment.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = skill.SKill_Data.Name + "\n" + "[ " + multitarget + " ]" + "\n" + skill.SKill_Data.Contents;  
     }
 
     public void OnPointerExit(PointerEventData eventData)

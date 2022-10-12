@@ -9,9 +9,10 @@ public enum Etel_Rank {C,B,A,S};
 [System.Serializable]
 public class TellentsScripts
 {
+    public TellentData telData;
     public int Code;
     public string name;
-    public string Comments;
+    public string Contents;
     public Etel_type type;
     public Etel_Rank Rank;
 
@@ -73,10 +74,11 @@ public class TellentsScripts
     public TellentsScripts(){}
     public TellentsScripts(Etel_Rank rank, int _Code)
     {
-        Code = _Code;
+        Code = _Code;        
         switch((int)rank)
         {
             case 0:
+            telData = SOManager.GetTellent().tellentData_C[Code];
             name = Rank_C[Code].Item1;
             TellentApply = Rank_C[Code].Item2;
             type = Rank_C[Code].Item3;
@@ -84,6 +86,7 @@ public class TellentsScripts
             break;
 
             case 1:
+            telData = SOManager.GetTellent().tellentData_B[Code];
             name = Rank_B[Code].Item1;
             TellentApply = Rank_B[Code].Item2;
             type = Rank_B[Code].Item3;
@@ -91,6 +94,7 @@ public class TellentsScripts
             break;
 
             case 2:
+            telData = SOManager.GetTellent().tellentData_A[Code];
             name = Rank_A[Code].Item1;
             TellentApply = Rank_A[Code].Item2;
             type = Rank_A[Code].Item3;
@@ -98,6 +102,7 @@ public class TellentsScripts
             break;
 
             case 3:
+            telData = SOManager.GetTellent().tellentData_S[Code];
             name = Rank_S[Code].Item1;
             TellentApply = Rank_S[Code].Item2;
             type = Rank_S[Code].Item3;
