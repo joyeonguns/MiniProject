@@ -16,8 +16,8 @@ public class BaseSkill
         //GameManager.instance.Hit(Caster,CasterIdx,Enemy,EnemyIdx);
         Debug.Log(Caster[CasterIdx].name + " : 기본 공격!");
         Enemy[EnemyIdx].TakeDamage(Caster[CasterIdx]);
-        Enemy[EnemyIdx].bleedCount += 2;
-        Enemy[EnemyIdx].burnCount += 2;
+        // Enemy[EnemyIdx].bleedCount += 2;
+        // Enemy[EnemyIdx].burnCount += 2;
         Caster[CasterIdx].Mana += 1;
     }
     public Action<List<Save.Character>, int, List<Save.Character>, int> UseSkill;

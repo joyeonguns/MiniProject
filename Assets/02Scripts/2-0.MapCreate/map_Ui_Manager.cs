@@ -9,6 +9,9 @@ public class map_Ui_Manager : MonoBehaviour
     // 지도 이미지
     public Image Map_IMG;
 
+    int minHight = -1600;
+    int maxHight = 1300;
+
     // 지도 스크롤 속도
     public float scroll_Speed = 200;
     // Start is called before the first frame update
@@ -29,8 +32,7 @@ public class map_Ui_Manager : MonoBehaviour
      void MapControll()
     {
         float scroll = Input.GetAxis("Mouse ScrollWheel") * scroll_Speed;
-        int minHight = -1200;
-        int maxHight = 1300;
+        
         Vector2 Map_vec = new Vector2();
         Map_vec = Map_IMG.GetComponent<RectTransform>().anchoredPosition;
 

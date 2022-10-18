@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5699341451232550188}
   - component: {fileID: 692386746136433645}
   - component: {fileID: 5527717277669099604}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Roots
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 092b943bb4d521e409e69157632db4a6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4ae42f110affd5c4ebabab5d06e342ba, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

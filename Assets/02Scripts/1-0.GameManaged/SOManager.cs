@@ -25,6 +25,10 @@ public class SOManager : MonoBehaviour
             Destroy(this.gameObject);
         }  
     }
+    public static ItemDataSO GetItem()
+    {
+        return instance.ItemSO;
+    }
 
     public static CharacterSO GetChar()
     {

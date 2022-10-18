@@ -36,14 +36,14 @@ public class SaveDataManager : MonoBehaviour
         if (File.Exists(path))
         {
             System.IO.File.Delete(path);            
-            // StartCoroutine(WaitDelete());
+            StartCoroutine(WaitDelete());
         }
         else
         {
-            
+            savetest();
         }
         
-        Invoke("savetest", 1.5f);
+        // Invoke("savetest", 1.5f);
         
     }
 

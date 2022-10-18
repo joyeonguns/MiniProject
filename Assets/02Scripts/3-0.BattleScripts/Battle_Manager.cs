@@ -472,8 +472,9 @@ public class Battle_Manager : MonoBehaviour
             Character[i].PoolSave = GetComponent<DamagePool>();
             Character[i].spwLoc = CharacterField[i].GetComponent<RectTransform>().anchoredPosition + new Vector2(50,300);            
 
-            CharacterImages[i].sprite = CharacterSprite[(int)Character[i].Role];
+            CharacterImages[i].sprite = SOManager.GetChar().CharDatas[(int)Character[i].Role].Illuste;
             Character[i].Battlestatus = Character[i].status;
+            Character[i].turn = 0;
         }
     }
 
@@ -624,6 +625,24 @@ public class Battle_Manager : MonoBehaviour
     // 공격 순서
     void SetAttackOrder()
     {
+        // 순서표시 오브젝트 비활성화
+        CharOrder[0].SetActive(false);
+        CharOrder[1].SetActive(false);
+        CharOrder[2].SetActive(false);
+
+        EnOrder[0].SetActive(false);
+        EnOrder[1].SetActive(false);
+        EnOrder[2].SetActive(false);
+
+        // 타겟 버튼 비활성화
+        CharacterButton[0].gameObject.SetActive(false); 
+        CharacterButton[1].gameObject.SetActive(false); 
+        CharacterButton[2].gameObject.SetActive(false);
+
+        EnemyButton[0].gameObject.SetActive(false); 
+        EnemyButton[1].gameObject.SetActive(false); 
+        EnemyButton[2].gameObject.SetActive(false);
+
         for(int i = 0; i < 3; i++)
         {
             if(i >= L_BattleSpeed.Count)
@@ -656,24 +675,6 @@ public class Battle_Manager : MonoBehaviour
             }
             
         }
-        
-        // 순서표시 오브젝트 비활성화
-        CharOrder[0].SetActive(false);
-        CharOrder[1].SetActive(false);
-        CharOrder[2].SetActive(false);
-
-        EnOrder[0].SetActive(false);
-        EnOrder[1].SetActive(false);
-        EnOrder[2].SetActive(false);
-
-        // 타겟 버튼 비활성화
-        CharacterButton[0].gameObject.SetActive(false); 
-        CharacterButton[1].gameObject.SetActive(false); 
-        CharacterButton[2].gameObject.SetActive(false);
-
-        EnemyButton[0].gameObject.SetActive(false); 
-        EnemyButton[1].gameObject.SetActive(false); 
-        EnemyButton[2].gameObject.SetActive(false);
 
     }
 
@@ -1054,7 +1055,7 @@ public class Battle_Manager : MonoBehaviour
             Conditions[_Attacker][0].SetActive(false);
         }
         // 화상
-        if(Enemy[_Attacker].bleedCount != 0)
+        if(Enemy[_Attacker].burnCount != 0)
         {
             Conditions[_Attacker][1].SetActive(true);
         }

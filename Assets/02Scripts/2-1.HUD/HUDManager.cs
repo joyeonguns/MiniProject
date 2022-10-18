@@ -38,6 +38,9 @@ public class HUDManager : MonoBehaviour
     // Dead
     public GameObject DeadUI;
 
+    // Setting
+    public GameObject SettingUI;
+
 
     private void Awake() {
 
@@ -57,6 +60,15 @@ public class HUDManager : MonoBehaviour
     void Start()
     {
         SetAll();
+        UIActiveFalse();
+    }
+    public void UIActiveFalse()
+    {
+        InfoUI.SetActive(false);
+        TellentCard.SetActive(false);
+        BigCard.SetActive(false);
+        DeadUI.SetActive(false);
+        SettingUI.SetActive(false);
     }
     public void SetAll()
     {
@@ -68,7 +80,7 @@ public class HUDManager : MonoBehaviour
 
     public void SetGold()
     {
-        GoldText.text = "Gold : " + GameManager.instance.curGold;        
+        GoldText.text = "" + GameManager.instance.curGold;        
     }
 
     public void SetBoom()
@@ -76,10 +88,15 @@ public class HUDManager : MonoBehaviour
         int boomIdx = 0;
         foreach (var num in GameManager.instance.ItemList_num)
         {
+            ItemData item = SOManager.GetItem().itemDatas[num];
+
             BoomObj[boomIdx].GetComponentInChildren<Image>().color = new Color(1,1,1,(100.0f/255.0f)); 
+            BoomObj[boomIdx].GetComponent<Image>().sprite = item.ItemImage;
+            // BoomObj[boomIdx].GetComponent<RectTransform>().localScale = Vector3.one;    
             if(num != 0)
             {
-                BoomObj[boomIdx].GetComponentInChildren<Image>().color = new Color(1,1,1,1);                
+                BoomObj[boomIdx].GetComponentInChildren<Image>().color = new Color(1,1,1,1);       
+                // BoomObj[boomIdx].GetComponent<RectTransform>().localScale = Vector3.one * 0.7f;         
             }
             boomIdx++;
         }
@@ -174,9 +191,8 @@ public class HUDManager : MonoBehaviour
 
     public void OpenTellentUI()
     {
-        InfoUI.SetActive(false);
+        UIActiveFalse();
         bOpenInfo = false;
-        BigCard.SetActive(false);
 
         if(bOpenTell == false)
         {
@@ -192,7 +208,7 @@ public class HUDManager : MonoBehaviour
 
     public void OpenInfoUI()
     {
-        TellentCard.SetActive(false);
+        UIActiveFalse();
         bOpenTell = false;
 
         if(bOpenInfo == false)
@@ -211,8 +227,16 @@ public class HUDManager : MonoBehaviour
 
     public void Dead()
     {
+        UIActiveFalse();
         DeadUI.SetActive(true);
     }
+
+    public void OpenSetting()
+    {
+        UIActiveFalse();
+        SettingUI.SetActive(true);
+    }
+
 
     public void GotoMainBtn()
     {
@@ -234,4 +258,5 @@ public class HUDManager : MonoBehaviour
         Destroy(this.gameObject);
     }
 
+    
 }

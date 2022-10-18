@@ -106,10 +106,18 @@ public class Start_Ui_Manger : MonoBehaviour
         go_CreateMap.GetComponent<CreateMap>().MapCreate();
         //GameManager.instance.SetData();        
 
+
+        int roll = UnityEngine.Random.Range(1,5);
+
+        Save.St_Stat newStat = new Save.St_Stat(SOManager.GetChar().CharDatas[roll]);
+        e_Class newRole = (e_Class)(roll);
+        Save.Player newChar = new Save.Player(newStat, newRole);
+        newChar.Main = true;
+
+        GameManager.instance.MyParty.Add(newChar);
         
 
         // 1-1.TownScene
-
         for(int i = 0; i < GameManager.instance.MyParty.Count; i++)
         {
             GameManager.instance.MyParty[i].ApplyGetTellent((GameManager.instance.MyParty).Cast<Save.Character>().ToList(), i, GameManager.instance.MyParty.Cast<Save.Character>().ToList(), 0);

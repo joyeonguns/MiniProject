@@ -62,6 +62,8 @@ public class Save
 
     public class Character
     {
+        // SO 정보
+        // public CharacterDatas 
         // 캐릭터 정보
         public string name;
         public e_Class Role;
@@ -361,7 +363,7 @@ public class Save
                 foreach (var Char in MyGrup)
                 {
                     if(Char.bAlive != true)
-                        return;
+                        break;
                     int Dmg = (int)(Char.curHp * 0.1f) + burnCount;
                     if(Dmg < 1) Dmg = 1;
                     Char.TakeDamage_Burn(Dmg, "화상", 0.4f, new Vector2(0,100));
@@ -386,6 +388,7 @@ public class Save
             if(enHanceCount > 0)
             {
                 Battlestatus.Damage *= 1.3f;
+                Battlestatus.Critical = (int)(Battlestatus.Critical * 1.3f);
             }
             if(stunCount > 0)
             {
@@ -503,34 +506,54 @@ public class Save
         }
         public void ApplyGetTellent(List<Character> MyGrup, int idx, List<Character> Enemy, int EnemyIdx)
         {
-            foreach (var telArray in GameManager.instance.Tellents)
+            var Applytell = from tellArray in GameManager.instance.Tellents
+                                from tel in tellArray
+                                where tel.telData.Type == Etel_type.Get
+                                select tel;
+            foreach (var tel in Applytell)
             {
-                foreach (var tel in telArray)
-                {
-                    if (tel.type == Etel_type.Get)
-                    {
-                        tel.TellentApply(MyGrup.Cast<Save.Character>().ToList(), idx, Enemy.Cast<Save.Character>().ToList(), 0);
-                    }
-                }                
-            } 
+                tel.TellentApply(MyGrup.Cast<Save.Character>().ToList(), idx, Enemy.Cast<Save.Character>().ToList(), 0);
+            }
+
+            // foreach (var telArray in GameManager.instance.Tellents)
+            // {
+            //     foreach (var tel in telArray)
+            //     {
+            //         if (tel.type == Etel_type.Get)
+            //         {
+            //             tel.TellentApply(MyGrup.Cast<Save.Character>().ToList(), idx, Enemy.Cast<Save.Character>().ToList(), 0);
+            //         }
+            //     }                
+            // } 
         }
 
 
         public override void StartTurn(List<Character> MyGrup, int idx, List<Character> Enemy, int EnemyIdx)
         {            
-            // 텔런트 적용
-            foreach (var telArray in GameManager.instance.Tellents)
-            {
-                foreach (var tel in telArray)
-                {
-                    if (tel.type == Etel_type.Battle)
-                    {
-                        tel.TellentApply(MyGrup.Cast<Save.Character>().ToList(), idx, Enemy.Cast<Save.Character>().ToList(), 0);
-                    }
-                }                
-            } 
-
             base.StartTurn(MyGrup, idx, Enemy, EnemyIdx);
+
+            // 텔런트 적용
+            var Applytell = from tellArray in GameManager.instance.Tellents
+                                from tel in tellArray
+                                where tel.telData.Type == Etel_type.Battle
+                                select tel;
+            foreach (var tel in Applytell)
+            {
+                tel.TellentApply(MyGrup.Cast<Save.Character>().ToList(), idx, Enemy.Cast<Save.Character>().ToList(), 0);
+            }
+            
+
+
+            // foreach (var telArray in GameManager.instance.Tellents)
+            // {
+            //     foreach (var tel in telArray)
+            //     {
+            //         if (tel.type == Etel_type.Battle)
+            //         {
+            //             tel.TellentApply(MyGrup.Cast<Save.Character>().ToList(), idx, Enemy.Cast<Save.Character>().ToList(), 0);
+            //         }
+            //     }                
+            // }             
         }
     }
 

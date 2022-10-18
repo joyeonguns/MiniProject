@@ -41,9 +41,10 @@ public class Magition_Skill : BaseSkill
 
         // 스텟 가져옴
         // 스킬 특성
-        Caster[CasterIdx].Battlestatus.Damage *= 1.2f;
+        Caster[CasterIdx].Battlestatus.Damage *= 1.5f;
         Enemy[EnemyIdx].TakeDamage(Caster[CasterIdx]);
-        Enemy[EnemyIdx].burnCount +=3;
+        
+        Enemy[EnemyIdx].burnCount += 3;
 
     }
     void skill_1(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)

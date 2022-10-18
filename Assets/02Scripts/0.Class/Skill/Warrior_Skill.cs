@@ -80,7 +80,7 @@ public class Warrior_Skill : BaseSkill
         // 스킬 특성        
         foreach(var character in Caster)
         {
-            character.TakeHeal(Caster[CasterIdx].Battlestatus.Damage);
+            character.TakeHeal(Caster[CasterIdx].Battlestatus.Damage * 0.4f);
         }
 
     }

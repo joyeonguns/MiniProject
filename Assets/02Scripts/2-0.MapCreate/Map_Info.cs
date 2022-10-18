@@ -91,22 +91,24 @@ public class Map_Info : MonoBehaviour
                 
                 Captain[i].SetActive(GM.MyParty[i].Main);
 
-                switch (GM.MyParty[i].Role)
-                {
-                    case e_Class.Warrior :
-                        Char_Image[i].sprite = CharacterImage[0];
+                Char_Image[i].sprite = SOManager.GetChar().CharDatas[(int)GM.MyParty[i].Role].Illuste; 
 
-                        break;
-                    case e_Class.Magicion :
-                        Char_Image[i].sprite = CharacterImage[1];
-                        break;
-                    case e_Class.Supporter :
-                        Char_Image[i].sprite = CharacterImage[2];
-                        break;
-                    case e_Class.Assassin :
-                        Char_Image[i].sprite = CharacterImage[3];
-                        break;
-                }
+                // switch (GM.MyParty[i].Role)
+                // {
+                //     case e_Class.Warrior :
+                //         Char_Image[i].sprite = CharacterImage[0];
+
+                //         break;
+                //     case e_Class.Magicion :
+                //         Char_Image[i].sprite = CharacterImage[1];
+                //         break;
+                //     case e_Class.Supporter :
+                //         Char_Image[i].sprite = CharacterImage[2];
+                //         break;
+                //     case e_Class.Assassin :
+                //         Char_Image[i].sprite = CharacterImage[3];
+                //         break;
+                // }
             }
             else
             {
@@ -198,9 +200,9 @@ public class Map_Info : MonoBehaviour
         {
             // 위치 초기화
             firstCharacter.transform.position = firstLoc;
-            firstCharacter.GetComponent<Info_Character>().num = Target_1;
+            //firstCharacter.GetComponent<Info_Character>().num = Target_1;
             SecondCharacter.transform.position = secondLoc;      
-            SecondCharacter.GetComponent<Info_Character>().num = Target_0;
+            //SecondCharacter.GetComponent<Info_Character>().num = Target_0;
 
 
 

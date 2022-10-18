@@ -140,6 +140,7 @@ public class RewardManager : MonoBehaviour
         }
         
 
+        // 이미지 연결
         for(int i = 0; i < 3; i++)
         {
             TextMeshProUGUI _Name = Tellents[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>();
@@ -196,6 +197,7 @@ public class RewardManager : MonoBehaviour
         {
             gainExp = 0;
             Result_Gettellent.SetActive(false);
+            
         }
         
 
@@ -208,7 +210,7 @@ public class RewardManager : MonoBehaviour
             else
             {
                 int roleCode = (int)GM.MyParty[i].Role;
-                PlayerObj[i].GetComponent<Image>().sprite = CharIcon[roleCode];
+                PlayerObj[i].GetComponent<Image>().sprite = SOManager.GetChar().CharDatas[roleCode].Icon;
             }
         }
         for(int i = 0; i < GM.MyParty.Count; i++)

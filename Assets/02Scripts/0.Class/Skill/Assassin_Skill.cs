@@ -55,6 +55,7 @@ public class Assassin_Skill : BaseSkill
         Debug.Log(Caster[CasterIdx].name + " : " + "Week Search");
         // 마나 소모
         Caster[CasterIdx].Mana -= SKill_Data.Cost;
+        Caster[CasterIdx].enHanceCount += 2;
         Enemy[EnemyIdx].corrotionCount += 2;
         Enemy[EnemyIdx].frostCount += 2;
     }
