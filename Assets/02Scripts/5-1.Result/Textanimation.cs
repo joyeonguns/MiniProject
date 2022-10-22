@@ -111,25 +111,29 @@ public class Textanimation : MonoBehaviour
     {
         int score_int = 0;
 
-        scoreData.floor = 12;
-        scoreData.win_Battle = 5;
-        scoreData.win_Boss = 1;
-        scoreData.C_Rank = 3;
-        scoreData.B_Rank = 2;
-        scoreData.A_Rank = 1;
-        scoreData.S_Rank = 3;
-        scoreData.Attack_Count = 10;
-        scoreData.Skill_Count = 20;
-        scoreData.Ulti_Count = 5;
-        scoreData.Gold = 700;
-        scoreData.All_Lvl = 10;
-        scoreData.Used_Itme = 4;
-        scoreData.Member_1 = 0;
-        scoreData.Member_3 = 1;
-        scoreData.Death_Count = 0;
-        scoreData.Critical_Count = 10;
-        scoreData.Dodge_Count = 8;
+        // scoreData.floor = 12;
+        // scoreData.win_Battle = 5;
+        // scoreData.win_Boss = 1;
+        // scoreData.C_Rank = 3;
+        // scoreData.B_Rank = 2;
+        // scoreData.A_Rank = 1;
+        // scoreData.S_Rank = 3;
+        // scoreData.Attack_Count = 10;
+        // scoreData.Skill_Count = 20;
+        // scoreData.Ulti_Count = 5;
+        // scoreData.Gold = 700;
+        // scoreData.All_Lvl = 10;
+        // scoreData.Used_Itme = 4;
+        // scoreData.Member_1 = 0;
+        // scoreData.Member_3 = 1;
+        // scoreData.Death_Count = 0;
+        // scoreData.Critical_Count = 10;
+        // scoreData.Dodge_Count = 8;
 
+        SetGameScoreData();
+
+        scoreData = GameManager.instance.GameScoreData;
+        
         score_int = 
         scoreData.floor * 11111 +
         scoreData.win_Battle * 33333 +
@@ -151,6 +155,7 @@ public class Textanimation : MonoBehaviour
         scoreData.Dodge_Count * 5555;
 
         Score = ""+score_int;
+        GameManager.instance.TotalScore = score_int;
         Debug.Log("Score : " + score_int);
     }
 
@@ -188,13 +193,39 @@ public class Textanimation : MonoBehaviour
         // }
     }
 
-    void RegistRankingScene()
+    public void RegistRankingScene()
     {
         SceneManager.LoadScene(13);
     }
 
-    void firstScene()
+    public void firstScene()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public int Sumlevel(List<Save.Player> players)
+    {
+        int sum = 0;
+        foreach(var player in players)
+        {
+            sum += player.Level;
+        }
+
+        return sum;
+    } 
+
+    void SetGameScoreData()
+    {
+        GameManager.instance.GameScoreData.floor = GameManager.instance._CurMap.floor;
+        GameManager.instance.GameScoreData.C_Rank = GameManager.instance.Tellents[0].Count;
+        GameManager.instance.GameScoreData.B_Rank = GameManager.instance.Tellents[1].Count;
+        GameManager.instance.GameScoreData.A_Rank = GameManager.instance.Tellents[2].Count;
+        GameManager.instance.GameScoreData.S_Rank = GameManager.instance.Tellents[3].Count;
+        GameManager.instance.GameScoreData.Gold = GameManager.instance.curGold;
+        GameManager.instance.GameScoreData.All_Lvl = Sumlevel(GameManager.instance.MyParty);        
+
+        Func<int,int,int> memberCount = (x,y) => {if(x == y) return 1; else return 0;};
+        GameManager.instance.GameScoreData.Member_1 = memberCount(GameManager.instance.MyParty.Count, 1);
+        GameManager.instance.GameScoreData.Member_3 = memberCount(GameManager.instance.MyParty.Count, 3);
     }
 }

@@ -11,6 +11,7 @@ public class CharSKillDatas
     public bool MultiTarget;
     public int Cost;
     public bool Buff;
+    public AudioClip Sound;
 
 }
 

@@ -37,6 +37,7 @@ public class RankUIManager : MonoBehaviour
     void Start()
     {
         OnClickRefresh();
+        Score = GameManager.instance.TotalScore;
         scoreText.text = Score.ToString("D8");
 
         UISize uiSize = new UISize(){width = 1920, height = 1080};
@@ -106,6 +107,8 @@ public class RankUIManager : MonoBehaviour
         }
 
         inpuField.text = "";        
+
+        OnClickRefresh();
     }
 
     public void OnClickExit()

@@ -43,7 +43,13 @@ public class Warrior_Skill : BaseSkill
 
         // 스텟 가져옴
         // 스킬 특성
-        Caster[CasterIdx].Battlestatus.Damage *= 1.7f;
+        Caster[CasterIdx].Battlestatus.Damage *= 0.5f;
+        
+        int rnd = UnityEngine.Random.Range(0,3);
+        if(rnd == 0)
+        {
+            Enemy[EnemyIdx].stunCount += 1;
+        }        
         Enemy[EnemyIdx].TakeDamage(Caster[CasterIdx]);
 
     }
@@ -56,7 +62,8 @@ public class Warrior_Skill : BaseSkill
         // 스킬 특성
         Caster[CasterIdx].Battlestatus.Critical += 1000;
         Enemy[EnemyIdx].TakeDamage(Caster[CasterIdx]);
-        Enemy[EnemyIdx].stunCount = 3;
+        Enemy[EnemyIdx].bleedCount += 3;
+       
     }
     void skill_2(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
     {

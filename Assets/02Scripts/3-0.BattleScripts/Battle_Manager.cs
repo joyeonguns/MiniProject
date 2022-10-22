@@ -280,7 +280,10 @@ public class Battle_Manager : MonoBehaviour
         {
             Character[Attacker].MySkill[selecSkill].UseSkill(Character.Cast<Save.Character>().ToList(), Attacker, Character.Cast<Save.Character>().ToList(), target);
         }
+        
+        CharSKillDatas SelectSkill = Character[Attacker].MySkill[selecSkill].SKill_Data;
 
+        
         SpwAttackAnim(Character[Attacker].MySkill[selecSkill], true, Character[Attacker].MySkill[selecSkill].SKill_Data.MultiTarget, Character[Attacker].MySkill[selecSkill].SKill_Data.Buff);
 
         if(Character[Attacker].MySkill[selecSkill].SKill_Data.Code == 0)
@@ -711,6 +714,13 @@ public class Battle_Manager : MonoBehaviour
 
     void SpwAttackAnim(BaseSkill usingSkill, bool bPlayerAtk, bool bmultiTarget, bool bBuff)
     {
+        // 사운드
+        AudioClip skill_Sound =  usingSkill.SKill_Data.Sound;
+
+        if(bPlayerAtk == true)
+            SoundManager.instance.SFXPlay("skill_Sound", skill_Sound);
+        else
+            ;
         AttackObj.SetActive(true);
         Attack_Text.text = "[" + usingSkill.SKill_Data.Name + "]";
         Invoke("DeleteAttackAnim",2.0f);

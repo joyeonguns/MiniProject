@@ -40,7 +40,7 @@ MonoBehaviour:
     - {fileID: 21300000, guid: a69d36690c5010e4c8b79308751d1513, type: 3}
     ulti: {fileID: 21300000, guid: a9ebed9f077aa2f4d9da62b95e2f333a, type: 3}
     Icon: {fileID: 21300000, guid: 5b0aefd321385044ca4d7fb77a946ad4, type: 3}
-    Illuste: {fileID: 21300000, guid: a49f2ebdea2b973449c4a47c09e8fe39, type: 3}
+    Illuste: {fileID: 21300000, guid: 3bb39b4761c7e6f4d86faa88fdc2e8d1, type: 3}
   - Damage: 14
     Armor: 0.1
     Speed: 2
@@ -56,7 +56,7 @@ MonoBehaviour:
     - {fileID: 21300000, guid: e1dda47913ea17140bb58a1f8d7167d6, type: 3}
     ulti: {fileID: 21300000, guid: ed883c7d0593d094b9d78a3b811206fb, type: 3}
     Icon: {fileID: 21300000, guid: 49bad27329a8b1e40ac5d05cd3dd2138, type: 3}
-    Illuste: {fileID: 21300000, guid: 88f9c431bb136c848b4b143a08eb5151, type: 3}
+    Illuste: {fileID: 21300000, guid: 68392244cfeb24247903c4a173c04a98, type: 3}
   - Damage: 7
     Armor: 0.3
     Speed: 1
@@ -72,7 +72,7 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 3c35e79edc2367c44ab8b69095f7b1dd, type: 3}
     ulti: {fileID: 21300000, guid: ab1e721a777292746ba396789f38ae1e, type: 3}
     Icon: {fileID: 21300000, guid: 83e8a710fdb44594e9d732b55c7c2040, type: 3}
-    Illuste: {fileID: 21300000, guid: 8d541c3cb68d0784d85cf39987823c0a, type: 3}
+    Illuste: {fileID: 21300000, guid: 4a9b007f6a809e146830d0f038d8bce0, type: 3}
   - Damage: 10
     Armor: 0.2
     Speed: 7
@@ -88,4 +88,4 @@ MonoBehaviour:
     - {fileID: 21300000, guid: e67714b5ebcf0f14c986b09ae91bdaca, type: 3}
     ulti: {fileID: 21300000, guid: 6ead2ec89109b7a4ba583714d83acfab, type: 3}
     Icon: {fileID: 21300000, guid: dbeae66e7c05724439a06eec8f02f0dc, type: 3}
-    Illuste: {fileID: 21300000, guid: 0c96d4ba96bcd9c47aab9fa8abe60930, type: 3}
+    Illuste: {fileID: 21300000, guid: 461c38e0fa8c2ad4a9936715c9c6089b, type: 3}

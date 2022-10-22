@@ -48,7 +48,7 @@ public class Assassin_Skill : BaseSkill
             enemy.TakeDamage(Caster[CasterIdx]);
             enemy.bleedCount += 2;
         }
-
+        
     }
     void skill_1(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
     {

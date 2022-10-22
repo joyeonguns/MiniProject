@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
 
     // 스코어
     public ScoreData GameScoreData;
+    public int TotalScore;
 
     // 싱글턴 인스턴스
     private void Awake()

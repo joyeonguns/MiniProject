@@ -13,6 +13,10 @@ public class BossBtManager : Battle_Manager
 
 
     // 브래스
+    public GameObject BossObj;
+    public Image BossHP;
+    public Button BossBtn;
+    public Image BossIMG;
     public GameObject BressObj;
     public Image BressImage;
     public TextMeshProUGUI BressText;
@@ -26,6 +30,8 @@ public class BossBtManager : Battle_Manager
     {
         StartSetting();
         TurnStart();
+
+        BossObj.SetActive(false);
 
         AttackObj.SetActive(false);
         HUDManager.instance.players = Character;
@@ -67,6 +73,7 @@ public class BossBtManager : Battle_Manager
             {
                 Debug.Log("승리");
                 EndBattle(12);
+                GameManager.instance.GameScoreData.win_Boss += 1;
             }
             else
             {
@@ -164,17 +171,26 @@ public class BossBtManager : Battle_Manager
 
         HUDManager.instance.Enemys = Enemy.Cast<Save.Enemy>().ToList();
 
+        EnemyField[0].SetActive(false);
         EnemyField[1].SetActive(false);
         EnemyField[2].SetActive(false);
+        
+        EnemyField[0] = new GameObject();
+        EnemyField[0] = BossObj;
+        Enemy_HP[0] = BossHP;
+        EnemyButton[0] = BossBtn;
+        EnemyImage[0] = BossIMG;
+
+        EnemyField[0].SetActive(true);
 
         Enemy[0].PoolSave = GetComponent<DamagePool>();
         Enemy[0].spwLoc = EnemyField[0].GetComponent<RectTransform>().anchoredPosition + new Vector2(50, 300);
-        EnemyImage[0].sprite = EnemySprite[2];
-        EnemyImage[0].GetComponent<RectTransform>().sizeDelta = new Vector2(800, 800);
+        // EnemyImage[0].sprite = EnemySprite[2];
+        // EnemyImage[0].GetComponent<RectTransform>().sizeDelta = new Vector2(800, 800);
 
-        EnemyField[0].transform.GetChild(1).GetComponent<RectTransform>().localScale = new Vector3(4, 1, 1);
-        EnemyField[0].transform.GetChild(1).GetComponent<RectTransform>().anchoredPosition = new Vector3(0, -100, 0);
-        EnemyField[0].GetComponent<RectTransform>().anchoredPosition = new Vector2(550, 150);
+        // EnemyField[0].transform.GetChild(1).GetComponent<RectTransform>().localScale = new Vector3(4, 1, 1);
+        // EnemyField[0].transform.GetChild(1).GetComponent<RectTransform>().anchoredPosition = new Vector3(0, -100, 0);
+        // EnemyField[0].GetComponent<RectTransform>().anchoredPosition = new Vector2(550, 150);
 
         AttackEnemy[1].GetComponent<RectTransform>().sizeDelta = new Vector2(700, 700);
         AttackEnemy[1].GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 250);
