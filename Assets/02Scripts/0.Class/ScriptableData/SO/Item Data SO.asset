@@ -16,27 +16,36 @@ MonoBehaviour:
   - ItemCode: 0
     ItemName: None
     ItemComments: "\uD3EC\uC158\uC774 \uC5C6\uC2B5\uB2C8\uB2E4."
+    ItemImage: {fileID: 21300000, guid: 0f114ab13d2f6a045b1a71f4f0c68866, type: 3}
   - ItemCode: 1
     ItemName: Smoke
     ItemComments: "\uC5F0\uB9C9\uC744 \uBFCC\uB824 \uC804\uD22C\uC5D0\uC11C \uBC97\uC5B4\uB0A9\uB2C8\uB2E4."
+    ItemImage: {fileID: 21300000, guid: 4f9c1ccde740fff4dbf051c4a64a6bc2, type: 3}
   - ItemCode: 2
     ItemName: Explotion
     ItemComments: "\uC801\uC5D0\uAC8C 20\uC758 \uD53C\uD574\uB97C \uC90D\uB2C8\uB2E4."
+    ItemImage: {fileID: 21300000, guid: 7584445c32eb04745a4ded2eb926753b, type: 3}
   - ItemCode: 3
     ItemName: Mana
     ItemComments: "\uB9C8\uB098\uB97C \uD68C\uBCF5\uD569\uB2C8\uB2E4."
+    ItemImage: {fileID: 21300000, guid: a7671d513fbc22a43970f911ffed27c3, type: 3}
   - ItemCode: 4
     ItemName: Helth
     ItemComments: "\uCCB4\uB825\uC744 \uD68C\uBCF5\uD569\uB2C8\uB2E4."
+    ItemImage: {fileID: 21300000, guid: 265938a602debc144b3da0941fce8f10, type: 3}
   - ItemCode: 5
     ItemName: Recover
     ItemComments: "\uB9E4 \uD134\uB2F9 \uCCB4\uB825\uC744 \uD68C\uBCF5\uD569\uB2C8\uB2E4."
+    ItemImage: {fileID: 21300000, guid: 14a2f5736757ad34abcde71ed9133711, type: 3}
   - ItemCode: 6
     ItemName: Corrotion
     ItemComments: "\uC801\uC5D0\uAC8C \uBD80\uC2DD\uC744 \uBD80\uC5EC\uD569\uB2C8\uB2E4."
+    ItemImage: {fileID: 21300000, guid: d14dbad93dc0b254b98e72d5f3b241bc, type: 3}
   - ItemCode: 7
     ItemName: Enhance
     ItemComments: "\uC544\uAD70\uC744 \uAC15\uD654 \uD569\uB2C8\uB2E4."
+    ItemImage: {fileID: 21300000, guid: d76b83ac2629f274cb0343719a0def6f, type: 3}
   - ItemCode: 8
     ItemName: Ice
     ItemComments: "\uC801\uC744 \uC5BC\uC5B4\uBD99\uAC8C \uB9CC\uB4ED\uB2C8\uB2E4."
+    ItemImage: {fileID: 21300000, guid: ab1dbcc4c9755e3409413b999266f9b2, type: 3}

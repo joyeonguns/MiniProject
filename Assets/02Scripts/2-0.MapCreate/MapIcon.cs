@@ -27,7 +27,7 @@ public class MapIcon : MonoBehaviour
     void Start()
     {
         GM = GameManager.instance;
-        floor = GM._CurMap.floor;
+        //floor = GM._CurMap.floor;
 
         // 아이콘 텍스트;
         if (x < 13)
@@ -49,12 +49,12 @@ public class MapIcon : MonoBehaviour
     public void SetText(int a)
     {
         string str = "";
-        if (a == 0) str = " M ";
-        else if (a == 1) str = "Shop";
-        else if (a == 2) str = "Camp";
-        else if (a == 3) str = "Tellent";
-        else if (a == 4) str = " ? ";
-        else if (a == 6) str = "Named";
+        // if (a == 0) str = " M ";
+        // else if (a == 1) str = "Shop";
+        // else if (a == 2) str = "Camp";
+        // else if (a == 3) str = "Tellent";
+        // else if (a == 4) str = " ? ";
+        // else if (a == 6) str = "Named";
 
         Mapname.text = str;
     }
@@ -62,12 +62,30 @@ public class MapIcon : MonoBehaviour
     void SetImage()
     {
         int m = map.mapData;
-        if (m == 0) img.color = Color.white;
-        else if (m == 1) img.color = Color.blue;
-        else if (m == 2) img.color = Color.green;
-        else if (m == 3) img.color = Color.yellow;
-        else if (m == 4) img.color = Color.black;
-        else if (m == 6) img.color = Color.red;
+        // if (m == 0) 
+        // {
+        //     img.color = Color.white;
+        // }
+        // else if (m == 1)
+        // {
+        //     img.color = Color.blue;
+        // }
+        // else if (m == 2) 
+        // {
+        //     img.color = Color.green;
+        // }
+        // else if (m == 3) 
+        // {
+        //     img.color = Color.yellow;
+        // }
+        // else if (m == 4) 
+        // {
+        //     img.color = Color.black;
+        // }
+        // else if (m == 6) 
+        // {
+        //     img.color = Color.red;
+        // }
     }
 
     // Update is called once per frame
@@ -108,7 +126,6 @@ public class MapIcon : MonoBehaviour
     public void ClickBTN()
     {
 
-        Debug.Log("set : " + x + " " + y);
         GM.SetCurMap(x - 1, y);
 
         string str = "";
@@ -146,8 +163,16 @@ public class MapIcon : MonoBehaviour
         // 2-3.RecruitScene 1
 
         //str = "4-0.BossScene";
+        int i = 5;
         HUDManager.instance.SetFloor();
+        // SceneManager.LoadScene(12);
+        
         SceneManager.LoadScene(str);
+    }
+
+    public void inBossRoom()
+    {
+        SceneManager.LoadScene(11);
     }
 
 }

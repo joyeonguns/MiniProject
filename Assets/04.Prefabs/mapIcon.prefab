@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4778328446012972242}
   - component: {fileID: 8669619703923741968}
   - component: {fileID: 4843229686812354316}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 1279121228822254091}
   - component: {fileID: 3487973457451070826}
   - component: {fileID: 5853991781745292205}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: mapIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,7 +174,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 70, y: 48}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &471378171728432832
 CanvasRenderer:
@@ -239,7 +239,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.33962262, g: 0.33962262, b: 0.33962262, a: 0.8784314}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -285,3 +285,9 @@ MonoBehaviour:
   Mapname: {fileID: 4843229686812354316}
   x: 1
   y: 2
+  map:
+    mapData: 5
+    roots: 090000000900000009000000
+    floor: 0
+    isLife: 0
+  floor: 0

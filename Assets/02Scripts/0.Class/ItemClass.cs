@@ -11,11 +11,11 @@ public class ItemClass
     public int ItemCode;
     public string ItemName;
     public string ItemComments;
-    public Action<List<Save.Player>, int, List<Save.Enemy>, int> UseItem;
+    public Action<List<Player>, int, List<Enemy>, int> UseItem;
     
     // 저장 리스트
-    Action<List<Save.Player>, int, List<Save.Enemy>, int>[] ItemFunction = 
-     new Action<List<Save.Player>, int, List<Save.Enemy>, int>[]
+    Action<List<Player>, int, List<Enemy>, int>[] ItemFunction = 
+     new Action<List<Player>, int, List<Enemy>, int>[]
       {Nothing, SmokePotion, ExplotionPotion, ManaPotion, HelthPotion, RecoverPotion, CorrotionPotion, EnhanthPotion, IcePotion};
 
     //string[] ItemNames = {"No","Smoke", "Explotion", "Mana", "Helth", "Recover", "Corrotion", "Enhanth", "Ice"};
@@ -39,29 +39,29 @@ public class ItemClass
         }
         
     }
-    static void Nothing(List<Save.Player> Caster, int CasterIdx, List<Save.Enemy> Enemy, int EnemyIdx)
+    static void Nothing(List<Player> Caster, int CasterIdx, List<Enemy> Enemy, int EnemyIdx)
     {
 
     }
 
     
-    static void SmokePotion(List<Save.Player> Caster, int CasterIdx, List<Save.Enemy> Enemy, int EnemyIdx)
+    static void SmokePotion(List<Player> Caster, int CasterIdx, List<Enemy> Enemy, int EnemyIdx)
     {
         // ResultManager 초기화
         GameManager.instance.ResultData.ResultMode = ResultEnum.Run;        
         // 씬 이동
         SceneManager.LoadScene("2-4.GiftScene");
     }
-    static void ExplotionPotion(List<Save.Player> Caster, int CasterIdx, List<Save.Enemy> Enemy, int EnemyIdx)
+    static void ExplotionPotion(List<Player> Caster, int CasterIdx, List<Enemy> Enemy, int EnemyIdx)
     {
         // 전체 20데미지
         foreach (var enemy in Enemy)
         {
              Debug.Log("Use Item : Boom");
-            enemy.TakeDamage_Item(ConstData.BoomDmg,"Boom");   
+            enemy.TakeDamage_Item(ConstData.BoomDmg,"");   
         }
     }
-    static void ManaPotion(List<Save.Player> Caster, int CasterIdx, List<Save.Enemy> Enemy, int EnemyIdx)
+    static void ManaPotion(List<Player> Caster, int CasterIdx, List<Enemy> Enemy, int EnemyIdx)
     {
         // 전체 마나 5회복        
         foreach (var target in Caster)
@@ -69,7 +69,7 @@ public class ItemClass
             target.TakeMana(5);   
         }
     }
-    static void HelthPotion(List<Save.Player> Caster, int CasterIdx, List<Save.Enemy> Enemy, int EnemyIdx)
+    static void HelthPotion(List<Player> Caster, int CasterIdx, List<Enemy> Enemy, int EnemyIdx)
     {
         // 전체 체력 15회복        
         foreach (var target in Caster)
@@ -77,7 +77,7 @@ public class ItemClass
             target.TakeHeal(ConstData.ItemHeal);   
         }
     }
-    static void RecoverPotion(List<Save.Player> Caster, int CasterIdx, List<Save.Enemy> Enemy, int EnemyIdx)
+    static void RecoverPotion(List<Player> Caster, int CasterIdx, List<Enemy> Enemy, int EnemyIdx)
     {
         // 전체 턴당 체력 5회복        
         foreach (var target in Caster)
@@ -85,7 +85,7 @@ public class ItemClass
             target.regenCount += 3;   
         }
     }
-    static void CorrotionPotion(List<Save.Player> Caster, int CasterIdx, List<Save.Enemy> Enemy, int EnemyIdx)
+    static void CorrotionPotion(List<Player> Caster, int CasterIdx, List<Enemy> Enemy, int EnemyIdx)
     {
         // 3턴 방깍        
         foreach (var target in Enemy)
@@ -101,7 +101,7 @@ public class ItemClass
             target.corrotionCount += 3;   
         }
     }
-    static void EnhanthPotion(List<Save.Player> Caster, int CasterIdx, List<Save.Enemy> Enemy, int EnemyIdx)
+    static void EnhanthPotion(List<Player> Caster, int CasterIdx, List<Enemy> Enemy, int EnemyIdx)
     {
         // 3턴 공증        
         foreach (var target in Caster)
@@ -113,7 +113,7 @@ public class ItemClass
             target.enHanceCount += 3;   
         }
     }
-    static void IcePotion(List<Save.Player> Caster, int CasterIdx, List<Save.Enemy> Enemy, int EnemyIdx)
+    static void IcePotion(List<Player> Caster, int CasterIdx, List<Enemy> Enemy, int EnemyIdx)
     {
         // 3턴 공증        
         foreach (var target in Enemy)

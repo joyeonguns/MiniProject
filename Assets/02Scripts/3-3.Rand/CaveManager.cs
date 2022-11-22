@@ -133,6 +133,7 @@ public class CaveManager : MonoBehaviour
         BackGroundImage.sprite = BackSprite[1];
         
         Contents.GetComponent<Image>().sprite = Contentsprite[1];
+        Contents.GetComponent<RectTransform>().localScale = new Vector3(1,1.3f,1);
         Contents.SetActive(false);
         
         Chatting.text = Chat_Dic[ChatNum];

@@ -20,6 +20,11 @@ MonoBehaviour:
     Critical: 40
     MaxHp: 40
     Resist: 50
+    attack: {fileID: 0}
+    skill: []
+    ulti: {fileID: 0}
+    Icon: {fileID: 0}
+    Illuste: {fileID: 0}
   - Damage: 10
     Armor: 0.5
     Speed: 5
@@ -27,6 +32,15 @@ MonoBehaviour:
     Critical: 40
     MaxHp: 40
     Resist: 30
+    attack: {fileID: 21300000, guid: 47adcfce6443fcb46b4b9278fcb1b009, type: 3}
+    skill:
+    - {fileID: 21300000, guid: 5b6344b8f7413b849976b846fe6a3207, type: 3}
+    - {fileID: 21300000, guid: b62c9c1a1fda3b846bd37a39e5421d6f, type: 3}
+    - {fileID: 21300000, guid: dbe3e8de3a1238f4c8372ae87dc8175f, type: 3}
+    - {fileID: 21300000, guid: a69d36690c5010e4c8b79308751d1513, type: 3}
+    ulti: {fileID: 21300000, guid: a9ebed9f077aa2f4d9da62b95e2f333a, type: 3}
+    Icon: {fileID: 21300000, guid: 5b0aefd321385044ca4d7fb77a946ad4, type: 3}
+    Illuste: {fileID: 21300000, guid: 3bb39b4761c7e6f4d86faa88fdc2e8d1, type: 3}
   - Damage: 14
     Armor: 0.1
     Speed: 2
@@ -34,6 +48,15 @@ MonoBehaviour:
     Critical: 30
     MaxHp: 25
     Resist: 10
+    attack: {fileID: 21300000, guid: 0889961c37bf0994f921c7082fcb48f7, type: 3}
+    skill:
+    - {fileID: 21300000, guid: c2541016858bb6f429ef6083f5f95395, type: 3}
+    - {fileID: 21300000, guid: 139423b3c12d5d743a9d3a0fb93673bd, type: 3}
+    - {fileID: 21300000, guid: f03c10e11d71e4347a650f782b563660, type: 3}
+    - {fileID: 21300000, guid: e1dda47913ea17140bb58a1f8d7167d6, type: 3}
+    ulti: {fileID: 21300000, guid: ed883c7d0593d094b9d78a3b811206fb, type: 3}
+    Icon: {fileID: 21300000, guid: 49bad27329a8b1e40ac5d05cd3dd2138, type: 3}
+    Illuste: {fileID: 21300000, guid: 68392244cfeb24247903c4a173c04a98, type: 3}
   - Damage: 7
     Armor: 0.3
     Speed: 1
@@ -41,6 +64,15 @@ MonoBehaviour:
     Critical: 30
     MaxHp: 30
     Resist: 35
+    attack: {fileID: 21300000, guid: 9247ad43af6c90546959fbea74b1f9f3, type: 3}
+    skill:
+    - {fileID: 21300000, guid: 5828a537574442649b683400b5391455, type: 3}
+    - {fileID: 21300000, guid: 4afddc8d8d09e16488a5cd3b476682b4, type: 3}
+    - {fileID: 21300000, guid: fee0de560f6c71e4b986d01933e25748, type: 3}
+    - {fileID: 21300000, guid: 3c35e79edc2367c44ab8b69095f7b1dd, type: 3}
+    ulti: {fileID: 21300000, guid: ab1e721a777292746ba396789f38ae1e, type: 3}
+    Icon: {fileID: 21300000, guid: 83e8a710fdb44594e9d732b55c7c2040, type: 3}
+    Illuste: {fileID: 21300000, guid: 4a9b007f6a809e146830d0f038d8bce0, type: 3}
   - Damage: 10
     Armor: 0.2
     Speed: 7
@@ -48,3 +80,12 @@ MonoBehaviour:
     Critical: 100
     MaxHp: 27
     Resist: 25
+    attack: {fileID: 21300000, guid: 225fd460c3a27974cb4d516a7f0f38c9, type: 3}
+    skill:
+    - {fileID: 21300000, guid: 30a2f791c6513114c83ae8dfb937520d, type: 3}
+    - {fileID: 21300000, guid: 522458b2a4872e44ba65481c033ac7c7, type: 3}
+    - {fileID: 21300000, guid: 3f389317975e9f8478437b02b668781b, type: 3}
+    - {fileID: 21300000, guid: e67714b5ebcf0f14c986b09ae91bdaca, type: 3}
+    ulti: {fileID: 21300000, guid: 6ead2ec89109b7a4ba583714d83acfab, type: 3}
+    Icon: {fileID: 21300000, guid: dbeae66e7c05724439a06eec8f02f0dc, type: 3}
+    Illuste: {fileID: 21300000, guid: 461c38e0fa8c2ad4a9936715c9c6089b, type: 3}

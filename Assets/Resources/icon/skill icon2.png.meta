@@ -1,0 +1,3719 @@
+fileFormatVersion: 2
+guid: af1f002533765c34c9014456516762cd
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: skill icon2_0
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 413
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b736292dee564a04da1b08ec0819e61e
+      internalID: -925132816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_1
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 413
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8da8421701cda7b449c8f900346ebd75
+      internalID: 1417951215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_2
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 413
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8399ccb408ba8f04481b31d27fbfe739
+      internalID: -1555546053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_3
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 413
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3ec4566b2f14354ab99b400bef6467c
+      internalID: 1111698715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_4
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 413
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e61854dc8fd81314d8d8579a21e357cd
+      internalID: -184502067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_5
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 413
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a3703832923aa442bdeaa60e81fc1a2
+      internalID: -1800739921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_6
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 413
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de251e584a5d3ff4d88328a5303cda9a
+      internalID: -1683952265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_7
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 413
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22244d23d91fd8f44b34d58a7711ced7
+      internalID: 1926081652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_8
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 413
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd08709a77365bc4aa3314abc2672dba
+      internalID: 1924521430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_9
+      rect:
+        serializedVersion: 2
+        x: 469
+        y: 413
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd230d149553aa145a6119cc0edd08b7
+      internalID: 1755926479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_10
+      rect:
+        serializedVersion: 2
+        x: 521
+        y: 413
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cafde0e7fc2f20848b30b37f5a5bc871
+      internalID: 1759421702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_11
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 413
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe52c769505448240bb71a3d942724d0
+      internalID: -824271345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_12
+      rect:
+        serializedVersion: 2
+        x: 623
+        y: 413
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d53aa6647b705e46a5d69a488392ece
+      internalID: -848969028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_13
+      rect:
+        serializedVersion: 2
+        x: 623
+        y: 413
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b788c4e6dbfc7149ad808d185313d7a
+      internalID: 620511179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_14
+      rect:
+        serializedVersion: 2
+        x: 675
+        y: 413
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70839a2be4ef7344a9b207479e17f02d
+      internalID: -1588748698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_15
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 413
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 846314df0fe65df47b21923ea0ff89d1
+      internalID: 981263625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_16
+      rect:
+        serializedVersion: 2
+        x: 777
+        y: 413
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e8196438510b70408d1ff413c620979
+      internalID: -227746267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_17
+      rect:
+        serializedVersion: 2
+        x: 830
+        y: 413
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e7068274f42dee4d88f72a2459c2440
+      internalID: 1104646561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_18
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 413
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30bc9f60ce8fe1d4c9bc17caf8de1f3f
+      internalID: 52945592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_19
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 362
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07f0083254e5be64eac59281977a3af0
+      internalID: 394074922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_20
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 362
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6825cf2831ef71543849c99f3304f12f
+      internalID: -1513391423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_21
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 362
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 316cfff9d4799104d8f0075a41cef0a5
+      internalID: -1688843545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_22
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 362
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f504fca9489f2ed48b794a7d94345f9f
+      internalID: 2019466366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_23
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 362
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9799459803d9e05478d2e25fb52ad0d8
+      internalID: 1824781253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_24
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 362
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0466180851373c42996cd91786b8a88
+      internalID: 369244723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_25
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 362
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4d11869a400e9f41bee5c1a5b28b988
+      internalID: -688561023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_26
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 362
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03823961bdd14544ea7949d435ea0997
+      internalID: -320468642
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_29
+      rect:
+        serializedVersion: 2
+        x: 469
+        y: 362
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72dedb16aa34ffc4d8975f7d93aefd08
+      internalID: -1520163735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_30
+      rect:
+        serializedVersion: 2
+        x: 521
+        y: 362
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb6e911f934304a44ab59632c245265e
+      internalID: 1536773821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_31
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 362
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bcc1e8a191ace4a45b35a0d055969fca
+      internalID: -301645638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_32
+      rect:
+        serializedVersion: 2
+        x: 623
+        y: 362
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a068a2c9cbf1733429cb3a70b8ec52de
+      internalID: 950873007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_33
+      rect:
+        serializedVersion: 2
+        x: 675
+        y: 362
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4c352c7163eb4d4a96fb6e8377a133b
+      internalID: -864767185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_34
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 362
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d423d7377b067b4bb21feb308b99c4f
+      internalID: -1657436611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_35
+      rect:
+        serializedVersion: 2
+        x: 777
+        y: 362
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 795624c0461897942a1bf45b3a2adf8d
+      internalID: -855359858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_36
+      rect:
+        serializedVersion: 2
+        x: 830
+        y: 362
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32e63f9fe4cfcb445b11e6a80844b559
+      internalID: 403413952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_37
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 362
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78f39b58264631c47aebd3333eeee745
+      internalID: 1127912505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_38
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 312
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c9f7668e4cfb5645add13ab9bd701ec
+      internalID: 485606354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_39
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 312
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff4e8f7210d72124ab53ab50251aa3e1
+      internalID: 400089570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_40
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 312
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ced8b3118e624234288a1dbf04fe6059
+      internalID: 524264846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_41
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 312
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ba35bd06b45b0b4ebbddcc406255761
+      internalID: -1010042431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_42
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 312
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9288abb47ba86fd4b9ed250aab35d083
+      internalID: -2118866537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_43
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 312
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9376391e36d42df4192a00c6cce6b8bc
+      internalID: 396299295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_44
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 312
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79611902b5198c04192ebb90051be107
+      internalID: -957238659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_45
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 312
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 178ffb11f5ed64e4c9b80a9905119f89
+      internalID: -682911618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_46
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 312
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a29ff947171933740b8e2d8ac67170c7
+      internalID: 1137411767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_47
+      rect:
+        serializedVersion: 2
+        x: 469
+        y: 312
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1ff0896fe570364496f79dd2b1544a6
+      internalID: -416771557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_49
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 311
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6dcebe5cc10a78348996f5158323c314
+      internalID: -787403166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_50
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 312
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1bc44897054a504daa9ec42619b895e
+      internalID: -161098954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_51
+      rect:
+        serializedVersion: 2
+        x: 623
+        y: 312
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5bf40d5f4661de34da5fa7c7407e6740
+      internalID: -1869139000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_52
+      rect:
+        serializedVersion: 2
+        x: 675
+        y: 312
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c1f1378578517f4a8b60ccebe4c2746
+      internalID: -1014865730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_53
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 312
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b4dbdfdc1291b049a5ca40271274793
+      internalID: -854424457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_54
+      rect:
+        serializedVersion: 2
+        x: 777
+        y: 312
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99b75d71be048ba49ab23db584eb752f
+      internalID: -2007056197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_55
+      rect:
+        serializedVersion: 2
+        x: 830
+        y: 312
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c458cd03485def47bc94321ff64a75e
+      internalID: 1379999929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_56
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 312
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a784c05dc9899d14d9ffe34367a56c96
+      internalID: 1934091065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_57
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 261
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4c1e733f8e7b02438755dc05584d2a0
+      internalID: 1197477788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_58
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 261
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b825a33c82c47b4ba7510cbf670a588
+      internalID: 1638917515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_59
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 261
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b627bddf45b5b044880ec68e0cc1728
+      internalID: 1490141893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_60
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 261
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 576d06dddd985804f942019f523a307c
+      internalID: -15471262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_62
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 261
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55768f9d7159f024ea6198f78bcb0ac4
+      internalID: 1245733016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_63
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 261
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59067fcaf3c81fb4dbf2d432835b5369
+      internalID: 788128855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_64
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 261
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d09ee2d1d295d049b059044da4865b7
+      internalID: -1662251002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_65
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 261
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ffbb33d39e7e474a9773e087994d9af
+      internalID: -617616083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_66
+      rect:
+        serializedVersion: 2
+        x: 469
+        y: 261
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f5df07f110f5714290029a5bcbf7d39
+      internalID: -440907850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_68
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 261
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75ea9e2ee527f484c881241174a78355
+      internalID: -973265186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_69
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 260
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f11137d7ff20dae488da416f8b54872b
+      internalID: -327194276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_70
+      rect:
+        serializedVersion: 2
+        x: 623
+        y: 260
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef93c974c1326344dafb598f127753cf
+      internalID: 702222386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_71
+      rect:
+        serializedVersion: 2
+        x: 676
+        y: 260
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1debb820526c23545855c8a19b3f5efa
+      internalID: -235087744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_72
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 260
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d407b7fd8bb33f8489cf54ca4b23c7c8
+      internalID: 1685952757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_73
+      rect:
+        serializedVersion: 2
+        x: 777
+        y: 260
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a691d11975b213e4ba13713331e641ba
+      internalID: -911472191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_74
+      rect:
+        serializedVersion: 2
+        x: 830
+        y: 260
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4eabd1e53b7b2f145be97334f056be2b
+      internalID: -1485844359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_75
+      rect:
+        serializedVersion: 2
+        x: 881
+        y: 260
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 126545d4f900f5349af5d580fe8a2890
+      internalID: -750093784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_76
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 210
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b93021b10f751246a0cd36b0a1993a3
+      internalID: 1144300354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_77
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 210
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2fbad48adc9ac041b2e959e5457e8ba
+      internalID: 1249368076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_78
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 210
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f24f9a45ecf9cf14cb8ba846d4eb4a58
+      internalID: -801441988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_79
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 210
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1536b6325f343f44c97c3a5701734f92
+      internalID: 697512148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_80
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 261
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9658838663c7574cb398a9182b894ca
+      internalID: -139940976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_81
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 210
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a80c4d425a220994abc156647f6a0e35
+      internalID: 1943662650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_82
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 210
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ddecfbcfc9167474d9affc25e59a880f
+      internalID: 1244018578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_83
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 210
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7541296db13970041aab21b06acfb31a
+      internalID: -1064043653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_84
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 210
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1e81efaecb1d484e90f98b0b5348ece
+      internalID: -430534902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_85
+      rect:
+        serializedVersion: 2
+        x: 469
+        y: 210
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0194eca286b837499d1ffdd9b963ea8
+      internalID: -797582852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_87
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 210
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e38b7f0610080c4da40170027d7a08d
+      internalID: -231309693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_88
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 210
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cdfa7b4edb587044a8ac9e0abfab974a
+      internalID: -93739248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_89
+      rect:
+        serializedVersion: 2
+        x: 623
+        y: 210
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aeeefd9d9631ab24aa4568ebc22302b6
+      internalID: 908867917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_90
+      rect:
+        serializedVersion: 2
+        x: 675
+        y: 210
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e7cb46923b3f5e41b67c66a52371c25
+      internalID: -1814065697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_91
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 210
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9f8a6af4500b50409f9379d50bed17b
+      internalID: -586115283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_92
+      rect:
+        serializedVersion: 2
+        x: 777
+        y: 210
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00e2eae5891888147bbb481e2f9aceb2
+      internalID: -1495135823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_93
+      rect:
+        serializedVersion: 2
+        x: 830
+        y: 210
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61bb96b47f46f2144821477d852ad2e8
+      internalID: -1733886395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_94
+      rect:
+        serializedVersion: 2
+        x: 881
+        y: 210
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 238f92bdfcd34664c9aefe40300c7de8
+      internalID: 1653319802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_95
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 159
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6eb9822275a5718449b5c386627872d7
+      internalID: -1527940773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_96
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 159
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f38e1b25bea0b3846b04c5a0fbbc1f1a
+      internalID: 948881865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_97
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 159
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62256209892ad114fac88955097360b5
+      internalID: -81194483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_98
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 159
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04c9008a3af0d54418be70ac896672bd
+      internalID: 202537046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_99
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 159
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 596cd700d4c21e2428d9bac9191a2cf7
+      internalID: -488907577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_100
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 159
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d883347d24b18b40ae7b7652e7b73ca
+      internalID: 167532551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_101
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 159
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55fb06f9d6627fe4ea6ded4a2eae1369
+      internalID: 1956183896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_102
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 159
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c53d004a37316f3439643dc2874484dd
+      internalID: -46341064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_103
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 159
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29a2ec3a96834c04a94b7febca130027
+      internalID: -1329298635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_104
+      rect:
+        serializedVersion: 2
+        x: 469
+        y: 159
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88c682265b9676c469578418b909b07b
+      internalID: -80747016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_106
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 159
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1be77fbeb6be8c04b8e5912801f52968
+      internalID: 240082177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_107
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 159
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ba5542dfe103fe4e84cd8a0d86fa8b0
+      internalID: -702275553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_108
+      rect:
+        serializedVersion: 2
+        x: 623
+        y: 159
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a13bfe1d0b2667458d878962b44e942
+      internalID: -116733929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_109
+      rect:
+        serializedVersion: 2
+        x: 675
+        y: 159
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d572704888fb8674eb6d206386dbd6bc
+      internalID: 569586447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_110
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 159
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7df51abb1cd27cc4c9fd60a4eee07490
+      internalID: -699888184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_111
+      rect:
+        serializedVersion: 2
+        x: 777
+        y: 159
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17ef1d84d12c3d84db3d08b55609f2bd
+      internalID: 949993372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_112
+      rect:
+        serializedVersion: 2
+        x: 830
+        y: 159
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ca36e56a2af4c946b48b05b9c535678
+      internalID: -2058974067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_113
+      rect:
+        serializedVersion: 2
+        x: 881
+        y: 159
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4de70ff28d6d9b740be6838ca5038308
+      internalID: 706621046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_114
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 108
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 540e441eb041c714ab6f9423103dbe92
+      internalID: 1156549081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_115
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 108
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 930868c48f46edd468b873150524a01f
+      internalID: -1282233053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_116
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 108
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80fab31453a72634581c88423e9cdd9b
+      internalID: -172995985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_117
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 108
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22d4cf29f59ffb6419edeca3c74dbc30
+      internalID: 1237250444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_118
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 108
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9dc9040e1e5236c46a088af2d372af72
+      internalID: 1628787511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_119
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 108
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a60c4530647139c43828d3a2522ed1b7
+      internalID: -1211318066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_120
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 108
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7a351af82f1aa9469e32a2a337598d6
+      internalID: -2012595002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_121
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 108
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: deed4000ca083ad45bbf0e5a7c789beb
+      internalID: -1842109949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_122
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 108
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bcb976ac1d707541bd3959570004094
+      internalID: -1571046044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_123
+      rect:
+        serializedVersion: 2
+        x: 469
+        y: 108
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 162747a099e3a4942b5d4ffa8ce7d522
+      internalID: 2131698198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_125
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 108
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5269811365b685d4e8fbaad27702dee1
+      internalID: 864212982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_126
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 108
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36f5f4407cad65547b47b1d16ed0d2fb
+      internalID: -379232787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_127
+      rect:
+        serializedVersion: 2
+        x: 623
+        y: 108
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48fba55ff43cfad4fa18507211727c94
+      internalID: 2084341825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_128
+      rect:
+        serializedVersion: 2
+        x: 675
+        y: 108
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa64e9a3b55adb74c9f362dc463b3eac
+      internalID: 476738832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_129
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 108
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d354141a253516349938ea810ee62ebf
+      internalID: 908081342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_130
+      rect:
+        serializedVersion: 2
+        x: 777
+        y: 108
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b7807b903c05f84786e9d30a130ad9f
+      internalID: 1024768322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_131
+      rect:
+        serializedVersion: 2
+        x: 830
+        y: 108
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be15c73fc8ce23548a808775282c1493
+      internalID: -1848424735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_132
+      rect:
+        serializedVersion: 2
+        x: 881
+        y: 108
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c1b48bc1d6a8bd4aa15071c7135d704
+      internalID: -1186246696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_133
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 57
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f44c9964b7ece34cb26a2ace007533d
+      internalID: 1552311602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_134
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 57
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c08ec3363cea27742a281241498c2340
+      internalID: -1703956951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_135
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 57
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f17c5c1e04685754faed77bc8f494e64
+      internalID: -1468930880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_136
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 57
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8eb1c58612ec5546af835f8982b4e7a
+      internalID: 1385151943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_137
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 57
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c655ada9871afea4fbfa94f77e99174c
+      internalID: 682963560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_138
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 57
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cee1c7e8f4afacc40b3afb4ac01d5637
+      internalID: -2089254793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_139
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 57
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41b032ed9d83741478f8f741a8ccfc0b
+      internalID: -1686809684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_140
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 57
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 169e0deadc665284780d2ef98cf64915
+      internalID: -1908060109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_141
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 57
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8445a30476cbe8e4b9d24b6b583e525e
+      internalID: 1682498365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_142
+      rect:
+        serializedVersion: 2
+        x: 469
+        y: 57
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77f63395e4e12064b80a006802098e9a
+      internalID: -1125750366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_144
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 57
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad7e555bddff7e54a830696ddc7ff283
+      internalID: -525612104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_145
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 57
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d365c5cd09116e4f9921a8076ad955a
+      internalID: -286115728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_146
+      rect:
+        serializedVersion: 2
+        x: 623
+        y: 57
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c5592a4dbf5d5b439121b8706eaea57
+      internalID: -452734611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_147
+      rect:
+        serializedVersion: 2
+        x: 675
+        y: 57
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0f2fb20b64e77047b66b1013a07c8c6
+      internalID: 1732131801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_148
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 57
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92d507bd4707c6c4cb3ec6dd883e96d2
+      internalID: -118220011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_149
+      rect:
+        serializedVersion: 2
+        x: 777
+        y: 57
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3c311b3d3ddce449b98f1a6cee3ae5a
+      internalID: -873492123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_150
+      rect:
+        serializedVersion: 2
+        x: 881
+        y: 57
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b9fbd4c746f68b4db6d66b726252191
+      internalID: 2096218458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_151
+      rect:
+        serializedVersion: 2
+        x: 830
+        y: 57
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36b1d929f4a707a4aa5291432e25e7e0
+      internalID: 1292789880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_152
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 6
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7021c178c5f07784993b892647c5e5b6
+      internalID: -703746130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_153
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 6
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a0f2bf6fdac892448e1ee0f5653fe7c
+      internalID: 1299409774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_154
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 6
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf3f0e915c6f6d74fac7c49cf557d56e
+      internalID: -1209680179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_155
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 6
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 243c4ef339ac48443a07009a8e4e421f
+      internalID: -28378890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_156
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 6
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4046c748957b4c40ae5312835641bf4
+      internalID: 334439385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_157
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 6
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c1f103153c94ac42a581791daf47ff1
+      internalID: 1484551950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_158
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 6
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0ce5b1cdf9bae44397fb0f1754a77b6
+      internalID: -925130394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_159
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 6
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70f1bbab55d4d7b4aa880cb53294917e
+      internalID: 1960004815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_160
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 6
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4f91487353bd734fa6362ba03b135b8
+      internalID: 915792649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_161
+      rect:
+        serializedVersion: 2
+        x: 469
+        y: 6
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 962293a6d1c8e564aa42b0cd9202be0a
+      internalID: 729834419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_163
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 6
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa7eb5712abb69747b24550195c11deb
+      internalID: -799983125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_164
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 6
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: efffb577ce91e0d45b204888670adceb
+      internalID: -1379893443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_165
+      rect:
+        serializedVersion: 2
+        x: 623
+        y: 6
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2a3b36cb218a6b4bbebc824e6158af2
+      internalID: -437013469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_166
+      rect:
+        serializedVersion: 2
+        x: 675
+        y: 6
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad3d1f2fdcc0b824c984530b23e63772
+      internalID: 1220889265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_167
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 6
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a63837f98608f57408aa984995a2199f
+      internalID: 704597315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_168
+      rect:
+        serializedVersion: 2
+        x: 777
+        y: 6
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f0ada027a254de4d972b0f300b906fe
+      internalID: -1232618393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_169
+      rect:
+        serializedVersion: 2
+        x: 830
+        y: 6
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f708e8ef22fd79439a6a61556e87443
+      internalID: -203017858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_170
+      rect:
+        serializedVersion: 2
+        x: 881
+        y: 6
+        width: 47
+        height: 47
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7914120e6a566e4fad478fcb3ccfabb
+      internalID: 88219548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_171
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 210
+        width: 47
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44f9d82d4328b1c4a8ad17bbba11f3e6
+      internalID: 5480937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill icon2_28
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 362
+        width: 47
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b5176871ac07fc4494743068d970c7c
+      internalID: -2080376281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      skill icon2_117: 1237250444
+      skill icon2_45: -682911618
+      skill icon2_63: 788128855
+      skill icon2_0: -925132816
+      skill icon2_17: 1104646561
+      skill icon2_126: -379232787
+      skill icon2_26: -320468642
+      skill icon2_153: 1299409774
+      skill icon2_106: 240082177
+      skill icon2_160: 915792649
+      skill icon2_91: -586115283
+      skill icon2_27: -1363893760
+      skill icon2_165: -437013469
+      skill icon2_48: 221758380
+      skill icon2_94: 1653319802
+      skill icon2_42: -2118866537
+      skill icon2_73: -911472191
+      skill icon2_18: 52945592
+      skill icon2_156: 334439385
+      skill icon2_78: -801441988
+      skill icon2_59: 1490141893
+      skill icon2_64: -1662251002
+      skill icon2_69: -327194276
+      skill icon2_101: 1956183896
+      skill icon2_168: -1232618393
+      skill icon2_170: 88219548
+      skill icon2_112: -2058974067
+      skill icon2_152: -703746130
+      skill icon2_46: 1137411767
+      skill icon2_55: 1379999929
+      skill icon2_74: -1485844359
+      skill icon2_108: -116733929
+      skill icon2_138: -2089254793
+      skill icon2_36: 403413952
+      skill icon2_143: 927110202
+      skill icon2_147: 1732131801
+      skill icon2_172: -1182944222
+      skill icon2_107: -702275553
+      skill icon2_7: 1926081652
+      skill icon2_75: -750093784
+      skill icon2_11: -824271345
+      skill icon2_31: -301645638
+      skill icon2_158: -925130394
+      skill icon2_109: 569586447
+      skill icon2_86: 1940392770
+      skill icon2_157: 1484551950
+      skill icon2_81: 1943662650
+      skill icon2_62: 1245733016
+      skill icon2_12: -848969028
+      skill icon2_58: 1638917515
+      skill icon2_136: 1385151943
+      skill icon2_166: 1220889265
+      skill icon2_53: -854424457
+      skill icon2_16: -227746267
+      skill icon2_1: 1417951215
+      skill icon2_33: -864767185
+      skill icon2_135: -1468930880
+      skill icon2_13: 620511179
+      skill icon2_85: -797582852
+      skill icon2_145: -286115728
+      skill icon2_20: -1513391423
+      skill icon2_102: -46341064
+      skill icon2_122: -1571046044
+      skill icon2_92: -1495135823
+      skill icon2_66: -440907850
+      skill icon2_41: -1010042431
+      skill icon2_3: 1111698715
+      skill icon2_51: -1869139000
+      skill icon2_151: 1292789880
+      skill icon2_167: 704597315
+      skill icon2_100: 167532551
+      skill icon2_90: -1814065697
+      skill icon2_23: 1824781253
+      skill icon2_124: -127645059
+      skill icon2_141: 1682498365
+      skill icon2_114: 1156549081
+      skill icon2_133: 1552311602
+      skill icon2_97: -81194483
+      skill icon2_25: -688561023
+      skill icon2_140: -1908060109
+      skill icon2_5: -1800739921
+      skill icon2_22: 2019466366
+      skill icon2_142: -1125750366
+      skill icon2_65: -617616083
+      skill icon2_95: -1527940773
+      skill icon2_28: -2080376281
+      skill icon2_120: -2012595002
+      skill icon2_96: 948881865
+      skill icon2_44: -957238659
+      skill icon2_67: -58679312
+      skill icon2_146: -452734611
+      skill icon2_72: 1685952757
+      skill icon2_87: -231309693
+      skill icon2_88: -93739248
+      skill icon2_39: 400089570
+      skill icon2_125: 864212982
+      skill icon2_164: -1379893443
+      skill icon2_49: -787403166
+      skill icon2_104: -80747016
+      skill icon2_32: 950873007
+      skill icon2_24: 369244723
+      skill icon2_131: -1848424735
+      skill icon2_116: -172995985
+      skill icon2_61: -695266309
+      skill icon2_118: 1628787511
+      skill icon2_47: -416771557
+      skill icon2_154: -1209680179
+      skill icon2_115: -1282233053
+      skill icon2_128: 476738832
+      skill icon2_98: 202537046
+      skill icon2_43: 396299295
+      skill icon2_110: -699888184
+      skill icon2_119: -1211318066
+      skill icon2_34: -1657436611
+      skill icon2_163: -799983125
+      skill icon2_150: 2096218458
+      skill icon2_35: -855359858
+      skill icon2_148: -118220011
+      skill icon2_130: 1024768322
+      skill icon2_15: 981263625
+      skill icon2_159: 1960004815
+      skill icon2_10: 1759421702
+      skill icon2_83: -1064043653
+      skill icon2_80: -139940976
+      skill icon2_99: -488907577
+      skill icon2_111: 949993372
+      skill icon2_29: -1520163735
+      skill icon2_139: -1686809684
+      skill icon2_57: 1197477788
+      skill icon2_30: 1536773821
+      skill icon2_149: -873492123
+      skill icon2_162: -1792316977
+      skill icon2_4: -184502067
+      skill icon2_89: 908867917
+      skill icon2_38: 485606354
+      skill icon2_77: 1249368076
+      skill icon2_68: -973265186
+      skill icon2_71: -235087744
+      skill icon2_113: 706621046
+      skill icon2_70: 702222386
+      skill icon2_6: -1683952265
+      skill icon2_169: -203017858
+      skill icon2_76: 1144300354
+      skill icon2_19: 394074922
+      skill icon2_79: 697512148
+      skill icon2_144: -525612104
+      skill icon2_52: -1014865730
+      skill icon2_123: 2131698198
+      skill icon2_21: -1688843545
+      skill icon2_132: -1186246696
+      skill icon2_14: -1588748698
+      skill icon2_84: -430534902
+      skill icon2_50: -161098954
+      skill icon2_40: 524264846
+      skill icon2_127: 2084341825
+      skill icon2_155: -28378890
+      skill icon2_54: -2007056197
+      skill icon2_161: 729834419
+      skill icon2_8: 1924521430
+      skill icon2_121: -1842109949
+      skill icon2_82: 1244018578
+      skill icon2_129: 908081342
+      skill icon2_134: -1703956951
+      skill icon2_171: 5480937
+      skill icon2_173: 2097061409
+      skill icon2_60: -15471262
+      skill icon2_105: 1893455647
+      skill icon2_103: -1329298635
+      skill icon2_37: 1127912505
+      skill icon2_2: -1555546053
+      skill icon2_9: 1755926479
+      skill icon2_93: -1733886395
+      skill icon2_137: 682963560
+      skill icon2_56: 1934091065
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

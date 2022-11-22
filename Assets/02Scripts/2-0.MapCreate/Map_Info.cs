@@ -30,7 +30,10 @@ public class Map_Info : MonoBehaviour
     public int p_Count;
 
     // 스텟 패널
-    public TextMeshProUGUI stat_Name;
+    public Button EditButton;
+    public Sprite[] EditSprite;
+    public TMP_InputField Edit_Pannel;    
+    public TextMeshProUGUI stat_Name;    
     public TextMeshProUGUI stat_Comments;
 
     // 스킬 패널
@@ -45,6 +48,8 @@ public class Map_Info : MonoBehaviour
     // 캐릭터 이미지
     public Sprite[] CharacterImage;
 
+
+    int currentIDX;
     // 맵
     // public GameObject MapUI;
     // 인포
@@ -65,7 +70,6 @@ public class Map_Info : MonoBehaviour
 
     public void SetStartSetting()
     {
-        Debug.Log("SetStartSetting");
         p_Count = GM.MyParty.Count;
 
         bCheckedTarget_0 = false;
@@ -80,7 +84,6 @@ public class Map_Info : MonoBehaviour
 
     public void SetCharImage()
     {
-        Debug.Log("SetCharImage");
         p_Count = GM.MyParty.Count;
         for(int i = 0; i < 3; i++)
         {
@@ -91,54 +94,41 @@ public class Map_Info : MonoBehaviour
                 
                 Captain[i].SetActive(GM.MyParty[i].Main);
 
-                switch (GM.MyParty[i].Role)
-                {
-                    case e_Class.Warrior :
-                        Char_Image[i].sprite = CharacterImage[0];
-
-                        break;
-                    case e_Class.Magicion :
-                        Char_Image[i].sprite = CharacterImage[1];
-                        break;
-                    case e_Class.Supporter :
-                        Char_Image[i].sprite = CharacterImage[2];
-                        break;
-                    case e_Class.Assassin :
-                        Char_Image[i].sprite = CharacterImage[3];
-                        break;
-                }
+                Char_Image[i].sprite = SOManager.GetChar().CharDatas[(int)GM.MyParty[i].Role].Illuste; 
+                
             }
             else
             {
                 CharacterBtn[i].gameObject.SetActive(false);
-                Debug.Log("p_Count : " + GM.MyParty.Count);
-                Debug.Log("i : " + i);
             }
         }
     }
 
     public void SetStatus_Text(int n)
     {
+        currentIDX = n;
         stat_Name.text = "" + GM.MyParty[n].name;
+        Edit_Pannel.text = stat_Name.text;
+
         stat_Comments.text = 
         GM.MyParty[n].Level + "\n" +
         "(" + GM.MyParty[n].exp + " / " + (GM.MyParty[n].Level * 50  + 100) + ")" + "\n" +
         "\n" +
         Enum.GetName(typeof(e_Class),GM.MyParty[n].Role)  + "\n" +
         "\n" +
-        GM.MyParty[n].Hp + " / " + GM.MyParty[n].status.MaxHp + "\n" +
+        (int)GM.MyParty[n].Hp + " / " + (int)GM.MyParty[n].status.MaxHp + "\n" +
         "\n" +
-        GM.MyParty[n].Mana +" / " + "10" + "\n" +
+        (int)GM.MyParty[n].Mana +" / " + "10" + "\n" +
         "\n" +
-        GM.MyParty[n].status.Damage + "\n" +
+        (int)GM.MyParty[n].status.Damage + "\n" +
         "\n" +
-        GM.MyParty[n].status.Armor * 100 + " %"+ "\n" +
+        (int)(GM.MyParty[n].status.Armor * 100) + " %"+ "\n" +
         "\n" +
-        GM.MyParty[n].status.Critical + " %"+ "\n" +
+        (int)GM.MyParty[n].status.Critical + " %"+ "\n" +
         "\n" +
-        GM.MyParty[n].status.Dodge + " %" + "\n" +
+        (int)GM.MyParty[n].status.Dodge + " %" + "\n" +
         "\n" +
-        GM.MyParty[n].status.Speed + "\n" +
+        (int)GM.MyParty[n].status.Speed + "\n" +
         "\n";
     }
 
@@ -146,27 +136,14 @@ public class Map_Info : MonoBehaviour
     {       
         skillPannel.SetActive(true);
         int rolenum = (int)GM.MyParty[n].Role;
-        string root ="";
-        switch (rolenum)
-        {
-            case 1 :
-            root = "icon/Worrier/";
-            break;
-            case 2 :
-            root = "icon/Magition/";
-            break;
-            case 3 :
-            root = "icon/Healer/";
-            break;
-            case 4 :
-            root = "icon/Assassin/";
-            break;
-        }
+
+        CharacterDatas charData = SOManager.instance.CharSO.CharDatas[rolenum];
+
         int skill_1 = GM.MyParty[n].SkillNum[1];
         int skill_2 = GM.MyParty[n].SkillNum[2];
-        skill[0].GetComponent<Image>().sprite = Resources.Load<Sprite>(root + skill_1) as Sprite;
-        skill[1].GetComponent<Image>().sprite = Resources.Load<Sprite>(root + skill_2) as Sprite;
-        skill[2].GetComponent<Image>().sprite = Resources.Load<Sprite>(root + "5") as Sprite;        
+        skill[0].GetComponent<Image>().sprite = charData.skill[skill_1 - 1];
+        skill[1].GetComponent<Image>().sprite = charData.skill[skill_2 - 1];
+        skill[2].GetComponent<Image>().sprite = charData.ulti;        
 
         skill[0].GetComponent<SkillComment>().skill = GM.MyParty[n].MySkill[1];
         skill[1].GetComponent<SkillComment>().skill = GM.MyParty[n].MySkill[2];
@@ -195,19 +172,33 @@ public class Map_Info : MonoBehaviour
         {
             // 위치 초기화
             firstCharacter.transform.position = firstLoc;
-            firstCharacter.GetComponent<Info_Character>().num = Target_1;
+            //firstCharacter.GetComponent<Info_Character>().num = Target_1;
             SecondCharacter.transform.position = secondLoc;      
-            SecondCharacter.GetComponent<Info_Character>().num = Target_0;
+            //SecondCharacter.GetComponent<Info_Character>().num = Target_0;
 
 
 
             // 캐릭터 위치변경
-            Save.Player temp = GM.MyParty[Target_0];
+            Player temp = GM.MyParty[Target_0];
             GM.MyParty[Target_0] = GM.MyParty[Target_1];
             GM.MyParty[Target_1] = temp;              
 
             SetCharImage();
                      
         }
+    }
+
+    public void Editting_Name()
+    {
+        EditButton.interactable = true;        
+    }
+
+    public void Onclick_EditButton()
+    {
+        GM.MyParty[currentIDX].name = Edit_Pannel.text;
+        stat_Name.text = Edit_Pannel.text;
+        Edit_Pannel.text = "";
+
+        EditButton.interactable = false;
     }
 }

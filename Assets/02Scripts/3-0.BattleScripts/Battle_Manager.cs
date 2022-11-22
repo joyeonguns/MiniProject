@@ -33,9 +33,9 @@ public class Battle_Manager : MonoBehaviour
     int BtLvl;
     
     // 캐릭터 적 클래스
-    [SerializeField]public List<Save.Player> Character = new List<Save.Player>();
+    [SerializeField]public List<Player> Character = new List<Player>();
     
-    [SerializeField]public List<Save.Enemy> Enemy = new List<Save.Enemy>();
+    [SerializeField]public List<Enemy> Enemy = new List<Enemy>();
     
 
     // 아군 필드
@@ -44,7 +44,10 @@ public class Battle_Manager : MonoBehaviour
     // 아군 스프라이트
     public Image[] CharacterImages = new Image[3];
     public Sprite[] CharacterSprite = new Sprite[4];
+    // 타겟 버튼
     public Button[] CharacterButton = new Button[3];
+    // 순서 
+    public GameObject[] CharOrder;
     // 아군 HP / MP
     public Image[] Character_HP = new Image[3];
     public Image[] Character_MP = new Image[3];
@@ -58,6 +61,8 @@ public class Battle_Manager : MonoBehaviour
     public Image[] EnemyImage = new Image[3];
     public Sprite[] EnemySprite = new Sprite[4];
     public Button[] EnemyButton = new Button[3];
+    public GameObject[] EnOrder;
+    public AudioClip EnemyEffect;
     // 적 HP / MP
     public Image[] Enemy_HP = new Image[3];
     public Image[] Enemy_MP = new Image[3];
@@ -92,9 +97,12 @@ public class Battle_Manager : MonoBehaviour
     // 공격 순서
     public GameObject[] AttOrder = new GameObject[3];
     public TextMeshProUGUI RoundText;
+    // public Sprite[] CharIcon;
+    public Sprite[] EnemyIcon;
+    public Image[] CoverImage;
    
     // 데미지 폰트
-    public TextMeshProUGUI Damage;
+    public GameObject Damage;
 
 
     // --- 필요 정보 ---
@@ -102,15 +110,17 @@ public class Battle_Manager : MonoBehaviour
     public int selecSkill;
     // 스킬 선택 체크
     public bool bCheckSkill;
+
     // 스킬 버프?
     bool bBuffSkill;
+
     // 타겟
     public int target;
     // 타겟 선택 체크
     public bool bChecktarget;
 
 
-    // 배틀 스피드
+    // 배틀 스피드 스피드, idx. char
     [SerializeField] public List<Tuple<int,int,int>> L_BattleSpeed = new List<Tuple<int, int, int>>();   
 
     // 현재 공격자
@@ -135,8 +145,11 @@ public class Battle_Manager : MonoBehaviour
         SetStartUI();
         for(int i = 0; i < 3; i++)
         {
-            SetCharCondition(i);
-            SetEnCondition(i);
+            if(i < Character.Count)
+            {
+                SetCharCondition(i);
+                SetEnCondition(i);
+            }
         }
         HUDManager.instance.players = Character;
         HUDManager.instance.Enemys = Enemy;
@@ -164,7 +177,7 @@ public class Battle_Manager : MonoBehaviour
         if (L_BattleSpeed[0].Item3 == 1)
         {
             // 죽었으면 턴 종료
-            if (Enemy[Attacker].bAlive == false)
+            if (Enemy[Attacker].Alive == false)
             {
                 TurnEnd();
             }
@@ -172,7 +185,7 @@ public class Battle_Manager : MonoBehaviour
             {
                 AttackerHilight("Enemy", Attacker, true);
                 SetTargetStatus(Attacker);
-                Enemy[Attacker].StartTurn(Enemy.Cast<Save.Character>().ToList(), Attacker, Character.Cast<Save.Character>().ToList(), 0);
+                Enemy[Attacker].StartTurn(Enemy.Cast<Character>().ToList(), Attacker, Character.Cast<Character>().ToList(), 0);
 
                 // 1.5초 후 TurnEnemy() 실행
                 Invoke("TurnEnemy",1.5f);                
@@ -182,7 +195,7 @@ public class Battle_Manager : MonoBehaviour
         else
         {
             // 죽었으면 턴 종료
-            if (Character[Attacker].bAlive == false)
+            if (Character[Attacker].Alive == false)
             {
                 TurnEnd();
             }
@@ -190,7 +203,7 @@ public class Battle_Manager : MonoBehaviour
             {
                 // 공격자 하이라이트
                 AttackerHilight("Character", Attacker, true);
-                Character[Attacker].StartTurn(Character.Cast<Save.Character>().ToList(), Attacker, Enemy.Cast<Save.Character>().ToList(), 0);
+                Character[Attacker].StartTurn(Character.Cast<Character>().ToList(), Attacker, Enemy.Cast<Character>().ToList(), 0);
 
                 // 1.5초 후 TurnPlayer() 실행
                 Invoke("TurnPlayer",1.5f);  
@@ -200,16 +213,17 @@ public class Battle_Manager : MonoBehaviour
 
     public virtual void TurnEnemy()
     {
+        HUDManager.instance.useItem = false;
         // 생존 + 스턴 X
-        if (Enemy[Attacker].bAlive == true && Enemy[Attacker].stunCount == 0)
+        if (Enemy[Attacker].Alive == true && Enemy[Attacker].stunCount == 0)
         {
             // 타겟 선택 And 스킬 선택
             target = Enemy[Attacker].Enemy_SetTarget(Character);
             int skillNum = Enemy[Attacker].SelectSkill();
 
-            Enemy[Attacker].MySkill[skillNum].UseSkill(Enemy.Cast<Save.Character>().ToList(), Attacker, Character.Cast<Save.Character>().ToList(), target);
+            Enemy[Attacker].MySkill[skillNum].UseSkill(Enemy.Cast<Character>().ToList(), Attacker, Character.Cast<Character>().ToList(), target);
             // 공격 씬 출력
-            SpwAttackAnim(Enemy[Attacker].MySkill[skillNum], false, Enemy[Attacker].MySkill[skillNum].bmultiTarget, Enemy[Attacker].MySkill[skillNum].bBuff);
+            SpwAttackAnim(Enemy[Attacker].MySkill[skillNum], false, Enemy[Attacker].MySkill[skillNum].SKill_Data.MultiTarget, Enemy[Attacker].MySkill[skillNum].SKill_Data.Buff);
 
             Enemy[Attacker].EndTurn();
             Invoke("TurnEnd", 3.0f);
@@ -223,8 +237,9 @@ public class Battle_Manager : MonoBehaviour
 
     void TurnPlayer()
     {
+        HUDManager.instance.useItem = true;
         // 생존 + 스턴 X
-        if (Character[Attacker].bAlive == true && Character[Attacker].stunCount == 0)
+        if (Character[Attacker].Alive == true && Character[Attacker].stunCount == 0)
         {
             // 스킬 패널 on / 이미지 설정
             SetSkillPannel(true, Attacker);
@@ -262,15 +277,30 @@ public class Battle_Manager : MonoBehaviour
         Character[Attacker].SetSkillClass();
         if (bBuffSkill == false)
         {
-            Character[Attacker].MySkill[selecSkill].UseSkill(Character.Cast<Save.Character>().ToList(), Attacker, Enemy.Cast<Save.Character>().ToList(), target);
+            Character[Attacker].MySkill[selecSkill].UseSkill(Character.Cast<Character>().ToList(), Attacker, Enemy.Cast<Character>().ToList(), target);
         }
         else
         {
-            Character[Attacker].MySkill[selecSkill].UseSkill(Character.Cast<Save.Character>().ToList(), Attacker, Character.Cast<Save.Character>().ToList(), target);
+            Character[Attacker].MySkill[selecSkill].UseSkill(Character.Cast<Character>().ToList(), Attacker, Character.Cast<Character>().ToList(), target);
         }
+        
+        CharSKillDatas SelectSkill = Character[Attacker].MySkill[selecSkill].SKill_Data;
 
-        SpwAttackAnim(Character[Attacker].MySkill[selecSkill], true, Character[Attacker].MySkill[selecSkill].bmultiTarget, Character[Attacker].MySkill[selecSkill].bBuff);
+        
+        SpwAttackAnim(Character[Attacker].MySkill[selecSkill], true, Character[Attacker].MySkill[selecSkill].SKill_Data.MultiTarget, Character[Attacker].MySkill[selecSkill].SKill_Data.Buff);
 
+        if(Character[Attacker].MySkill[selecSkill].SKill_Data.Code == 0)
+        {
+            GameManager.instance.GameScoreData.Attack_Count++;
+        }
+        else if(Character[Attacker].MySkill[selecSkill].SKill_Data.Code == 5)
+        {
+            GameManager.instance.GameScoreData.Ulti_Count++;
+        }
+        else
+        {
+            GameManager.instance.GameScoreData.Skill_Count++;
+        }
         
         // 턴 종료
         Character[Attacker].EndTurn();
@@ -281,21 +311,25 @@ public class Battle_Manager : MonoBehaviour
     {
         for(int i = 0; i < 3; i++)
         {
-            SetCharCondition(i);
-            SetEnCondition(i);
+            if(i < Character.Count && i < Enemy.Count)
+            {
+                SetCharCondition(i);
+                SetEnCondition(i);
+            }            
         }
+        // 셋팅 초기화 
         ResetSetting();
         // 라이브 체크
-        if (LiveCheck_Character(Character.Cast<Save.Character>().ToList()) == false)
+        if (LiveCheck_Character(Character.Cast<Character>().ToList()) == false)
         {
             Debug.Log("패배");
             HUDManager.instance.Dead();
             
         }
-        else if (LiveCheck_Character(Enemy.Cast<Save.Character>().ToList()) == false)
+        else if (LiveCheck_Enemy(Enemy.Cast<Character>().ToList()) == false)
         {
             Debug.Log("승리");
-            EndBattle();
+            EndBattle(10);
         }
         else
         {
@@ -344,17 +378,18 @@ public class Battle_Manager : MonoBehaviour
 
     }
 
-    public void EndBattle()
+    public virtual void EndBattle(int num)
     {
         Debug.Log("승리");
 
+        GameManager.instance.ResultData.ResultMode = ResultEnum.NomalBattle;
         GameManager.instance.ResultData.Gold = BattleInfo.Golds;
         GameManager.instance.ResultData.ItemRate = BattleInfo.ItemRate;
         GameManager.instance.ResultData.Exp = BattleInfo.Exp;
 
-        BettleEndTellent();
+        BattleEndTellent();
 
-        SceneManager.LoadScene("2-4.GiftScene");
+        SceneManager.LoadScene(num);
         //battleState = BattleState.waiting;
     }
 
@@ -371,9 +406,9 @@ public class Battle_Manager : MonoBehaviour
         // 레벨 설정
         int level = GameManager.instance.floor / 2 + UnityEngine.Random.Range(0, 1);   
         
-        Enemy.Add(new Save.Enemy());
-        Enemy.Add(new Save.Enemy());
-        Enemy.Add(new Save.Enemy());
+        Enemy.Add(new Enemy());
+        Enemy.Add(new Enemy());
+        Enemy.Add(new Enemy());
 
         if(level < 3)
         {
@@ -394,8 +429,8 @@ public class Battle_Manager : MonoBehaviour
     {
         for(int i = 0; i < Enemy.Count; i ++)
         {
-            Enemy[i] = new Save.Enemy(Save.Bandit, e_Class.Bandit);
-            Enemy[i].font = Damage;
+            Enemy[i] = new Enemy(Save.Bandit, e_Class.Bandit);
+            Enemy[i].PoolSave = GetComponent<DamagePool>();
             Enemy[i].spwLoc = EnemyField[i].GetComponent<RectTransform>().anchoredPosition + new Vector2(50,300);
             EnemyImage[i].sprite = EnemySprite[0];
             for(int j = 0; j < level; j++)
@@ -408,8 +443,8 @@ public class Battle_Manager : MonoBehaviour
     {
         for(int i = 0; i < Enemy.Count; i ++)
         {
-            Enemy[i] = new Save.Enemy(Save.Knight, e_Class.Knight);
-            Enemy[i].font = Damage;
+            Enemy[i] = new Enemy(Save.Knight, e_Class.Knight);
+            Enemy[i].PoolSave = GetComponent<DamagePool>();
             Enemy[i].spwLoc = EnemyField[i].GetComponent<RectTransform>().anchoredPosition + new Vector2(50,300);
             EnemyImage[i].sprite = EnemySprite[1];
             for(int j = 0; j < level; j++)
@@ -422,8 +457,8 @@ public class Battle_Manager : MonoBehaviour
     {
         for(int i = 0; i < Enemy.Count; i ++)
         {
-            Enemy[i] = new Save.Enemy(Save.Abomination, e_Class.Abomination);
-            Enemy[i].font = Damage;
+            Enemy[i] = new Enemy(Save.Abomination, e_Class.Abomination);
+            Enemy[i].PoolSave = GetComponent<DamagePool>();
             Enemy[i].spwLoc = EnemyField[i].GetComponent<RectTransform>().anchoredPosition + new Vector2(50,300);
             EnemyImage[i].sprite = EnemySprite[2];
             for(int j = 0; j < level; j++)
@@ -440,11 +475,12 @@ public class Battle_Manager : MonoBehaviour
         
         for(int i = 0; i< Character.Count; i++)
         {
-            Character[i].font = Damage;
+            Character[i].PoolSave = GetComponent<DamagePool>();
             Character[i].spwLoc = CharacterField[i].GetComponent<RectTransform>().anchoredPosition + new Vector2(50,300);            
 
-            CharacterImages[i].sprite = CharacterSprite[(int)Character[i].Role];
+            CharacterImages[i].sprite = SOManager.GetChar().CharDatas[(int)Character[i].Role].Illuste;
             Character[i].Battlestatus = Character[i].status;
+            Character[i].turn = 0;
         }
     }
 
@@ -487,7 +523,7 @@ public class Battle_Manager : MonoBehaviour
     {
         for(int i = 0; i < Character.Count; i++)
         {
-            if(Character[i].bAlive == true)
+            if(Character[i].Alive == true)
             {
                 int rnd1 = UnityEngine.Random.Range(1,7);
                 int rndSpeed = Character[i].Battlestatus.Speed;
@@ -496,7 +532,7 @@ public class Battle_Manager : MonoBehaviour
         }
         for(int i = 0; i < Enemy.Count; i++)
         {
-            if(Enemy[i].bAlive == true)
+            if(Enemy[i].Alive == true)
             {
                 int rnd2 = UnityEngine.Random.Range(1,7);
                 int rndSpeed = Enemy[i].Battlestatus.Speed;
@@ -515,30 +551,16 @@ public class Battle_Manager : MonoBehaviour
         SkillPannel.SetActive(check);
         // 스킬 버튼 설정
         int rolenum = (int)Character[n].Role;
-        string root ="";
-        switch (rolenum)
-        {
-            case 1 :
-            root = "icon/Worrier/";
-            break;
-            case 2 :
-            root = "icon/Magition/";
-            break;
-            case 3 :
-            root = "icon/Healer/";
-            break;
-            case 4 :
-            root = "icon/Assassin/";
-            break;
-        }
+        CharacterDatas charData = SOManager.instance.CharSO.CharDatas[rolenum];
+        
         if (check == true)
         {
-            SkillButton[0].sprite = Resources.Load<Sprite>(root+0) as Sprite;
+            SkillButton[0].sprite = charData.attack;
             int skill_1 = Character[L_BattleSpeed[0].Item2].SkillNum[1];
             int skill_2 = Character[L_BattleSpeed[0].Item2].SkillNum[2];
-            SkillButton[1].sprite = Resources.Load<Sprite>(root + skill_1) as Sprite;
-            SkillButton[2].sprite = Resources.Load<Sprite>(root + skill_2) as Sprite;
-            SkillButton[3].sprite = Resources.Load<Sprite>(root + "5") as Sprite;
+            SkillButton[1].sprite = charData.skill[skill_1 - 1];
+            SkillButton[2].sprite = charData.skill[skill_2 - 1];
+            SkillButton[3].sprite = charData.ulti;
 
             SkillButton[0].GetComponent<SkillComment>().skill = Character[n].MySkill[0];
             SkillButton[1].GetComponent<SkillComment>().skill = Character[n].MySkill[1];
@@ -548,7 +570,7 @@ public class Battle_Manager : MonoBehaviour
             for(int i = 1; i < 4; i++)
             {
                 Character[n].SetSkillClass();
-                if(Character[n].MySkill[i].manaCost > Character[n].Mana)
+                if(Character[n].MySkill[i].SKill_Data.Cost > Character[n].Mana)
                 {
                     SkillButton[i].GetComponent<Button>().interactable = false;
                 }
@@ -566,58 +588,83 @@ public class Battle_Manager : MonoBehaviour
         }         
     }
 
-    void EnemyTurn(int n)
-    {  
-        // 타겟 선택 And 스킬 선택
-        target = Enemy[n].Enemy_SetTarget(Character);
-        int skillNum = Enemy[n].SelectSkill();
-        
-        Enemy[n].MySkill[skillNum].UseSkill(Enemy.Cast<Save.Character>().ToList(), n, Character.Cast<Save.Character>().ToList(), target);
-        // 공격 씬 출력
-        SpwAttackAnim(Enemy[Attacker].MySkill[skillNum], false, Enemy[Attacker].MySkill[skillNum].bmultiTarget, Enemy[Attacker].MySkill[skillNum].bBuff);
-       
-    }
-
     void SetAttackerStatus(int n)
     {
         // 공격자 스텟
         AttStatus.text =
         "Name : " + Character[n].name + ""+n + "\n" +
-        "Damage : " + Character[n].Battlestatus.Damage + "\n" +
-        "Armor : " + Character[n].Battlestatus.Armor + "\n" +
-        "Critical : " + Character[n].Battlestatus.Critical + "\n" +
-        "Dodge : " + Character[n].Battlestatus.Dodge + "\n" +
-        "Hp : " + Character[n].Hp;
+        "Damage : " + (int)Character[n].Battlestatus.Damage + "\n" +
+        "Armor : " + (int)(Character[n].Battlestatus.Armor * 100) + "\n" +
+        "Critical : " + (int)Character[n].Battlestatus.Critical + "\n" +
+        "Dodge : " + (int)Character[n].Battlestatus.Dodge + "\n" +
+        "Hp : " + (int)Character[n].Hp;
     }
     void SetTargetStatus(int n)
     {
         // 타겟 스텟
         TargetStatus.text =
         "Name : " + Enemy[n].name + ""+n+ "\n" +
-        "Damage : " + Enemy[n].Battlestatus.Damage + "\n" +
-        "Armor : " + Enemy[n].Battlestatus.Armor + "\n" +
-        "Critical : " + Enemy[n].Battlestatus.Critical + "\n" +
-        "Dodge : " + Enemy[n].Battlestatus.Dodge + "\n" +
-        "Hp : " + Enemy[n].Hp;
+        "Damage : " + (int)Enemy[n].Battlestatus.Damage + "\n" +
+        "Armor : " + (int)(Enemy[n].Battlestatus.Armor * 100) + "\n" +
+        "Critical : " + (int)Enemy[n].Battlestatus.Critical + "\n" +
+        "Dodge : " + (int)Enemy[n].Battlestatus.Dodge + "\n" +
+        "Hp : " + (int)Enemy[n].Hp;
     }
     
     // 공격 순서
     void SetAttackOrder()
     {
+        // 순서표시 오브젝트 비활성화
+        CharOrder[0].SetActive(false);
+        CharOrder[1].SetActive(false);
+        CharOrder[2].SetActive(false);
+
+        EnOrder[0].SetActive(false);
+        EnOrder[1].SetActive(false);
+        EnOrder[2].SetActive(false);
+
+        // 타겟 버튼 비활성화
+        CharacterButton[0].gameObject.SetActive(false); 
+        CharacterButton[1].gameObject.SetActive(false); 
+        CharacterButton[2].gameObject.SetActive(false);
+
+        EnemyButton[0].gameObject.SetActive(false); 
+        EnemyButton[1].gameObject.SetActive(false); 
+        EnemyButton[2].gameObject.SetActive(false);
+
         for(int i = 0; i < 3; i++)
         {
             if(i >= L_BattleSpeed.Count)
             {
                 AttOrder[i].SetActive(false);
+                CoverImage[i].color = Color.white;
                 return;
             }
             AttOrder[i].SetActive(true);
-            TextMeshProUGUI AttText = AttOrder[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>(); 
+            Image icon =  AttOrder[i].GetComponent<Image>();
             
-            string first = "E";
-            if(L_BattleSpeed[i].Item3 == 0) first = "C";
-            AttText.text = first +":"+ L_BattleSpeed[i].Item2;
+            // 캐릭터, 적
+            if(L_BattleSpeed[i].Item3 == 0) 
+            {
+                int roleCode = (int)Character[L_BattleSpeed[i].Item2].Role;
+                icon.sprite = SOManager.GetChar().CharDatas[roleCode].Icon;
+                CoverImage[i].color = Color.green;
+            }
+            else
+            {
+                if(Enemy[L_BattleSpeed[i].Item2].Role == e_Class.Barlog || Enemy[L_BattleSpeed[i].Item2].Role == e_Class.Witch)
+                {
+                    icon.sprite = EnemyIcon[1];
+                }
+                else
+                {
+                    icon.sprite = EnemyIcon[0];
+                }
+                CoverImage[i].color = Color.red;
+            }
+            
         }
+
     }
 
     void Update()
@@ -625,13 +672,25 @@ public class Battle_Manager : MonoBehaviour
         SetHP_MP();
     }
 
-    public bool LiveCheck_Character(List<Save.Character> characters)
+    public bool LiveCheck_Character(List<Character> characters)
+    {
+        // 생사 확인
+        bool charAlive = true;
+        foreach (var Char in characters)
+        {
+            if (Char.Main == true && Char.Alive == false)
+                charAlive = false;
+        }
+
+        return charAlive;
+    }
+    public bool LiveCheck_Enemy(List<Character> enemy)
     {
         // 생사 확인
         bool charAlive = false;
-        foreach (var Char in characters)
+        foreach (var en in enemy)
         {
-            if (Char.bAlive == true)
+            if (en.Alive == true)
                 charAlive = true;
         }
 
@@ -641,8 +700,15 @@ public class Battle_Manager : MonoBehaviour
 
     void SpwAttackAnim(BaseSkill usingSkill, bool bPlayerAtk, bool bmultiTarget, bool bBuff)
     {
+        // 사운드
+        AudioClip skill_Sound =  usingSkill.SKill_Data.Sound;
+
+        if(bPlayerAtk == true)
+            SoundManager.instance.SFXPlay("skill_Sound", skill_Sound);
+        else
+            SoundManager.instance.SFXPlay("skill_Sound", EnemyEffect); ;
         AttackObj.SetActive(true);
-        Attack_Text.text = "[" + usingSkill.skillName + "]";
+        Attack_Text.text = "[" + usingSkill.SKill_Data.Name + "]";
         Invoke("DeleteAttackAnim",2.0f);
 
         // 버프
@@ -778,7 +844,7 @@ public class Battle_Manager : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)
         {
-            if(i < Character.Count && Character[i].bAlive == false)
+            if(i < Character.Count && Character[i].Alive == false)
             {
                 CharacterImages[i].sprite = TombSprite;
             }
@@ -786,20 +852,20 @@ public class Battle_Manager : MonoBehaviour
 
         for (int i = 0; i < 3; i++)
         {
-            if(i < Enemy.Count && Enemy[i].bAlive == false)
+            if(i < Enemy.Count && Enemy[i].Alive == false)
             {
                 EnemyImage[i].sprite = TombSprite;
             }
         }
     }
 
-    public void BettleEndTellent()
+    public void BattleEndTellent()
     {
         foreach (var tel in GameManager.instance.Tellents[1])
         {
             if(tel.type == Etel_type.End)
             {
-                tel.TellentApply(Character.Cast<Save.Character>().ToList(), 0, Enemy.Cast<Save.Character>().ToList(), 0);
+                tel.TellentApply(Character.Cast<Character>().ToList(), 0, Enemy.Cast<Character>().ToList(), 0);
             }
         }
     }
@@ -818,46 +884,78 @@ public class Battle_Manager : MonoBehaviour
             target = n;
         }            
     }
+
     public void InputSkillBTN(int n)
     {
         bCheckSkill = true;
         selecSkill = n;         
-        if(Character[Attacker].MySkill[n].bBuff == true)
+        
+        
+        if(Character[Attacker].MySkill[n].SKill_Data.Buff == true)
         {
-            bBuffSkill = true;
-            CharacterButton[0].interactable = true;
-            CharacterButton[1].interactable = true;
-            CharacterButton[2].interactable = true;
+            bBuffSkill = true;    
+            
+            for(int i = 0; i < 3; i++)
+            {
+                CharacterButton[i].gameObject.SetActive(true); 
+                EnemyButton[i].gameObject.SetActive(false); 
 
-            EnemyButton[0].interactable = false;
-            EnemyButton[1].interactable = false;
-            EnemyButton[2].interactable = false;
+                if(Character[Attacker].MySkill[n].SKill_Data.MultiTarget == true)
+                {
+                    CharacterButton[i].GetComponent<BattleButtonEvents>().isMultiTarget = true;
+                }
+                else
+                {
+                    CharacterButton[i].GetComponent<BattleButtonEvents>().isMultiTarget = false;
+                }
+            }                  
         }
-        else
+        else    // 공격
         {
-            CharacterButton[0].interactable = false;
-            CharacterButton[1].interactable = false;
-            CharacterButton[2].interactable = false;
+            bBuffSkill = false;
 
-            EnemyButton[0].interactable = true;
-            EnemyButton[1].interactable = true;
-            EnemyButton[2].interactable = true;
+            for(int i = 0; i < 3; i++)
+            {
+                CharacterButton[i].gameObject.SetActive(false); 
+                EnemyButton[i].gameObject.SetActive(true); 
+
+                if(Character[Attacker].MySkill[n].SKill_Data.MultiTarget == true)
+                {
+                    EnemyButton[i].GetComponent<BattleButtonEvents>().isMultiTarget = true;
+                }
+                else
+                {
+                    EnemyButton[i].GetComponent<BattleButtonEvents>().isMultiTarget = false;
+                }
+            }
         }
+
+  
     }
     
     void AttackerHilight(string str, int idx, bool b)
     {
         if(str == "Enemy")
         {
-            Image img =  EnemyField[idx].transform.GetChild(1).GetComponent<Image>();
-            if(b == true) img.color = Color.black;
-            else img.color = Color.white;
+            if(b == true) 
+            {
+                EnOrder[idx].SetActive(true);
+            }
+            else 
+            {
+                EnOrder[idx].SetActive(false);
+            }
         }
         else
         {
-            Image img =  CharacterField[idx].transform.GetChild(1).GetComponent<Image>();
-            if(b == true) img.color = Color.black;
-            else img.color = Color.white;
+            if(b == true) 
+            {
+                CharOrder[idx].SetActive(true);
+            }
+            else 
+            {
+                CharOrder[idx].SetActive(false);
+            }
         }
     }
     
@@ -953,7 +1051,7 @@ public class Battle_Manager : MonoBehaviour
             Conditions[_Attacker][0].SetActive(false);
         }
         // 화상
-        if(Enemy[_Attacker].bleedCount != 0)
+        if(Enemy[_Attacker].burnCount != 0)
         {
             Conditions[_Attacker][1].SetActive(true);
         }

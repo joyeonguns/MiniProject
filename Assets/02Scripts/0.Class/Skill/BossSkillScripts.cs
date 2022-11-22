@@ -25,7 +25,7 @@ public class BossSkillScripts : BaseSkill
         //skillComent = DSkillComent[num];
         //manaCost = DSkillCost[num];
 
-        skillName = DSkillName[num];
+        SKill_Data.Name = DSkillName[num];
         switch (num)
         {            
             case 0:
@@ -36,39 +36,39 @@ public class BossSkillScripts : BaseSkill
                 break;
             case 2:
                 UseSkill = IceRain;
-                bmultiTarget = true;
+                SKill_Data.MultiTarget = true;
                 break;
             case 3:
                 UseSkill = Heal;
-                bBuff = true;
+                SKill_Data.Buff = true;
                 break;
             case 4:
                 UseSkill = ManaDrain;
-                bmultiTarget = true;
+                SKill_Data.MultiTarget = true;
                 break;
             case 5:
                 UseSkill = Injection;
-                bBuff = true;
+                SKill_Data.Buff = true;
                 break;
             case 6:
                 UseSkill = ManaCharge;
-                bBuff = true;
+                SKill_Data.Buff = true;
                 break;
             case 7:
                 UseSkill = SummonBarlog;
-                bBuff = true;
+                SKill_Data.Buff = true;
                 break;
             case 8:
                 UseSkill = Earthquake;
-                bmultiTarget = true;
+                SKill_Data.MultiTarget = true;
                 break;
             case 9:
                 UseSkill = Charge;
-                bBuff = true;
+                SKill_Data.Buff = true;
                 break;
             case 10:
                 UseSkill = Bress;
-                bmultiTarget = true;
+                SKill_Data.MultiTarget = true;
                 break;    
 
             default :
@@ -76,7 +76,7 @@ public class BossSkillScripts : BaseSkill
                 break;    
         }
     }
-    void Attack(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    void Attack(List<Character> Caster, int CasterIdx, List<Character> Enemy, int EnemyIdx)
     {
         Debug.Log(Caster[CasterIdx].name + " : " + DSkillName[0]);
         
@@ -84,7 +84,7 @@ public class BossSkillScripts : BaseSkill
         Caster[CasterIdx].Battlestatus.Damage *= 1f;
         Enemy[EnemyIdx].TakeDamage(Caster[CasterIdx]);
     }
-    void FireBall(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    void FireBall(List<Character> Caster, int CasterIdx, List<Character> Enemy, int EnemyIdx)
     {
         Debug.Log(Caster[CasterIdx].name + " : " + DSkillName[1]);
         
@@ -92,7 +92,7 @@ public class BossSkillScripts : BaseSkill
         Caster[CasterIdx].Battlestatus.Damage *= 1.5f;
         Enemy[EnemyIdx].TakeDamage(Caster[CasterIdx]);
     }
-    void IceRain(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    void IceRain(List<Character> Caster, int CasterIdx, List<Character> Enemy, int EnemyIdx)
     {
         Debug.Log(Caster[CasterIdx].name + " : " + DSkillName[2]);
         
@@ -104,7 +104,7 @@ public class BossSkillScripts : BaseSkill
             enemy.TakeDamage(Caster[CasterIdx]);
         }            
     }
-    void Heal(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    void Heal(List<Character> Caster, int CasterIdx, List<Character> Enemy, int EnemyIdx)
     {
         Debug.Log(Caster[CasterIdx].name + " : " + DSkillName[3]);
         
@@ -115,7 +115,7 @@ public class BossSkillScripts : BaseSkill
             caster.TakeHeal(Caster[CasterIdx].Battlestatus.Damage);
         }
     }
-    void ManaDrain(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    void ManaDrain(List<Character> Caster, int CasterIdx, List<Character> Enemy, int EnemyIdx)
     {
         Debug.Log(Caster[CasterIdx].name + " : " + DSkillName[4]);
         
@@ -129,7 +129,7 @@ public class BossSkillScripts : BaseSkill
         }
         Caster[CasterIdx].TakeMana(getMana);
     }
-    void Injection(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    void Injection(List<Character> Caster, int CasterIdx, List<Character> Enemy, int EnemyIdx)
     {
         Debug.Log(Caster[CasterIdx].name + " : " + DSkillName[5]);
         
@@ -137,18 +137,18 @@ public class BossSkillScripts : BaseSkill
         Caster[1].TakeMana(Caster[CasterIdx].Mana);
         Caster[CasterIdx].TakeMana((-1) * Caster[CasterIdx].Mana);
     }
-    void ManaCharge(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    void ManaCharge(List<Character> Caster, int CasterIdx, List<Character> Enemy, int EnemyIdx)
     {
         Debug.Log(Caster[CasterIdx].name + " : " + DSkillName[6]);
         
         // 스킬 특성
         Caster[CasterIdx].TakeMana(15);
     }
-    void SummonBarlog(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    void SummonBarlog(List<Character> Caster, int CasterIdx, List<Character> Enemy, int EnemyIdx)
     {
         Debug.Log(Caster[CasterIdx].name + " : " + DSkillName[7]);
         
-        ((Save.Witch)Caster[CasterIdx]).pase = true;
+        ((Witch)Caster[CasterIdx]).pase = true;
         // 스킬 특성
         foreach (var target in Enemy)
         {
@@ -156,7 +156,7 @@ public class BossSkillScripts : BaseSkill
             target.TakeDamage(Caster[CasterIdx]);
         }
     }
-    void Earthquake(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    void Earthquake(List<Character> Caster, int CasterIdx, List<Character> Enemy, int EnemyIdx)
     {
         Debug.Log(Caster[CasterIdx].name + " : " + DSkillName[8]);
 
@@ -167,19 +167,19 @@ public class BossSkillScripts : BaseSkill
             target.TakeDamage(Caster[CasterIdx]);
         }
     }
-    void Charge(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    void Charge(List<Character> Caster, int CasterIdx, List<Character> Enemy, int EnemyIdx)
     {
         Debug.Log(Caster[CasterIdx].name + " : " + DSkillName[9]);
-        ((Save.Barlog)Caster[CasterIdx]).BressHp = 40;
+        ((Barlog)Caster[CasterIdx]).BressHp = 40;
         
     }
-    void Bress(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    void Bress(List<Character> Caster, int CasterIdx, List<Character> Enemy, int EnemyIdx)
     {
-        if( ((Save.Barlog)Caster[CasterIdx]).BressHp <= 0)
+        if( ((Barlog)Caster[CasterIdx]).BressHp <= 0)
         {
             return;
         }
-        Debug.Log( ((Save.Barlog)Caster[CasterIdx]).name + " : " + DSkillName[10]);
+        Debug.Log( ((Barlog)Caster[CasterIdx]).name + " : " + DSkillName[10]);
         
         
         // 스킬 특성

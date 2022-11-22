@@ -53,8 +53,7 @@ public class CreateMap : MonoBehaviour
 
         // Dfs 를 통한 맵
         for (int i = 0; i < col; i++) 
-        {
-		
+        {		
             int start = i;
             int _row = 0;
             while (_row < row)
@@ -81,22 +80,20 @@ public class CreateMap : MonoBehaviour
                 start = n;
                 _row++;		
             }
-
 	    }
         // 루트
         for (int i = 0; i < col; i++) 
         {
-            for (int j = 0; j < row; j++) {
+            for (int j = 0; j < row; j++) 
+            {
                 if (i - 1 >= 0 && maps[j][i-1].roots[2] != 9 && maps[j][i].roots[0] != 9) {
                     maps[j][i-1].roots[1] = i-1;
                     maps[j][i].roots[1] = i;
                     maps[j][i-1].roots[2] = 9;
                     maps[j][i].roots[0] = 9;
-                }
-                    
+                }                    
             }
-	    }
-        
+	    }        
     }
 
     int set_defMapData()

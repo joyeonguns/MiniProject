@@ -22,15 +22,17 @@ public class TellentCardUI : MonoBehaviour
     {
         BigCard.SetActive(false);
 
-        SpawnTellentCard(GameManager.instance.Tellents[0][0]);
-        SpawnTellentCard(GameManager.instance.Tellents[0][1]);
-        SpawnTellentCard(GameManager.instance.Tellents[1][0]);
-        SpawnTellentCard(GameManager.instance.Tellents[2][0]);
+        foreach(var telList in GameManager.instance.Tellents)
+        {
+            foreach(var tel in telList)
+            {
+                SpawnTellentCard(tel);
+            }
+        }
     }
 
     public void SpawnTellentCard(TellentsScripts Tellent)
     {
-        Debug.Log("Rand : " + Tellent.Rank);
         CardNum++;
         var spwCard = Instantiate(CardPreFabs);
         spwCard.transform.SetParent(SpwLocation.transform);

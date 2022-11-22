@@ -6,11 +6,6 @@ using System;
 using TMPro;
 using System.Linq;
 
-
-
-
-
-
 public class GameManager : MonoBehaviour
 {
     // 싱클턴 클래스
@@ -19,11 +14,11 @@ public class GameManager : MonoBehaviour
 
     // 현재 맵 정보   
     MapClass cur_Map;
-    public MapClass _CurMap{ get{return cur_Map;} set{cur_Map = value;}}
-    
+    public MapClass _CurMap { get { return cur_Map; } set { cur_Map = value; } }
+
     // 전체 맵 정보
     public List<List<MapClass>> maps = new List<List<MapClass>>();
-    public int row, col,floor;
+    public int row, col, floor;
 
 
     // 특성 리스트
@@ -34,25 +29,32 @@ public class GameManager : MonoBehaviour
     // 골드
     public int curGold = 10000;
     // 아이템
-    public int[] ItemList_num = {0,0,0};
+    public int[] ItemList_num = { 0, 0, 0 };
 
     // 파티
-    public List<Save.Player> MyParty = new List<Save.Player>();
-    
+    public List<Player> MyParty = new List<Player>();
+
+    // 스코어
+    public ScoreData GameScoreData;
+    public int TotalScore;
+
+    // 해상도
+    public int resolution;
+
     // 싱글턴 인스턴스
-    private void Awake() 
+    private void Awake()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(this.gameObject); 
+            DontDestroyOnLoad(this.gameObject);
             this.gameObject.SetActive(true);
         }
-        else if(instance != this)
+        else if (instance != this)
         {
             //instance = null;
             Destroy(this.gameObject);
-        }  
+        }
     }
 
 
@@ -69,26 +71,26 @@ public class GameManager : MonoBehaviour
         Tellents.Add(new List<TellentsScripts>());
         Tellents.Add(new List<TellentsScripts>());
 
-        Tellents[0].Add(new TellentsScripts(Etel_Rank.C,1));
-        Tellents[0].Add(new TellentsScripts(Etel_Rank.C,10));
-        Tellents[1].Add(new TellentsScripts(Etel_Rank.B,14));
-        Tellents[2].Add(new TellentsScripts(Etel_Rank.A,1));
-     
-    }    
-    
+        Tellents[0].Add(new TellentsScripts(Etel_Rank.C, 1));
+        Tellents[0].Add(new TellentsScripts(Etel_Rank.C, 10));
+        Tellents[1].Add(new TellentsScripts(Etel_Rank.B, 14));
+        Tellents[2].Add(new TellentsScripts(Etel_Rank.A, 1));
+
+    }
+
     // Update is called once per frame
     void Update()
     {
 
-    }    
+    }
     public void SetTellent(TellentsScripts newTellent)
     {
-       Tellents[(int)newTellent.Rank].Add(newTellent);
+        Tellents[(int)newTellent.Rank].Add(newTellent);
     }
 
     // 맵 정보
     public void SetData(int _col, int _row, List<List<MapClass>> _maps, MapClass _curMaps)
-    {              
+    {
         maps = _maps;
         row = _row;
         col = _col;
@@ -99,7 +101,16 @@ public class GameManager : MonoBehaviour
     {
         cur_Map = maps[a][b];
         floor = cur_Map.floor;
-        Debug.Log("GM : " + cur_Map.floor);
     }
-    
+
+    public void ResetData()
+    {
+        MyParty = new List<Player>();
+
+        curGold = 200;
+        
+        Tellents = new List<List<TellentsScripts>>();
+
+    }
+
 }

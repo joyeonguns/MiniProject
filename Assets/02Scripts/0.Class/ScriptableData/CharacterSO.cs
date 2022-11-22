@@ -19,6 +19,12 @@ public class CharacterDatas
     public double MaxHp;
     // 저항력
     public int Resist;
+    public Sprite attack;
+    public Sprite[] skill;
+    public Sprite ulti;
+
+    public Sprite Icon;
+    public Sprite Illuste;
 }
 
 [CreateAssetMenu (menuName = "Scriptable Object/Character Datas", order = int.MaxValue)]

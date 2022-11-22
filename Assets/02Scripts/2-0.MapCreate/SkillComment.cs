@@ -18,16 +18,18 @@ public class SkillComment : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     // Start is called before the first frame update
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("OnPointerEnter");
+        // Debug.Log("OnPointerEnter");
         var comment = Instantiate(Comments);
         comment.transform.SetParent(CommentsParents.transform);  
         comment.transform.position = this.transform.position + new Vector3(110,80,0);    
-        comment.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "[ " + skill.skillName + " ]";  
+
+        string multitarget = (skill.SKill_Data.MultiTarget == true) ? "MultiTarget" : "SingleTarget";
+        comment.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = skill.SKill_Data.Name + "\n" + "[ " + multitarget + " ]" + "\n" + skill.SKill_Data.Contents;  
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        Debug.Log("OnPointerExit");
+        // Debug.Log("OnPointerExit");
         Destroy(CommentsParents.transform.GetChild(0).gameObject);
     }
 }

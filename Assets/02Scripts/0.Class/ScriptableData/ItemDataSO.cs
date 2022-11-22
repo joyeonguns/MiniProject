@@ -8,6 +8,7 @@ public class ItemData
     public int ItemCode;
     public string ItemName;
     public string ItemComments;
+    public Sprite ItemImage;
 }
 
 [CreateAssetMenu (menuName = "Scriptable Object/Item Datas", order = int.MaxValue)]
