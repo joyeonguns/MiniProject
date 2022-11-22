@@ -11,7 +11,7 @@ public class Save_Charater_Data : MonoBehaviour
     
     public int c_Num;
 
-    public List<Save.Player> My = new List<Save.Player>();
+    public List<Player> My = new List<Player>();
     public CharacterSO CharSO;
     
     private void Awake() 
@@ -35,9 +35,9 @@ public class Save_Charater_Data : MonoBehaviour
     {        
         if(c_Num < 3)
         {
-            My.Add(new Save.Player());
-            Save.St_Stat worrier = new Save.St_Stat(CharSO.CharDatas[1]);
-            My[c_Num] = new Save.Player(worrier, e_Class.Warrior);
+            My.Add(new Player());
+            Status worrier = new Status(CharSO.CharDatas[1]);
+            My[c_Num] = new Player(worrier, e_Class.Warrior);
             for(int i = 0; i < level; i++ ){
                 My[c_Num].LevelUp();
             }    
@@ -48,9 +48,9 @@ public class Save_Charater_Data : MonoBehaviour
     {        
         if(c_Num < 3)
         {
-            My.Add(new Save.Player());
-            Save.St_Stat magicion = new Save.St_Stat(CharSO.CharDatas[2]);
-            My[c_Num] = new Save.Player(magicion,e_Class.Magicion);
+            My.Add(new Player());
+            Status magicion = new Status(CharSO.CharDatas[2]);
+            My[c_Num] = new Player(magicion,e_Class.Magicion);
             for(int i = 0; i < level; i++ ){
                 My[c_Num].LevelUp();
             }        
@@ -61,11 +61,11 @@ public class Save_Charater_Data : MonoBehaviour
     {        
         if(c_Num < 3)
         {
-            My.Add(new Save.Player());
-            Save.St_Stat supporter = new Save.St_Stat(CharSO.CharDatas[3]);
-            My[c_Num] = new Save.Player(supporter,e_Class.Supporter);
+            My.Add(new Player());
+            Status supporter = new Status(CharSO.CharDatas[3]);
+            My[c_Num] = new Player(supporter,e_Class.Supporter);
 
-            // MyParty[c_Num] = new Save.Player(Save.Supporter,e_Class.Supporter);
+            // MyParty[c_Num] = new Player(Supporter,e_Class.Supporter);
 
             for(int i = 0; i < level; i++ ){
                 My[c_Num].LevelUp();
@@ -78,9 +78,9 @@ public class Save_Charater_Data : MonoBehaviour
     {        
         if(c_Num < 3)
         {
-            My.Add(new Save.Player());
-            Save.St_Stat assassin = new Save.St_Stat(CharSO.CharDatas[4]);
-            My[c_Num] = new Save.Player(assassin,e_Class.Assassin);
+            My.Add(new Player());
+            Status assassin = new Status(CharSO.CharDatas[4]);
+            My[c_Num] = new Player(assassin,e_Class.Assassin);
             for(int i = 0; i < level; i++ ){
                 My[c_Num].LevelUp();
             }       

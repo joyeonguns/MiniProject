@@ -42,6 +42,7 @@ public class RankUIManager : MonoBehaviour
 
         UISize uiSize = new UISize(){width = 1920, height = 1080};
         float h = uiSize.ChangedHeight(Screen.width, Screen.height, 700);
+        
         ScrollView.GetComponent<RectTransform>().sizeDelta = new Vector2(1200, h);
 
         Destroy(HUDManager.instance.gameObject);

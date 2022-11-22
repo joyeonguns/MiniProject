@@ -46,7 +46,7 @@ public class Textanimation : MonoBehaviour
 
         newScore = new char[] {'0','0','0','0','0','0'};
 
-        
+        SaveDataManager.instance.DeleteSave();
     }
 
     IEnumerator SetText_1(int i)
@@ -203,7 +203,7 @@ public class Textanimation : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    public int Sumlevel(List<Save.Player> players)
+    public int Sumlevel(List<Player> players)
     {
         int sum = 0;
         foreach(var player in players)

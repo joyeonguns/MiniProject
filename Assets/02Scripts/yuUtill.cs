@@ -15,6 +15,10 @@ namespace YU.Util
             float h = (width / height) * (_height / _width) * target;
             return h;
         }
+        public float CameraDelta()
+        {            
+            return ((float)Screen.height / 1080);
+        }
     }
 }
 

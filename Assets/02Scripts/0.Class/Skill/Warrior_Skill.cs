@@ -35,7 +35,7 @@ public class Warrior_Skill : BaseSkill
         }
     } 
 
-    void skill_0(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    void skill_0(List<Character> Caster, int CasterIdx, List<Character> Enemy, int EnemyIdx)
     {
         Debug.Log(Caster[CasterIdx].name + " : " + "Smash");
         // 마나 소모
@@ -53,7 +53,7 @@ public class Warrior_Skill : BaseSkill
         Enemy[EnemyIdx].TakeDamage(Caster[CasterIdx]);
 
     }
-    void skill_1(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    void skill_1(List<Character> Caster, int CasterIdx, List<Character> Enemy, int EnemyIdx)
     {
         Debug.Log(Caster[CasterIdx].name + " : " + "pierce");
         // 마나 소모
@@ -65,7 +65,7 @@ public class Warrior_Skill : BaseSkill
         Enemy[EnemyIdx].bleedCount += 3;
        
     }
-    void skill_2(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    void skill_2(List<Character> Caster, int CasterIdx, List<Character> Enemy, int EnemyIdx)
     {
         Debug.Log(Caster[CasterIdx].name + " : " + "aurora force");
         // 마나 소모
@@ -78,7 +78,7 @@ public class Warrior_Skill : BaseSkill
             enemy.TakeDamage(Caster[CasterIdx]);
         }            
     }
-    void skill_3(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    void skill_3(List<Character> Caster, int CasterIdx, List<Character> Enemy, int EnemyIdx)
     {
         Debug.Log("Tetkai");
         // 마나 소모
@@ -92,7 +92,7 @@ public class Warrior_Skill : BaseSkill
 
     }
     
-    void Ulti(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    void Ulti(List<Character> Caster, int CasterIdx, List<Character> Enemy, int EnemyIdx)
     {
         Debug.Log("Ulti");
         Caster[CasterIdx].Mana -= SKill_Data.Cost;

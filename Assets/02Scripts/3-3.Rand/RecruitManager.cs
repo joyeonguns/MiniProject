@@ -18,7 +18,7 @@ public class RecruitManager : MonoBehaviour
     public Dictionary<int, string> Chat_Dic = new Dictionary<int,string>();
     public int ChatNum;
 
-    Save.Player newChar;
+    Player newChar;
 
     public Action ResulfAction;
 
@@ -60,10 +60,10 @@ public class RecruitManager : MonoBehaviour
         e_Class newClass = (e_Class)(rnd + 1);
 
         CharacterDatas charData = SOManager.instance.CharSO.CharDatas[rnd + 1];
-        Save.St_Stat newStatus = new Save.St_Stat(charData);
+        Status newStatus = new Status(charData);
         
 
-        newChar = new Save.Player(newStatus,newClass);
+        newChar = new Player(newStatus,newClass);
 
         for(int i = 0; i < lvl; i++)
         {

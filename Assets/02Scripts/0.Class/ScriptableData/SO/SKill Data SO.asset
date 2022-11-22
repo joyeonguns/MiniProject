@@ -26,21 +26,21 @@ MonoBehaviour:
     MultiTarget: 0
     Cost: 3
     Buff: 0
-    Sound: {fileID: 8300000, guid: b90643b9f3737aa4f9362c958cabf4b4, type: 3}
+    Sound: {fileID: 8300000, guid: 7f69086b308f00e4c8580e75efad759c, type: 3}
   - Code: 2
     Name: "\uCC0C\uB974\uAE30"
     Contents: "\uCD9C\uD608 3\uD134, \uCE58\uBA85\uD0C0 +50%, 100% \uB370\uBBF8\uC9C0"
     MultiTarget: 0
     Cost: 2
     Buff: 0
-    Sound: {fileID: 8300000, guid: b90643b9f3737aa4f9362c958cabf4b4, type: 3}
+    Sound: {fileID: 8300000, guid: ae67a49ce09aa2c4ea54dba2b6a37fe1, type: 3}
   - Code: 3
     Name: "\uC624\uB7EC\uC18C\uB4DC"
     Contents: "\uB370\uBBF8\uC9C0 150%"
     MultiTarget: 1
     Cost: 5
     Buff: 0
-    Sound: {fileID: 8300000, guid: b90643b9f3737aa4f9362c958cabf4b4, type: 3}
+    Sound: {fileID: 8300000, guid: f7caee07c1d612b46a336a47705af592, type: 3}
   - Code: 4
     Name: "\uC6CC\uD06C\uB77C\uC774"
     Contents: "\uAC15\uD654 2\uD134, 3 + \uB808\uBCA8*2 \uD68C\uBCF5"
@@ -54,7 +54,7 @@ MonoBehaviour:
     MultiTarget: 1
     Cost: 10
     Buff: 0
-    Sound: {fileID: 8300000, guid: b90643b9f3737aa4f9362c958cabf4b4, type: 3}
+    Sound: {fileID: 8300000, guid: 84ce66436ad7f304999294a901f1a124, type: 3}
   MagitionSKillDatas:
   - Code: 0
     Name: "\uB9E4\uC9C1 \uBBF8\uC0AC\uC77C"
@@ -69,7 +69,7 @@ MonoBehaviour:
     MultiTarget: 0
     Cost: 2
     Buff: 0
-    Sound: {fileID: 8300000, guid: fae4003205cf2064da073486fa019286, type: 3}
+    Sound: {fileID: 8300000, guid: 85330bcff73597b42a472bbdf939abaf, type: 3}
   - Code: 2
     Name: "\uBA85\uC0C1"
     Contents: "\uB9C8\uB098 + 3"
@@ -83,21 +83,21 @@ MonoBehaviour:
     MultiTarget: 1
     Cost: 5
     Buff: 0
-    Sound: {fileID: 8300000, guid: fae4003205cf2064da073486fa019286, type: 3}
+    Sound: {fileID: 8300000, guid: 8149c7ba46397204bb24fb388853da28, type: 3}
   - Code: 4
     Name: "\uB208\uC0AC\uD14C"
     Contents: "\uB454\uD654 +3\uD134, 100% \uB370\uBBF8\uC9C0"
     MultiTarget: 1
     Cost: 5
     Buff: 0
-    Sound: {fileID: 8300000, guid: fae4003205cf2064da073486fa019286, type: 3}
+    Sound: {fileID: 8300000, guid: 68cf8627dceebaf4490320e4628b01fd, type: 3}
   - Code: 5
     Name: "\uC288\uD37C\uB178\uBC14"
     Contents: "250% \uB370\uBBF8\uC9C0, \uD655\uC815 \uC2A4\uD134"
     MultiTarget: 1
     Cost: 10
     Buff: 0
-    Sound: {fileID: 8300000, guid: fae4003205cf2064da073486fa019286, type: 3}
+    Sound: {fileID: 8300000, guid: d5dab587048a004409a275ba7155605a, type: 3}
   SupporterSKillDatas:
   - Code: 0
     Name: "\uCCA0\uD1F4 \uD718\uB450\uB974\uAE30"
@@ -156,7 +156,7 @@ MonoBehaviour:
     MultiTarget: 1
     Cost: 2
     Buff: 0
-    Sound: {fileID: 8300000, guid: 42a4421fcbfcb094d94571a8b5728ef5, type: 3}
+    Sound: {fileID: 8300000, guid: a43e65746b4c6d5458f215ce65fecc66, type: 3}
   - Code: 2
     Name: "\uC57D\uC810\uACF5\uB7B5"
     Contents: "\uBD80\uC2DD 2\uD134, \uB454\uD654 2\uD134, 100% \uB370\uBBF8\uC9C0"
@@ -184,4 +184,4 @@ MonoBehaviour:
     MultiTarget: 0
     Cost: 10
     Buff: 0
-    Sound: {fileID: 8300000, guid: 19b5034d69bfc60498f29b173919ac48, type: 3}
+    Sound: {fileID: 8300000, guid: 78bffadae73b98f478b7d3c584eca28c, type: 3}

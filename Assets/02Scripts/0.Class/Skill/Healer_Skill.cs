@@ -33,7 +33,7 @@ public class Healer_Skill : BaseSkill
         }
     } 
 
-    void skill_0(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    void skill_0(List<Character> Caster, int CasterIdx, List<Character> Enemy, int EnemyIdx)
     {
         Debug.Log(Caster[CasterIdx].name + " : " + "heal");
         // 마나 소모
@@ -44,7 +44,7 @@ public class Healer_Skill : BaseSkill
         double heal = 2 + Enemy[EnemyIdx].status.MaxHp * ((15.0f + (float)Caster[CasterIdx].Level * 2) / 100);
         Enemy[EnemyIdx].TakeHeal(heal);
     }
-    void skill_1(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    void skill_1(List<Character> Caster, int CasterIdx, List<Character> Enemy, int EnemyIdx)
     {
         Debug.Log(Caster[CasterIdx].name + " : " + "Emergency rescue");
         // 마나 소모
@@ -59,7 +59,7 @@ public class Healer_Skill : BaseSkill
         Enemy[EnemyIdx].bleedCount = 0;
         Enemy[EnemyIdx].regenCount += 3;
     }
-    void skill_2(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    void skill_2(List<Character> Caster, int CasterIdx, List<Character> Enemy, int EnemyIdx)
     {
         Debug.Log(Caster[CasterIdx].name + " : " + "Haste");
         // 마나 소모
@@ -70,7 +70,7 @@ public class Healer_Skill : BaseSkill
             caster.rapidCount += 2;
         }            
     }
-    void skill_3(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    void skill_3(List<Character> Caster, int CasterIdx, List<Character> Enemy, int EnemyIdx)
     {
         Debug.Log(Caster[CasterIdx].name + " : " + "Sun Light");
         // 마나 소모
@@ -88,7 +88,7 @@ public class Healer_Skill : BaseSkill
 
     }
     
-    void Ulti(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    void Ulti(List<Character> Caster, int CasterIdx, List<Character> Enemy, int EnemyIdx)
     {
         Debug.Log("Saint Grace");
         Caster[CasterIdx].Mana -= SKill_Data.Cost;

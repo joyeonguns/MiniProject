@@ -18,7 +18,7 @@ public class TownManager : MonoBehaviour
     public Image[] newCharacterImage = new Image[3];
     public Button[] CharacterBtn = new Button[4];
     public TextMeshProUGUI[] CharNames;
-    Save.Player[] NewCharacters = new Save.Player[4];
+    Player[] NewCharacters = new Player[4];
 
 
     // 데이터
@@ -32,7 +32,7 @@ public class TownManager : MonoBehaviour
     // 현재 캐릭터
     public Image[] nowCharacterImage = new Image[3];
     public Button[] nowCharacterBtn = new Button[3];
-    List<Save.Player> nowCharacters;
+    List<Player> nowCharacters;
     public Button hireBtn;
     public Button fireBtn;
 
@@ -117,9 +117,9 @@ public class TownManager : MonoBehaviour
             int rnd = UnityEngine.Random.Range(1, 5);
 
             CharacterDatas charData = SOManager.instance.CharSO.CharDatas[rnd];
-            Save.St_Stat newStatus = new Save.St_Stat(charData);
+            Status newStatus = new Status(charData);
             e_Class newRole = (e_Class)(rnd);
-            NewCharacters[i] = new Save.Player(newStatus, newRole);
+            NewCharacters[i] = new Player(newStatus, newRole);
 
             newCharacterImage[i].sprite = charData.Icon;
 
@@ -155,7 +155,7 @@ public class TownManager : MonoBehaviour
         int rolenum;
         CharacterDatas charData;
 
-        Save.Player curCharacter;
+        Player curCharacter;
 
         if(Hired)
         {            

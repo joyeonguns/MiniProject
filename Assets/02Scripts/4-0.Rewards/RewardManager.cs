@@ -71,7 +71,7 @@ public class RewardManager : MonoBehaviour
 
         for (int i = 0; i < GM.MyParty.Count; i++)
         {
-            if(GM.MyParty[i].bAlive == false)
+            if(GM.MyParty[i].Alive == false)
             {
                 GM.MyParty.RemoveAt(i);
             }
@@ -169,10 +169,14 @@ public class RewardManager : MonoBehaviour
         if (ItemRate >= rnd)
         {   
             itemCode = UnityEngine.Random.Range(1,9);         
+
+            ItemData itemData = SOManager.GetItem().itemDatas[itemCode];
+
             GameObject spwItem = Instantiate(ItemPrefab);
 
             spwItem.transform.SetParent(SpwLoc.transform);
-            spwItem.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = new ItemClass(itemCode).ItemName;
+            spwItem.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = itemData.ItemName;
+            spwItem.transform.GetChild(0).GetComponent<Image>().sprite = itemData.ItemImage;
 
             spwItem.GetComponent<Button>().onClick.AddListener(SetItemBtn);
         }        
@@ -203,7 +207,7 @@ public class RewardManager : MonoBehaviour
 
         for(int i = 0; i < 3; i++)
         {
-            if(i > GM.MyParty.Count)
+            if(i >= GM.MyParty.Count)
             {
                 PlayerObj[i].SetActive(false);
             }                
@@ -215,7 +219,7 @@ public class RewardManager : MonoBehaviour
         }
         for(int i = 0; i < GM.MyParty.Count; i++)
         {
-            if(GM.MyParty[i].bAlive == true)
+            if(GM.MyParty[i].Alive == true)
             {                
                 int curExp = GM.MyParty[i].exp;
                 int maxExp = 100 + (GM.MyParty[i].Level* 50);

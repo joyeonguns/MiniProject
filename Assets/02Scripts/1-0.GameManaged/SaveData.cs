@@ -8,7 +8,7 @@ public class SaveData
 {
     public List<MapClass> mapsJson;
     public MapClass nowMap; //current 
-    public List<Save.Player> character;
+    public List<Player> character;
     public int[] itemCodes;
     public List<TellentsScripts> tellent_C;
     public List<TellentsScripts> tellent_B;
@@ -46,7 +46,34 @@ public class SaveData
         itemCodes = GameManager.instance.ItemList_num;
     
         Gold = GameManager.instance.curGold;
-    }
+    }    
+}
 
+[System.Serializable]
+public class SavePlayerSetting
+{
+    public float BGMSize;
+    public float EffectSize;
+
+    public int resolution;
+
+    public void Save()
+    {
+        float BGvalue;
+        bool BGresult = SoundManager.instance.audioMixer.GetFloat("BGSound", out BGvalue);
+        if(BGresult)
+        {
+            BGMSize = Mathf.Pow(2,BGvalue);
+        }
+
+        float Effectvalue;
+        bool Effectresult = SoundManager.instance.audioMixer.GetFloat("SFXSound", out Effectvalue);
+        if(Effectresult)
+        {
+            EffectSize =  Mathf.Pow(2,Effectvalue);
+        }
+
+    }
     
 }
+

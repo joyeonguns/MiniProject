@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ItemPrefapScripts : MonoBehaviour
 {
     Button MyBtn;
+    public ItemData itemData;
     // Start is called before the first frame update
     void Start()
     {

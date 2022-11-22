@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using YU.Util;
 
 public class MapDrowing : MonoBehaviour
 {
@@ -32,11 +33,16 @@ public class MapDrowing : MonoBehaviour
     {
         GM = GameManager.instance;
         saveMapData();
-        float sp_X = -300;
-        float sp_Y = -1300;
+
+        UISize uisize = new UISize();
+        float sp_X = ConstData.startMapIcon_x ;//* uisize.CameraDelta();
+        float sp_Y = ConstData.startMapIcon_y ;//* uisize.CameraDelta();
+
+        float delta = ConstData.MapIconLange ;//* uisize.CameraDelta();
+
         for (int x = 0; x < row; x++)
         {
-            sp_X = -300;
+            sp_X = ConstData.startMapIcon_x ;//* uisize.CameraDelta();
             for (int y = 0; y < col; y++)
             {
                 if (maps[x][y].isLife == true)
@@ -51,6 +57,8 @@ public class MapDrowing : MonoBehaviour
                     sp_MapBTN.GetComponent<MapIcon>().map = maps[x][y];
                     sp_MapBTN.GetComponent<Image>().sprite = RoomIcon[maps[x][y].mapData];
 
+                    sp_MapBTN.GetComponent<RectTransform>().localScale *= (1 * uisize.CameraDelta());
+
                     if (x != row - 1)
                     {
                         if (maps[x][y].roots[0] != 9)
@@ -61,7 +69,7 @@ public class MapDrowing : MonoBehaviour
                             sp_Map_root.GetComponent<RectTransform>().rotation = Quaternion.Euler(0f, 0f, 45);
                             sp_Map_root.GetComponent<RectTransform>().anchoredPosition = spwVec + new Vector2(-100, 100);
 
-                            sp_Map_root.GetComponent<RectTransform>().localScale *= 1.42f;
+                            sp_Map_root.GetComponent<RectTransform>().localScale *= (1.42f * uisize.CameraDelta()) ;
                         }
                         if (maps[x][y].roots[1] != 9)
                         {
@@ -69,6 +77,8 @@ public class MapDrowing : MonoBehaviour
                             sp_Map_root.transform.SetParent(RootParents.transform);
 
                             sp_Map_root.GetComponent<RectTransform>().anchoredPosition = spwVec + new Vector2(0, 100);
+
+                            sp_Map_root.GetComponent<RectTransform>().localScale *= (1 * uisize.CameraDelta());
                         }
                         if (maps[x][y].roots[2] != 9)
                         {
@@ -78,7 +88,7 @@ public class MapDrowing : MonoBehaviour
                             sp_Map_root.GetComponent<RectTransform>().rotation = Quaternion.Euler(0f, 0f, -45f);
                             sp_Map_root.GetComponent<RectTransform>().anchoredPosition = spwVec + new Vector2(100, 100);
 
-                            sp_Map_root.GetComponent<RectTransform>().localScale *= 1.42f;
+                            sp_Map_root.GetComponent<RectTransform>().localScale *= (1.42f * uisize.CameraDelta());
                         }
                     }
                     else
@@ -87,12 +97,13 @@ public class MapDrowing : MonoBehaviour
                         sp_Map_root.transform.SetParent(RootParents.transform);
 
                         sp_Map_root.GetComponent<RectTransform>().anchoredPosition = spwVec + new Vector2(0, 100);
+                        sp_Map_root.GetComponent<RectTransform>().localScale *= (1 * uisize.CameraDelta());
                     }
 
                 }
-                sp_X += 200;
+                sp_X += delta;
             }
-            sp_Y += 200;
+            sp_Y += delta;
         }
     }
 

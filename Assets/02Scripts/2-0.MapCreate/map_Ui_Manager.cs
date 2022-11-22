@@ -9,8 +9,8 @@ public class map_Ui_Manager : MonoBehaviour
     // 지도 이미지
     public Image Map_IMG;
 
-    int minHight = -1600;
-    int maxHight = 1300;
+    float minHight = -1600;
+    float maxHight = 1300;
 
     // 지도 스크롤 속도
     public float scroll_Speed = 200;
@@ -21,6 +21,15 @@ public class map_Ui_Manager : MonoBehaviour
 
         GetComponent<MapDrowing>().MapDrow();
         Map_IMG.rectTransform.anchoredPosition += GameManager.instance.floor * new Vector2(0,-200);
+
+        SaveDataManager.instance.SaveData();
+
+        float coe = (float)Screen.height / 1080;
+
+        minHight = ConstData.MapSize_Min;// * coe;
+        maxHight = ConstData.MapSize_Max;// * coe;
+
+        print($"min : {minHight}, max : {maxHight}");
     }
 
     // Update is called once per frame

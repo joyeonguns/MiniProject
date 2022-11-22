@@ -33,7 +33,7 @@ public class Magition_Skill : BaseSkill
         }
     } 
 
-    void skill_0(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    void skill_0(List<Character> Caster, int CasterIdx, List<Character> Enemy, int EnemyIdx)
     {
         Debug.Log(Caster[CasterIdx].name + " : " + "FireBall");
         // 마나 소모
@@ -47,13 +47,13 @@ public class Magition_Skill : BaseSkill
         Enemy[EnemyIdx].burnCount += 3;
 
     }
-    void skill_1(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    void skill_1(List<Character> Caster, int CasterIdx, List<Character> Enemy, int EnemyIdx)
     {
         Debug.Log(Caster[CasterIdx].name + " : " + "Meditation");
         // 마나 소모
         Caster[CasterIdx].Mana += 4;
     }
-    void skill_2(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    void skill_2(List<Character> Caster, int CasterIdx, List<Character> Enemy, int EnemyIdx)
     {
         Debug.Log(Caster[CasterIdx].name + " : " + "Acid Rain");
         // 마나 소모
@@ -76,7 +76,7 @@ public class Magition_Skill : BaseSkill
             enemy.corrotionCount += 3;
         }            
     }
-    void skill_3(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    void skill_3(List<Character> Caster, int CasterIdx, List<Character> Enemy, int EnemyIdx)
     {
         Debug.Log(Caster[CasterIdx].name + " : " + "Tetkai");
         // 마나 소모
@@ -101,7 +101,7 @@ public class Magition_Skill : BaseSkill
 
     }
     
-    void Ulti(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    void Ulti(List<Character> Caster, int CasterIdx, List<Character> Enemy, int EnemyIdx)
     {
         Debug.Log("Super Nova");
         Caster[CasterIdx].Mana -= SKill_Data.Cost;

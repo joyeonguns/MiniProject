@@ -21,6 +21,7 @@ public class HUDManager : MonoBehaviour
     public TextMeshProUGUI BoomText;
     public GameObject Boom_inBattle;
     public GameObject Boom_outBattle;
+    public bool useItem;
 
     public Button UseBoom_Btn;
     public Button CancleBoom_Btn;
@@ -136,23 +137,27 @@ public class HUDManager : MonoBehaviour
         }
         else
         {
-            
+
             if (SceneManager.GetActiveScene().name == "2-0.BattleScene" || SceneManager.GetActiveScene().name == "4-0.BossScene")
             {
-                Boom_inBattle.transform.position = Booms[i].transform.position;
+                if (useItem == true)
+                {
 
-                ItemClass Item = new ItemClass(itemCode);
-                Boom_inBattle.SetActive(true);
-                Boom_outBattle.SetActive(false);
+                    Boom_inBattle.transform.position = Booms[i].transform.position;
 
-                BoomText.text = "[" + Item.ItemName + "]";
+                    ItemClass Item = new ItemClass(itemCode);
+                    Boom_inBattle.SetActive(true);
+                    Boom_outBattle.SetActive(false);
 
-                UseBoom_Btn.onClick.RemoveAllListeners();
-                UseBoom_Btn.onClick.AddListener(() => Click_UseBoon(Item));
-                CancleBoom_Btn.onClick.AddListener(Click_Cancle);
+                    BoomText.text = "[" + Item.ItemName + "]";
+
+                    UseBoom_Btn.onClick.RemoveAllListeners();
+                    UseBoom_Btn.onClick.AddListener(() => Click_UseBoon(Item));
+                    CancleBoom_Btn.onClick.AddListener(Click_Cancle);   
+                }
             }
             else
-            {
+            {                
                 Boom_outBattle.transform.position = Booms[i].transform.position;
                 Boom_inBattle.SetActive(false);
                 Boom_outBattle.SetActive(true);
@@ -169,8 +174,8 @@ public class HUDManager : MonoBehaviour
         Boom_inBattle.SetActive(false); 
     }
 
-    public List<Save.Player> players;
-    public List<Save.Enemy> Enemys;
+    public List<Player> players;
+    public List<Enemy> Enemys;
     public void Click_UseBoon(ItemClass Item)
     {
         Debug.Log("Click_UseBoon");
@@ -235,6 +240,7 @@ public class HUDManager : MonoBehaviour
     {
         UIActiveFalse();
         SettingUI.SetActive(true);
+        //GetComponent<SettingManager>().OpenSetting();
     }
 
 
@@ -252,10 +258,7 @@ public class HUDManager : MonoBehaviour
 
     public void QuitBtn()
     {        
-        DeadUI.SetActive(false);
-        Application.Quit();
-        Destroy(GameManager.instance.gameObject);
-        Destroy(this.gameObject);
+        SceneManager.LoadScene(12);
     }
 
     

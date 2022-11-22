@@ -43,11 +43,11 @@ public class Take_Rank : MonoBehaviour
         RankData = new List<RankData>();
         for(int i = 0; i < jsonData.Length-1; i+=2)
         {
-            print(jsonData[i] + " : " + jsonData[i+1]);
+            // print(jsonData[i] + " : " + jsonData[i+1]);
             RankData.Add(new RankData(){Score = int.Parse(jsonData[i]), Name = jsonData[i+1]});
         }
 
-        print(data);
+        // print(data);
 
         RefreshText();
 

@@ -47,4 +47,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/01Scenes/5-0.Ranking.unity
     guid: 64a5162311c20a643878e154d61bc93b
+  - enabled: 1
+    path: Assets/01Scenes/2-5fireScene.unity
+    guid: 4f968712b3ed7e748b7c34d4cfeb1c8b
   m_configObjects: {}

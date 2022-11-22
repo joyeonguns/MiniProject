@@ -6519,6 +6519,7 @@ MonoBehaviour:
   - {fileID: 196300039}
   - {fileID: 540645848}
   - {fileID: 987640058}
+  EnemyEffect: {fileID: 8300000, guid: c9eb434ad5635e14ca2107f60de43b19, type: 3}
   Enemy_HP:
   - {fileID: 1342659394}
   - {fileID: 690169262}

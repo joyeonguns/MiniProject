@@ -32,11 +32,14 @@ public class GameManager : MonoBehaviour
     public int[] ItemList_num = { 0, 0, 0 };
 
     // 파티
-    public List<Save.Player> MyParty = new List<Save.Player>();
+    public List<Player> MyParty = new List<Player>();
 
     // 스코어
     public ScoreData GameScoreData;
     public int TotalScore;
+
+    // 해상도
+    public int resolution;
 
     // 싱글턴 인스턴스
     private void Awake()
@@ -98,6 +101,16 @@ public class GameManager : MonoBehaviour
     {
         cur_Map = maps[a][b];
         floor = cur_Map.floor;
+    }
+
+    public void ResetData()
+    {
+        MyParty = new List<Player>();
+
+        curGold = 200;
+        
+        Tellents = new List<List<TellentsScripts>>();
+
     }
 
 }

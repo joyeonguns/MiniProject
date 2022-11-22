@@ -8,12 +8,15 @@ public enum Sound {Bgm, Effect, MaxCount,};
 
 public class SoundManager : MonoBehaviour
 {
+    public int currentMusic;
     public static SoundManager instance;
     public AudioClip[] bgmList;
     public AudioSource bgSound;
     AudioClip beforSceneClip;
 
     public AudioMixerGroup EffectMixer;
+
+    public AudioMixer audioMixer;
 
     private void Awake() {
         if (instance == null)
@@ -22,7 +25,8 @@ public class SoundManager : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
             this.gameObject.SetActive(true);
 
-            SceneManager.sceneLoaded += OnSceneLoaded;
+            bgSound = gameObject.GetComponent<AudioSource>();
+                      
         }
         else if (instance != this)
         {
@@ -33,6 +37,13 @@ public class SoundManager : MonoBehaviour
         beforSceneClip = bgmList[bgmList.Length - 1];
     }
 
+    void OnEnable() {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    void OnDisable() {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
     public void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
     {        
         for(int i = 0; i < bgmList.Length; i++)
@@ -41,6 +52,8 @@ public class SoundManager : MonoBehaviour
             {
                 BGMPlay(bgmList[i]);
                 beforSceneClip = bgmList[i];
+                currentMusic = i;
+                break;
             }
         }
     }
@@ -57,12 +70,16 @@ public class SoundManager : MonoBehaviour
     }
 
     public void BGMPlay(AudioClip clip)
-    {
+    {        
         bgSound.clip = clip;
         bgSound.loop = true;
         bgSound.volume = 0.1f;
         bgSound.Play();        
     }
 
-
+    public void SetAudio(float bgm, float effect)
+    {
+        audioMixer.SetFloat("BGSound",Mathf.Log(bgm,10) * 20);
+        audioMixer.SetFloat("SFXSound",Mathf.Log(effect,10) * 20);
+    }
 }

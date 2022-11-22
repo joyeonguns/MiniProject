@@ -34,7 +34,7 @@ public class Assassin_Skill : BaseSkill
         }
     } 
 
-    void skill_0(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    void skill_0(List<Character> Caster, int CasterIdx, List<Character> Enemy, int EnemyIdx)
     {
         Debug.Log(Caster[CasterIdx].name + " : " + "Blade Rain");
         // 마나 소모
@@ -50,7 +50,7 @@ public class Assassin_Skill : BaseSkill
         }
         
     }
-    void skill_1(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    void skill_1(List<Character> Caster, int CasterIdx, List<Character> Enemy, int EnemyIdx)
     {
         Debug.Log(Caster[CasterIdx].name + " : " + "Week Search");
         // 마나 소모
@@ -59,7 +59,7 @@ public class Assassin_Skill : BaseSkill
         Enemy[EnemyIdx].corrotionCount += 2;
         Enemy[EnemyIdx].frostCount += 2;
     }
-    void skill_2(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    void skill_2(List<Character> Caster, int CasterIdx, List<Character> Enemy, int EnemyIdx)
     {
         Debug.Log(Caster[CasterIdx].name + " : " + "Special Boom");
         // 마나 소모
@@ -72,7 +72,7 @@ public class Assassin_Skill : BaseSkill
             enemy.bleedCount += 2;
         }            
     }
-    void skill_3(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    void skill_3(List<Character> Caster, int CasterIdx, List<Character> Enemy, int EnemyIdx)
     {
         Debug.Log(Caster[CasterIdx].name + " : " + "Swift");
         // 마나 소모
@@ -84,7 +84,7 @@ public class Assassin_Skill : BaseSkill
 
     }
     
-    void Ulti(List<Save.Character> Caster, int CasterIdx, List<Save.Character> Enemy, int EnemyIdx)
+    void Ulti(List<Character> Caster, int CasterIdx, List<Character> Enemy, int EnemyIdx)
     {
         Debug.Log("Assassination");
         Caster[CasterIdx].Mana -= SKill_Data.Cost;

@@ -33,7 +33,6 @@ public class TellentCardUI : MonoBehaviour
 
     public void SpawnTellentCard(TellentsScripts Tellent)
     {
-        Debug.Log("Rand : " + Tellent.Rank);
         CardNum++;
         var spwCard = Instantiate(CardPreFabs);
         spwCard.transform.SetParent(SpwLocation.transform);

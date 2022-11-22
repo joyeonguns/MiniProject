@@ -15,6 +15,7 @@ public class Start_Ui_Manger : MonoBehaviour
 
     private void Start()
     {
+        // 세이브 파일 확인
         if (File.Exists(SaveDataManager.instance.path))
         {
             ReStartBtn.SetActive(true);            
@@ -92,7 +93,7 @@ public class Start_Ui_Manger : MonoBehaviour
         {
             
 
-            GameManager.instance.MyParty[i].ApplyGetTellent((GameManager.instance.MyParty).Cast<Save.Character>().ToList(), i, GameManager.instance.MyParty.Cast<Save.Character>().ToList(), 0);
+            GameManager.instance.MyParty[i].ApplyGetTellent((GameManager.instance.MyParty).Cast<Character>().ToList(), i, GameManager.instance.MyParty.Cast<Character>().ToList(), 0);
         }
 
         // 씬로드          
@@ -109,9 +110,9 @@ public class Start_Ui_Manger : MonoBehaviour
 
         int roll = UnityEngine.Random.Range(1,5);
 
-        Save.St_Stat newStat = new Save.St_Stat(SOManager.GetChar().CharDatas[roll]);
+        Status newStat = new Status(SOManager.GetChar().CharDatas[roll]);
         e_Class newRole = (e_Class)(roll);
-        Save.Player newChar = new Save.Player(newStat, newRole);
+        Player newChar = new Player(newStat, newRole);
         newChar.Main = true;
 
         GameManager.instance.MyParty.Add(newChar);
@@ -120,7 +121,7 @@ public class Start_Ui_Manger : MonoBehaviour
         // 1-1.TownScene
         for(int i = 0; i < GameManager.instance.MyParty.Count; i++)
         {
-            GameManager.instance.MyParty[i].ApplyGetTellent((GameManager.instance.MyParty).Cast<Save.Character>().ToList(), i, GameManager.instance.MyParty.Cast<Save.Character>().ToList(), 0);
+            GameManager.instance.MyParty[i].ApplyGetTellent((GameManager.instance.MyParty).Cast<Character>().ToList(), i, GameManager.instance.MyParty.Cast<Character>().ToList(), 0);
         }
 
         // 씬 로드

@@ -1612,6 +1612,7 @@ MonoBehaviour:
   - {fileID: 498207284}
   - {fileID: 246173585}
   - {fileID: 1006376052}
+  EnemyEffect: {fileID: 8300000, guid: c9eb434ad5635e14ca2107f60de43b19, type: 3}
   Enemy_HP:
   - {fileID: 172394131}
   - {fileID: 1322110791}
@@ -1682,8 +1683,8 @@ MonoBehaviour:
   - {fileID: 1639442488}
   RoundText: {fileID: 545723363}
   EnemyIcon:
-  - {fileID: 21300000, guid: 8066e15c4e3df6e4f9806f9d5f71e70a, type: 3}
-  - {fileID: 21300000, guid: 01f37c4d7431f454297eadac8750d509, type: 3}
+  - {fileID: 21300000, guid: 90e99ee31082a974d8fe466a02d2195a, type: 3}
+  - {fileID: 21300000, guid: 995d25df5d569054f92db06a05658378, type: 3}
   CoverImage:
   - {fileID: 36867960}
   - {fileID: 16360819}
@@ -1696,6 +1697,15 @@ MonoBehaviour:
   Attacker: 0
   BossObj: {fileID: 1307513816}
   BossHP: {fileID: 2115371873}
+  BossCondition:
+  - {fileID: 1950104601}
+  - {fileID: 376786268}
+  - {fileID: 1288277618}
+  - {fileID: 92062468}
+  - {fileID: 649177199}
+  - {fileID: 1375114374}
+  - {fileID: 1163199903}
+  - {fileID: 1645177389}
   BossBtn: {fileID: 2147251629}
   BossIMG: {fileID: 1603575695}
   BressObj: {fileID: 417934448}
@@ -4529,10 +4539,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3

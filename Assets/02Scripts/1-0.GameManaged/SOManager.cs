@@ -16,13 +16,13 @@ public class SOManager : MonoBehaviour
         if(instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(this.gameObject); 
-            this.gameObject.SetActive(true);
+            // DontDestroyOnLoad(this.gameObject); 
+            // this.gameObject.SetActive(true);
         }
         else if(instance != this)
         {
             //instance = null;
-            Destroy(this.gameObject);
+            // Destroy(this.gameObject);
         }  
     }
     public static ItemDataSO GetItem()

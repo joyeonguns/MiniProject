@@ -13,7 +13,7 @@ public class GameEnd : MonoBehaviour
         SetResultScore();
     }
 
-    public int Sumlevel(List<Save.Player> players)
+    public int Sumlevel(List<Player> players)
     {
         int sum = 0;
         foreach(var player in players)
